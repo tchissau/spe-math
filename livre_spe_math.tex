@@ -1,0 +1,2767 @@
+\documentclass[11pt,a4paper,openany]{book}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{thmtools}
+\usepackage{verbatim}
+\usepackage{pstricks-add}
+\usepackage{pst-eucl}
+\usepackage{tikz,tkz-tab}
+\usepackage[left=1cm, right=1cm, top=0.5cm, bottom=0.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\newtcolorbox{enoncebox}{breakable,colback=gray!6,colframe=black!30,title=Énoncé,fonttitle=\bfseries}
+\newtcolorbox{methodebox}[1]{breakable,colback=blue!4,colframe=blue!40,title=#1,fonttitle=\bfseries}
+\newtcolorbox{capacitesbox}{breakable,colback=orange!4,colframe=orange!70!brown,
+  title={\textbf{Capacités attendues} \textemdash{} Programme officiel (BO)},
+  fonttitle=\bfseries,before upper={\setlength\itemsep{2pt}}}
+\newtcolorbox{demoprogbox}{breakable,colback=teal!4,colframe=teal!60!black,
+  title={\textbf{Démonstrations exigibles} \textemdash{} Programme officiel (BO)},
+  fonttitle=\bfseries,before upper={\setlength\itemsep{2pt}}}
+
+\author{Ulrich TCHISSAMBOU}
+\title{Mon livre de mathématiques de Terminale Spécialité}
+
+\theoremstyle{definition}
+\declaretheorem[thmbox=M, shaded={bgcolor={rgb}{2,1,1}}]{Définition}
+\declaretheorem[thmbox=L]{Propriété}
+\declaretheorem[thmbox=S]{Exemple}
+\declaretheorem[thmbox=L]{Théorème}
+\declaretheorem[thmbox=S]{Remarque}
+
+\newcommand{\oijk}{(O;\vc{i},\vc{j},\vc{k})}
+\newcommand{\vc}[1]{\overrightarrow{#1}}
+\newcommand{\vca}[2]{
+    \left(\begin{array}{c}
+        #1\\
+        #2
+    \end{array}\right)}
+\newcommand{\vcb}[3]{
+    \left(\begin{array}{c}
+        #1\\
+        #2\\
+        #3
+    \end{array}\right)}
+\newcommand{\nchap}{
+    \setcounter{Définition}{0}
+    \setcounter{Propriété}{0}
+    \setcounter{Théorème}{0}
+    \setcounter{Remarque}{0}
+    \setcounter{Exemple}{0}
+}
+
+\begin{document}
+    \renewcommand{\thesection}{\Alph{section})}
+    \renewcommand{\thesubsection}{\arabic{subsection})}
+    \tableofcontents
+
+    % ============================================================
+    \chapter*{Programme officiel --- Terminale Spécialité Mathématiques}
+    \addcontentsline{toc}{chapter}{Programme officiel}
+    % ============================================================
+
+    Ce chapitre récapitule, conformément au \textbf{Bulletin officiel} (BO spécial
+    n\degre{} 8 du 25 juillet 2019), l'ensemble des \textbf{capacités attendues}
+    et des \textbf{démonstrations exigibles} pour chaque thème du programme de
+    Terminale Spécialité Mathématiques.
+
+    \bigskip
+
+    % --- Thème 1 ------------------------------------------------
+    \section*{Thème 1 \textemdash{} Récurrence et suites}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Mener un raisonnement par récurrence pour établir une propriété
+              dépendant d'un entier $n$.
+        \item Définir et utiliser les suites arithmétiques et géométriques
+              (terme général, sommes).
+        \item Étudier la monotonie d'une suite (signe de $u_{n+1}-u_n$,
+              quotient, dérivée).
+        \item Démontrer qu'une suite est majorée, minorée, bornée.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item $\displaystyle\sum_{k=1}^{n}k=\dfrac{n(n+1)}{2}$ par récurrence.
+        \item Inégalité de Bernoulli : $(1+x)^n\geq 1+nx$
+              pour $x>-1$, $n\in\mathbf{N}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 2 ------------------------------------------------
+    \section*{Thème 2 \textemdash{} Limites de suites}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer ou déterminer la limite d'une suite par les théorèmes
+              d'opérations.
+        \item Appliquer les théorèmes de comparaison (encadrement, suites
+              adjacentes).
+        \item Utiliser le théorème des suites monotones bornées (admis).
+        \item Déterminer la limite d'une suite géométrique de raison $q$.
+        \item Démontrer la convergence d'une suite définie par récurrence.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Unicité de la limite d'une suite convergente (par l'absurde).
+        \item Toute suite croissante et non majorée tend vers $+\infty$.
+        \item $\displaystyle\lim_{n\to+\infty}q^n=0$ si $|q|<1$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 3 ------------------------------------------------
+    \section*{Thème 3 \textemdash{} Vecteurs, droites et plans de l'espace}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Représenter droites et plans dans l'espace ; décrire leurs
+              positions relatives.
+        \item Utiliser les vecteurs pour caractériser le parallélisme et la
+              coplanarité.
+        \item Déterminer une représentation paramétrique d'une droite ou d'un
+              plan.
+        \item Se repérer dans un repère orthonormé de l'espace.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Si deux plans sécants contiennent chacun une droite de même
+              direction, leur droite d'intersection est parallèle à ces droites.
+        \item Une droite parallèle à deux droites sécantes d'un plan est
+              parallèle à ce plan.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 4 ------------------------------------------------
+    \section*{Thème 4 \textemdash{} Limites de fonctions}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer des limites à l'aide des théorèmes d'opérations et de
+              composition.
+        \item Lever des formes indéterminées ($\infty-\infty$, $0/0$,
+              $\infty/\infty$, $0\times\infty$).
+        \item Utiliser les théorèmes de comparaison et les croissances
+              comparées.
+        \item Déterminer et interpréter les asymptotes.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item $\displaystyle\lim_{x\to 0}\dfrac{\sin x}{x}=1$
+              (encadrement géométrique).
+        \item Unicité de la limite finie d'une fonction en un point
+              (par l'absurde).
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 5 ------------------------------------------------
+    \section*{Thème 5 \textemdash{} Dérivation et convexité}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer la dérivée d'une fonction composée $v\circ u$ :
+              $(v\circ u)'(x)=u'(x)\,v'(u(x))$.
+        \item Caractériser la convexité par le signe de $f''$.
+        \item Exploiter la convexité : comparaison $f(x)$ / tangente.
+        \item Déterminer les points d'inflexion d'une courbe.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Dérivation en chaîne : $[v(u(x))]'=u'(x)\,v'(u(x))$.
+        \item Si $f''\geq 0$ sur $I$, la courbe est au-dessus de chacune de
+              ses tangentes.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 6 ------------------------------------------------
+    \section*{Thème 6 \textemdash{} Continuité}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Utiliser la continuité des fonctions usuelles et de leurs
+              composées.
+        \item Appliquer le théorème des valeurs intermédiaires (TVI) et son
+              corollaire.
+        \item Encadrer une solution de $f(x)=k$ par la méthode de dichotomie.
+        \item Étudier la convergence d'une suite récurrente $u_{n+1}=f(u_n)$
+              (point fixe).
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Cas particulier du TVI : $f$ continue sur $[a;b]$, $f(a)<0$,
+              $f(b)>0 \Rightarrow \exists\, c\in{]a;b[}$ tel que $f(c)=0$.
+        \item La dichotomie encadre la solution avec précision
+              $\dfrac{b-a}{2^n}$ à l'étape $n$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 7 ------------------------------------------------
+    \section*{Thème 7 \textemdash{} Orthogonalité dans l'espace}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer un produit scalaire dans l'espace (coordonnées ou
+              normes).
+        \item Démontrer l'orthogonalité de vecteurs, droites, droite et plan.
+        \item Déterminer une équation cartésienne d'un plan à partir d'un
+              vecteur normal.
+        \item Calculer la distance d'un point à un plan.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item $\vc{u}\cdot\vc{v}=xx'+yy'+zz'$ dans un repère orthonormé.
+        \item Distance d'un point $A(x_0,y_0,z_0)$ au plan $ax+by+cz+d=0$ :
+              $d=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 8 ------------------------------------------------
+    \section*{Thème 8 \textemdash{} Loi binomiale}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Identifier une expérience de Bernoulli et modéliser par
+              $\mathcal{B}(n;p)$.
+        \item Calculer $P(X=k)$, $P(X\leq k)$, $P(X\geq k)$.
+        \item Calculer l'espérance, la variance et l'écart-type de
+              $X\sim\mathcal{B}(n;p)$.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Nombre de parties d'un ensemble à $n$ éléments : $2^n$
+              (bijection avec les mots binaires).
+        \item $P(X=k)=\dbinom{n}{k}p^k(1-p)^{n-k}$ (chemins dans un arbre).
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 9 ------------------------------------------------
+    \section*{Thème 9 \textemdash{} Logarithme népérien}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Utiliser les propriétés algébriques de $\ln$ :
+              $\ln(ab)$, $\ln(a/b)$, $\ln(a^n)$.
+        \item Résoudre équations et inéquations avec $\ln$.
+        \item Étudier des fonctions contenant $\ln$ (variations, asymptotes).
+        \item Croissances comparées : $\ln x \ll x^\alpha$ pour $\alpha>0$.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item $(\ln x)'=\dfrac{1}{x}$ (dérivée de la fonction réciproque de
+              $\exp$).
+        \item $\displaystyle\lim_{x\to+\infty}\dfrac{\ln x}{x}=0$.
+        \item $\displaystyle\lim_{x\to 0^+}x\ln x=0$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 10 -----------------------------------------------
+    \section*{Thème 10 \textemdash{} Primitives et équations différentielles}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer des primitives des fonctions usuelles.
+        \item Résoudre $y'=ay$ et $y'=ay+b$ ($a\neq 0$).
+        \item Résoudre un problème de Cauchy (condition initiale).
+        \item Modéliser un phénomène par une équation différentielle.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Les solutions de $y'=ay$ sont exactement les
+              $x\mapsto Ce^{ax}$, $C\in\mathbf{R}$.
+        \item Les solutions de $y'=ay+b$ sont les
+              $x\mapsto Ce^{ax}-\dfrac{b}{a}$, $C\in\mathbf{R}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 11 -----------------------------------------------
+    \section*{Thème 11 \textemdash{} Combinatoire et dénombrement}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Appliquer les principes additif et multiplicatif.
+        \item Calculer permutations $n!$, arrangements $A_n^k$, combinaisons
+              $\dbinom{n}{k}$.
+        \item Utiliser la formule de Pascal et développer $(a+b)^n$.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Nombre de parties d'un ensemble à $n$ éléments : $2^n$.
+        \item Formule de Pascal :
+              $\dbinom{n}{k}+\dbinom{n}{k+1}=\dbinom{n+1}{k+1}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 12 -----------------------------------------------
+    \section*{Thème 12 \textemdash{} Fonctions cosinus et sinus}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Connaître les valeurs exactes pour les angles remarquables.
+        \item Utiliser les formules d'addition et de double-angle.
+        \item Résoudre $\cos x=k$, $\sin x=k$, $\cos x=\cos a$,
+              $\sin x=\sin a$.
+        \item Étudier des fonctions faisant intervenir $\cos$ ou $\sin$.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Formules d'addition :
+              $\cos(a+b)=\cos a\cos b-\sin a\sin b$ et
+              $\sin(a+b)=\sin a\cos b+\cos a\sin b$.
+        \item $(\cos x)'=-\sin x$ et $(\sin x)'=\cos x$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 13 -----------------------------------------------
+    \section*{Thème 13 \textemdash{} Calcul intégral}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer $\displaystyle\int_a^b f(x)\,\mathrm{d}x=[F(x)]_a^b$.
+        \item Interpréter l'intégrale comme une aire algébrique.
+        \item Calculer une valeur moyenne.
+        \item Intégration par parties :
+              $\displaystyle\int_a^b uv'\,\mathrm{d}x=[uv]_a^b
+              -\int_a^b u'v\,\mathrm{d}x$.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Si $f\geq 0$ sur $[a;b]$, alors
+              $\displaystyle\int_a^b f(x)\,\mathrm{d}x\geq 0$.
+        \item Inégalité de la moyenne :
+              $\left|\displaystyle\int_a^b f\right|\leq(b-a)
+              \displaystyle\max_{[a;b]}|f|$.
+        \item Démonstration de la formule d'intégration par parties.
+    \end{itemize}
+    \end{demoprogbox}
+
+    % --- Thème 14 -----------------------------------------------
+    \section*{Thème 14 \textemdash{} Loi des grands nombres}
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer espérance, variance et écart-type d'une variable
+              aléatoire.
+        \item Comprendre et utiliser l'inégalité de Bienaymé-Tchebychev.
+        \item Interpréter et appliquer la loi des grands nombres.
+    \end{itemize}
+    \end{capacitesbox}
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item $E(X)=np$ et $V(X)=np(1-p)$ pour $X\sim\mathcal{B}(n;p)$.
+        \item Inégalité de Bienaymé-Tchebychev :
+              $P(|X-E(X)|\geq\delta)\leq\dfrac{V(X)}{\delta^2}$.
+        \item Loi faible des grands nombres (admise au lycée).
+    \end{itemize}
+    \end{demoprogbox}
+
+    \newpage
+
+    \chapter{Récurrence, Suites}
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Mener un raisonnement par récurrence pour établir une propriété dépendant d'un entier $n$.
+        \item Identifier et utiliser les suites arithmétiques et géométriques (terme général, somme).
+        \item Étudier la monotonie d'une suite (signe de $u_{n+1}-u_n$, quotient, dérivée).
+        \item Démontrer qu'une suite est majorée, minorée, bornée.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer par récurrence que $\displaystyle\sum_{k=1}^{n}k=\dfrac{n(n+1)}{2}$.
+        \item Démontrer l'inégalité de Bernoulli : pour tout $x>-1$ et $n\in\mathbf{N}$,
+              $(1+x)^n\geq 1+nx$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Récurrence}
+    \begin{Définition}
+        Une propriété mathématique est une phrase qui peut être vraie ou fausse.
+    \end{Définition}
+
+    \begin{Théorème}
+        Soient $n_0$ un entier et $P(n)$ une propriété dépendant de l'entier naturel $n$
+        définie pour $n\geq n_0$.\\
+        On suppose :
+        \begin{enumerate}
+            \item \textbf{Initialisation :} $P(n_0)$ est vraie.
+            \item \textbf{Hérédité :} Pour tout entier naturel $k\geq n_0$ fixé, si $P(k)$
+                  est vraie alors $P(k+1)$ est vraie.
+        \end{enumerate}
+        Alors pour tout entier naturel $n\geq n_0$, $P(n)$ est vraie.
+    \end{Théorème}
+
+    \begin{Exemple}
+        Soit $(u_n)$ une suite définie par $u_0=3$ et pour tout entier naturel $n$ par
+        $u_{n+1}=3u_n-2$.
+        Démontrer par récurrence que, pour tout entier naturel $n$, $u_n=2\times 3^n+1$.\\
+        Notons $P(n) : \ll u_n=2\times 3^n+1\gg$.
+        \begin{enumerate}
+            \item \textbf{Initialisation :} Pour $n=0$ on a $2\times 3^0+1=3$,
+                  donc $P(0)$ est vraie.
+            \item \textbf{Hérédité :} Supposons la propriété vraie pour un $k\geq 0$
+                  (i.e.\ $u_k=2\times 3^k+1$). On veut montrer que $P(k+1)$
+                  ($u_{k+1}=2\times 3^{k+1}+1$) est vraie.
+            \begin{align*}
+                u_{k+1}&=3u_k-2\\
+                       &=3\times (2\times 3^k+1)-2\\
+                       &=2\times 3\times 3^k+3-2\\
+                       &=2\times 3^{k+1}+1
+            \end{align*}
+            Donc $P(k+1)$ est vraie.
+            \item \textbf{Conclusion :} Comme $P(0)$ est vraie et que pour tout entier $k$,
+                  $P(k)$ vraie implique $P(k+1)$ vraie, la propriété $P(n)$ est vraie pour
+                  tout $n\in\mathbf{N}$.
+        \end{enumerate}
+    \end{Exemple}
+
+    \begin{Exemple}
+    Démontrons par récurrence que, pour tout entier naturel $n\geq 1$, la somme des $n$
+    premiers entiers est :
+    \[
+        1 + 2 + \cdots + n = \frac{n(n+1)}{2}.
+    \]
+    \begin{enumerate}
+        \item \textbf{Initialisation :} Pour $n = 1$ :
+        \[
+            1 = \frac{1(1+1)}{2} = \frac{2}{2} = 1.
+        \]
+        La propriété est vraie pour $n = 1$.
+        \item \textbf{Hérédité :} Supposons la propriété vraie pour un entier $k \geq 1$,
+        c'est-à-dire :
+        \[
+            1 + 2 + \cdots + k = \frac{k(k+1)}{2}.
+        \]
+        Montrons qu'elle est vraie pour $k+1$ :
+        \begin{align*}
+            1 + 2 + \cdots + k + (k+1)
+            &= \frac{k(k+1)}{2} + (k+1) \\
+            &= \frac{k(k+1) + 2(k+1)}{2} \\
+            &= \frac{(k+1)(k+2)}{2}.
+        \end{align*}
+        La propriété est vraie pour $k+1$.
+        \item \textbf{Conclusion :} La propriété est vraie pour $n=1$ et héréditaire,
+        donc vraie pour tout entier naturel $n\geq 1$.
+    \end{enumerate}
+    \end{Exemple}
+
+    \begin{Exemple}[Contre-exemple — importance de l'initialisation]
+    Montrons que la proposition « pour tout entier naturel $n \geq 1$, $2^n \geq n^2$ »
+    est \textbf{fausse} en exhibant un contre-exemple.
+    \begin{itemize}
+        \item Pour $n = 1$ : $2^1 = 2 \geq 1 = 1^2$. \quad Vraie.
+        \item Pour $n = 2$ : $2^2 = 4 = 2^2$. \quad Vraie.
+        \item Pour $n = 3$ : $2^3 = 8 < 9 = 3^2$. \quad \textbf{Fausse.}
+    \end{itemize}
+    La propriété est donc fausse dès $n=3$.\\
+    \textbf{Remarque pédagogique :} même si l'hérédité est vérifiable pour $k\geq 3$,
+    l'échec de l'initialisation en $n=3$ suffit à invalider la proposition.
+    Cet exemple illustre l'importance de vérifier rigoureusement l'initialisation.
+    \end{Exemple}
+
+    \section{Monotonie d'une suite}
+    \begin{Définition}
+        Soit $(u_n)$ une suite de nombres réels.
+        \begin{itemize}
+            \item La suite $(u_n)$ est \textbf{croissante} si pour tout $n\in\mathbf{N}$,
+                  $u_n\leq u_{n+1}$.
+            \item La suite $(u_n)$ est \textbf{décroissante} si pour tout $n\in\mathbf{N}$,
+                  $u_n\geq u_{n+1}$.
+            \item La suite $(u_n)$ est \textbf{monotone} si elle est croissante ou décroissante.
+        \end{itemize}
+    \end{Définition}
+
+    \subsection{Comment montrer qu'une suite est monotone ?}
+
+    \subsubsection{Méthode 1 — Signe de $u_{n+1}-u_n$}
+    On étudie le signe de $u_{n+1}-u_n$.
+    \begin{itemize}
+        \item $u_{n+1}-u_n \geq 0$ pour tout $n$ $\Rightarrow$ suite croissante.
+        \item $u_{n+1}-u_n \leq 0$ pour tout $n$ $\Rightarrow$ suite décroissante.
+        \item $u_{n+1}-u_n > 0$ pour tout $n$ $\Rightarrow$ suite strictement croissante.
+        \item $u_{n+1}-u_n < 0$ pour tout $n$ $\Rightarrow$ suite strictement décroissante.
+    \end{itemize}
+
+    \subsubsection{Méthode 2 — Quotient $\dfrac{u_{n+1}}{u_n}$ (termes strictement positifs)}
+    Si $(u_n)$ est strictement positive :
+    \begin{itemize}
+        \item $\dfrac{u_{n+1}}{u_n} \geq 1$ pour tout $n$ $\Rightarrow$ suite croissante.
+        \item $\dfrac{u_{n+1}}{u_n} \leq 1$ pour tout $n$ $\Rightarrow$ suite décroissante.
+        \item $\dfrac{u_{n+1}}{u_n} > 1$ pour tout $n$ $\Rightarrow$ suite strictement croissante.
+        \item $\dfrac{u_{n+1}}{u_n} < 1$ pour tout $n$ $\Rightarrow$ suite strictement décroissante.
+    \end{itemize}
+
+    \subsubsection{Méthode 3 — Sens de variation d'une fonction}
+    S'il existe une fonction $f$ telle que $u_n=f(n)$, on étudie le sens de variation de $f$
+    sur $[0;+\infty[$ via la dérivée $f'$.
+    \begin{itemize}
+        \item $f'(x) \geq 0$ sur $[0;+\infty[$ $\Rightarrow$ $(u_n)$ croissante.
+        \item $f'(x) \leq 0$ sur $[0;+\infty[$ $\Rightarrow$ $(u_n)$ décroissante.
+        \item $f'(x) > 0$ sur $[0;+\infty[$ $\Rightarrow$ $(u_n)$ strictement croissante.
+        \item $f'(x) < 0$ sur $[0;+\infty[$ $\Rightarrow$ $(u_n)$ strictement décroissante.
+    \end{itemize}
+
+    \subsubsection{Méthode 4 — Récurrence sur $P(n) : u_n \leq u_{n+1}$}
+    \begin{itemize}
+        \item \textbf{Initialisation :} vérifier $u_0 \leq u_1$ (ou $u_1 \leq u_2$).
+        \item \textbf{Hérédité :} supposer $u_k \leq u_{k+1}$ et montrer $u_{k+1} \leq u_{k+2}$.
+        \item Si les deux étapes sont vérifiées, la suite est croissante.
+              Si on montre $u_n \geq u_{n+1}$ par récurrence, elle est décroissante.
+    \end{itemize}
+
+    \begin{Définition}
+        Soit $(u_n)$ une suite de nombres réels.
+        \begin{itemize}
+            \item On dit que $(u_n)$ est \textbf{majorée} s'il existe un réel $M$ tel que
+                  pour tout $n\in\mathbf{N}$, $u_n\leq M$.
+            \item On dit que $(u_n)$ est \textbf{minorée} s'il existe un réel $m$ tel que
+                  pour tout $n\in\mathbf{N}$, $u_n\geq m$.
+            \item On dit que $(u_n)$ est \textbf{bornée} si elle est minorée et majorée.
+        \end{itemize}
+    \end{Définition}
+
+    \chapter{Limites de suite}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer ou conjecturer la limite d'une suite à l'aide des théorèmes d'opérations.
+        \item Appliquer les théorèmes de comparaison (encadrement, suites adjacentes).
+        \item Utiliser le théorème des suites monotones bornées (admis).
+        \item Déterminer la limite d'une suite géométrique de raison $q$.
+        \item Démontrer la convergence d'une suite définie par récurrence.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer l'unicité de la limite d'une suite convergente (raisonnement par l'absurde).
+        \item Démontrer que toute suite croissante et non majorée tend vers $+\infty$.
+        \item Démontrer que $\displaystyle\lim_{n\to+\infty}q^n=0$ si $|q|<1$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Limite}
+    \subsection{Limite finie}
+    \begin{Définition}
+    Une suite $(u_n)$ converge vers le réel $\ell$ si tout intervalle contenant $\ell$
+    contient tous les termes de la suite à partir d'un certain rang.
+    On écrit $\lim\limits_{n\to+\infty}u_n=\ell$.
+    On dit que la suite $(u_n)$ est \textbf{convergente} et converge vers $\ell$.
+    \end{Définition}
+
+    \begin{Remarque}
+    Une suite $(u_n)$ converge vers $\ell$ si, pour tout $\varepsilon>0$, l'intervalle
+    $]\ell-\varepsilon;\ell+\varepsilon[$ contient tous les termes de la suite à partir
+    d'un certain rang.
+    \end{Remarque}
+
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        \draw[->] (0,0) -- (7,0) node[right] {$n$};
+        \draw[->] (0,0) -- (0,3) node[above] {$u_n$};
+        \foreach \n/\y in {1/2.5,2/1.8,3/1.4,4/1.2,5/1.1,6/1.05}
+            \fill (\n,\y) circle (2pt);
+        \draw[dashed,thick] (0,1) -- (7,1) node[right] {$\ell$};
+        \draw[dashed,red] (0,0.9) -- (7,0.9);
+        \draw[dashed,red] (0,1.1) -- (7,1.1);
+        \node[red] at (7.7,1) {$\ell \pm \varepsilon$};
+    \end{tikzpicture}
+    \end{center}
+
+    \begin{Définition}
+    Une suite qui n'est pas convergente est dite \textbf{divergente}.
+    \end{Définition}
+
+    \begin{Exemple}
+    $u_n=(-1)^n$ est une suite divergente ; elle n'admet pas de limite lorsque $n$ tend
+    vers l'infini.
+    \end{Exemple}
+
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        \draw[->] (0,0) -- (7,0) node[right] {$n$};
+        \draw[->] (0,-1.5) -- (0,1.5) node[above] {$u_n$};
+        \foreach \n/\y in {1/1,2/-1,3/1,4/-1,5/1,6/-1}
+            \fill (\n,\y) circle (2pt);
+        \draw[dashed,thick] (0,1) -- (7,1);
+        \draw[dashed,thick] (0,-1) -- (7,-1);
+    \end{tikzpicture}
+    \end{center}
+
+    \begin{Propriété}[Unicité de la limite]
+    Si une suite $(u_n)$ a une limite réelle, alors cette limite est unique.
+    \end{Propriété}
+    \begin{proof}
+    Supposons que $(u_n)$ ait deux limites $\ell_1$ et $\ell_2$ avec $\ell_1 \neq \ell_2$.
+    Posons $\varepsilon = \dfrac{|\ell_1 - \ell_2|}{3} > 0$.
+    Par définition de la limite, il existe $N_1$ tel que pour tout $n \geq N_1$,
+    $|u_n - \ell_1| < \varepsilon$, et il existe $N_2$ tel que pour tout $n \geq N_2$,
+    $|u_n - \ell_2| < \varepsilon$.
+    Donc, pour $n \geq \max(N_1,N_2)$ :
+    \[
+        |\ell_1 - \ell_2| \leq |u_n - \ell_1| + |u_n - \ell_2| < 2\varepsilon
+        = \tfrac{2}{3}|\ell_1 - \ell_2|.
+    \]
+    Ceci est impossible si $\ell_1 \neq \ell_2$, donc $\ell_1 = \ell_2$.
+    \end{proof}
+
+    \subsection{Quelques limites finies classiques}
+    \begin{Propriété}
+    \begin{enumerate}
+        \item $\lim\limits_{n\to+\infty}\dfrac{1}{\sqrt{n}}=0$
+        \item Pour tout $k\in\mathbf{N}^*$, $\lim\limits_{n\to+\infty}\dfrac{1}{n^k}=0$
+        \item Pour tout $-1<q<1$, $\lim\limits_{n\to+\infty}q^n=0$
+    \end{enumerate}
+    \end{Propriété}
+
+    \begin{Exemple}[Application du point 1 : limite de $\dfrac{1}{\sqrt{n}}$]
+    Soit $u_n=\dfrac{3}{\sqrt{n}}$.
+    \[
+        \lim_{n\to+\infty}u_n
+        = \lim_{n\to+\infty}\frac{3}{\sqrt{n}}
+        = 3\times\lim_{n\to+\infty}\frac{1}{\sqrt{n}}
+        = 3\times 0 = 0.
+    \]
+    De même, $v_n=\dfrac{\sqrt{n}+5}{\sqrt{n}}=1+\dfrac{5}{\sqrt{n}}\xrightarrow[n\to+\infty]{}1+0=1$.
+    \end{Exemple}
+
+    \begin{Exemple}[Application du point 2 : limite de $\dfrac{1}{n^k}$]
+    \begin{enumerate}
+        \item Pour $k=2$ : $\displaystyle\lim_{n\to+\infty}\frac{1}{n^2}=0$.
+              Donc $\displaystyle\lim_{n\to+\infty}\frac{4n+1}{n^2}
+              =\lim_{n\to+\infty}\frac{4}{n}+\frac{1}{n^2}=0$.
+        \item Pour $k=3$ : $\displaystyle\lim_{n\to+\infty}\frac{2n^2-1}{n^3}
+              =\lim_{n\to+\infty}\frac{2}{n}-\frac{1}{n^3}=0$.
+        \item \textbf{Règle pratique :} dans une fraction rationnelle en $n$,
+              on factorise par le terme dominant du dénominateur :
+              \[
+                  \frac{3n^2+n-2}{5n^2-4}
+                  = \frac{n^2\!\left(3+\dfrac{1}{n}-\dfrac{2}{n^2}\right)}
+                         {n^2\!\left(5-\dfrac{4}{n^2}\right)}
+                  \xrightarrow[n\to+\infty]{}\frac{3}{5}.
+              \]
+    \end{enumerate}
+    \end{Exemple}
+
+    \begin{Exemple}[Application du point 3 : suite géométrique $q^n$ avec $|q|<1$]
+    \begin{enumerate}
+        \item $q=\dfrac{1}{2}$ : $\displaystyle\lim_{n\to+\infty}\left(\frac{1}{2}\right)^n=0$.
+              Les termes valent $1,\,\frac{1}{2},\,\frac{1}{4},\,\frac{1}{8},\ldots$
+        \item $q=-\dfrac{1}{3}$ : $|q|=\dfrac{1}{3}<1$, donc
+              $\displaystyle\lim_{n\to+\infty}\left(-\frac{1}{3}\right)^n=0$
+              (les termes oscillent mais se rapprochent de $0$).
+        \item $q=0{,}99$ : même si $q$ est proche de $1$, comme $|q|<1$ on a
+              $\displaystyle\lim_{n\to+\infty}(0{,}99)^n=0$.
+        \item \textbf{Cas limite important :} si $q=1$, $q^n=1$ pour tout $n$ ;
+              si $|q|>1$, $|q^n|\to+\infty$.
+              Seul $|q|<1$ garantit $q^n\to 0$.
+    \end{enumerate}
+    \end{Exemple}
+
+    \subsection{Limites infinies classiques}
+
+    \begin{Propriété}
+    \begin{enumerate}
+        \item Pour tout $k\in\mathbf{N}^*$,
+              $\lim\limits_{n\to+\infty}n^k=+\infty$
+        \item Pour tout $q>1$,
+              $\lim\limits_{n\to+\infty}q^n=+\infty$
+        \item $\lim\limits_{n\to+\infty}n!=+\infty$
+        \item $\lim\limits_{n\to+\infty}\sqrt{n}=+\infty$
+    \end{enumerate}
+    \end{Propriété}
+
+    \begin{Exemple}[Limites de suites polynomiales et exponentielles]
+    \begin{enumerate}
+        \item $u_n=3n^2-5n+2$. Le terme dominant est $3n^2$, donc :
+              \[
+                  \lim_{n\to+\infty}u_n
+                  =\lim_{n\to+\infty}n^2\!\left(3-\frac{5}{n}+\frac{2}{n^2}\right)
+                  =+\infty.
+              \]
+        \item $v_n=2^n-100n^3$. L'exponentielle l'emporte sur le polynôme :
+              \[
+                  v_n=2^n\!\left(1-\frac{100n^3}{2^n}\right)
+                  \xrightarrow[n\to+\infty]{}+\infty.
+              \]
+        \item $w_n=(-2)^n$ : comme $|{-2}|=2>1$, $|w_n|=2^n\to+\infty$,
+              mais la suite \textbf{diverge} (elle n'a pas de limite car elle oscille).
+    \end{enumerate}
+    \end{Exemple}
+
+    \subsection{Croissances comparées}
+
+    \begin{Propriété}[Hiérarchie des suites classiques]
+    Pour tout $q>1$ et tout $k\in\mathbf{N}^*$, on a l'ordre de croissance :
+    \[
+        \ln n \;\ll\; n^k \;\ll\; q^n \;\ll\; n!
+    \]
+    ce qui signifie concrètement :
+    \begin{enumerate}
+        \item $\displaystyle\lim_{n\to+\infty}\frac{\ln n}{n^k}=0$
+              \quad (le logarithme est négligeable devant toute puissance)
+        \item $\displaystyle\lim_{n\to+\infty}\frac{n^k}{q^n}=0$
+              \quad (toute puissance est négligeable devant toute exponentielle)
+        \item $\displaystyle\lim_{n\to+\infty}\frac{q^n}{n!}=0$
+              \quad (toute exponentielle est négligeable devant $n!$)
+    \end{enumerate}
+    \end{Propriété}
+
+    \begin{Exemple}[Croissances comparées --- applications]
+    \begin{enumerate}
+        \item \textbf{Puissance vs exponentielle.}
+              $\displaystyle\lim_{n\to+\infty}\frac{n^5}{2^n}=0$ :
+              même si $n^5$ croit très vite, $2^n$ finit par l'emporter.
+
+              \medskip
+              On peut l'observer numériquement :
+              \begin{center}
+              \begin{tabular}{|c|r|r|r|}
+                  \hline
+                  $n$ & $n^5$ & $2^n$ & $\dfrac{n^5}{2^n}$ \\
+                  \hline
+                  10  & $100\,000$        & $1\,024$           & $97{,}7$ \\
+                  20  & $3\,200\,000$     & $1\,048\,576$      & $3{,}05$ \\
+                  50  & $312\,500\,000$   & $\approx 10^{15}$  & $\approx 0$ \\
+                  \hline
+              \end{tabular}
+              \end{center}
+
+        \item \textbf{Limite d'une suite mixte.}
+              \[
+                  u_n=\frac{3n^3+n}{5^n}\,.
+              \]
+              Comme $\dfrac{n^3}{5^n}\to 0$, on a
+              $u_n=\dfrac{3n^3}{5^n}+\dfrac{n}{5^n}\to 0+0=0$.
+
+        \item \textbf{Limite indéterminée levée par croissances comparées.}
+              \[
+                  v_n=\frac{2^n-n^{10}}{2^n+1}
+                  =\frac{2^n\!\left(1-\dfrac{n^{10}}{2^n}\right)}
+                        {2^n\!\left(1+\dfrac{1}{2^n}\right)}
+                  \xrightarrow[n\to+\infty]{}\frac{1-0}{1+0}=1.
+              \]
+
+        \item \textbf{Comparaison $\ln n$ vs $\sqrt{n}$.}
+              $\dfrac{\ln n}{\sqrt{n}}\to 0$ : le logarithme est négligeable
+              même devant $\sqrt{n}$.
+    \end{enumerate}
+    \end{Exemple}
+
+    \subsection{Suites récurrentes --- limites classiques}
+
+    \begin{Propriété}[Suite arithmético-géométrique]
+    Soit $(u_n)$ définie par $u_0\in\mathbf{R}$ et $u_{n+1}=au_n+b$
+    avec $a\neq 1$. La limite de $(u_n)$ est :
+    \begin{itemize}
+        \item Si $|a|<1$ : $(u_n)$ converge vers le point fixe
+              $\ell=\dfrac{b}{1-a}$.
+        \item Si $|a|>1$ : $(u_n)$ diverge vers $\pm\infty$
+              (sauf si $u_0=\ell$).
+        \item Si $a=1$ : $(u_n)$ est arithmétique de raison $b$.
+    \end{itemize}
+    \end{Propriété}
+
+    \begin{Exemple}[Suite arithmético-géométrique]
+    Soit $(u_n)$ définie par $u_0=1$ et $u_{n+1}=\dfrac{1}{2}u_n+3$.
+    \begin{enumerate}
+        \item \textbf{Point fixe :} $\ell=\dfrac{1}{2}\ell+3
+              \Rightarrow \ell=6$.
+        \item \textbf{Suite auxiliaire :} $v_n=u_n-6$ vérifie
+              $v_{n+1}=\dfrac{1}{2}v_n$, donc $v_n=v_0\times\!\left(\dfrac{1}{2}\right)^n
+              =(1-6)\times\!\left(\dfrac{1}{2}\right)^n
+              =-5\times\!\left(\dfrac{1}{2}\right)^n$.
+        \item \textbf{Terme général :}
+              $u_n=6-5\times\!\left(\dfrac{1}{2}\right)^n$.
+        \item \textbf{Limite :} comme $\left|\dfrac{1}{2}\right|<1$,
+              $\left(\dfrac{1}{2}\right)^n\to 0$, donc
+              $\displaystyle\lim_{n\to+\infty}u_n=6=\ell$.
+    \end{enumerate}
+    \end{Exemple}
+
+    \begin{Théorème}
+    \begin{itemize}
+        \item Une suite croissante et majorée est convergente.
+        \item Une suite décroissante et minorée est convergente.
+    \end{itemize}
+    \end{Théorème}
+
+    \subsection{Limite infinie}
+    \begin{Définition}
+    Une suite $(u_n)$ a pour limite $+\infty$ si, pour tout réel $A>0$, l'intervalle
+    $[A;+\infty[$ contient tous les termes de la suite à partir d'un certain rang.
+    On écrit $\lim\limits_{n\to+\infty}u_n=+\infty$.
+    \end{Définition}
+
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        \draw[->] (0,0) -- (7,0) node[right] {$n$};
+        \draw[->] (0,0) -- (0,4) node[above] {$u_n$};
+        \foreach \n/\y in {1/0.5,2/1,3/1.8,4/2.5,5/3.2,6/3.8}
+            \fill (\n,\y) circle (2pt);
+    \end{tikzpicture}
+    \end{center}
+
+    \begin{Définition}
+    Une suite $(u_n)$ a pour limite $-\infty$ si, pour tout réel $B<0$, l'intervalle
+    $]-\infty;B]$ contient tous les termes de la suite à partir d'un certain rang.
+    On écrit $\lim\limits_{n\to+\infty}u_n=-\infty$.
+    \end{Définition}
+
+    \section{Opérations sur les limites}
+    \begin{Définition}
+    Une \textbf{forme indéterminée} est une opération rencontrée lors du calcul d'une
+    limite pour laquelle on ne peut pas conclure directement.
+    \end{Définition}
+
+    \subsection{Somme}
+    \begin{Propriété}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\lim u_n$ & $\lim v_n$ & $\lim(u_n+v_n)$ \\
+        \hline
+        $\ell_1$ & $\ell_2$ & $\ell_1+\ell_2$ \\
+        \hline
+        $\ell_1$ & $+\infty$ & $+\infty$ \\
+        \hline
+        $\ell_1$ & $-\infty$ & $-\infty$ \\
+        \hline
+        $+\infty$ & $+\infty$ & $+\infty$ \\
+        \hline
+        $-\infty$ & $-\infty$ & $-\infty$ \\
+        \hline
+        $+\infty$ & $-\infty$ & \textbf{F.I.} \\
+        \hline
+    \end{tabular}
+    \end{center}
+    \end{Propriété}
+
+    \subsection{Produit}
+    \begin{Propriété}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\lim u_n$ & $\lim v_n$ & $\lim(u_n\times v_n)$ \\
+        \hline
+        $\ell_1$ & $\ell_2$ & $\ell_1\times\ell_2$ \\
+        \hline
+        $\ell_1>0$ & $+\infty$ & $+\infty$ \\
+        \hline
+        $\ell_1>0$ & $-\infty$ & $-\infty$ \\
+        \hline
+        $\ell_1<0$ & $+\infty$ & $-\infty$ \\
+        \hline
+        $\ell_1<0$ & $-\infty$ & $+\infty$ \\
+        \hline
+        $+\infty$ & $+\infty$ & $+\infty$ \\
+        \hline
+        $-\infty$ & $-\infty$ & $+\infty$ \\
+        \hline
+        $0$ & $\pm\infty$ & \textbf{F.I.} \\
+        \hline
+    \end{tabular}
+    \end{center}
+    \end{Propriété}
+
+    \subsection{Quotient}
+    \begin{Propriété}
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\lim u_n$ & $\lim v_n$ & $\lim\dfrac{u_n}{v_n}$ \\
+        \hline
+        $\ell_1$ & $\ell_2\neq 0$ & $\dfrac{\ell_1}{\ell_2}$ \\
+        \hline
+        $\ell_1$ & $\pm\infty$ & $0$ \\
+        \hline
+        $\pm\infty$ & $\pm\infty$ & \textbf{F.I.} \\
+        \hline
+        $0$ & $0$ & \textbf{F.I.} \\
+        \hline
+        $\ell_1>0$ ou $+\infty$ & $0$ avec $v_n>0$ & $+\infty$ \\
+        \hline
+        $\ell_1<0$ ou $-\infty$ & $0$ avec $v_n>0$ & $-\infty$ \\
+        \hline
+        $\ell_1>0$ ou $+\infty$ & $0$ avec $v_n<0$ & $-\infty$ \\
+        \hline
+        $\ell_1<0$ ou $-\infty$ & $0$ avec $v_n<0$ & $+\infty$ \\
+        \hline
+    \end{tabular}
+    \end{center}
+    \end{Propriété}
+
+    \begin{Exemple}
+    \begin{enumerate}
+        \item $\lim\limits_{n\to+\infty} n^2+3n-5=+\infty$
+        \item $\lim\limits_{n\to+\infty} \left(3+\dfrac{2}{n^3}\right)\left(\dfrac{1}{n}+5\right)=15$
+    \end{enumerate}
+    \end{Exemple}
+
+    \subsection{Comment lever une indétermination ?}
+    On peut effectuer une ou plusieurs factorisations.
+    \begin{Exemple}
+    $\lim\limits_{n\to+\infty} n^3-2n^2+5=+\infty$ (après factorisation par $n^3$).
+    \end{Exemple}
+
+    \section{Limites et comparaison}
+    \begin{Propriété}
+    Si $(u_n)$ et $(v_n)$ sont deux suites telles que, à partir d'un certain rang,
+    $v_n\leq u_n$ et $\lim v_n=+\infty$, alors $\lim u_n=+\infty$.
+    \end{Propriété}
+
+    \begin{Propriété}
+    Si $(u_n)$ et $(v_n)$ sont deux suites telles que, à partir d'un certain rang,
+    $u_n\leq v_n$ et $\lim v_n=-\infty$, alors $\lim u_n=-\infty$.
+    \end{Propriété}
+
+    \begin{Théorème}[Théorème des gendarmes]
+    Si $(u_n)$, $(v_n)$ et $(w_n)$ sont trois suites telles que, à partir d'un certain rang,
+    $v_n\leq u_n\leq w_n$ et $\lim v_n=\lim w_n=\ell\in\mathbf{R}$, alors $\lim u_n=\ell$.
+    \end{Théorème}
+
+    \section{Suites de référence}
+    \begin{Propriété}
+    Pour toute suite arithmétique $(u_n)$ de raison $r$ :
+    \begin{itemize}
+        \item Si $r>0$ alors $(u_n)$ diverge vers $+\infty$.
+        \item Si $r<0$ alors $(u_n)$ diverge vers $-\infty$.
+    \end{itemize}
+    \end{Propriété}
+
+    \begin{Propriété}
+    Pour toute suite géométrique $(u_n)$ de raison $q$ :
+    \begin{itemize}
+        \item Si $q>1$ alors $(u_n)$ diverge vers $+\infty$.
+        \item Si $q<-1$ alors $(u_n)$ diverge et n'a pas de limite.
+        \item Si $-1<q<1$ alors $(u_n)$ converge vers $0$.
+    \end{itemize}
+    \end{Propriété}
+
+    \section{Utilisation de la calculatrice}
+    \subsection*{NumWorks}
+    Menu \textbf{Suites} : entrer la suite en explicite ou récurrente, puis observer dans
+    \textbf{Tableau} ou \textbf{Graphique}.
+    \subsection*{TI}
+    Mettre le mode \textbf{Suites}, définir $u(n)$, utiliser \textbf{TABLE} et \textbf{GRAPH}.
+    \subsection*{Casio}
+    Menu \textbf{RECUR}, entrer $u_n$, visualiser le tableau et le graphe.
+    \medskip\\
+    \textbf{Remarque :} Ces outils servent à \emph{conjecturer} une limite, mais pas à la
+    prouver rigoureusement.
+
+    \section{Algorithme de seuil d'une suite}
+    \begin{Définition}
+    On appelle \textbf{seuil} d'une suite $(u_n)$ par rapport à un réel $\ell$ et une
+    précision $\varepsilon>0$ le plus petit entier $N$ tel que, pour tout $n \geq N$,
+    $|u_n-\ell|<\varepsilon$.
+    \end{Définition}
+
+    \subsection*{Pseudo-code}
+    \begin{verbatim}
+Entrer epsilon
+Entrer la limite supposée l
+n <- 0
+Tant que |u(n) - l| >= epsilon
+    n <- n + 1
+Fin Tant que
+Afficher n
+    \end{verbatim}
+
+    \subsection*{Python (NumWorks ou PC)}
+    \begin{verbatim}
+def seuil(epsilon, l):
+    n = 1
+    u = 1/n   # exemple avec u_n = 1/n
+    while abs(u - l) >= epsilon:
+        n += 1
+        u = 1/n
+    return n
+
+print(seuil(0.001, 0))  # renvoie 1000
+    \end{verbatim}
+
+    \chapter{Vecteurs, droites et plans de l'espace}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Représenter des droites et des plans dans l'espace et décrire leurs positions relatives.
+        \item Utiliser les vecteurs pour caractériser le parallélisme et la coplanarité.
+        \item Déterminer une représentation paramétrique d'une droite ou d'un plan.
+        \item Se repérer dans un repère orthonormé de l'espace.
+        \item Reconnaître, compléter ou construire une figure de l'espace.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Si deux plans sécants contiennent chacun une droite de même direction, leur droite
+              d'intersection est parallèle à ces droites.
+        \item Une droite parallèle à deux droites sécantes d'un plan est parallèle à ce plan.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Vecteurs de l'espace}
+    \begin{Définition}
+        Soient $A$ et $B$ deux points de l'espace. La transformation qui à tout point de
+        l'espace associe l'unique point $M'$ tel que $ABM'M$ soit un parallélogramme est la
+        \textbf{translation de vecteur} $\vc{AB}$.
+        On note $\vc{u}=\vc{AB}=\vc{MM'}$ ; on dit que $\vc{AB}$ et $\vc{MM'}$ sont des
+        \textbf{représentants} de $\vc{u}$.
+    \end{Définition}
+
+    \begin{Théorème}
+        Soient un vecteur $\vc{u}$ et un point $A$ de l'espace. Il existe un unique point $M$
+        tel que $\vc{AM}=\vc{u}$ ; on dit que $\vc{AM}$ est le représentant de $\vc{u}$
+        d'origine $A$.
+    \end{Théorème}
+
+    \subsection{Opérations sur les vecteurs}
+    \begin{Propriété}
+        Soient $A$, $B$ et $C$ trois points. On a $\vc{AB}+\vc{AC}=\vc{AD}$ où $D$ est le
+        point tel que $ABDC$ est un parallélogramme.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Soient $A$, $B$ et $C$ trois points. On a $\vc{AB}+\vc{BC}=\vc{AC}$ (relation de
+        Chasles).
+    \end{Propriété}
+
+    \begin{Propriété}
+        Soient $A$, $B$ des points distincts et $k\in\mathbf{R}$. Le vecteur $\vc{AC}=k\vc{AB}$
+        est défini par :
+        \begin{itemize}
+            \item Si $k\geq 0$ alors $C\in[AB)$ et $AC=kAB$.
+            \item Si $k\leq 0$ alors $C\in(AB)$ et $C\notin[AB)$, avec $AC=|k|AB$.
+        \end{itemize}
+    \end{Propriété}
+
+    \begin{Propriété}
+        Soient $\vc{u}$, $\vc{v}$ deux vecteurs et $k$, $k'$ deux réels.
+        \begin{itemize}
+            \item $k\vc{u}=\vc{0}$ si et seulement si $k=0$ ou $\vc{u}=\vc{0}$.
+            \item $k(\vc{u}+\vc{v})=k\vc{u}+k\vc{v}$
+            \item $(k+k')\vc{u}=k\vc{u}+k'\vc{u}$
+        \end{itemize}
+    \end{Propriété}
+
+    \section{Droites et plans de l'espace}
+    \begin{Définition}
+        Soient $\vc{u}$ et $\vc{v}$ deux vecteurs de l'espace. On dit que $\vc{u}$ et $\vc{v}$
+        sont \textbf{colinéaires} s'il existe un réel $k$ non nul tel que $\vc{u}=k\vc{v}$
+        ou $\vc{v}=k\vc{u}$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Trois points $A$, $B$ et $C$ deux à deux distincts sont \textbf{alignés} si et
+        seulement si $\vc{AB}$ et $\vc{AC}$ sont colinéaires.
+    \end{Propriété}
+
+    \begin{Propriété}
+        \begin{enumerate}
+            \item Par deux points distincts, il passe une unique droite.
+            \item Par trois points non alignés $A$, $B$ et $C$, il passe un unique plan $(ABC)$.
+            \item Si deux points distincts $A$ et $B$ appartiennent à un plan $\mathcal{P}$,
+                  alors la droite $(AB)$ est incluse dans $\mathcal{P}$.
+            \item Dans chaque plan de l'espace, toutes les règles de la géométrie plane
+                  s'appliquent.
+        \end{enumerate}
+    \end{Propriété}
+
+    \begin{Définition}
+        Des vecteurs sont \textbf{coplanaires} si leurs représentants de même origine $A$ ont
+        leurs extrémités dans un même plan passant par $A$.
+    \end{Définition}
+
+    \begin{Définition}
+        Soient $A$ et $B$ deux points de l'espace.
+        \begin{itemize}
+            \item La droite $(AB)$ est l'ensemble des points $M$ tels que
+                  $\vc{AM}=k\vc{AB}$ avec $k\in\mathbf{R}$.
+            \item $\vc{AB}$ est un \textbf{vecteur directeur} de $(AB)$.
+        \end{itemize}
+    \end{Définition}
+
+    \begin{Propriété}
+        Une droite $(d)$ est définie par un point $A$ et un vecteur directeur $\vc{u}$ ;
+        on la note $d(A;\vc{u})$.
+    \end{Propriété}
+
+    \begin{Définition}
+        Soient $A$, $B$ et $C$ trois points de l'espace non alignés.
+        \begin{itemize}
+            \item Le plan $(ABC)$ est l'ensemble des points $M$ tels que
+                  $\vc{AM}=x\vc{AB}+y\vc{AC}$ avec $x,y\in\mathbf{R}$.
+            \item $\vc{AB}$ et $\vc{AC}$ sont des \textbf{vecteurs directeurs} du plan $(ABC)$.
+        \end{itemize}
+    \end{Définition}
+
+    \begin{Propriété}
+        Un plan $\mathcal{P}$ est défini par un point $A$ et deux vecteurs directeurs non
+        colinéaires $\vc{u}$, $\vc{v}$ ; on le note $\mathcal{P}(A,\vc{u},\vc{v})$.
+    \end{Propriété}
+
+    \section{Positions relatives de droites et de plans}
+    \subsection{Position de deux droites}
+    \begin{Propriété}
+        Deux droites $(d)$ et $(d')$ peuvent être coplanaires ou non coplanaires.
+        \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \multicolumn{2}{|c|}{$(d)$ et $(d')$ sont coplanaires} & $(d)$ et $(d')$ sont non coplanaires \\
+            \hline
+            \psset{xunit=0.8cm,yunit=0.8cm}
+            \begin{pspicture*}(-0.5,-0.5)(5,4.5)
+                \pstGeonode[PointSymbol=x,PosAngle={-135,-45,-45,135,0,45,90,0}](1,1){A}(3,1){B}(3,3){F}(1,3){E}(4,1.5){C}(2,1.5){D}(2,3.5){H}(4,3.5){G}
+                \pstLineAB{A}{B}\pstLineAB{F}{B}\pstLineAB{C}{B}\pstLineAB{A}{E}
+                \pstLineAB{F}{G}\pstLineAB{C}{G}\pstLineAB{F}{E}\pstLineAB{H}{G}\pstLineAB{E}{H}
+                \pstLineAB[linestyle=dashed]{A}{D}\pstLineAB[linestyle=dashed]{C}{D}\pstLineAB[linestyle=dashed]{D}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{E}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{F}{G}
+            \end{pspicture*}
+            &
+            \begin{pspicture*}(-0.5,-0.5)(5,4.5)
+                \psset{xunit=0.8cm,yunit=0.8cm}
+                \pstGeonode[PointSymbol=x,PosAngle={-135,-45,-45,135,0,45,90,0}](1,1){A}(3,1){B}(3,3){F}(1,3){E}(4,1.5){C}(2,1.5){D}(2,3.5){H}(4,3.5){G}
+                \pstLineAB{A}{B}\pstLineAB{F}{B}\pstLineAB{C}{B}\pstLineAB{A}{E}
+                \pstLineAB{F}{G}\pstLineAB{C}{G}\pstLineAB{F}{E}\pstLineAB{H}{G}\pstLineAB{E}{H}
+                \pstLineAB[linestyle=dashed]{A}{D}\pstLineAB[linestyle=dashed]{C}{D}\pstLineAB[linestyle=dashed]{D}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{E}{G}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{F}{H}
+            \end{pspicture*}
+            &
+            \begin{pspicture*}(-0.5,-0.5)(5,4.5)
+                \psset{xunit=0.8cm,yunit=0.8cm}
+                \pstGeonode[PointSymbol=x,PosAngle={-135,-45,-45,135,0,45,90,0}](1,1){A}(3,1){B}(3,3){F}(1,3){E}(4,1.5){C}(2,1.5){D}(2,3.5){H}(4,3.5){G}
+                \pstLineAB{A}{B}\pstLineAB{F}{B}\pstLineAB{C}{B}\pstLineAB{A}{E}
+                \pstLineAB{F}{G}\pstLineAB{C}{G}\pstLineAB{F}{E}\pstLineAB{H}{G}\pstLineAB{E}{H}
+                \pstLineAB[linestyle=dashed]{A}{D}\pstLineAB[linestyle=dashed]{C}{D}\pstLineAB[linestyle=dashed]{D}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{E}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{G}{C}
+            \end{pspicture*}
+            \\
+            $(EH)$ et $(FG)$ parallèles & $(EG)$ et $(FH)$ sécantes & $(EH)$ et $(GC)$ non coplanaires \\
+            \hline
+        \end{tabular}
+        \end{center}
+    \end{Propriété}
+
+    \subsection{Position d'une droite et d'un plan}
+    \begin{Propriété}
+        Soit $(d)$ une droite et $\mathcal{P}$ un plan. Il existe trois positions relatives :
+        \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $(d)$ strictement parallèle à $\mathcal{P}$ & $(d)$ incluse dans $\mathcal{P}$ & $(d)$ sécante à $\mathcal{P}$ \\
+            \hline
+            \begin{pspicture}(-0.5,-0.5)(5,4.5)
+                \psset{xunit=0.8cm,yunit=0.8cm}
+                \pstGeonode[PointSymbol=x,PosAngle={-135,-45,-45,135,0,45,90,0}](1,1){A}(3,1){B}(3,3){F}(1,3){E}(4,1.5){C}(2,1.5){D}(2,3.5){H}(4,3.5){G}
+                \pstLineAB{A}{B}\pstLineAB{F}{B}\pstLineAB{C}{B}\pstLineAB{A}{E}
+                \pstLineAB{F}{G}\pstLineAB{C}{G}\pstLineAB{F}{E}\pstLineAB{H}{G}\pstLineAB{E}{H}
+                \pstLineAB[linestyle=dashed]{A}{D}\pstLineAB[linestyle=dashed]{C}{D}\pstLineAB[linestyle=dashed]{D}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{E}{H}
+            \end{pspicture}
+            &
+            \begin{pspicture}(-0.5,-0.5)(5,4.5)
+                \psset{xunit=0.8cm,yunit=0.8cm}
+                \pstGeonode[PointSymbol=x,PosAngle={-135,-45,-45,135,0,45,90,0}](1,1){A}(3,1){B}(3,3){F}(1,3){E}(4,1.5){C}(2,1.5){D}(2,3.5){H}(4,3.5){G}
+                \pstLineAB{A}{B}\pstLineAB{F}{B}\pstLineAB{C}{B}\pstLineAB{A}{E}
+                \pstLineAB{F}{G}\pstLineAB{C}{G}\pstLineAB{F}{E}\pstLineAB{H}{G}\pstLineAB{E}{H}
+                \pstLineAB[linestyle=dashed]{A}{D}\pstLineAB[linestyle=dashed]{C}{D}\pstLineAB[linestyle=dashed]{D}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{A}{C}
+            \end{pspicture}
+            &
+            \begin{pspicture}(-0.5,-0.5)(5,4.5)
+                \psset{xunit=0.8cm,yunit=0.8cm}
+                \pstGeonode[PointSymbol=x,PosAngle={-135,-45,-45,135,0,45,90,0}](1,1){A}(3,1){B}(3,3){F}(1,3){E}(4,1.5){C}(2,1.5){D}(2,3.5){H}(4,3.5){G}
+                \pstInterLL{E}{G}{H}{F}{O}
+                \pstLineAB{A}{B}\pstLineAB{F}{B}\pstLineAB{C}{B}\pstLineAB{A}{E}
+                \pstLineAB{F}{G}\pstLineAB{C}{G}\pstLineAB{F}{E}\pstLineAB{H}{G}\pstLineAB{E}{H}
+                \pstLineAB[linestyle=dashed]{A}{D}\pstLineAB[linestyle=dashed]{C}{D}\pstLineAB[linestyle=dashed]{D}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{E}{H}
+                \pstLineAB[nodesepA=-2,nodesepB=-2]{A}{O}
+            \end{pspicture}
+            \\
+            $(EH) \parallel (ABC)$ & $(AC)$ incluse dans $(ABC)$ & $(AO)$ sécante à $(EFG)$ \\
+            \hline
+        \end{tabular}
+        \end{center}
+    \end{Propriété}
+
+    \subsection{Position de deux plans}
+    \begin{Propriété}
+        Soient $\mathcal{P}$ et $\mathcal{P}'$ deux plans. Il existe trois configurations possibles :
+        \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            Plans parallèles & Plans sécants & Plans confondus \\
+            \hline
+            \begin{pspicture*}(-0.5,-0.5)(5,3)
+                \psline(0,0)(2,0)(2,2)(0,2)(0,0)
+                \psline(3,0.5)(3,2.5)(1,2.5)
+                \psline(2,0.5)(3,0.5)
+                \psline(1,2.5)(1,2)
+                \psline[linestyle=dashed](1,2)(1,0.5)
+                \psline[linestyle=dashed](2,0.5)(1,0.5)
+            \end{pspicture*}
+            &
+            \begin{pspicture*}(-0.5,-1)(5,3)
+                \psline(0,0)(2,0)(3,2)(1,2)(0,0)
+                \psline(3.5,-0.5)(3,2)
+                \psline[linestyle=dashed](1,2)(1.5,-0.5)
+                \psline(1.5,-0.5)(3.5,-0.5)
+            \end{pspicture*}
+            &
+            \begin{pspicture*}(-0.5,-0.5)(5,3)
+                \psline(0,0)(2,0)(2,2)(0,2)(0,0)
+                \psline(0.3,0.3)(2.3,0.3)(2.3,2.3)(0.3,2.3)(0.3,0.3)
+            \end{pspicture*}
+            \\
+            \hline
+        \end{tabular}
+        \end{center}
+    \end{Propriété}
+
+    \begin{Théorème}
+        Si deux plans $\mathcal{P}$ et $\mathcal{P}'$ contiennent respectivement deux droites
+        $(d)$ et $(d')$ parallèles entre elles, alors leur intersection $(d'')$ est parallèle
+        à $(d)$ et $(d')$.
+    \end{Théorème}
+    \begin{proof}
+        Soit $\vc{v}$ un vecteur directeur commun à $(d)$ et $(d')$ (car elles sont parallèles).
+        Soit $\vc{w}$ un vecteur directeur de $(d'')=({\mathcal{P}\cap\mathcal{P}'})$.
+        Comme $(d'')$ est contenue dans $\mathcal{P}$, le vecteur $\vc{w}$ est une combinaison
+        linéaire de $\vc{v}$ et d'un vecteur directeur de $(d)$.
+        De même, $\vc{w}$ est une combinaison linéaire dans $\mathcal{P}'$.
+        Si $\vc{w}$ et $\vc{v}$ n'étaient pas colinéaires, $(\vc{v},\vc{w})$ formerait une
+        base commune à $\mathcal{P}$ et $\mathcal{P}'$, ce qui impliquerait $\mathcal{P}=\mathcal{P}'$,
+        contradisant le fait qu'ils soient sécants. Donc $\vc{w}$ et $\vc{v}$ sont colinéaires,
+        et $(d'')$ est parallèle à $(d)$ et $(d')$.
+    \end{proof}
+
+    \begin{Théorème}
+        Si deux plans $\mathcal{P}$ et $\mathcal{P}'$ sont parallèles, alors tout plan $\Pi$
+        qui coupe $\mathcal{P}$ coupe aussi $\mathcal{P}'$, et les intersections sont deux
+        droites parallèles.
+    \end{Théorème}
+
+    \section{Repère de l'espace}
+    \subsection{Base de l'espace}
+    \begin{Définition}
+        Trois vecteurs $\vc{i}$, $\vc{j}$ et $\vc{k}$ forment une \textbf{base de l'espace}
+        si et seulement si aucun d'eux n'est combinaison linéaire des deux autres.
+    \end{Définition}
+
+    \begin{Propriété}
+        Soit $(\vc{i},\vc{j},\vc{k})$ une base de l'espace. Tout vecteur $\vc{u}$ s'écrit
+        de façon unique $\vc{u}=x\vc{i}+y\vc{j}+z\vc{k}$ ;
+        $\left(\begin{smallmatrix}x\\y\\z\end{smallmatrix}\right)$ sont les coordonnées de
+        $\vc{u}$ dans cette base.
+    \end{Propriété}
+
+    \subsection{Repère de l'espace}
+    \begin{Propriété}
+        Un \textbf{repère de l'espace} est un quadruplet $(O;\vc{i},\vc{j},\vc{k})$ où $O$
+        est l'origine et $(\vc{i},\vc{j},\vc{k})$ est une base de l'espace.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Pour tout point $M$ de l'espace, il existe un unique triplet $(x_M;y_M;z_M)$ tel que
+        $\vc{OM}=x_M\vc{i}+y_M\vc{j}+z_M\vc{k}$ ; ce triplet est appelé les
+        \textbf{coordonnées} de $M$.
+    \end{Propriété}
+
+    \subsection{Coordonnées d'un vecteur}
+    \begin{Propriété}
+        Si $A(x_A;y_A;z_A)$ et $B(x_B;y_B;z_B)$ alors
+        $\vc{AB}\vcb{x_B-x_A}{y_B-y_A}{z_B-z_A}$.
+    \end{Propriété}
+
+    \begin{Propriété}
+        $\vc{u}=\vc{v}\Longleftrightarrow$ leurs coordonnées sont égales composante par composante.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Si $A(x_A;y_A;z_A)$ et $B(x_B;y_B;z_B)$, les coordonnées du milieu $I$ de $[AB]$ sont :
+        \[
+            x_I=\frac{x_A+x_B}{2},\quad y_I=\frac{y_A+y_B}{2},\quad z_I=\frac{z_A+z_B}{2}.
+        \]
+    \end{Propriété}
+
+    \subsubsection{Opérations sur les coordonnées de vecteurs}
+    \begin{Propriété}
+        Soient $\vc{u}\vcb{x_u}{y_u}{z_u}$, $\vc{v}\vcb{x_v}{y_v}{z_v}$ et $\lambda\in\mathbf{R}$.
+        \begin{enumerate}
+            \item $\vc{u}+\vc{v}=\vcb{x_u+x_v}{y_u+y_v}{z_u+z_v}$
+            \item $\lambda\vc{u}=\vcb{\lambda x_u}{\lambda y_u}{\lambda z_u}$
+        \end{enumerate}
+    \end{Propriété}
+
+    \subsection{Représentation paramétrique d'une droite}
+    \begin{Propriété}
+        Dans un repère $\oijk$, la droite passant par $A(x_A;y_A;z_A)$ de vecteur directeur
+        $\vc{u}\vcb{a}{b}{c}$ admet comme représentation paramétrique :
+        \[
+            \left\{\begin{array}{l}
+                x=x_A+at\\
+                y=y_A+bt\\
+                z=z_A+ct
+            \end{array}\right.\quad t\in\mathbf{R}.
+        \]
+    \end{Propriété}
+
+    \chapter{Limites de fonctions}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer des limites à l'aide des théorèmes d'opérations et de composition.
+        \item Lever des formes indéterminées ($\infty-\infty$, $\frac{0}{0}$, $\frac{\infty}{\infty}$, $0\times\infty$).
+        \item Utiliser les théorèmes de comparaison (gendarmes) et les croissances comparées.
+        \item Étudier la continuité prolongeable en un point.
+        \item Déterminer et interpréter les asymptotes horizontales, verticales et obliques.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer $\displaystyle\lim_{x\to 0}\dfrac{\sin x}{x}=1$ à l'aide d'un encadrement géométrique.
+        \item Démontrer l'unicité de la limite finie d'une fonction en un point (par l'absurde).
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Limite d'une fonction en l'infini}
+    \begin{Définition}
+        Une fonction $f$ a pour limite $+\infty$ en $+\infty$ si tout intervalle $]A;+\infty[$
+        contient toutes les valeurs de $f(x)$ pour $x$ suffisamment grand.
+        On note $\lim\limits_{x\to+\infty}f(x)=+\infty$.
+    \end{Définition}
+
+    \begin{Définition}
+        Une fonction $f$ a pour limite $-\infty$ en $+\infty$ si tout intervalle $]-\infty;A[$
+        contient toutes les valeurs de $f(x)$ pour $x$ suffisamment grand.
+        On note $\lim\limits_{x\to+\infty}f(x)=-\infty$.
+    \end{Définition}
+
+    \begin{Définition}
+        Une fonction $f$ a pour limite $\ell$ en $+\infty$ si tout intervalle ouvert contenant
+        $\ell$ contient toutes les valeurs de $f(x)$ pour $x$ suffisamment grand.
+        On note $\lim\limits_{x\to+\infty}f(x)=\ell$.
+        La droite $y=\ell$ est une \textbf{asymptote horizontale} à $\mathcal{C}_f$ en $+\infty$.
+    \end{Définition}
+
+    \begin{Exemple}
+        \begin{enumerate}
+            \item $\lim\limits_{x\to+\infty}x^2=+\infty$
+            \item $\lim\limits_{x\to+\infty}(-x^2)=-\infty$
+            \item $\lim\limits_{x\to+\infty}\dfrac{2x+1}{x}=2$ car
+                  $\dfrac{2x+1}{x}=2+\dfrac{1}{x}$ et $\lim\limits_{x\to+\infty}\dfrac{1}{x}=0$.
+                  La droite $y=2$ est une asymptote horizontale.
+        \end{enumerate}
+    \end{Exemple}
+
+    \section{Limite d'une fonction en un réel}
+    \begin{Définition}
+        Une fonction $f$ a pour limite $+\infty$ en $a$ si tout intervalle $]A;+\infty[$
+        contient toutes les valeurs de $f(x)$ pour $x$ suffisamment proche de $a$.
+        On note $\lim\limits_{x\to a}f(x)=+\infty$.
+    \end{Définition}
+
+    \begin{Définition}
+        Une fonction $f$ a pour limite $\ell$ en $a$ si tout intervalle ouvert contenant
+        $\ell$ contient toutes les valeurs de $f(x)$ pour $x$ suffisamment proche de $a$.
+        On note $\lim\limits_{x\to a}f(x)=\ell$.
+    \end{Définition}
+
+    \begin{Définition}
+        La droite $x=a$ est une \textbf{asymptote verticale} à $\mathcal{C}_f$ si au moins
+        une des limites $\lim\limits_{x\to a^+}f(x)$ ou $\lim\limits_{x\to a^-}f(x)$ est
+        infinie.
+    \end{Définition}
+
+    \begin{Définition}
+        \begin{enumerate}
+            \item On dit que $f$ admet une \textbf{limite à gauche} de $a$, notée
+                  $\lim\limits_{x\to a^-}f(x)$, lorsque $f$ admet une limite quand $x\to a$
+                  avec $x<a$.
+            \item On dit que $f$ admet une \textbf{limite à droite} de $a$, notée
+                  $\lim\limits_{x\to a^+}f(x)$, lorsque $f$ admet une limite quand $x\to a$
+                  avec $x>a$.
+        \end{enumerate}
+    \end{Définition}
+
+    \begin{Exemple}
+        Pour $f(x)=\dfrac{1}{x-2}$ :
+        \begin{enumerate}
+            \item $\lim\limits_{x\to 2^+}f(x)=+\infty$
+            \item $\lim\limits_{x\to 2^-}f(x)=-\infty$
+            \item La droite $x=2$ est une asymptote verticale.
+        \end{enumerate}
+    \end{Exemple}
+
+    \section{Opérations sur les limites}
+    \subsection{Limite d'une somme}
+    \begin{Propriété}
+    \begin{center}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        $\lim\limits_{x\to\alpha}f(x)$ & $\ell_1$ & $\ell_1$ & $\ell_1$ & $+\infty$ & $-\infty$ & $+\infty$ \\
+        \hline
+        $\lim\limits_{x\to\alpha}g(x)$ & $\ell_2$ & $+\infty$ & $-\infty$ & $+\infty$ & $-\infty$ & $-\infty$ \\
+        \hline
+        $\lim\limits_{x\to\alpha}(f+g)(x)$ & $\ell_1+\ell_2$ & $+\infty$ & $-\infty$ & $+\infty$ & $-\infty$ & \textbf{F.I.} \\
+        \hline
+    \end{tabular}
+    \end{center}
+    \end{Propriété}
+
+    \subsection{Limite d'un produit}
+    \begin{Propriété}
+    \begin{center}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $\lim\limits_{x\to\alpha}f$ & $\ell_1$ & $\ell_1>0$ & $\ell_1>0$ & $\ell_1<0$ & $\ell_1<0$ & $+\infty$ & $-\infty$ & $0$ \\
+        \hline
+        $\lim\limits_{x\to\alpha}g$ & $\ell_2$ & $+\infty$ & $-\infty$ & $+\infty$ & $-\infty$ & $+\infty$ & $-\infty$ & $\pm\infty$ \\
+        \hline
+        $\lim\limits_{x\to\alpha}(f\times g)$ & $\ell_1\ell_2$ & $+\infty$ & $-\infty$ & $-\infty$ & $+\infty$ & $+\infty$ & $+\infty$ & \textbf{F.I.} \\
+        \hline
+    \end{tabular}
+    \end{center}
+    \end{Propriété}
+
+    \subsection{Limite d'un quotient}
+    \begin{Propriété}
+    \begin{center}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        $\lim\limits_{x\to\alpha}f$ & $\ell_1$ & $\ell_1$ & $\ell_1$ & $+\infty$ & $-\infty$ & $0$ \\
+        \hline
+        $\lim\limits_{x\to\alpha}g$ & $\ell_2\neq 0$ & $+\infty$ & $-\infty$ & $0^+$ & $0^-$ & $0$ \\
+        \hline
+        $\lim\limits_{x\to\alpha}\dfrac{f}{g}$ & $\dfrac{\ell_1}{\ell_2}$ & $0$ & $0$ & $+\infty$ & $-\infty$ & \textbf{F.I.} \\
+        \hline
+    \end{tabular}
+    \end{center}
+    \end{Propriété}
+
+    \begin{Exemple}
+        Calculons $\lim\limits_{x\to+\infty}\dfrac{x^2+1}{x^2-4x+1}$ :
+        on divise numérateur et dénominateur par $x^2$ (terme de plus haut degré) :
+        \[
+            \lim\limits_{x\to+\infty}\frac{x^2+1}{x^2-4x+1}
+            = \lim\limits_{x\to+\infty}\frac{1+\frac{1}{x^2}}{1-\frac{4}{x}+\frac{1}{x^2}}
+            = \frac{1+0}{1-0+0} = 1.
+        \]
+    \end{Exemple}
+
+    \section{Composition de limites}
+    \begin{Théorème}
+        Si $\lim\limits_{x\to a}f(x)=b$ et $\lim\limits_{x\to b}g(x)=c$, alors
+        $\lim\limits_{x\to a}g(f(x))=c$.
+    \end{Théorème}
+
+    \begin{Exemple}
+        Soit $f(x)=x^2$ et $g(x)=\sqrt{x}$.
+        $\lim\limits_{x\to 2}f(x)=4$ et $\lim\limits_{x\to 4}g(x)=2$, donc
+        $\lim\limits_{x\to 2}g(f(x))=\lim\limits_{x\to 2}\sqrt{x^2}=2$.
+    \end{Exemple}
+
+    \section{Théorèmes de comparaison}
+    \begin{Théorème}[Théorème de comparaison]
+        \begin{enumerate}
+            \item Si pour $x$ suffisamment grand $f(x)\leq g(x)$ et
+                  $\lim\limits_{x\to+\infty}f(x)=+\infty$, alors
+                  $\lim\limits_{x\to+\infty}g(x)=+\infty$.
+            \item Si pour $x$ suffisamment grand $f(x)\leq g(x)$ et
+                  $\lim\limits_{x\to+\infty}g(x)=-\infty$, alors
+                  $\lim\limits_{x\to+\infty}f(x)=-\infty$.
+        \end{enumerate}
+    \end{Théorème}
+
+    \begin{Théorème}[Théorème d'encadrement]
+        Si pour $x$ suffisamment grand $f(x)\leq g(x)\leq h(x)$ et
+        $\lim\limits_{x\to+\infty}f(x)=\lim\limits_{x\to+\infty}h(x)=\ell$, alors
+        $\lim\limits_{x\to+\infty}g(x)=\ell$.
+    \end{Théorème}
+
+    \begin{Théorème}[Croissances comparées]
+        Pour tout $n\in\mathbb{N}$ :
+        $\lim\limits_{x\to+\infty}\dfrac{e^x}{x^n}=+\infty$ et
+        $\lim\limits_{x\to-\infty}x^n e^x=0$.
+    \end{Théorème}
+
+    \chapter{Dérivation et convexité}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer la dérivée d'une fonction composée $v\circ u$ : $(v\circ u)'(x)=u'(x)\,v'(u(x))$.
+        \item Caractériser la convexité d'une fonction par le signe de $f''$.
+        \item Exploiter la convexité pour comparer $f(x)$ avec $f(a)+f'(a)(x-a)$ (tangente).
+        \item Déterminer les points d'inflexion d'une courbe.
+        \item Appliquer la convexité pour établir des inégalités classiques.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer la règle de dérivation en chaîne : $[v(u(x))]'=u'(x)\,v'(u(x))$.
+        \item Démontrer que si $f''\geq 0$ sur $I$, la courbe est au-dessus de chacune de ses tangentes.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Compléments sur les dérivées}
+    \subsection{Dérivée d'une fonction composée}
+    \begin{Définition}
+        Soient $u$ définie sur $I$ à valeurs dans $J$ et $v$ définie sur $J$.
+        La \textbf{composée} $v\circ u$ est définie sur $I$ par $(v\circ u)(x)=v(u(x))$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Si $u$ est dérivable sur $I$ et $v$ est dérivable sur $J$, alors $v\circ u$ est
+        dérivable sur $I$ et :
+        \[
+            (v\circ u)'(x_0)=u'(x_0)\times v'(u(x_0)).
+        \]
+    \end{Propriété}
+
+    \begin{Propriété}
+        \begin{enumerate}
+            \item Si $u$ est dérivable sur $I$, la fonction $f(x)=e^{u(x)}$ est dérivable
+                  et $f'(x)=u'(x)\,e^{u(x)}$.
+            \item Si $u$ est dérivable sur $I$ à valeurs dans $]0;+\infty[$, la fonction
+                  $f(x)=\sqrt{u(x)}$ est dérivable et $f'(x)=\dfrac{u'(x)}{2\sqrt{u(x)}}$.
+        \end{enumerate}
+    \end{Propriété}
+
+    \begin{Remarque}
+        En général $u\circ v\neq v\circ u$. Par exemple avec $u(x)=x^2$ et $v(x)=x+1$ :
+        $u(v(x))=(x+1)^2=x^2+2x+1$ mais $v(u(x))=x^2+1$.
+    \end{Remarque}
+
+    \subsection{Dérivée seconde}
+    \begin{Définition}
+        Soit $f$ dérivable sur $I$. Si $f'$ est elle-même dérivable sur $I$, sa dérivée est
+        notée $f''$ et appelée \textbf{dérivée seconde} de $f$.
+    \end{Définition}
+
+    \section{Convexité}
+    \subsection{Fonctions convexes et concaves}
+    \begin{Définition}
+        Soit $f$ définie sur $I$ et $\mathcal{C}_f$ sa courbe représentative. Soient $A$ et
+        $B$ deux points de $\mathcal{C}_f$ ; la droite $(AB)$ est appelée \textbf{sécante}
+        de $\mathcal{C}_f$.
+    \end{Définition}
+
+    \begin{Définition}
+        \begin{enumerate}
+            \item $f$ est \textbf{convexe} sur $I$ si $\mathcal{C}_f$ est en dessous de
+                  chacune de ses sécantes entre les deux points d'intersection.
+            \item $f$ est \textbf{concave} sur $I$ si $\mathcal{C}_f$ est au-dessus de
+                  chacune de ses sécantes entre les deux points d'intersection.
+        \end{enumerate}
+    \end{Définition}
+
+    \begin{Propriété}
+        Si $f$ est deux fois dérivable sur $I$, les propositions suivantes sont équivalentes :
+        \begin{enumerate}
+            \item $f$ est convexe sur $I$ ;
+            \item $f'$ est croissante sur $I$ ;
+            \item $f''(x)\geq 0$ pour tout $x\in I$.
+        \end{enumerate}
+    \end{Propriété}
+
+    \begin{Propriété}
+        Si $f''(x)\geq 0$ sur $I$, alors $\mathcal{C}_f$ est au-dessus de chacune de ses
+        tangentes.
+    \end{Propriété}
+
+    \subsection{Point d'inflexion}
+    \begin{Définition}
+        Un \textbf{point d'inflexion} est un point où la courbe traverse sa tangente.
+    \end{Définition}
+
+    \begin{Propriété}
+        Le point $A(a;f(a))$ est un point d'inflexion si et seulement si $f''$ s'annule en
+        $a$ en changeant de signe.
+    \end{Propriété}
+
+    \chapter{Continuité}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Comprendre et utiliser la définition de la continuité en un point et sur un intervalle.
+        \item Reconnaître et utiliser la continuité des fonctions usuelles et de leurs composées.
+        \item Appliquer le théorème des valeurs intermédiaires et son corollaire (monotonie stricte).
+        \item Encadrer une solution de $f(x)=k$ par la méthode de dichotomie.
+        \item Étudier la convergence d'une suite récurrente $u_{n+1}=f(u_n)$ via le point fixe.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer un cas particulier du TVI : si $f$ est continue sur $[a;b]$, $f(a)<0$
+              et $f(b)>0$, alors $f$ s'annule sur $]a;b[$ (admis en général, cas particulier exigible).
+        \item Démontrer que la méthode de dichotomie fournit une suite encadrant la solution avec
+              une précision $\dfrac{b-a}{2^n}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Fonctions continues sur un intervalle}
+    \begin{Définition}
+        Soit $f$ définie sur un intervalle $I$ et $a\in I$.
+        \begin{itemize}
+            \item $f$ est \textbf{continue en $a$} si $\lim\limits_{x\to a}f(x)=f(a)$.
+            \item $f$ est \textbf{continue sur $I$} si elle est continue en tout réel $a\in I$.
+        \end{itemize}
+    \end{Définition}
+
+    \section{Continuité de fonctions usuelles}
+    \begin{Propriété}
+    \begin{itemize}
+        \item Les fonctions affines et polynômes sont continues sur $\mathbf{R}$.
+        \item La fonction exponentielle est continue sur $\mathbf{R}$.
+        \item La fonction racine carrée est continue sur $[0;+\infty[$.
+    \end{itemize}
+    \end{Propriété}
+
+    \begin{Propriété}
+        Les sommes, produits, quotients et composées de fonctions continues sont continues
+        sur leur domaine de définition.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Toute fonction dérivable sur $I$ est continue sur $I$.
+    \end{Propriété}
+
+    \begin{Remarque}
+        La réciproque est fausse : la fonction valeur absolue est continue en $0$ mais n'y
+        est pas dérivable.
+    \end{Remarque}
+
+    \section{Théorème des valeurs intermédiaires}
+    \begin{Théorème}
+        Si $f$ est continue sur $[a;b]$, alors pour tout réel $k$ compris entre $f(a)$ et
+        $f(b)$, il existe au moins un réel $c\in[a;b]$ tel que $f(c)=k$.
+    \end{Théorème}
+
+    \begin{Théorème}[Corollaire]
+        Si $f$ est continue et strictement monotone sur $[a;b]$, alors pour tout $k$ compris
+        entre $f(a)$ et $f(b)$, l'équation $f(x)=k$ possède une \textbf{unique} solution
+        dans $[a;b]$.
+    \end{Théorème}
+
+    \section{Fonctions continues et suites convergentes}
+    \begin{Propriété}
+        Si $(u_n)$ est une suite à valeurs dans $I$, convergente vers $\ell\in I$, et $f$ est
+        continue sur $I$, alors $\lim\limits_{n\to+\infty}f(u_n)=f(\ell)$.
+    \end{Propriété}
+
+    \begin{Théorème}[Théorème du point fixe]
+        Soient $f$ continue sur $I$ dans lui-même et $(u_n)$ définie par $u_0\in I$ et
+        $u_{n+1}=f(u_n)$.
+        Si $(u_n)$ converge vers $\ell\in I$, alors $\ell$ est solution de $f(x)=x$.
+    \end{Théorème}
+
+    \chapter{Orthogonalité, équations et distances dans l'espace}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer un produit scalaire dans l'espace à partir des coordonnées ou des normes.
+        \item Reconnaître ou démontrer l'orthogonalité de deux vecteurs, deux droites, une droite et un plan.
+        \item Déterminer une équation cartésienne d'un plan à partir d'un vecteur normal.
+        \item Calculer la distance d'un point à un plan.
+        \item Utiliser le produit scalaire pour calculer des longueurs et des angles dans l'espace.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer l'expression du produit scalaire en coordonnées :
+              $\vc{u}\cdot\vc{v}=xx'+yy'+zz'$.
+        \item Démontrer la formule de la distance d'un point $A(x_0,y_0,z_0)$ au plan d'équation
+              $ax+by+cz+d=0$ : $d=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Produit scalaire dans l'espace}
+    \begin{Définition}
+        Soient $\vc{u}=\vc{AB}$ et $\vc{v}=\vc{AC}$ deux vecteurs de l'espace.
+        Les points $A$, $B$, $C$ déterminent un plan $\mathcal{P}$.
+        Le \textbf{produit scalaire} $\vc{u}\cdot\vc{v}$ est le produit scalaire de
+        $\vc{AB}$ et $\vc{AC}$ dans ce plan.
+    \end{Définition}
+
+    \begin{Propriété}
+        Soient $\vc{u}=\vc{AB}$ et $\vc{v}=\vc{AC}$ deux vecteurs non nuls.
+        \begin{enumerate}
+            \item $\vc{u}\cdot\vc{v}=AB\times AC\times\cos(\widehat{BAC})$
+            \item Si $H$ est le projeté orthogonal de $C$ sur $(AB)$ alors
+                  $\vc{u}\cdot\vc{v}=\vc{AB}\cdot\vc{AH}$.
+        \end{enumerate}
+    \end{Propriété}
+
+    \begin{Définition}
+        Deux vecteurs $\vc{u}$ et $\vc{v}$ sont \textbf{orthogonaux} si $\vc{u}\cdot\vc{v}=0$.
+    \end{Définition}
+
+    \subsection{Opérations avec le produit scalaire}
+    \begin{Propriété}
+        \begin{enumerate}
+            \item $\vc{u}\cdot\vc{v}=\vc{v}\cdot\vc{u}$
+            \item $\vc{u}\cdot(k\vc{v})=k(\vc{u}\cdot\vc{v})$
+            \item $\vc{u}\cdot(\vc{v}+\vc{w})=\vc{u}\cdot\vc{v}+\vc{u}\cdot\vc{w}$
+            \item $\|\vc{u}+\vc{v}\|^2=\|\vc{u}\|^2+2\,\vc{u}\cdot\vc{v}+\|\vc{v}\|^2$
+            \item $\|\vc{u}-\vc{v}\|^2=\|\vc{u}\|^2-2\,\vc{u}\cdot\vc{v}+\|\vc{v}\|^2$
+            \item $\vc{u}\cdot\vc{v}=\dfrac{1}{2}\!\left(\|\vc{u}\|^2+\|\vc{v}\|^2-\|\vc{u}-\vc{v}\|^2\right)$
+            \item $\vc{u}\cdot\vc{v}=\dfrac{1}{2}\!\left(\|\vc{u}+\vc{v}\|^2-\|\vc{u}\|^2-\|\vc{v}\|^2\right)$
+        \end{enumerate}
+    \end{Propriété}
+
+    \section{Produit scalaire dans un repère}
+    \begin{Définition}
+        Une base $(\vc{i},\vc{j},\vc{k})$ est \textbf{orthonormée} si les vecteurs sont deux
+        à deux orthogonaux et de norme $1$.
+        Un repère $(O;\vc{i},\vc{j},\vc{k})$ est \textbf{orthonormé} si sa base l'est.
+    \end{Définition}
+
+    \begin{Propriété}
+        Dans un repère orthonormé $\oijk$, soient $\vc{u}\vcb{x}{y}{z}$ et
+        $\vc{v}\vcb{x'}{y'}{z'}$.
+        \begin{enumerate}
+            \item $\vc{u}\cdot\vc{v}=xx'+yy'+zz'$
+            \item $\|\vc{u}\|=\sqrt{x^2+y^2+z^2}$
+            \item $AB=\sqrt{(x_B-x_A)^2+(y_B-y_A)^2+(z_B-z_A)^2}$
+        \end{enumerate}
+    \end{Propriété}
+
+    \section{Orthogonalité dans l'espace}
+    \subsection{Orthogonalité de deux droites}
+    \begin{Définition}
+        Deux droites sont \textbf{orthogonales} si leurs vecteurs directeurs sont orthogonaux.
+    \end{Définition}
+
+    \begin{Propriété}
+        $(d_1)$ de vecteur directeur $\vc{u}$ et $(d_2)$ de vecteur directeur $\vc{v}$ sont
+        orthogonales si et seulement si $\vc{u}\cdot\vc{v}=0$.
+    \end{Propriété}
+
+    \subsection{Orthogonalité d'une droite et d'un plan}
+    \begin{Définition}
+        Une droite est \textbf{orthogonale} à un plan si elle est orthogonale à toute droite
+        de ce plan.
+    \end{Définition}
+
+    \begin{Propriété}
+        $(d)$ de vecteur directeur $\vc{w}$ est orthogonale au plan $\mathcal{P}$ dirigé par
+        $(\vc{u},\vc{v})$ si et seulement si $\vc{u}\cdot\vc{w}=0$ et $\vc{v}\cdot\vc{w}=0$.
+    \end{Propriété}
+
+    \subsection{Équation cartésienne d'un plan}
+    \begin{Définition}
+        Un \textbf{vecteur normal} au plan $\mathcal{P}$ est tout vecteur non nul orthogonal
+        à tous les vecteurs directeurs de $\mathcal{P}$.
+    \end{Définition}
+
+    \begin{Propriété}
+        L'ensemble des points $M$ tels que $\vc{AM}\cdot\vc{n}=0$ est le plan passant par
+        $A$ de vecteur normal $\vc{n}$.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Dans un repère orthonormé, le plan passant par $A(x_A;y_A;z_A)$ de vecteur normal
+        $\vc{n}\vcb{a}{b}{c}$ a pour équation cartésienne :
+        \[
+            ax+by+cz+d=0 \quad\text{avec}\quad d=-(ax_A+by_A+cz_A).
+        \]
+    \end{Propriété}
+
+    \section{Projection orthogonale et distances}
+    \begin{Définition}
+        Le \textbf{projeté orthogonal} d'un point $A$ sur une droite (ou un plan) est le pied
+        de la perpendiculaire menée de $A$ à cette droite (ou ce plan).
+    \end{Définition}
+
+    \begin{Définition}
+        La \textbf{distance} d'un point $A$ à un plan $\mathcal{P}$ est la plus petite
+        longueur $AM$ pour $M\in\mathcal{P}$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Si $H$ est le projeté orthogonal de $A$ sur $\mathcal{P}$ et $B$ un point de
+        $\mathcal{P}$, alors $d(A,\mathcal{P})=AH$ et :
+        \[
+            AH=\frac{|\vc{AB}\cdot\vc{n}|}{\|\vc{n}\|}.
+        \]
+    \end{Propriété}
+
+    \begin{Propriété}
+        Si $H$ est le projeté orthogonal de $A$ sur la droite $(d)$ de vecteur directeur
+        $\vc{u}$ et $B$ un point de $(d)$, alors $d(A,d)=AH$ et :
+        \[
+            AH=\left\|\vc{AB}-\frac{\vc{AB}\cdot\vc{u}}{\|\vc{u}\|^2}\,\vc{u}\right\|.
+        \]
+    \end{Propriété}
+
+    \chapter{Loi binomiale}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Identifier une expérience de Bernoulli et une loi binomiale $\mathcal{B}(n;p)$.
+        \item Calculer des probabilités $P(X=k)$, $P(X\leq k)$, $P(X\geq k)$ pour $X\sim\mathcal{B}(n;p)$.
+        \item Calculer l'espérance, la variance et l'écart-type de $X\sim\mathcal{B}(n;p)$.
+        \item Utiliser la loi binomiale pour modéliser une situation probabiliste.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer que le nombre de parties d'un ensemble à $n$ éléments est $2^n$.
+        \item Démontrer la formule $P(X=k)=\dbinom{n}{k}p^k(1-p)^{n-k}$ (chemins favorables dans un arbre).
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Dénombrement}
+    \subsection{Principe additif}
+    \begin{Définition}
+        Deux ensembles $A$ et $B$ sont \textbf{disjoints} si $A\cap B=\emptyset$.
+    \end{Définition}
+
+    \begin{Définition}
+        Un ensemble $E$ à $n$ éléments est dit \textbf{fini} de \textbf{cardinal} $n$,
+        noté $\mathrm{Card}(E)=n$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Si $A_1,\ldots,A_p$ sont des ensembles deux à deux disjoints :
+        \[
+            \mathrm{Card}(A_1\cup\cdots\cup A_p)=\mathrm{Card}(A_1)+\cdots+\mathrm{Card}(A_p).
+        \]
+    \end{Propriété}
+
+    \subsection{Principe multiplicatif}
+    \begin{Définition}
+        Un \textbf{$p$-uplet} de $E_1\times\cdots\times E_p$ est une liste ordonnée
+        $(x_1;\ldots;x_p)$ avec $x_i\in E_i$. Un 2-uplet est un couple, un 3-uplet un triplet.
+    \end{Définition}
+
+    \begin{Propriété}
+        $\mathrm{Card}(E_1\times\cdots\times E_p)=\mathrm{Card}(E_1)\times\cdots\times
+        \mathrm{Card}(E_p)$.
+    \end{Propriété}
+
+    \section{Arrangements et permutations}
+    \begin{Définition}
+        On appelle \textbf{factorielle} de $n$ : $n!=n\times(n-1)\times\cdots\times 1$.
+        Par convention $0!=1$.
+    \end{Définition}
+
+    \begin{Définition}
+        Un \textbf{arrangement} de $k$ éléments d'un ensemble $A$ à $n$ éléments est un
+        $k$-uplet d'éléments \emph{distincts} de $A$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Le nombre d'arrangements de $k$ éléments parmi $n$ est :
+        \[
+            n\times(n-1)\times\cdots\times(n-k+1)=\frac{n!}{(n-k)!}.
+        \]
+    \end{Propriété}
+
+    \begin{Définition}
+        Une \textbf{permutation} d'un ensemble $E$ à $n$ éléments est un $n$-uplet
+        d'éléments distincts de $E$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Le nombre de permutations d'un ensemble à $n$ éléments est $n!$.
+    \end{Propriété}
+
+    \section{Combinaisons}
+    \begin{Propriété}
+        Le nombre de parties d'un ensemble fini à $n$ éléments est $2^n$.
+    \end{Propriété}
+    \begin{proof}
+        Chaque élément peut être inclus (1) ou exclu (0) d'une partie donnée.
+        Il y a donc $2^n$ choix, correspondant aux $2^n$ suites binaires de longueur $n$.
+    \end{proof}
+
+    \subsection{Nombre de combinaisons}
+    \begin{Définition}
+        Une \textbf{combinaison} de $k$ éléments de $E$ est une partie de $E$ à $k$ éléments.
+        Le nombre de telles combinaisons est noté $\dbinom{n}{k}$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Pour $k\leq n$ :
+        \begin{enumerate}
+            \item $\dbinom{n}{k}=\dfrac{n!}{k!\,(n-k)!}$ et $\dbinom{n}{k}=\dbinom{n}{n-k}$.
+            \item \textbf{Relation de Pascal :} si $1\leq k\leq n-1$,
+                  $\dbinom{n}{k}=\dbinom{n-1}{k-1}+\dbinom{n-1}{k}$.
+            \item $\dbinom{n}{0}=1$, $\dbinom{n}{1}=n$, $\dbinom{n}{2}=\dfrac{n(n-1)}{2}$.
+        \end{enumerate}
+    \end{Propriété}
+
+    \section{Successions d'épreuves indépendantes}
+    \begin{Définition}
+        L'univers d'une succession de $n$ épreuves indépendantes d'univers
+        $\Omega_1,\ldots,\Omega_n$ est $\Omega_1\times\cdots\times\Omega_n$.
+    \end{Définition}
+
+    \begin{Propriété}
+        La probabilité d'une issue $(x_1;\ldots;x_n)$ est
+        $p(x_1)\times\cdots\times p(x_n)$.
+    \end{Propriété}
+
+    \section{Loi et schéma de Bernoulli}
+    \begin{Définition}
+        Une \textbf{épreuve de Bernoulli} est une expérience à deux issues : succès $S$ et
+        échec $\bar{S}$.
+    \end{Définition}
+
+    \begin{Définition}
+        La \textbf{loi de Bernoulli} de paramètre $p$ est la loi de la variable $X$ :
+        \begin{center}
+        \begin{tabular}{|c|c|c|}
+        \hline
+        $x_i$ & $0$ & $1$ \\
+        \hline
+        $P(X=x_i)$ & $1-p$ & $p$ \\
+        \hline
+        \end{tabular}
+        \end{center}
+        On note $X\sim\mathcal{B}(p)$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Pour $X\sim\mathcal{B}(p)$ : $E(X)=p$, $V(X)=p(1-p)$,
+        $\sigma(X)=\sqrt{p(1-p)}$.
+    \end{Propriété}
+
+    \begin{Définition}
+        Un \textbf{schéma de Bernoulli} est la répétition de $n$ épreuves de Bernoulli
+        identiques et indépendantes.
+    \end{Définition}
+
+    \begin{Définition}
+        La variable $X$ comptant le nombre de succès dans un schéma de Bernoulli de
+        paramètres $n$ et $p$ suit la \textbf{loi binomiale} $\mathcal{B}(n;p)$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Pour $X\sim\mathcal{B}(n;p)$ et $k\in\{0,\ldots,n\}$ :
+        \[
+            P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}.
+        \]
+    \end{Propriété}
+    \begin{proof}
+        Un chemin réalisant $k$ succès et $n-k$ échecs a pour probabilité $p^k(1-p)^{n-k}$.
+        Le nombre de tels chemins est $\dbinom{n}{k}$ (nombre de façons de placer $k$ succès
+        parmi $n$ épreuves). Donc $P(X=k)=\dbinom{n}{k}p^k(1-p)^{n-k}$.
+    \end{proof}
+
+    \begin{Propriété}
+        Pour $X\sim\mathcal{B}(n;p)$ : $E(X)=np$, $V(X)=np(1-p)$,
+        $\sigma(X)=\sqrt{np(1-p)}$.
+    \end{Propriété}
+
+    \chapter{Fonction logarithme népérien}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Utiliser les propriétés algébriques de $\ln$ : $\ln(ab)=\ln a+\ln b$, $\ln(a/b)=\ln a-\ln b$, $\ln(a^n)=n\ln a$.
+        \item Résoudre des équations et inéquations faisant intervenir $\ln$.
+        \item Étudier (variations, limites, asymptotes) des fonctions contenant $\ln$.
+        \item Utiliser les croissances comparées : $\ln x\ll x^\alpha$ pour tout $\alpha>0$.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer que $(\ln x)'=\dfrac{1}{x}$ (par la règle de dérivation des fonctions réciproques).
+        \item Démontrer $\displaystyle\lim_{x\to+\infty}\dfrac{\ln x}{x}=0$ (croissances comparées).
+        \item Démontrer $\displaystyle\lim_{x\to 0^+}x\ln x=0$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \begin{Définition}
+        La \textbf{fonction logarithme népérien}, notée $\ln$, est définie sur $]0;+\infty[$
+        et associe à tout $x>0$ l'unique solution $y$ de l'équation $e^y=x$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Les courbes des fonctions exponentielle et $\ln$ sont symétriques par rapport à la
+        droite $y=x$.
+    \end{Propriété}
+
+    \section{Propriétés algébriques}
+    \begin{Propriété}
+        Pour tout $a>0$, $b>0$ et $x\in\mathbf{R}$ :
+        \begin{enumerate}
+            \item $\ln(e^x)=x$
+            \item $e^{\ln x}=x$
+            \item $\ln(ab)=\ln a+\ln b$
+            \item $\ln\!\left(\dfrac{a}{b}\right)=\ln a-\ln b$
+            \item $\ln(a^n)=n\ln a$ pour $n\in\mathbb{Z}$
+            \item $\ln(\sqrt{a})=\dfrac{1}{2}\ln a$
+            \item $\ln\!\left(\dfrac{1}{x}\right)=-\ln x$
+        \end{enumerate}
+    \end{Propriété}
+
+    \begin{Remarque}
+        Valeurs particulières : $\ln 1=0$ et $\ln e=1$.
+    \end{Remarque}
+
+    \section{Équations avec logarithme et exponentielle}
+    \subsection{Équation de la forme $\ln(X)=a$}
+    La solution unique est $X=e^a$.
+
+    \subsection{Équation de la forme $e^X=a$}
+    \begin{enumerate}
+        \item Si $a\leq 0$, il n'y a pas de solution.
+        \item Si $a>0$, la solution est $X=\ln a$.
+    \end{enumerate}
+
+    \section{Étude de la fonction logarithme}
+    \subsection{Continuité et limites}
+    \begin{Propriété}
+        La fonction $\ln$ est continue sur $]0;+\infty[$.
+    \end{Propriété}
+
+    \begin{Propriété}
+        \textbf{Limites aux bornes :}
+        $\lim\limits_{x\to 0^+}\ln x=-\infty$ et
+        $\lim\limits_{x\to+\infty}\ln x=+\infty$.\\[4pt]
+        \textbf{Croissances comparées :} pour tout entier $k\geq 1$,
+        \[
+            \lim\limits_{x\to+\infty}\frac{\ln x}{x^k}=0
+            \qquad\text{et}\qquad
+            \lim\limits_{x\to 0^+}x^k\ln x=0.
+        \]
+    \end{Propriété}
+
+    \subsection{Dérivée de la fonction logarithme}
+    \begin{Propriété}
+        La fonction $\ln$ est dérivable sur $]0;+\infty[$ avec $\ln'(x)=\dfrac{1}{x}$.\\
+        Si $u$ est dérivable sur $I$ et $u(x)>0$ pour tout $x\in I$, alors
+        $(\ln\circ\, u)'(x)=\dfrac{u'(x)}{u(x)}$.
+    \end{Propriété}
+
+    \chapter{Primitives et équations différentielles}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer des primitives des fonctions usuelles (tableau de primitives).
+        \item Résoudre les équations différentielles $y'=ay$ et $y'=ay+b$ ($a\neq 0$).
+        \item Résoudre un problème de Cauchy (condition initiale).
+        \item Modéliser un phénomène physique ou biologique par une équation différentielle.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer que les fonctions $x\mapsto Ce^{ax}$ sont les seules solutions de $y'=ay$.
+        \item Démontrer que les solutions de $y'=ay+b$ sont les fonctions $x\mapsto Ce^{ax}-\dfrac{b}{a}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \begin{Définition}
+    \begin{itemize}
+        \item Une \textbf{équation différentielle} est une égalité liant une fonction
+              inconnue $y$ et ses dérivées successives.
+        \item Une \textbf{solution} est toute fonction dérivable vérifiant cette égalité.
+    \end{itemize}
+    \end{Définition}
+
+    \begin{Définition}
+        $F$ est une \textbf{primitive} de $f$ sur $I$ si $F$ est dérivable sur $I$ et
+        $F'=f$.
+    \end{Définition}
+
+    \subsection{Primitives de fonctions usuelles}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{|m{5cm}|m{4cm}|m{7cm}|}
+        \hline
+        Fonction $f$ & Domaine & Primitive $F$ \\
+        \hline
+        $f(x)=a$ & $\mathbf{R}$ & $F(x)=ax+c$ \\
+        \hline
+        $f(x)=x^n$, $n\in\mathbb{Z}\setminus\{-1\}$ &
+            $\mathbf{R}$ si $n\in\mathbf{N}$;\; $\mathbf{R}^*$ sinon &
+            $F(x)=\dfrac{x^{n+1}}{n+1}+c$ \\
+        \hline
+        $f(x)=\dfrac{1}{\sqrt{x}}$ & $]0;+\infty[$ & $F(x)=2\sqrt{x}+c$ \\
+        \hline
+        $f(x)=e^x$ & $\mathbf{R}$ & $F(x)=e^x+c$ \\
+        \hline
+        $f(x)=\dfrac{1}{x}$ & $]0;+\infty[$ ou $]-\infty;0[$ & $F(x)=\ln|x|+c$ \\
+        \hline
+    \end{tabular}
+
+    \begin{Théorème}
+        Toute fonction continue sur un intervalle $I$ admet une primitive sur $I$.
+    \end{Théorème}
+
+    \begin{Propriété}
+        Deux primitives d'une même fonction continue sur $I$ diffèrent d'une constante.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Pour tout $(x_0,y_0)\in I\times\mathbf{R}$, il existe une unique solution $F$ de
+        $y'=f$ sur $I$ vérifiant $F(x_0)=y_0$.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Si $F$ est une primitive de $f$ et $G$ de $g$ sur $I$, et $\lambda\in\mathbf{R}$ :
+        \begin{itemize}
+            \item $F+G$ est une primitive de $f+g$ sur $I$.
+            \item $\lambda F$ est une primitive de $\lambda f$ sur $I$.
+        \end{itemize}
+    \end{Propriété}
+
+    \section{Primitives de fonctions composées}
+    \renewcommand{\arraystretch}{2.5}
+    \begin{tabular}{|m{5cm}|m{4cm}|m{7cm}|}
+        \hline
+        Forme de $f$ & Primitive (sans constante) & Conditions \\
+        \hline
+        $f'+g'$ & $f+g$ & $f$, $g$ dérivables \\
+        \hline
+        $\lambda f'$ & $\lambda f$ & $f$ dérivable \\
+        \hline
+        $f'\,f^n$, $n\in\mathbb{Z}$, $n\neq-1$ & $\dfrac{f^{n+1}}{n+1}$ & $f$ dérivable \\
+        \hline
+        $\dfrac{f'}{f^2}$ & $-\dfrac{1}{f}$ & $f$ dérivable, $f\neq 0$ \\
+        \hline
+        $\dfrac{f'}{\sqrt{f}}$ & $2\sqrt{f}$ & $f$ dérivable, $f>0$ \\
+        \hline
+        $\dfrac{f'}{f}$ & $\ln|f|$ & $f$ dérivable, $f\neq 0$ \\
+        \hline
+        $f'\,e^f$ & $e^f$ & $f$ dérivable \\
+        \hline
+        $f'\times(g'\circ f)$ & $g\circ f$ & \\
+        \hline
+    \end{tabular}
+
+    \section{Équation différentielle $y'=ay$}
+    \begin{Propriété}
+        Les solutions de $y'=ay$ ($a\neq 0$) sont les fonctions
+        $x\mapsto ke^{ax}$, $k\in\mathbf{R}$.
+        Pour tout $(x_0,y_0)$, il existe une unique solution vérifiant $y(x_0)=y_0$.
+    \end{Propriété}
+    \begin{proof}
+        $f_k(x)=ke^{ax}$ vérifie $f_k'(x)=kae^{ax}=af_k(x)$, donc $f_k$ est solution.\\
+        Réciproquement, si $y$ est solution, posons $g(x)=y(x)e^{-ax}$.
+        Alors $g'(x)=y'(x)e^{-ax}-ay(x)e^{-ax}=ay(x)e^{-ax}-ay(x)e^{-ax}=0$,
+        donc $g$ est constante : $g(x)=k$, soit $y(x)=ke^{ax}$.
+    \end{proof}
+
+    \section{Équation différentielle $y'=ay+b$}
+    \begin{Propriété}
+        Les solutions de $y'=ay+b$ ($a,b\neq 0$) sont les fonctions
+        $x\mapsto ke^{ax}-\dfrac{b}{a}$, $k\in\mathbf{R}$.
+    \end{Propriété}
+    \begin{proof}
+        La solution constante particulière vérifie $0=ak+b$, soit $k=-\dfrac{b}{a}$.
+        Si $g$ est une solution quelconque et $f(x)=-\dfrac{b}{a}$, alors $h=g-f$
+        vérifie $h'=a h$, donc $h(x)=ke^{ax}$, d'où $g(x)=ke^{ax}-\dfrac{b}{a}$.
+    \end{proof}
+
+    \section{Équation différentielle $y'=ay+\varphi$}
+    \begin{Propriété}
+        Si $g$ est une solution particulière de $y'=ay+\varphi$, les solutions générales
+        sont $x\mapsto ke^{ax}+g(x)$, $k\in\mathbf{R}$.
+    \end{Propriété}
+
+    \chapter{Combinatoire et dénombrement}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Utiliser les règles du dénombrement : principe additif et multiplicatif.
+        \item Calculer le nombre de permutations de $n$ éléments : $n!$
+        \item Calculer le nombre d'arrangements de $k$ éléments parmi $n$ : $A_n^k=\frac{n!}{(n-k)!}$.
+        \item Calculer les coefficients binomiaux $\binom{n}{k}$ et utiliser la formule de Pascal.
+        \item Développer $(a+b)^n$ à l'aide du binôme de Newton.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer que le nombre de parties d'un ensemble à $n$ éléments est $2^n$
+              (bijection avec les mots binaires de longueur $n$).
+        \item Démontrer la formule de Pascal :
+              $\dbinom{n}{k}+\dbinom{n}{k+1}=\dbinom{n+1}{k+1}$.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Arrangements et permutations}
+    \begin{Définition}
+        On appelle \textbf{factorielle} de $n$ le nombre noté :
+        \[n!=n\times(n-1)\times\cdots\times 2\times 1\]
+        Par convention $0!=1$.
+    \end{Définition}
+    \begin{Définition}
+        Soient $A$ un ensemble fini non vide à $n$ éléments et $k$ un entier naturel
+        inférieur ou égal à $n$. Un \textbf{arrangement} de $k$ éléments de $A$ (ou
+        $k$-arrangement) est un $k$-uplet d'éléments distincts de $A$.
+    \end{Définition}
+    \begin{Propriété}
+        Soient $n$ un entier naturel non nul et $k$ un entier compris entre $1$ et $n$.
+        Le nombre de $k$-arrangements d'un ensemble $E$ à $n$ éléments est :
+        \[n\times(n-1)\times\cdots\times(n-k+1)=\frac{n!}{(n-k)!}.\]
+    \end{Propriété}
+    \begin{Définition}
+        Une \textbf{permutation} d'un ensemble $E$ à $n$ éléments est un $n$-uplet
+        d'éléments distincts de $E$.
+    \end{Définition}
+    \begin{Propriété}
+        Le nombre de permutations d'un ensemble $E$ à $n$ éléments est $n!$.
+    \end{Propriété}
+    \section{Combinaisons}
+    \begin{Propriété}
+        Le nombre de parties d'un ensemble fini à $n$ éléments est $2^n$.
+    \end{Propriété}
+    \begin{proof}
+        Chaque élément peut être inclus (1) ou exclu (0) d'une partie.
+        Il y a donc $2^n$ suites binaires de longueur $n$, correspondant aux $2^n$ parties.
+    \end{proof}
+    \subsection{Nombre de combinaisons}
+    \begin{Définition}
+        Une \textbf{combinaison} de $k$ éléments de $E$ est une partie de $E$ à $k$
+        éléments. Le nombre de combinaisons de $k$ éléments parmi $n$ est noté
+        $\dbinom{n}{k}$.
+    \end{Définition}
+    \begin{Propriété}
+        Pour $k\leq n$ :
+        \begin{enumerate}
+            \item $\dbinom{n}{k}=\dfrac{n!}{k!\,(n-k)!}$ et $\dbinom{n}{k}=\dbinom{n}{n-k}$.
+            \item \textbf{Relation de Pascal :} si $1\leq k\leq n-1$,
+                  $\dbinom{n}{k}=\dbinom{n-1}{k-1}+\dbinom{n-1}{k}$.
+            \item $\dbinom{n}{0}=1$, $\dbinom{n}{1}=n$,
+                  $\dbinom{n}{2}=\dfrac{n(n-1)}{2}$.
+        \end{enumerate}
+    \end{Propriété}
+
+    \chapter{Fonctions cosinus et sinus}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Connaître les valeurs exactes de $\cos$ et $\sin$ pour les angles remarquables.
+        \item Utiliser les formules de somme $\cos(a\pm b)$, $\sin(a\pm b)$ et de double-angle.
+        \item Résoudre les équations $\cos x=k$, $\sin x=k$, $\cos x=\cos a$, $\sin x=\sin a$.
+        \item Étudier les fonctions faisant intervenir $\cos$ ou $\sin$ (dérivée, tableau de variations).
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer les formules d'addition $\cos(a+b)=\cos a\cos b-\sin a\sin b$
+              et $\sin(a+b)=\sin a\cos b+\cos a\sin b$ (à partir de la rotation ou du produit scalaire).
+        \item Démontrer que $(\cos x)'=-\sin x$ et $(\sin x)'=\cos x$.
+        \item Retrouver $\displaystyle\lim_{x\to 0}\dfrac{\sin x}{x}=1$ à partir des dérivées ou d'un encadrement.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Fonctions sinus et cosinus}
+    \subsection{Généralités}
+    \begin{Définition}
+        Dans un repère orthogonal, soient $x\in\mathbf{R}$ et $M$ le point du cercle
+        trigonométrique associé à $x$.
+        \begin{itemize}
+            \item $\sin(x)$ est l'ordonnée de $M$.
+            \item $\cos(x)$ est l'abscisse de $M$.
+        \end{itemize}
+    \end{Définition}
+
+    \begin{Propriété}
+        \begin{itemize}
+            \item La fonction cosinus est \textbf{paire} et $2\pi$-périodique.
+            \item La fonction sinus est \textbf{impaire} et $2\pi$-périodique.
+        \end{itemize}
+    \end{Propriété}
+
+    \begin{Propriété}
+        Pour tout $a\in\mathbf{R}$ et $x\in\mathbf{R}$ :
+        \begin{itemize}
+            \item $\cos x=\cos a \Longleftrightarrow x=a+2k\pi$ ou $x=-a+2k\pi$,
+                  $k\in\mathbf{Z}$.
+            \item $\sin x=\sin a \Longleftrightarrow x=a+2k\pi$ ou $x=\pi-a+2k\pi$,
+                  $k\in\mathbf{Z}$.
+        \end{itemize}
+    \end{Propriété}
+
+    \subsection{Dérivées}
+    \begin{Propriété}
+        $\cos'(x)=-\sin(x)$ et $\sin'(x)=\cos(x)$.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Si $u$ est dérivable sur $I$ :
+        $(\cos\circ\, u)'(x)=-u'(x)\sin(u(x))$ et
+        $(\sin\circ\, u)'(x)=u'(x)\cos(u(x))$.
+    \end{Propriété}
+
+    \subsection{Primitives}
+    \begin{Propriété}
+        \begin{itemize}
+            \item $u'(x)\sin(u(x))$ a pour primitive $-\cos(u(x))$.
+            \item $u'(x)\cos(u(x))$ a pour primitive $\sin(u(x))$.
+        \end{itemize}
+    \end{Propriété}
+
+    \section*{Tableaux de variation et représentations graphiques}
+
+    \subsection*{Fonction cosinus sur $[0;\pi]$}
+    \begin{center}
+    \begin{tikzpicture}
+    \tkzTabInit[lgt=1.5,espcl=2.5]{$x$/1, $\cos(x)$/2}{$0$, $\pi$}
+    \tkzTabVar{+/$1$, -/$-1$}
+    \end{tikzpicture}
+    \end{center}
+
+    \begin{center}
+    \begin{pspicture}(-4,-2)(4,2)
+        \psaxes{->}(0,0)(-4,-1.5)(4,1.5)
+        \psplot[algebraic=true]{-4}{4}{cos(x)}
+    \end{pspicture}
+    \end{center}
+
+    \subsection*{Fonction sinus sur $[0;\pi]$}
+    La fonction sinus est croissante sur $[0;\frac{\pi}{2}]$ et décroissante sur
+    $[\frac{\pi}{2};\pi]$.
+
+    \begin{center}
+    \begin{tikzpicture}
+    \tkzTabInit[lgt=1.5,espcl=2.5]{$x$/1, $\sin(x)$/2}{$0$, $\dfrac{\pi}{2}$, $\pi$}
+    \tkzTabVar{-/$0$, +/$1$, -/$0$}
+    \end{tikzpicture}
+    \end{center}
+
+    \begin{center}
+    \begin{pspicture}(-4,-2)(4,2)
+        \psaxes{->}(0,0)(-4,-1.5)(4,1.5)
+        \psplot[algebraic=true]{-4}{4}{sin(x)}
+    \end{pspicture}
+    \end{center}
+
+    \chapter{Calcul intégral}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer une intégrale à l'aide d'une primitive : $\displaystyle\int_a^b f(x)\,\mathrm{d}x = [F(x)]_a^b$.
+        \item Interpréter l'intégrale comme une aire algébrique.
+        \item Calculer une valeur moyenne d'une fonction sur $[a;b]$.
+        \item Utiliser la linéarité, la relation de Chasles et la positivité de l'intégrale.
+        \item Effectuer une intégration par parties : $\displaystyle\int_a^b uv'\,\mathrm{d}x=[uv]_a^b-\int_a^b u'v\,\mathrm{d}x$.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer que si $f\geq 0$ sur $[a;b]$, alors $\displaystyle\int_a^b f(x)\,\mathrm{d}x\geq 0$.
+        \item Démontrer l'inégalité de la moyenne :
+              $\displaystyle\left|\int_a^b f(x)\,\mathrm{d}x\right|\leq(b-a)\max_{[a;b]}|f|$.
+        \item Démontrer la formule d'intégration par parties.
+    \end{itemize}
+    \end{demoprogbox}
+
+    \section{Intégrale et primitive}
+    \subsection{Intégrale d'une fonction positive}
+    \begin{Définition}
+        Soit $f$ continue et positive sur $[a;b]$. L'\textbf{intégrale} de $a$ à $b$ de $f$
+        est l'aire (en unités d'aire) du domaine délimité par la courbe, l'axe des abscisses
+        et les droites $x=a$ et $x=b$ :
+        \[
+            \int_a^b f(x)\,\mathrm{d}x.
+        \]
+    \end{Définition}
+
+    \begin{Théorème}[Existence d'une primitive]
+        Soit $f$ continue et positive sur $[a;b]$. La fonction $F$ définie par
+        $F(x)=\int_a^x f(t)\,\mathrm{d}t$ est dérivable sur $[a;b]$ et $F'=f$.
+        C'est la primitive de $f$ qui s'annule en $a$.
+    \end{Théorème}
+
+    \begin{Propriété}
+        Si $f$ est continue et négative sur $[a;b]$, l'aire du domaine est
+        $\displaystyle\int_a^b -f(x)\,\mathrm{d}x$.
+    \end{Propriété}
+
+    \begin{Propriété}
+        Si $F$ est une primitive quelconque de $f$ sur $[a;b]$ :
+        \[
+            \int_a^b f(t)\,\mathrm{d}t = F(b)-F(a) = \bigl[F(x)\bigr]_a^b.
+        \]
+    \end{Propriété}
+
+    \subsection{Intégrale d'une fonction de signe quelconque}
+    \begin{Propriété}
+        Soient $f$ et $g$ continues sur $I$, et $a,b,c\in I$, $\lambda\in\mathbf{R}$.
+        \begin{itemize}
+            \item $\int_a^a f(x)\,\mathrm{d}x=0$
+            \item $\int_b^a f(x)\,\mathrm{d}x=-\int_a^b f(x)\,\mathrm{d}x$
+            \item \textbf{Relation de Chasles :}
+                  $\int_a^c f = \int_a^b f + \int_b^c f$
+            \item \textbf{Linéarité :}
+                  $\int_a^b(f+g) = \int_a^b f + \int_a^b g$ et
+                  $\int_a^b\lambda f = \lambda\int_a^b f$
+        \end{itemize}
+    \end{Propriété}
+
+    \subsection{Signe de l'intégrale}
+    \begin{Propriété}
+        Pour $a\leq b$ et $f$ continue sur $[a;b]$ :
+        \begin{enumerate}
+            \item Si $f(x)\geq 0$ sur $[a;b]$, alors $\int_a^b f(x)\,\mathrm{d}x\geq 0$.
+            \item Si $f(x)\leq 0$ sur $[a;b]$, alors $\int_a^b f(x)\,\mathrm{d}x\leq 0$.
+            \item Si $f(x)\geq g(x)$ sur $[a;b]$, alors
+                  $\int_a^b f\,\mathrm{d}x\geq\int_a^b g\,\mathrm{d}x$.
+        \end{enumerate}
+    \end{Propriété}
+
+    \subsection{Intégration par parties}
+    \begin{Théorème}
+        Si $u$ et $v$ sont dérivables sur $[a;b]$ avec $u'$ et $v'$ continues :
+        \[
+            \int_a^b u(x)v'(x)\,\mathrm{d}x
+            = \bigl[u(x)v(x)\bigr]_a^b - \int_a^b u'(x)v(x)\,\mathrm{d}x.
+        \]
+    \end{Théorème}
+
+    \section{Applications du calcul intégral}
+    \subsection{Aire entre deux courbes}
+    \begin{Propriété}
+        Si $f(x)\leq g(x)$ sur $[a;b]$, l'aire du domaine compris entre les courbes de $f$
+        et de $g$ est :
+        \[
+            \int_a^b\bigl(g(x)-f(x)\bigr)\,\mathrm{d}x.
+        \]
+    \end{Propriété}
+
+    \subsection{Valeur moyenne d'une fonction}
+    \begin{Propriété}
+        La \textbf{valeur moyenne} de $f$ continue sur $[a;b]$ est :
+        \[
+            \mu = \frac{1}{b-a}\int_a^b f(x)\,\mathrm{d}x.
+        \]
+        Graphiquement, $\mu(b-a)=\int_a^b f(x)\,\mathrm{d}x$ : l'aire du rectangle de
+        hauteur $\mu$ égale l'aire sous la courbe.
+    \end{Propriété}
+
+    \chapter{Loi des grands nombres}
+    \nchap
+
+    \begin{capacitesbox}
+    \begin{itemize}
+        \item Calculer l'espérance, la variance et l'écart-type d'une variable aléatoire.
+        \item Comprendre et utiliser l'inégalité de Bienaymé-Tchebychev.
+        \item Interpréter et appliquer la loi des grands nombres (convergence de la fréquence).
+        \item Utiliser la concentration autour de la moyenne pour prendre des décisions.
+    \end{itemize}
+    \end{capacitesbox}
+
+    \begin{demoprogbox}
+    \begin{itemize}
+        \item Démontrer $E(X)=np$ et $V(X)=np(1-p)$ pour $X\sim\mathcal{B}(n;p)$.
+        \item Démontrer l'inégalité de Bienaymé-Tchebychev :
+              $P(|X-E(X)|\geq\delta)\leq\dfrac{V(X)}{\delta^2}$.
+        \item Démontrer la loi faible des grands nombres (admise ; justifier le cas $p=\frac{1}{2}$).
+    \end{itemize}
+    \end{demoprogbox}
+
+    \begin{Définition}
+        Soit $X$ une variable aléatoire. La variable $Y=aX+b$ prend les valeurs
+        $y_i=ax_i+b$.
+    \end{Définition}
+
+    \begin{Propriété}
+        Pour $Y=aX+b$ :
+        \begin{itemize}
+            \item $E(Y)=aE(X)+b$
+            \item $V(Y)=a^2V(X)$
+            \item $\sigma(aX)=|a|\sigma(X)$
+        \end{itemize}
+    \end{Propriété}
+
+    \section{Inégalités}
+    \subsection{Inégalité de Markov}
+    \begin{Propriété}
+        Soit $X$ une variable aléatoire à valeurs positives et $a>0$ :
+        \[
+            P(X\geq a)\leq\frac{E(X)}{a}.
+        \]
+    \end{Propriété}
+
+    \subsection{Inégalité de Bienaymé-Tchebychev}
+    \begin{Propriété}
+        Soit $X$ une variable aléatoire et $a>0$ :
+        \[
+            P\!\left(|X-E(X)|\geq a\right)\leq\frac{V(X)}{a^2}.
+        \]
+    \end{Propriété}
+
+    \section{Inégalité de concentration}
+    \begin{Définition}
+        Un \textbf{échantillon de taille $n$} de la loi de $X$ est une liste
+        $(X_1,\ldots,X_n)$ de variables aléatoires indépendantes de même loi que $X$.
+    \end{Définition}
+
+    \begin{Théorème}
+        Soit $M_n=\dfrac{1}{n}\sum_{i=1}^n X_i$. Pour tout $a>0$ :
+        \[
+            P\!\left(|M_n-E(X)|\geq a\right)\leq\frac{V(X)}{na^2}.
+        \]
+    \end{Théorème}
+
+    \begin{Propriété}[Loi des grands nombres]
+        Pour tout $a>0$ :
+        \[
+            \lim_{n\to+\infty}P\!\left(|M_n-E(X)|\geq a\right)=0.
+        \]
+        La moyenne empirique converge en probabilité vers l'espérance.
+    \end{Propriété}
+
+
+    \appendix
+    \chapter{Démonstrations}
+    \nchap
+
+    \section{Algèbre et combinatoire}
+
+    \subsection{Identité $\sum_{k=0}^{n} \binom{n}{k} = 2^n$}
+
+    \begin{enoncebox}
+    Soit $n \in \mathbb{N}$. On veut démontrer l'identité :
+    \[\sum_{k=0}^{n} \binom{n}{k} = 2^n.\]
+    \end{enoncebox}
+
+    \begin{methodebox}{Méthode 1 — Binôme de Newton}
+    La formule du binôme de Newton stipule que pour tous réels $a$, $b$ et tout $n\in\mathbf{N}$ :
+    \[(a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k b^{n-k}.\]
+    Pour $a = b = 1$ :
+    \begin{align*}
+    2^n = (1+1)^n &= \sum_{k=0}^{n} \binom{n}{k} 1^k \cdot 1^{n-k} = \sum_{k=0}^{n} \binom{n}{k}.
+    \end{align*}
+    \end{methodebox}
+
+    \begin{methodebox}{Méthode 2 — Dénombrement}
+    Soit $E$ un ensemble de cardinal $n$. On compte les parties de $E$ de deux façons.
+
+    \textbf{Première approche :} pour chaque élément, on choisit de l'inclure (1) ou non (0), soit $2^n$ parties.
+
+    \textbf{Deuxième approche :} on classe les parties par taille $k$ : il y en a $\binom{n}{k}$ à $k$ éléments. En sommant :
+    $\displaystyle\sum_{k=0}^{n}\binom{n}{k}$ parties au total.
+
+    Ces deux expressions sont égales, d'où $\displaystyle\sum_{k=0}^{n}\binom{n}{k}=2^n$.
+    \end{methodebox}
+
+    \subsection{Relation de Pascal}
+
+    \begin{enoncebox}
+    Pour tout entier $n$ et tout $k$ tel que $1\leq k\leq n$ :
+    \[\binom{n}{k}+\binom{n}{k-1}=\binom{n+1}{k}.\]
+    \end{enoncebox}
+
+    \begin{methodebox}{Méthode 1 — Calcul factoriel}
+    \begin{align*}
+    \binom{n}{k}+\binom{n}{k-1}
+    &=\frac{n!}{k!(n-k)!}+\frac{n!}{(k-1)!(n-k+1)!}\\
+    &=\frac{n!(n-k+1)}{k!(n-k+1)!}+\frac{n!\,k}{k!(n-k+1)!}\\
+    &=\frac{n!(n-k+1+k)}{k!(n-k+1)!}
+    =\frac{(n+1)!}{k!(n+1-k)!}=\binom{n+1}{k}.
+    \end{align*}
+    \end{methodebox}
+
+    \begin{methodebox}{Méthode 2 — Interprétation combinatoire}
+    Soit $E$ un ensemble de $n+1$ éléments et $x\in E$ un élément fixé.
+    Tout sous-ensemble de $k$ éléments de $E$ soit contient $x$ (il reste à choisir $k-1$ parmi les $n$ autres : $\binom{n}{k-1}$ façons), soit ne contient pas $x$ ($\binom{n}{k}$ façons).
+    Ces cas sont disjoints et exhaustifs, donc $\binom{n+1}{k}=\binom{n}{k-1}+\binom{n}{k}$.
+    \end{methodebox}
+
+    \subsection{Équation cartésienne d'un plan}
+
+    \begin{enoncebox}
+    Soient $A(x_A,y_A,z_A)$ et $\vc{n}\vcb{a}{b}{c}$ un vecteur non nul.
+    L'équation du plan $\mathcal{P}$ passant par $A$ de vecteur normal $\vc{n}$ est de la forme $ax+by+cz+d=0$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration — Produit scalaire}
+    $M(x,y,z)\in\mathcal{P}$ si et seulement si $\vc{AM}\perp\vc{n}$, soit $\vc{AM}\cdot\vc{n}=0$.
+    Or $\vc{AM}=\vcb{x-x_A}{y-y_A}{z-z_A}$, donc :
+    \begin{align*}
+    a(x-x_A)+b(y-y_A)+c(z-z_A)&=0\\
+    ax+by+cz+d&=0
+    \end{align*}
+    avec $d=-(ax_A+by_A+cz_A)$.
+    \end{methodebox}
+
+    \section{Probabilités}
+
+    \subsection{Loi binomiale : probabilité de $k$ succès}
+
+    \begin{enoncebox}
+    Pour $X\sim\mathcal{B}(n;p)$ et $k\in\{0,\ldots,n\}$ :
+    $P(X=k)=\dbinom{n}{k}p^k(1-p)^{n-k}$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration — Schéma de Bernoulli}
+    Un chemin comportant $k$ succès et $n-k$ échecs a probabilité $p^k(1-p)^{n-k}$ (indépendance).
+    Le nombre de tels chemins est $\binom{n}{k}$ (choix des positions des succès).
+    Ces chemins étant incompatibles : $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$.
+    \end{methodebox}
+
+    \subsection{Espérance de la loi binomiale}
+
+    \begin{methodebox}{Méthode 1 — Linéarité de l'espérance}
+    On écrit $X=X_1+\cdots+X_n$ où chaque $X_i\sim\mathcal{B}(p)$.
+    Pour chaque variable de Bernoulli : $E(X_i)=p$.
+    Par linéarité : $E(X)=\displaystyle\sum_{i=1}^n E(X_i)=np$.
+    \end{methodebox}
+
+    \begin{methodebox}{Méthode 2 — Définition de l'espérance}
+    $E(X)=\displaystyle\sum_{k=0}^{n}k\binom{n}{k}p^k(1-p)^{n-k}$.
+    Pour $k\geq 1$, $k\binom{n}{k}=n\binom{n-1}{k-1}$, d'où :
+    \[E(X)=np\sum_{j=0}^{n-1}\binom{n-1}{j}p^j(1-p)^{n-1-j}=np\cdot(p+(1-p))^{n-1}=np.\]
+    \end{methodebox}
+
+    \subsection{Variance de la loi binomiale}
+
+    \begin{methodebox}{Méthode 1 — Variables indépendantes}
+    $V(X_i)=E(X_i^2)-[E(X_i)]^2=p-p^2=p(1-p)$.
+    Par indépendance : $V(X)=\displaystyle\sum_{i=1}^nV(X_i)=np(1-p)$.
+    \end{methodebox}
+
+    \begin{methodebox}{Méthode 2 — Définition de la variance}
+    On utilise $V(X)=E(X^2)-[E(X)]^2$.
+    En écrivant $k^2=k(k-1)+k$ et $k(k-1)\binom{n}{k}=n(n-1)\binom{n-2}{k-2}$ :
+    \[E(X^2)=n(n-1)p^2+np,\]
+    donc $V(X)=n(n-1)p^2+np-(np)^2=np(1-p)$.
+    \end{methodebox}
+
+    \section{Analyse}
+
+    \subsection{Limite d'une suite croissante non majorée}
+
+    \begin{enoncebox}
+    Si $(u_n)$ est croissante et non majorée, alors $\lim_{n\to+\infty}u_n=+\infty$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration}
+    Soit $A\in\mathbf{R}$. Comme $(u_n)$ n'est pas majorée, $A$ n'est pas un majorant : il existe $N$ tel que $u_N>A$.
+    Comme $(u_n)$ est croissante, pour tout $n\geq N$ : $u_n\geq u_N>A$.
+    Donc pour tout $A$, à partir d'un certain rang tous les termes dépassent $A$ : $\lim u_n=+\infty$.
+    \end{methodebox}
+
+    \subsection{Inégalité de Bernoulli}
+
+    \begin{enoncebox}
+    Pour tout $a>0$ et tout $n\in\mathbf{N}$ : $(1+a)^n\geq 1+na$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration par récurrence}
+    \textbf{Initialisation :} pour $n=0$, $(1+a)^0=1=1+0\cdot a$. Vrai.
+
+    \textbf{Hérédité :} supposons $(1+a)^k\geq 1+ka$. Comme $1+a>0$ :
+    \begin{align*}
+    (1+a)^{k+1}&=(1+a)^k(1+a)\geq(1+ka)(1+a)\\
+    &=1+(k+1)a+ka^2\geq 1+(k+1)a.
+    \end{align*}
+    \textbf{Conclusion :} la propriété est vraie pour tout $n\in\mathbf{N}$.
+    \end{methodebox}
+
+    \subsection{Limite de la suite $(q^n)$}
+
+    \begin{methodebox}{Cas $q>1$}
+    Posons $q=1+a$ avec $a>0$. Par l'inégalité de Bernoulli : $q^n=(1+a)^n\geq 1+na\to+\infty$.
+    Donc $\lim q^n=+\infty$.
+    \end{methodebox}
+
+    \begin{methodebox}{Cas $0<q<1$}
+    Posons $Q=\frac{1}{q}>1$. D'après le cas précédent, $Q^n\to+\infty$, donc $q^n=\frac{1}{Q^n}\to 0$.
+    \end{methodebox}
+
+    \subsection{Convexité : la courbe est au-dessus de ses tangentes}
+
+    \begin{enoncebox}
+    Si $f''(x)\geq 0$ sur $I$, alors $\mathcal{C}_f$ est au-dessus de chacune de ses tangentes.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration}
+    Soit $a\in I$. La tangente en $a$ a pour équation $y=f'(a)(x-a)+f(a)$.
+    Posons $g(x)=f(x)-f'(a)(x-a)-f(a)$. Alors $g(a)=0$ et $g'(x)=f'(x)-f'(a)$.
+    Comme $f''\geq 0$, $f'$ est croissante : $g'(x)\leq 0$ pour $x\leq a$ et $g'(x)\geq 0$ pour $x\geq a$.
+    Donc $g$ admet un minimum en $a$ valant $0$ : pour tout $x\in I$, $g(x)\geq 0$, soit $f(x)\geq f'(a)(x-a)+f(a)$.
+    \end{methodebox}
+
+    \subsection{Croissances comparées : $\lim_{x\to+\infty}\frac{e^x}{x}=+\infty$}
+
+    \begin{enoncebox}
+    Pour tout $n\in\mathbf{N}$ : $\lim_{x\to+\infty}\frac{e^x}{x^n}=+\infty$.
+    En particulier, $\lim_{x\to+\infty}\frac{e^x}{x}=+\infty$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration --- cas n = 1}
+    De la convexité de l'exponentielle, on tire $e^u\geq u+1>u$ pour tout $u\in\mathbf{R}$.
+    Posons $u=\frac{x}{2}$ : $e^{x/2}>\frac{x}{2}$. En élevant au carré : $e^x>\frac{x^2}{4}$.
+    Pour $x>0$ : $\frac{e^x}{x}>\frac{x}{4}\to+\infty$.
+    Par comparaison : $\lim_{x\to+\infty}\frac{e^x}{x}=+\infty$.
+    \end{methodebox}
+
+    \subsection{Croissance comparée : $\lim_{x\to-\infty}x\,e^x=0$}
+
+    \begin{enoncebox}
+    $\lim_{x\to-\infty}x\,e^x=0$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration}
+    Posons $X=-x$ ; quand $x\to-\infty$, $X\to+\infty$.
+    \[x\,e^x=(-X)e^{-X}=-\frac{X}{e^X}=-\frac{1}{\frac{e^X}{X}}.\]
+    Or $\lim_{X\to+\infty}\frac{e^X}{X}=+\infty$, donc $\lim_{x\to-\infty}x\,e^x=0$.
+    \end{methodebox}
+
+    \subsection{Limite de $x\ln x$ en $0^+$}
+
+    \begin{enoncebox}
+    $\lim_{x\to 0^+}x\ln x=0$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration}
+    Posons $x=e^t$ : quand $x\to 0^+$, $t\to-\infty$ et $x\ln x=e^t\cdot t=t\,e^t$.
+    Or $\lim_{t\to-\infty}t\,e^t=0$ (démonstration précédente), donc $\lim_{x\to 0^+}x\ln x=0$.
+    \end{methodebox}
+
+    \subsection{Deux primitives d'une même fonction diffèrent d'une constante}
+
+    \begin{enoncebox}
+    Soient $F$ et $G$ deux primitives de $f$ sur $I$. Il existe $C\in\mathbf{R}$ tel que $G(x)=F(x)+C$.
+    \end{enoncebox}
+
+    \begin{methodebox}{Démonstration}
+    Posons $H=G-F$. Alors $H'(x)=G'(x)-F'(x)=f(x)-f(x)=0$ pour tout $x\in I$.
+    Une fonction de dérivée nulle sur un intervalle est constante : $H(x)=C$.
+    Donc $G(x)=F(x)+C$.
+    \end{methodebox}
+
+\end{document}
+ 

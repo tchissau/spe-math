@@ -1,0 +1,1584 @@
+\documentclass[11pt,a4paper,openany]{book}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\usepackage{enumitem}
+\usepackage{tikz,tkz-tab}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{ifthen}
+\usepackage{array,booktabs}
+
+\definecolor{facile}{RGB}{39,174,96}
+\definecolor{moyen}{RGB}{230,126,34}
+\definecolor{difficile}{RGB}{192,57,43}
+\definecolor{bleutitre}{RGB}{41,128,185}
+
+\tcbset{
+  exoF/.style={breakable,colback=facile!5,colframe=facile!55!black,fonttitle=\small\bfseries,arc=3pt,left=4pt,right=4pt},
+  exoM/.style={breakable,colback=moyen!5,colframe=moyen!65!black,fonttitle=\small\bfseries,arc=3pt,left=4pt,right=4pt},
+  exoD/.style={breakable,colback=difficile!5,colframe=difficile!65!black,fonttitle=\small\bfseries,arc=3pt,left=4pt,right=4pt},
+}
+
+\newcommand{\etoilesF}{\textcolor{facile}{$\bigstar$}{\small$\bigstar\bigstar$}}
+\newcommand{\etoilesM}{\textcolor{moyen}{$\bigstar\bigstar$}{\small$\bigstar$}}
+\newcommand{\etoilesD}{\textcolor{difficile}{$\bigstar\bigstar\bigstar$}}
+\newcommand{\niveauF}{\textcolor{facile}{\textbf{Facile}}}
+\newcommand{\niveauM}{\textcolor{moyen}{\textbf{Intermédiaire}}}
+\newcommand{\niveauD}{\textcolor{difficile}{\textbf{Difficile}}}
+
+\newcounter{exo}[chapter]
+\renewcommand{\theexo}{\thechapter.\arabic{exo}}
+
+\newenvironment{exercice}[1]{%
+  \refstepcounter{exo}%
+  \ifthenelse{\equal{#1}{1}}{%
+    \begin{tcolorbox}[exoF,title={\textbf{Exercice~\theexo}\hfill\etoilesF\enspace\niveauF}]
+  }{\ifthenelse{\equal{#1}{2}}{%
+    \begin{tcolorbox}[exoM,title={\textbf{Exercice~\theexo}\hfill\etoilesM\enspace\niveauM}]
+  }{%
+    \begin{tcolorbox}[exoD,title={\textbf{Exercice~\theexo}\hfill\etoilesD\enspace\niveauD}]
+  }}%
+}{\end{tcolorbox}\medskip}
+
+\newcommand{\vc}[1]{\overrightarrow{#1}}
+\newcommand{\ds}{\displaystyle}
+
+\author{Ulrich TCHISSAMBOU}
+\title{\textbf{Feuilles d'exercices --- 25 exercices par chapitre}\\[6pt]
+       \large Mathématiques Terminale Spécialité\\[4pt]
+       \small\textcolor{facile}{$\bigstar$ Facile}\quad
+              \textcolor{moyen}{$\bigstar\bigstar$ Intermédiaire}\quad
+              \textcolor{difficile}{$\bigstar\bigstar\bigstar$ Difficile}}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Récurrence et suites}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ------- Niveau 1 (8 exercices) -------
+\begin{exercice}{1}
+Soit $(u_n)$ définie par $u_0=2$ et $u_{n+1}=3u_n-1$. Calculer $u_1,u_2,u_3$. Conjecturer la nature de la suite.
+\end{exercice}
+
+\begin{exercice}{1}
+Une suite arithmétique vérifie $v_3=7$ et $v_7=19$. Déterminer la raison et le premier terme. Calculer $v_{20}$ et $S=v_1+\cdots+v_{20}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Une suite géométrique vérifie $w_0=5$ et $w_3=40$. Trouver la raison. Calculer $w_n$ et $S_n=w_0+\cdots+w_{n-1}$.
+\end{exercice}
+
+\begin{exercice}{1}
+\textbf{Placement financier.} Un capital $C_0=2\,000$\,€ est placé à $4\,\%$ annuel. Exprimer $C_n$. Au bout de combien d'années $C_n>3\,000$\,€ ?
+\end{exercice}
+
+\begin{exercice}{1}
+Parmi les suites suivantes, identifier lesquelles sont arithmétiques, géométriques ou aucune des deux : (a) $u_n=3n-1$ ; (b) $u_n=2^n$ ; (c) $u_n=n^2$ ; (d) $u_n=3\times(-1)^n$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer la somme des entiers pairs de $2$ à $100$. Calculer $2+4+6+\cdots+100$.
+\end{exercice}
+
+\begin{exercice}{1}
+Soit $(u_n)$ définie par $u_0=1$ et $u_{n+1}=\dfrac{u_n+3}{2}$. Calculer les cinq premiers termes. La suite est-elle croissante ? Bornée ?
+\end{exercice}
+
+\begin{exercice}{1}
+Une suite vérifie $u_n=\dfrac{2n+1}{n+2}$. Étudier le signe de $u_{n+1}-u_n$ et la monotonie.
+\end{exercice}
+
+% ------- Niveau 2 (10 exercices) -------
+\begin{exercice}{2}
+Démontrer par récurrence : pour tout $n\geq 1$, $\displaystyle\sum_{k=1}^n k = \dfrac{n(n+1)}{2}$. En déduire $1+2+\cdots+200$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer par récurrence : pour tout $n\geq 1$, $\displaystyle\sum_{k=1}^n k^2 = \dfrac{n(n+1)(2n+1)}{6}$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer par récurrence : pour tout $n\geq 0$, $\displaystyle\sum_{k=0}^n 2^k = 2^{n+1}-1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $(u_n)$ définie par $u_0=3$ et $u_{n+1}=\dfrac{u_n}{u_n+2}$. Montrer par récurrence que $0<u_n\leq 3$ pour tout $n$. En déduire la monotonie.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer par récurrence que pour tout $n\geq 1$, $7^n-1$ est divisible par $6$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Modèle de population.} Une colonie bactérienne double toutes les heures. On retire $500$ bactéries par heure. Avec $u_0=1\,000$, écrire la relation de récurrence et étudier la monotonie de $(u_n)$.
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $(u_n)$ définie par $u_1=2$ et $u_{n+1}=\dfrac{1}{3-u_n}$. Montrer par récurrence que $0<u_n<1$ pour tout $n\geq 1$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Méthode de Héron.} Pour approcher $\sqrt{a}$ ($a>0$), on pose $u_0>0$ et $u_{n+1}=\dfrac{1}{2}\!\left(u_n+\dfrac{a}{u_n}\right)$. Montrer que si $u_n>\sqrt{a}$ alors $u_{n+1}>\sqrt{a}$. Appliquer à $a=2$, $u_0=2$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer que $\left(\dfrac{3}{2}\right)^n>\dfrac{n}{2}$ pour tout $n\geq 1$ par récurrence.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Suites imbriquées.} On définit $a_0=0$, $b_0=1$, $a_{n+1}=\dfrac{a_n+b_n}{2}$, $b_{n+1}=b_n$. Exprimer $a_n$ et $b_n$ en fonction de $n$. Calculer $b_n-a_n$ et conclure.
+\end{exercice}
+
+% ------- Niveau 3 (7 exercices) -------
+\begin{exercice}{3}
+Démontrer l'inégalité de Bernoulli : $(1+x)^n\geq 1+nx$ pour $x>-1$, $n\geq 1$. En déduire $(1{,}01)^{100}\geq 2$.
+\end{exercice}
+
+\begin{exercice}{3}
+Soit $(u_n)$ définie par $u_1=1$ et $u_{n+1}=\sqrt{2u_n+3}$. Montrer que $(u_n)$ est croissante et majorée par $3$. Déterminer la limite.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Suite de Fibonacci.} $F_0=0$, $F_1=1$, $F_{n+2}=F_{n+1}+F_n$. Démontrer $F_n<2^n$ pour tout $n\geq 1$. Montrer que $\pgcd(F_n,F_{n+1})=1$ pour tout $n$.
+\end{exercice}
+
+\begin{exercice}{3}
+Soit $u_0=0$ et $u_{n+1}=u_n^2+\dfrac{1}{4}$. Montrer par récurrence que $u_n\leq\dfrac{1}{2}$. Montrer que $(u_n)$ est croissante et convergente. Calculer la limite.
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer que la suite définie par $u_n = \displaystyle\sum_{k=1}^{n}\dfrac{1}{k^2}$ est croissante et majorée par $2$ (montrer $\dfrac{1}{k^2}\leq\dfrac{1}{k(k-1)}$ pour $k\geq 2$ et utiliser une somme télescopique).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème — suite de Syracuse.} On définit $u_0=n$ (entier $\geq 1$) et
+$u_{k+1}=\begin{cases}u_k/2 & \text{si }u_k\text{ pair}\\ 3u_k+1 & \text{sinon}\end{cases}$.
+Vérifier pour $u_0\in\{3,6,7,10\}$ que la suite atteint $1$. (Conjecture de Collatz, non démontrée en général.)
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer par récurrence que $\displaystyle\sum_{k=1}^n \dfrac{1}{\sqrt{k}} \geq \sqrt{n}$ pour tout $n\geq 1$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Limites de suite}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer les limites (préciser la règle) :
+\begin{multicols}{2}
+\begin{enumerate}[label=\alph*.]
+\item $\ds\lim_{n\to+\infty}\dfrac{5n-2}{n+3}$
+\item $\ds\lim_{n\to+\infty}\dfrac{3n^2+1}{n^2-2}$
+\item $\ds\lim_{n\to+\infty}\!\left(\dfrac{2}{3}\right)^n$
+\item $\ds\lim_{n\to+\infty}\dfrac{4}{\sqrt{n}}+7$
+\item $\ds\lim_{n\to+\infty}n^3-5n$
+\item $\ds\lim_{n\to+\infty}\dfrac{\sin n}{n}$
+\end{enumerate}
+\end{multicols}
+\end{exercice}
+
+\begin{exercice}{1}
+Converge, diverge vers $\pm\infty$ ou pas de limite ?
+\begin{multicols}{2}
+\begin{enumerate}[label=\alph*.]
+\item $u_n=(-1)^n n$
+\item $u_n=\dfrac{(-1)^n}{n^2}$
+\item $u_n=(-0{,}5)^n$
+\item $u_n=1{,}001^n$
+\item $u_n=\dfrac{n^2-1}{n}$
+\item $u_n=\cos(n\pi/2)$
+\end{enumerate}
+\end{multicols}
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\lim_{n\to+\infty}\dfrac{3n^3-2n+1}{5n^3+n^2}$ en factorisant par le terme dominant.
+\end{exercice}
+
+\begin{exercice}{1}
+Soit $u_n=\dfrac{n+\cos n}{n^2+1}$. Encadrer $u_n$ et conclure par le théorème des gendarmes.
+\end{exercice}
+
+\begin{exercice}{1}
+\textbf{Contexte bancaire.} Un capital de $1\,000$\,€ est placé à $2\,\%$ annuel. Donner la limite de $(C_n)$. Interpréter.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\lim_{n\to+\infty}\dfrac{3^n+2^n}{3^n-1}$ (factoriser par $3^n$).
+\end{exercice}
+
+\begin{exercice}{1}
+Soit $u_n=n-\sqrt{n^2-1}$. Multiplier par la quantité conjuguée et calculer la limite.
+\end{exercice}
+
+\begin{exercice}{1}
+Donner la limite des suites géométriques de raison $q$ pour : $q=0{,}99$, $q=1{,}01$, $q=-0{,}5$, $q=2$, $q=-2$, $q=1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Lever les formes indéterminées :
+\begin{enumerate}[label=\alph*.]
+\item $\ds\lim_{n\to+\infty}\!\left(\sqrt{n+1}-\sqrt{n}\right)$
+\item $\ds\lim_{n\to+\infty}\!\left(\sqrt{n^2+n}-n\right)$
+\item $\ds\lim_{n\to+\infty}\dfrac{4^n+3^n}{4^n-2^n}$
+\item $\ds\lim_{n\to+\infty}\dfrac{n^2+(-1)^n}{n^2+1}$
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $(u_n)$ définie par $u_0=5$ et $u_{n+1}=\dfrac{1}{3}u_n+4$. Trouver le point fixe, exprimer $u_n$ et calculer la limite. \textbf{Application :} un médicament éliminé aux $\frac{2}{3}$ par heure, dose de $4$ mg toutes les heures.
+\end{exercice}
+
+\begin{exercice}{2}
+Encadrer et appliquer les gendarmes :
+\begin{enumerate}[label=\alph*.]
+\item $u_n=\dfrac{(-1)^n n}{n^2+1}$
+\item $v_n=\dfrac{n\sin(n^2)}{n^2+3}$
+\item $w_n=\dfrac{2+\cos n}{n}$
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $(u_n)$ une suite croissante majorée par $M$. Montrer qu'elle converge. Si de plus $u_{n+1}=f(u_n)$ avec $f$ continue, montrer que la limite est un point fixe de $f$.
+\end{exercice}
+
+\begin{exercice}{2}
+Étudier la suite $u_n=\dfrac{n!}{n^n}$ : montrer qu'elle est décroissante pour $n\geq 1$ et que $u_n\to 0$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Suites adjacentes.} $(u_n)$ croissante, $(v_n)$ décroissante, $u_n\leq v_n$ et $v_n-u_n\to 0$. Montrer qu'elles convergent vers la même limite. Application : $u_n=1+\dfrac{1}{2}+\cdots+\dfrac{1}{2^n}$, $v_n=u_n+\dfrac{1}{2^{n-1}}$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer que toute suite croissante et non majorée tend vers $+\infty$.
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $(u_n)$ définie par $u_0=2$ et $u_{n+1}=\dfrac{u_n+6}{u_n+2}$. Montrer que $(u_n)$ est décroissante et minorée par $\sqrt{6}$. Calculer la limite.
+\end{exercice}
+
+\begin{exercice}{2}
+Étudier $\ds\lim_{n\to+\infty}\left(1+\dfrac{1}{n}\right)^n$ : montrer que la suite est croissante (utiliser Bernoulli) et majorée par $3$ (admettre).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Comparaison exponentielle/polynôme.} Montrer que pour tout $k\in\mathbb{N}$, $\ds\lim_{n\to+\infty}\dfrac{n^k}{2^n}=0$ (raisonner par récurrence sur $k$, en utilisant le lemme $\ds\lim_{n\to+\infty}\dfrac{n}{q^n}=0$ pour $q>1$). En déduire $\ds\lim_{n\to+\infty}\dfrac{n^{10}}{2^n}$.
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer l'unicité de la limite : si $u_n\to\ell_1$ et $u_n\to\ell_2$, alors $\ell_1=\ell_2$.
+\end{exercice}
+
+\begin{exercice}{3}
+Étude complète : $u_0\in]0;1[$, $u_{n+1}=u_n(1-u_n)$. Montrer $0<u_n<1$, que $(u_n)$ est décroissante et calculer la limite.
+\end{exercice}
+
+\begin{exercice}{3}
+Croissances comparées : calculer $\ds\lim_{n\to+\infty}\dfrac{n^{100}}{1{,}001^n}$, $\ds\lim_{n\to+\infty}\dfrac{2^n}{n!}$, $\ds\lim_{n\to+\infty}n^3\!\left(\dfrac{3}{4}\right)^n$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} $a_0>b_0>0$, $a_{n+1}=\dfrac{a_n+b_n}{2}$, $b_{n+1}=\sqrt{a_nb_n}$. Montrer $b_n\leq a_n$, que $(a_n)$ est décroissante, $(b_n)$ croissante et qu'elles convergent vers la même limite (moyenne arithmético-géométrique).
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer que $\ds\sum_{k=1}^{n}\dfrac{1}{k}$ tend vers $+\infty$ (minorer par $\sum\dfrac{1}{2^{k+1}}$, méthode de Cauchy).
+\end{exercice}
+
+\begin{exercice}{3}
+Soit $(u_n)$ définie par $u_0=1$ et $u_{n+1}=\dfrac{u_n+2}{u_n+1}$. Montrer que $(u_{2n})$ est croissante et $(u_{2n+1})$ décroissante. Montrer qu'elles sont adjacentes et converger vers $\sqrt{2}$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème — série de Riemann.} Soit $S_n=\ds\sum_{k=1}^{n}\dfrac{1}{k^2}$. Montrer que $(S_n)$ converge (minorer chaque terme par une intégrale). Encadrer la limite entre $1$ et $2$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Vecteurs, droites et plans de l'espace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Soient $A(1;2;-1)$, $B(3;0;2)$, $C(-1;3;1)$. Calculer $\vc{AB}$, $\vc{AC}$, les distances $AB$, $AC$, $BC$ et le milieu de $[BC]$.
+\end{exercice}
+
+\begin{exercice}{1}
+Donner une représentation paramétrique de la droite $(d)$ passant par $A(2;-1;3)$ et $B(4;1;0)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Déterminer l'équation cartésienne du plan passant par $A(1;0;2)$ de vecteur normal $\vc{n}(2;-1;3)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Le point $P(5;2;-1)$ appartient-il à la droite $(d):\,x=1+2t,\;y=t,\;z=1-t$ ?
+\end{exercice}
+
+\begin{exercice}{1}
+Le point $Q(3;1;2)$ appartient-il au plan $\mathcal{P}:\,2x-y+z=7$ ?
+\end{exercice}
+
+\begin{exercice}{1}
+Soient $A(0;0;0)$, $B(1;0;0)$, $C(0;1;0)$, $D(0;0;1)$. Déterminer le centre de gravité du tétraèdre $ABCD$.
+\end{exercice}
+
+\begin{exercice}{1}
+Donner les coordonnées d'un vecteur directeur des droites d'intersection des paires de plans : $x+y=1$ et $y+z=2$.
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que les points $A(1;1;1)$, $B(2;3;1)$, $C(4;7;1)$ sont colinéaires.
+\end{exercice}
+
+\begin{exercice}{2}
+Droites $(d_1):\,x=1+2t,\,y=-1+t,\,z=3-t$ et $(d_2):\,x=3+s,\,y=1+2s,\,z=1+s$. Déterminer leur position relative (parallèles, sécantes, gauches).
+\end{exercice}
+
+\begin{exercice}{2}
+Soient $A(1;2;0)$, $B(3;0;1)$, $C(-1;1;3)$. Déterminer l'équation cartésienne du plan $(ABC)$.
+\end{exercice}
+
+\begin{exercice}{2}
+Déterminer le point d'intersection de la droite $(d):\,x=1+t,\,y=2-t,\,z=3+2t$ et du plan $\mathcal{P}:\,x+2y-z=1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que les plans $\mathcal{P}_1:\,x-y+2z=3$ et $\mathcal{P}_2:\,2x+y-z=1$ sont sécants. Trouver une représentation paramétrique de leur droite d'intersection.
+\end{exercice}
+
+\begin{exercice}{2}
+Soient $A(2;1;3)$, $B(4;2;1)$, $C(1;3;2)$, $D(3;4;0)$. Montrer que $ABCD$ est un parallélogramme. Calculer ses diagonales.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Architecture.} Trois poteaux ont leurs bases en $A(0;0;0)$, $B(4;0;0)$, $C(2;3;0)$. Une poutre relie leurs sommets $A'(0;0;3)$, $B'(4;0;3)$, $C'(2;3;3)$. Trouver l'équation du plan des sommets. Quelle est leur hauteur commune ?
+\end{exercice}
+
+\begin{exercice}{2}
+La droite $(d):\,x=2+t,\,y=1-2t,\,z=3t$ est-elle parallèle au plan $2x-y+z=5$ ? Si non, trouver le point d'intersection.
+\end{exercice}
+
+\begin{exercice}{2}
+Déterminer une équation du plan passant par $A(1;0;-1)$ et contenant la droite $(d):\,x=t,\,y=1+t,\,z=2-t$.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer la distance du point $A(2;1;3)$ au plan $\mathcal{P}:\,x-2y+2z=5$ à l'aide de la formule $d=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$.
+\end{exercice}
+
+\begin{exercice}{3}
+Soient $A(1;0;-1)$, $B(2;3;1)$, $C(-1;1;2)$. Déterminer l'équation de $(ABC)$, la perpendiculaire abaissée de $D(0;2;0)$ sur ce plan, et calculer la distance $d(D,\mathcal{P})$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Tétraèdre régulier.} $O(0;0;0)$, $A(1;0;0)$, $B(1/2;\sqrt{3}/2;0)$, $C(1/2;\sqrt{3}/6;\sqrt{6}/3)$. Vérifier que toutes les arêtes ont longueur $1$. Calculer le centre de gravité et montrer qu'il est équidistant des 4 sommets.
+\end{exercice}
+
+\begin{exercice}{3}
+Trouver l'équation de la sphère passant par $A(1;0;0)$, $B(0;1;0)$, $C(0;0;1)$ et $D(0;0;0)$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Droites gauches.} Montrer que $(d_1):\,x=t,\,y=0,\,z=t$ et $(d_2):\,x=0,\,y=s,\,z=1$ sont gauches. Calculer la distance entre ces deux droites.
+\end{exercice}
+
+\begin{exercice}{3}
+Déterminer le pied de la perpendiculaire abaissée de $P(1;2;3)$ sur la droite $(d):\,x=t,\,y=1+2t,\,z=-t$. En déduire la distance de $P$ à $(d)$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème — plan médiateur.} Le plan médiateur de $[AB]$ est l'ensemble des points équidistants de $A$ et $B$. Déterminer le plan médiateur de $A(1;2;0)$ et $B(3;0;4)$. Montrer que le centre du cercle circonscrit à un triangle est à l'intersection des plans médiateurs des côtés.
+\end{exercice}
+
+\begin{exercice}{3}
+Trouver l'image du point $A(1;0;2)$ par la symétrie par rapport au plan $\mathcal{P}:\,x+y+z=3$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Projection orthogonale.} Trouver la projection orthogonale de la droite $\Delta:\,x=1+t,\,y=t,\,z=2$ sur le plan $\mathcal{P}:\,z=0$. Quelle est la nature de la projection ?
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Limites de fonctions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer (préciser la règle) :
+\begin{multicols}{2}
+\begin{enumerate}[label=\alph*.]
+\item $\ds\lim_{x\to+\infty}\dfrac{4x+1}{x-3}$
+\item $\ds\lim_{x\to-\infty}(2x^3-x)$
+\item $\ds\lim_{x\to 3}\dfrac{x^2-9}{x-3}$
+\item $\ds\lim_{x\to 0^+}\dfrac{1}{\sqrt{x}}$
+\item $\ds\lim_{x\to+\infty}\sqrt{x}e^{-x}$
+\item $\ds\lim_{x\to 2^-}\dfrac{x+1}{2-x}$
+\end{enumerate}
+\end{multicols}
+\end{exercice}
+
+\begin{exercice}{1}
+Déterminer les asymptotes de $f(x)=\dfrac{x^2+x-2}{x-1}$ (verticale et oblique).
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\lim_{x\to 1}\dfrac{x^3-1}{x^2-1}$ en factorisant le numérateur et le dénominateur.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\lim_{x\to+\infty}\!\left(\sqrt{x^2+x}-x\right)$ (conjuguée).
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\lim_{x\to+\infty}\dfrac{3x^3-x+1}{2x^3+5x}$ et $\ds\lim_{x\to-\infty}\dfrac{3x^3-x+1}{2x^3+5x}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Déterminer en quels points $f(x)=\dfrac{1}{x^2-4}$ est discontinue. Calculer les limites à droite et à gauche en ces points.
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que $g(x)=\dfrac{\sin x}{x}$ est prolongeable par continuité en $0$. Quelle valeur lui donner ?
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\lim_{x\to+\infty}x\sin\!\left(\dfrac{1}{x}\right)$ (poser $t=1/x\to 0^+$).
+\end{exercice}
+
+\begin{exercice}{2}
+Lever les formes indéterminées :
+\begin{enumerate}[label=\alph*.]
+\item $\ds\lim_{x\to 2}\dfrac{x^3-8}{x^2-4}$
+\item $\ds\lim_{x\to 0}\dfrac{\tan x}{x}$
+\item $\ds\lim_{x\to+\infty}x\!\left(e^{1/x}-1\right)$
+\item $\ds\lim_{x\to 1}\dfrac{\ln x}{x-1}$
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Pharmacologie.} $C(t)=\dfrac{2t}{t^2+1}$ (concentration mg/L). Calculer $\lim_{t\to 0^+}C(t)$, $\lim_{t\to+\infty}C(t)$. Trouver le maximum de $C$.
+\end{exercice}
+
+\begin{exercice}{2}
+Étudier la continuité prolongeable de $f(x)=\dfrac{x^2+x-2}{x^2-1}$ en $x=1$ et $x=-1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Asymptote oblique : montrer que $f(x)=\dfrac{x^3}{x^2-1}$ admet une asymptote oblique $y=x$. Étudier la position de la courbe par rapport à cette asymptote.
+\end{exercice}
+
+\begin{exercice}{2}
+Croissances comparées : calculer $\ds\lim_{x\to+\infty}\dfrac{e^x}{x^{100}}$, $\ds\lim_{x\to+\infty}x^3 e^{-2x}$, $\ds\lim_{x\to+\infty}\dfrac{\ln x}{\sqrt{x}}$, $\ds\lim_{x\to 0^+}x^2\ln x$.
+\end{exercice}
+
+\begin{exercice}{2}
+$f(x)=\dfrac{\ln(x+1)}{x}$. Étudier la limite en $0^+$ et en $+\infty$. $f$ est-elle prolongeable en $0$ ?
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer par le théorème des gendarmes que $\ds\lim_{x\to+\infty}\dfrac{\sin(e^x)}{x}=0$.
+\end{exercice}
+
+\begin{exercice}{2}
+Étudier les limites de $f(x)=x^{1/x}$ pour $x\to 0^+$ et $x\to+\infty$ (écrire $f(x)=e^{\frac{\ln x}{x}}$).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Économie.} Un coût marginal est $C'(q)=\dfrac{100}{\sqrt{q}}$. Calculer $\lim_{q\to 0^+}C'(q)$ et $\lim_{q\to+\infty}C'(q)$. Interpréter économiquement.
+\end{exercice}
+
+\begin{exercice}{2}
+Déterminer les asymptotes de $f(x)=\dfrac{2x^2-x+3}{x-1}$ (verticale, oblique). Étudier la position de la courbe par rapport à l'asymptote oblique.
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer $\ds\lim_{x\to 0}\dfrac{\sin x}{x}=1$ par encadrement géométrique (aires du triangle $OAB$, secteur $OAB$ et triangle $OAT$).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Limite de $(1+1/x)^x$.} Montrer que $f(x)=(1+1/x)^x$ admet une limite en $+\infty$ en utilisant la continuité de l'exponentielle et $x\ln(1+1/x)\to 1$.
+\end{exercice}
+
+\begin{exercice}{3}
+Étude complète de $f(x)=x^x$ sur $]0;+\infty[$ : limite en $0^+$, minimum, convexité.
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer l'unicité de la limite finie d'une fonction en un point par l'absurde.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Soit $f$ continue sur $[0;1]$ avec $0\leq f(x)\leq 1$. Montrer que $f$ admet un point fixe (appliquer le TVI à $g(x)=f(x)-x$).
+\end{exercice}
+
+\begin{exercice}{3}
+Étudier $\ds\lim_{x\to 0}\dfrac{1-\cos x}{x^2}$ et $\ds\lim_{x\to 0}\dfrac{\tan x - \sin x}{x^3}$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Développements limités.} En admettant $e^x\approx 1+x+\frac{x^2}{2}$ et $\ln(1+x)\approx x-\frac{x^2}{2}$ au voisinage de $0$, calculer $\ds\lim_{x\to 0}\dfrac{e^x-1-x}{x^2}$ et $\ds\lim_{x\to 0}\dfrac{\ln(1+x)-x}{x^2}$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Dérivation et convexité}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer les dérivées :
+\begin{multicols}{2}
+\begin{enumerate}[label=\alph*.]
+\item $\sin(3x+1)$
+\item $e^{x^2-1}$
+\item $\ln(2x^2+3)$
+\item $\sqrt{x^2+4x}$
+\item $(3x-1)^6$
+\item $\cos^3(x)$
+\end{enumerate}
+\end{multicols}
+\end{exercice}
+
+\begin{exercice}{1}
+Trouver les points où $f(x)=2x^3-9x^2+12x-4$ admet des extrema locaux. Calculer leur valeur.
+\end{exercice}
+
+\begin{exercice}{1}
+Déterminer la tangente à $f(x)=x^2-3x+1$ au point d'abscisse $x=2$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $f''(x)$ pour $f(x)=x^4-6x^2+1$. Trouver les points d'inflexion.
+\end{exercice}
+
+\begin{exercice}{1}
+La fonction $f(x)=e^{-x^2}$ est-elle convexe ou concave en $x=0$ ? Justifier avec $f''$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer la dérivée de $f(x)=\dfrac{e^x-1}{e^x+1}$ et montrer que $f'(x)>0$ sur $\mathbf{R}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Soit $f(x)=x e^{-x}$. Calculer $f'(x)$ et $f''(x)$. Trouver le maximum et le point d'inflexion.
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que $f(x)=\ln(x)+\dfrac{1}{x}$ admet un minimum sur $]0;+\infty[$. Calculer sa valeur.
+\end{exercice}
+
+\begin{exercice}{2}
+Étude complète de $f(x)=\dfrac{x^2}{x^2-1}$ (domaine, limites, dérivée, variations, convexité, asymptotes).
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que pour tout $x\geq 0$ : (a) $e^x\geq 1+x$ ; (b) $e^x\geq 1+x+\frac{x^2}{2}$ ; (c) $\ln(1+x)\leq x$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Optimisation économique.} Coût : $C(x)=x^3-6x^2+15x+10$ (milliers €). Calculer le point d'inflexion (changement de comportement du coût marginal). Trouver la production minimisant le coût moyen $C(x)/x$.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que $f(x)=x-\sin x$ est convexe sur $[0;\pi]$ et concave sur $[-\pi;0]$.
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $f(x)=\dfrac{e^x}{1+e^x}$ (sigmoïde). Montrer que $f'(x)=f(x)(1-f(x))$. Trouver le point d'inflexion.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Physique.} La position d'un objet est $s(t)=t^3-6t^2+9t$. Calculer vitesse $s'(t)$ et accélération $s''(t)$. À quel instant la vitesse est-elle maximale ? Quand l'objet change-t-il de sens ?
+\end{exercice}
+
+\begin{exercice}{2}
+Étude complète de $f(x)=(x^2-1)e^x$ : variations, convexité, inflexions.
+\end{exercice}
+
+\begin{exercice}{2}
+Pour $f$ convexe sur $I$, montrer que $f\!\left(\dfrac{a+b}{2}\right)\leq\dfrac{f(a)+f(b)}{2}$.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer la dérivée $n$-ième de $f(x)=e^{2x}$ et de $g(x)=\sin(x)$ (trouver le motif par récurrence).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Optimisation.} Une boîte cylindrique fermée de volume $V=500\,\text{cm}^3$ est fabriquée avec deux matériaux : $2$\,€/cm² pour le fond et le couvercle, $1$\,€/cm² pour le côté. Exprimer le coût total $C(r)$ en fonction du rayon $r$, puis minimiser $C$.
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer la règle de dérivation en chaîne $[v(u(x))]'=u'(x)v'(u(x))$ à partir de la définition de la dérivée (passage à la limite du taux d'accroissement).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Inégalité de Young.} Pour $p,q>1$ avec $\frac{1}{p}+\frac{1}{q}=1$, montrer $ab\leq\frac{a^p}{p}+\frac{b^q}{q}$ pour $a,b>0$ (utiliser la convexité de $e^x$).
+\end{exercice}
+
+\begin{exercice}{3}
+Soit $f$ deux fois dérivable et convexe. Montrer que si $f''(x_0)=0$ et $f'''(x_0)\neq 0$, alors $x_0$ est un point d'inflexion.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Soit $f(x)=ax^3+bx^2+cx+d$. Montrer que $f$ admet toujours un point d'inflexion. Trouver ses coordonnées en fonction de $a,b,c,d$.
+\end{exercice}
+
+\begin{exercice}{3}
+Étude complète de $f(x)=x^{2/3}(x-1)$ : domaine, dérivée (attention en $0$), variations, convexité, points singuliers.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Condition nécessaire et suffisante de minimum.} Soit $f$ deux fois dérivable en $a$. Si $f'(a)=0$ et $f''(a)>0$, montrer que $a$ est un minimum local strict. Donner un contre-exemple où $f'(a)=0$, $f''(a)=0$ mais $a$ est bien un minimum.
+\end{exercice}
+
+\begin{exercice}{3}
+Majorer $|f(b)-f(a)|$ par $(b-a)\max_{[a;b]}|f'|$ (inégalité des accroissements finis — admettre le TAF). Appliquer pour montrer $|\sin b-\sin a|\leq|b-a|$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Continuité}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Étudier la continuité de $f$ en $x=2$ : $f(x)=\begin{cases}x^2-2 & x<2\\3x-4 & x\geq 2\end{cases}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que $x^3+x-1=0$ admet une racine dans $[0;1]$ (TVI). Encadrer à $0{,}1$ près.
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que $\cos x=x$ admet une solution dans $[0;1]$ et encadrer à $0{,}1$ près par dichotomie.
+\end{exercice}
+
+\begin{exercice}{1}
+La fonction $f(x)=\sqrt{x^2+1}$ est-elle continue sur $\mathbf{R}$ ? Justifier.
+\end{exercice}
+
+\begin{exercice}{1}
+Étudier la continuité de $f(x)=\dfrac{|x-2|}{x-2}$ en $x=2$. Peut-on prolonger $f$ en $2$ ?
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que $x^5-3x+1=0$ admet au moins une racine réelle (regarder les signes en $-2$, $0$, $2$).
+\end{exercice}
+
+\begin{exercice}{1}
+\textbf{Économie.} Le bénéfice $B(x)=\sqrt{x}-0{,}5x$ est-il toujours positif sur $[0;4]$ ?
+\end{exercice}
+
+\begin{exercice}{1}
+Soit $f$ continue sur $[a;b]$ avec $f(a)>a$ et $f(b)<b$. Montrer que $f$ admet un point fixe.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que $f(x)=x^3-3x+1$ admet exactement trois racines sur $[-2;2]$. Encadrer chacune à $0{,}1$.
+\end{exercice}
+
+\begin{exercice}{2}
+$(u_n)$ définie par $u_0=0{,}5$ et $u_{n+1}=\cos(u_n)$. Montrer que si $(u_n)$ converge, sa limite est le nombre de Dottie $\ell\approx 0{,}739$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer le cas particulier du TVI : si $f$ est continue sur $[a;b]$, $f(a)<0$ et $f(b)>0$, alors $\exists\,c\in{]a;b[}$ avec $f(c)=0$ (utiliser la dichotomie et le lemme des suites adjacentes).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Méthode de la sécante.} Pour approcher un zéro de $f$, on calcule $x_2=a-f(a)\dfrac{b-a}{f(b)-f(a)}$. Appliquer à $f(x)=x^3-2$, $[a,b]=[1;2]$.
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $f$ continue sur $[a;b]$ et $m=\min_{[a;b]}f$, $M=\max_{[a;b]}f$. Montrer que $f$ prend toutes les valeurs entre $m$ et $M$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Thermodynamique.} Deux solides à $T_1=80°$C et $T_2=20°$C sont mis en contact. La température d'équilibre $T^*$ vérifie $C_1(T_1-T^*)=C_2(T^*-T_2)$. Trouver $T^*$. Montrer par le TVI que toute valeur entre $T_2$ et $T_1$ peut être atteinte.
+\end{exercice}
+
+\begin{exercice}{2}
+Étudier la suite $u_{n+1}=\dfrac{2u_n+1}{u_n+2}$ avec $u_0=2$. Convergence et limite (point fixe de $f(x)=\frac{2x+1}{x+2}$).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Algorithme de dichotomie.} Rédiger un algorithme en pseudo-code qui encadre un zéro de $f(x)=x^3-x-2$ dans $[1;2]$ avec précision $10^{-6}$. Combien d'itérations faut-il ?
+\end{exercice}
+
+\begin{exercice}{2}
+Déterminer les valeurs de $\lambda$ pour lesquelles $f(x)=\begin{cases}x^2+\lambda x & x<1\\ 3x-2 & x\geq 1\end{cases}$ est continue sur $\mathbb{R}$. Est-elle dérivable en $x=1$ ?
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que $f(x)=x\cos\!\left(\dfrac{1}{x}\right)$ se prolonge en une fonction continue en $0$ en posant $f(0)=0$, mais qu'elle n'est pas dérivable en $0$.
+\end{exercice}
+
+\begin{exercice}{3}
+Méthode de Newton : $x_{n+1}=x_n-\dfrac{f(x_n)}{f'(x_n)}$. Appliquer à $f(x)=x^2-2$, $x_0=2$. Calculer $x_1$, $x_2$, $x_3$. Comparer avec la dichotomie.
+\end{exercice}
+
+\begin{exercice}{3}
+Soit $f$ continue sur $[a;b]$ avec $f(a)\cdot f(b)<0$. Montrer que la dichotomie produit une suite convergente vers un zéro de $f$ avec $|x_n-c|\leq\dfrac{b-a}{2^n}$.
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer que si $f:\,[0;1]\to[0;1]$ est continue, elle admet au moins un point fixe (utiliser $g(x)=f(x)-x$).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Théorème des valeurs extrêmes (admis).} Soit $f$ continue sur $[a;b]$, $m=\min f$, $M=\max f$. Montrer que $f$ est bornée et que son image est $[m;M]$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Montrer qu'il existe $x\in[0;\pi]$ tel que $\sin x=x/2$. Encadrer cette solution à $10^{-2}$ près.
+\end{exercice}
+
+\begin{exercice}{3}
+Soit $f$ continue et strictement croissante sur $[a;b]$. Montrer que $f$ est une bijection de $[a;b]$ sur $[f(a);f(b)]$ et que sa réciproque est continue et strictement croissante.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Intersection de courbes.} Montrer que $e^x=x^2+2$ admet exactement deux solutions. Encadrer chacune à $0{,}1$ près.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Orthogonalité dans l'espace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+$\vc{u}(2;-1;3)$, $\vc{v}(1;4;-1)$. Calculer $\vc{u}\cdot\vc{v}$, $\|\vc{u}\|$, $\|\vc{v}\|$ et l'angle $\widehat{(\vc{u},\vc{v})}$ en degrés.
+\end{exercice}
+
+\begin{exercice}{1}
+Trouver $k$ tel que $\vc{u}(2;k;1)$ et $\vc{v}(1;-3;2)$ soient orthogonaux.
+\end{exercice}
+
+\begin{exercice}{1}
+Déterminer l'équation cartésienne du plan passant par $A(1;2;3)$ de vecteur normal $\vc{n}(2;-1;4)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Soient $A(1;-1;2)$, $B(3;0;1)$. Calculer $\vc{AB}\cdot\vc{AB}=\|\vc{AB}\|^2$ et la distance $AB$.
+\end{exercice}
+
+\begin{exercice}{1}
+Vérifier que les vecteurs $\vc{i}(1;0;0)$, $\vc{j}(0;1;0)$, $\vc{k}(0;0;1)$ forment une base orthonormée.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer l'angle au sommet $A$ du triangle $A(1;0;0)$, $B(0;1;0)$, $C(0;0;1)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Déterminer les coordonnées d'un vecteur orthogonal à la fois à $\vc{u}(1;2;0)$ et $\vc{v}(0;1;1)$.
+\end{exercice}
+
+\begin{exercice}{1}
+La droite $(d):\,x=1+2t,\,y=-1+t,\,z=3$ est-elle orthogonale au plan $\mathcal{P}:\,2x+y=5$ ?
+\end{exercice}
+
+\begin{exercice}{2}
+Soient $A(2;-1;3)$, $B(4;1;0)$, $C(1;3;2)$. Calculer un vecteur normal au plan $(ABC)$, l'équation cartésienne de ce plan et la distance de $D(5;2;1)$ à ce plan.
+\end{exercice}
+
+\begin{exercice}{2}
+Droite $(d):\,x=1+t,\,y=2+t,\,z=3-2t$ et plan $\mathcal{P}:\,2x+y-z=6$. La droite est-elle parallèle, perpendiculaire ou sécante au plan ? Calculer l'angle.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que $ABCD$ est un rectangle pour $A(0;0;0)$, $B(2;0;0)$, $C(2;1;0)$, $D(0;1;0)$. Calculer la diagonale $AC$.
+\end{exercice}
+
+\begin{exercice}{2}
+Trouver la projection orthogonale de $P(3;1;4)$ sur le plan $\mathcal{P}:\,x+2y+2z=1$. Calculer $d(P,\mathcal{P})$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Navigation.} Un navire est en $A(0;0;0)$ et se dirige vers $B(3;4;0)$. Une balise est en $C(5;0;0)$. Calculer la distance minimale entre la trajectoire $AB$ et la balise $C$.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que les diagonales d'un parallélépipède rectangle se coupent en leur milieu et ont toutes la même longueur.
+\end{exercice}
+
+\begin{exercice}{2}
+Soit $\mathcal{P}:\,x-2y+3z=6$. Déterminer les coordonnées du point de $\mathcal{P}$ le plus proche de l'origine.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer l'égalité du parallélogramme : $\|\vc{u}+\vc{v}\|^2+\|\vc{u}-\vc{v}\|^2=2(\|\vc{u}\|^2+\|\vc{v}\|^2)$.
+\end{exercice}
+
+\begin{exercice}{2}
+Trouver l'équation de la sphère de centre $\Omega(1;2;3)$ passant par $A(4;2;3)$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Sphère et plan tangent.} La sphère $\mathcal{S}:(x-1)^2+(y-2)^2+(z-3)^2=14$. Vérifier que $A(4;4;4)\in\mathcal{S}$. Déterminer le plan tangent à $\mathcal{S}$ en $A$.
+\end{exercice}
+
+\begin{exercice}{3}
+Trouver l'image de $A(1;0;2)$ par la symétrie par rapport au plan $\mathcal{P}:\,x+y+z=3$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Tétraèdre.} $A(1;0;0)$, $B(0;1;0)$, $C(0;0;1)$, $O(0;0;0)$. Calculer le volume du tétraèdre $OABC$ à l'aide du produit mixte $\vc{OA}\cdot(\vc{OB}\wedge\vc{OC})$.
+\end{exercice}
+
+\begin{exercice}{3}
+Droites gauches : $\Delta_1:\,x=t,\,y=0,\,z=t$ et $\Delta_2:\,x=0,\,y=s,\,z=1$. Calculer leur distance (distance entre droites gauches = $\dfrac{|(\vc{AB})\cdot\vc{n}|}{|\vc{n}|}$ où $\vc{n}=\vc{d_1}\wedge\vc{d_2}$).
+\end{exercice}
+
+\begin{exercice}{3}
+Soit $E$ un plan d'équation $ax+by+cz=d$. Montrer que la réflexion d'un point $P$ par rapport à $E$ a pour image $P'=P-\dfrac{2(aP_x+bP_y+cP_z-d)}{a^2+b^2+c^2}(a;b;c)$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Trouver le cercle intersection de la sphère $(x-1)^2+y^2+z^2=9$ et du plan $x=2$. Calculer son centre, son rayon et son aire.
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer la formule de la distance d'un point $A(x_0;y_0;z_0)$ au plan $ax+by+cz+d=0$ : $d=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Plan médiateur.} Déterminer l'ensemble des points équidistants de $A(1;0;0)$ et $B(3;2;0)$. Montrer que c'est un plan. Trouver son équation.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Loi binomiale}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+$X\sim\mathcal{B}(10;\,0{,}3)$. Calculer $P(X=4)$, $P(X=0)$, $P(X=10)$, $E(X)$, $V(X)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Parmi les situations suivantes, identifier celles qui suivent une loi binomiale : (a) tirage sans remise de 5 cartes ; (b) 20 lancers d'un dé équilibré ; (c) durée de vie d'une ampoule.
+\end{exercice}
+
+\begin{exercice}{1}
+$X\sim\mathcal{B}(8;\,0{,}5)$. Calculer $P(X\geq 6)$, $P(3\leq X\leq 5)$, $P(X\leq 2)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Un lot contient 20\,\% de pièces défectueuses. On prélève 15 pièces avec remise. Calculer $P(X=0)$ et $P(X\geq 2)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Un QCM comporte 10 questions avec 4 réponses chacune. Calculer $P(X\geq 7)$ (réponses au hasard).
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\binom{12}{5}$, $\binom{8}{3}$, $\binom{15}{0}$, $\binom{n}{1}$, $\binom{n}{n-1}$.
+\end{exercice}
+
+\begin{exercice}{1}
+$X\sim\mathcal{B}(20;\,0{,}4)$. Calculer l'espérance, la variance et l'écart-type. Donner l'intervalle $[E(X)-\sigma;\,E(X)+\sigma]$.
+\end{exercice}
+
+\begin{exercice}{1}
+Un archer touche la cible avec probabilité $0{,}7$. Il tire $12$ fois. Calculer la probabilité d'obtenir exactement $10$ succès et au moins $9$ succès.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$ pour $X\sim\mathcal{B}(n;p)$ (dénombrement des chemins dans un arbre).
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer $E(X)=np$ pour $X\sim\mathcal{B}(n;p)$ en utilisant $k\binom{n}{k}=n\binom{n-1}{k-1}$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer $V(X)=np(1-p)$ pour $X\sim\mathcal{B}(n;p)$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Contrôle qualité.} On accepte un lot si $X\leq 1$ sur $n=20$ prélèvements, avec $p=0{,}1$. Calculer la probabilité d'accepter un lot défectueux. Que vaut-elle pour $p=0{,}05$ ?
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Problème inverse.} $X\sim\mathcal{B}(n;\,0{,}3)$ et $P(X=0)\leq 0{,}01$. Trouver la valeur minimale de $n$.
+\end{exercice}
+
+\begin{exercice}{2}
+Mode de $\mathcal{B}(n;p)$ : montrer que la valeur la plus probable $k^*$ vérifie $(n+1)p-1\leq k^*\leq(n+1)p$. Application : $n=20$, $p=0{,}3$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Épidémie.} 40\,\% de la population est vaccinée. Dans un groupe de 30 personnes, calculer la probabilité que moins de 10 soient vaccinées, et la valeur la plus probable du nombre de vaccinés.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que le nombre de parties d'un ensemble à $n$ éléments est $2^n$ (bijection avec les mots binaires).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Jeu.} Un joueur gagne 3\,€ s'il obtient $\geq 4$ succès sur 6 lancers ($p=0{,}5$), et perd 1\,€ sinon. Calculer son gain espéré. Le jeu est-il équitable ?
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Intervalle de fluctuation.} Pour $X\sim\mathcal{B}(n;p)$, l'intervalle $\left[p-\dfrac{1}{\sqrt{n}}\,;\,p+\dfrac{1}{\sqrt{n}}\right]$ contient la fréquence observée $X/n$ avec une probabilité supérieure à $95\,\%$ (admettre). Calculer cet intervalle pour $n=400$, $p=0{,}5$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Inégalité de Markov.} Pour $X\geq 0$, montrer $P(X\geq k)\leq\dfrac{E(X)}{k}$. Appliquer à $X\sim\mathcal{B}(10;\,0{,}4)$ et $k=7$.
+\end{exercice}
+
+\begin{exercice}{3}
+Calculer $\ds\sum_{k=0}^n k^2\binom{n}{k}p^k(1-p)^{n-k}=E(X^2)$ et en déduire $V(X)=np(1-p)$ (méthode directe).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Loi de Poisson (approximation).} Montrer que $\binom{n}{k}p^k(1-p)^{n-k}\approx\dfrac{e^{-\lambda}\lambda^k}{k!}$ quand $n\to+\infty$, $p\to 0$ et $np\to\lambda$. Appliquer pour $n=100$, $p=0{,}02$, $\lambda=2$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} On répète des épreuves de Bernoulli de paramètre $p$ jusqu'au premier succès. Soit $T$ le rang du premier succès. Calculer $P(T=k)=p(1-p)^{k-1}$. Montrer que $\ds\sum_{k=1}^\infty P(T=k)=1$. Calculer $E(T)=1/p$.
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer l'identité de Vandermonde : $\ds\sum_{k=0}^r\binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Test statistique.} Un médicament est dit efficace si $P(\text{guérison})\geq 0{,}7$. Sur $n=20$ patients, on observe 12 guérisons. Au seuil de 5\,\%, peut-on rejeter l'hypothèse $H_0:p=0{,}5$ ?
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer que pour $X\sim\mathcal{B}(n;p)$, la fonction génératrice $G_X(t)=E(t^X)=(1-p+pt)^n$. En déduire $E(X)=G_X'(1)$ et $V(X)=G_X''(1)+G_X'(1)-(G_X'(1))^2$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Fonction logarithme népérien}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer sans calculatrice : (a) $\ln(e^3)$ ; (b) $e^{3\ln 2}$ ; (c) $\ln(e^2/e^{-1})$ ; (d) $\ln\sqrt{e}$ ; (e) $e^{\ln 7-\ln 3}$ ; (f) $\ln(e^a\cdot e^b)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Résoudre : (a) $\ln(2x-1)=3$ ; (b) $\ln(x+2)=\ln(3x)$ ; (c) $e^{2x}-5e^x+4=0$.
+\end{exercice}
+
+\begin{exercice}{1}
+Résoudre : (a) $(\ln x)^2-\ln x-2=0$ ; (b) $\ln(x^2-1)>0$ ; (c) $e^x>3$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $f'(x)$ pour : (a) $f(x)=\ln(3x-1)$ ; (b) $f(x)=x\ln x$ ; (c) $f(x)=\dfrac{\ln x}{x}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Étudier le signe de $f(x)=\ln x-1$ et en déduire $\ln x\leq x-1$ pour $x=e^t$ avec $t\geq 0$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\lim_{x\to+\infty}\dfrac{\ln x}{x}$ et $\ds\lim_{x\to 0^+}x\ln x$ (croissances comparées).
+\end{exercice}
+
+\begin{exercice}{1}
+\textbf{Biologie.} La concentration d'une enzyme évolue selon $C(t)=C_0 e^{-0{,}3t}$. Quand $C(t)=C_0/2$ (demi-vie) ?
+\end{exercice}
+
+\begin{exercice}{1}
+Vérifier que $\ln 2\approx 0{,}693$. En déduire une valeur approchée de $\ln 8$, $\ln 4$, $\ln\sqrt{2}$ et $\ln(1/4)$.
+\end{exercice}
+
+\begin{exercice}{2}
+Étude complète de $f(x)=(2x-1)\ln x$ sur $]0;+\infty[$ (limites, dérivée, variations, minimum).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Démographie.} Population $P(t)=P_0 e^{0{,}02t}$ ($t$ en années, $P_0=1{,}2$ millions en 2000). Quand la population double ? Trouver le taux de croissance si $P(20)=1{,}8$.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer les inégalités : (a) $\ln x\leq x-1$ pour $x>0$ ; (b) $\ln(1+x)\leq x$ pour $x>-1$ ; (c) $\ln(1+x)\geq\dfrac{x}{1+x}$ pour $x>-1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Étudier $f(x)=\dfrac{\ln x}{\sqrt{x}}$ sur $]0;+\infty[$ : limites, variations, maximum.
+\end{exercice}
+
+\begin{exercice}{2}
+Résoudre $\ln(x^2-x)\geq\ln(2x+4)$ en précisant le domaine de validité.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer $\ds\lim_{x\to 1}\dfrac{\ln x}{x-1}$ et $\ds\lim_{x\to 0^+}\dfrac{\ln(1+x)}{x}$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Finance.} Un capital double en $n$ années à un taux $r$. Exprimer $n$ en fonction de $r$ grâce au logarithme. Pour $r=5\,\%$, calculer $n$ (règle des 70).
+\end{exercice}
+
+\begin{exercice}{2}
+Étude complète de $g(x)=x-1-\ln x$ pour montrer que $\ln x\leq x-1$ avec égalité en $x=1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer les dérivées : (a) $\ln|\sin x|$ ; (b) $\ln\!\left(\dfrac{x+1}{x-1}\right)$ ; (c) $(\ln x)^3$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Entropie.} En théorie de l'information, l'entropie est $H=-\sum_{i=1}^n p_i\ln p_i$ avec $\sum p_i=1$, $p_i>0$. Montrer que $H\geq 0$. Vérifier que $H$ est maximale pour la loi uniforme $p_i=1/n$, où $H=\ln n$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Montrer que $e^\pi>\pi^e$. \textit{Indication :} comparer $f(e)$ et $f(\pi)$ avec $f(x)=\dfrac{\ln x}{x}$.
+\end{exercice}
+
+\begin{exercice}{3}
+Résoudre $x^y=y^x$ avec $x\neq y>0$ en posant $y=tx$, $t\neq 1$. Trouver le seul couple d'entiers $a<b$ solution.
+\end{exercice}
+
+\begin{exercice}{3}
+Calculer $\ds\lim_{n\to+\infty}n\!\left(\sqrt[n]{a}-1\right)=\ln a$ pour $a>0$ (poser $t=1/n$).
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer que $\ds\int_1^2\dfrac{1}{t}\,dt=\ln 2$ est bien défini. Encadrer $\ln 2$ par des sommes de Riemann à $n=4$ termes.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Entropie de Shannon.} Pour une loi de probabilité $(p_1,\ldots,p_n)$ avec $\sum p_i=1$, l'entropie est $H=-\sum p_i\ln p_i$. Montrer que $H\geq 0$. Montrer que $H$ est maximale quand tous les $p_i$ sont égaux.
+\end{exercice}
+
+\begin{exercice}{3}
+Étudier la convergence de $\ds\sum_{k=1}^n\dfrac{1}{k}$ et montrer que $\ln n\leq\sum_{k=1}^n\dfrac{1}{k}\leq 1+\ln n$ (encadrement par intégrales).
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer que $(\ln x)'=\dfrac{1}{x}$ en partant de la définition $\ln x=\ds\int_1^x\dfrac{dt}{t}$ et du théorème fondamental du calcul.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Primitives et équations différentielles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer les primitives : (a) $\ds\int(4x^3-2x+1)\,dx$ ; (b) $\ds\int\dfrac{3}{\sqrt{x}}\,dx$ ; (c) $\ds\int e^{-2x}\,dx$ ; (d) $\ds\int\dfrac{5}{2x+3}\,dx$ ; (e) $\ds\int\sin(3x)\,dx$ ; (f) $\ds\int 2x\,e^{x^2}\,dx$.
+\end{exercice}
+
+\begin{exercice}{1}
+Résoudre : (a) $y'=4y$, $y(0)=3$ ; (b) $y'=-\frac{3}{2}y$, $y(0)=10$ ; (c) $y'=3y-6$, $y(0)=4$.
+\end{exercice}
+
+\begin{exercice}{1}
+Vérifier que $F(x)=\dfrac{1}{3}(x^2+1)^{3/2}$ est une primitive de $f(x)=x\sqrt{x^2+1}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer : (a) $\ds\int_0^1 e^{3x}\,dx$ ; (b) $\ds\int_1^4\dfrac{1}{\sqrt{x}}\,dx$ ; (c) $\ds\int_0^\pi\cos(2x)\,dx$.
+\end{exercice}
+
+\begin{exercice}{1}
+Déterminer toutes les primitives de $f(x)=\dfrac{x}{x^2+1}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Résoudre $y'=2y+4$ avec $y(1)=0$. Vérifier la solution.
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que $F(x)=-(x+1)e^{-x}$ est une primitive de $f(x)=xe^{-x}$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer les primitives : (a) $\ds\int\dfrac{2x}{x^2-1}\,dx$ ; (b) $\ds\int\cos x\,e^{\sin x}\,dx$ ; (c) $\ds\int\dfrac{\ln x}{x}\,dx$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Refroidissement de Newton.} $T'=-k(T-T_a)$ avec $T_a=20°$, $T(0)=80°$, $k=0{,}1$. Exprimer $T(t)$. Calculer $T(10)$ et le temps pour atteindre $30°$.
+\end{exercice}
+
+\begin{exercice}{2}
+Résoudre $y'=2y+4e^x$ : résoudre l'équation homogène, chercher une solution particulière $y_p=Ae^x$, écrire la solution générale et résoudre avec $y(0)=1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer que les seules solutions de $y'=ay$ sont les $x\mapsto Ce^{ax}$, $C\in\mathbf{R}$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer que les solutions de $y'=ay+b$ sont $x\mapsto Ce^{ax}-\dfrac{b}{a}$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Radioactivité.} La désintégration suit $N'(t)=-\lambda N(t)$. Exprimer $N(t)$. Si la demi-vie est $T_{1/2}=5\,730$ ans (carbone 14), trouver $\lambda$. Quelle fraction reste après 10\,000 ans ?
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer les primitives par changement de variable :
+(a) $\ds\int\dfrac{x}{\sqrt{x^2+1}}\,dx$ (poser $u=x^2+1$) ;
+(b) $\ds\int e^x\sqrt{e^x+1}\,dx$ (poser $u=e^x+1$).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Économie.} Le profit marginal est $\pi'(q)=100-2q$. Si $\pi(0)=-50$, calculer $\pi(q)$ et la production qui maximise le profit.
+\end{exercice}
+
+\begin{exercice}{2}
+Résoudre l'ED $y'+\dfrac{1}{x}y=0$ sur $]0;+\infty[$ (ED à variables séparables : $\dfrac{dy}{y}=-\dfrac{dx}{x}$).
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer $\ds\int_0^{+\infty}xe^{-x}\,dx$ (intégrale impropre : calculer $\ds\int_0^A xe^{-x}\,dx$ puis faire $A\to+\infty$).
+\end{exercice}
+
+\begin{exercice}{2}
+Résoudre le problème de Cauchy $y''-3y'+2y=0$, $y(0)=1$, $y'(0)=0$, en cherchant des solutions de la forme $e^{rx}$ (équation caractéristique $r^2-3r+2=0$).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Modèle logistique.} $P'=rP(1-P/K)$, $P(0)=P_0$. Poser $y=1/P$, résoudre l'ED, et trouver $P(t)=\dfrac{KP_0}{P_0+(K-P_0)e^{-rt}}$.
+\end{exercice}
+
+\begin{exercice}{3}
+Résoudre $y''=y$ (équation d'ordre 2). Montrer que les solutions sont $C_1 e^x+C_2 e^{-x}$. Résoudre avec $y(0)=1$, $y'(0)=0$.
+\end{exercice}
+
+\begin{exercice}{3}
+Résoudre $y'+(\cos x)y=0$ sur $\mathbf{R}$. Montrer que toute solution est bornée.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Circuit RC.} $U'(t)+\dfrac{1}{RC}U(t)=\dfrac{E}{RC}$. Résoudre avec $U(0)=0$. Interpréter physiquement. Calculer $\ds\lim_{t\to+\infty}U(t)$.
+\end{exercice}
+
+\begin{exercice}{3}
+Calculer l'intégrale de Gauss : $\ds\int_0^{+\infty}e^{-x^2}\,dx=\dfrac{\sqrt{\pi}}{2}$ (admis). En déduire $\ds\int_{-\infty}^{+\infty}e^{-x^2}\,dx$. Interpréter en probabilités.
+\end{exercice}
+
+\begin{exercice}{3}
+Résoudre l'équation de Bernoulli $y'-y=xy^2$ (poser $z=1/y$, obtenir une ED linéaire en $z$).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Montrer que si $f$ est solution de $y'=ay$ et $g$ de $y'=by$ (avec $a\neq b$), alors $fg$ est solution de $y'=(a+b)y$. Généraliser à $f^ng^m$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Combinatoire et dénombrement}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer : (a) $7!$ ; (b) $A_8^3$ ; (c) $A_{10}^2$ ; (d) $\binom{9}{3}$ ; (e) $\binom{12}{5}$ ; (f) $\binom{15}{15}$.
+\end{exercice}
+
+\begin{exercice}{1}
+25 élèves : (a) combien de façons d'élire un bureau (président, secrétaire, trésorier) ? (b) un groupe de 4 ? (c) 2 filles et 2 garçons parmi 12 filles et 13 garçons ?
+\end{exercice}
+
+\begin{exercice}{1}
+Développer $(x+y)^4$ avec le binôme de Newton. Vérifier pour $x=y=1$.
+\end{exercice}
+
+\begin{exercice}{1}
+Combien de mots de 4 lettres distinctes peut-on former avec les lettres $\{A,B,C,D,E,F\}$ ? Combien commencent par $A$ ?
+\end{exercice}
+
+\begin{exercice}{1}
+Code PIN de 4 chiffres ($0$–$9$) : (a) nombre total ; (b) sans répétition ; (c) avec exactement 2 chiffres identiques.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{n}$ (substituer $x=1$ dans $(1+x)^n$).
+\end{exercice}
+
+\begin{exercice}{1}
+Combien de façons de distribuer 8 livres différents à 3 élèves (chaque livre va à un seul élève) ?
+\end{exercice}
+
+\begin{exercice}{1}
+Dans un tiercé de 15 chevaux, combien de paris distincts (1er, 2e, 3e dans l'ordre) ? Sans ordre ?
+\end{exercice}
+
+\begin{exercice}{2}
+Développer $(2x-3)^5$. Calculer le coefficient de $x^3$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer la formule de Pascal : $\binom{n}{k}+\binom{n}{k+1}=\binom{n+1}{k+1}$ par calcul direct.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer combinatoirement la formule de Pascal : choisir $k+1$ éléments parmi $n+1$ en distinguant si l'élément $n+1$ est choisi ou non.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer par récurrence sur $n$ que $\ds\sum_{k=0}^n\binom{n}{k}=2^n$.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que $\ds\sum_{k=0}^n(-1)^k\binom{n}{k}=0$ pour $n\geq 1$ (substituer $x=-1$).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Chemins sur une grille.} Compter les chemins de $(0;0)$ à $(m;n)$ en se déplaçant uniquement vers la droite ou vers le haut. Montrer qu'il y en a $\binom{m+n}{n}$.
+\end{exercice}
+
+\begin{exercice}{2}
+Dans un groupe de 20 personnes, combien de sous-groupes de 6 personnes contiennent au moins 2 femmes (sur 8 femmes et 12 hommes) ?
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer $\ds\sum_{k=0}^n k\binom{n}{k}$ (dériver $(1+x)^n$ et substituer $x=1$).
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer que le nombre de parties d'un ensemble à $n$ éléments est $2^n$ (bijection avec les mots binaires de longueur $n$).
+\end{exercice}
+
+\begin{exercice}{2}
+Anagrammes : combien de mots distincts peut-on former avec les lettres de MATHEMATIQUES ?
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer $\ds\sum_{k=0}^n k^2\binom{n}{k}=n(n+1)2^{n-2}$ (dériver deux fois $(1+x)^n$).
+\end{exercice}
+
+\begin{exercice}{3}
+Identité de Vandermonde : $\ds\sum_{k=0}^r\binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}$ (coefficient de $x^r$ dans $(1+x)^{m+n}$).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Un sac contient $r$ boules rouges et $b$ bleues. On tire $n\leq r+b$ boules sans remise. Montrer que le nombre de façons d'avoir $k$ rouges est $\binom{r}{k}\binom{b}{n-k}$.
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer que $\binom{2n}{n}$ est divisible par tous les nombres premiers $p$ tels que $n<p\leq 2n$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Principe des tiroirs (Dirichlet).} $n+1$ objets dans $n$ tiroirs : au moins un tiroir contient $\geq 2$ objets. Appliquer : parmi 13 personnes, 2 sont nées le même mois.
+\end{exercice}
+
+\begin{exercice}{3}
+Décomposer $n$ en somme de $k$ entiers positifs ordonnés. Montrer qu'il y a $\binom{n-1}{k-1}$ façons.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Triangle de Pascal modulo 2.} Colorer en noir les cases où $\binom{n}{k}$ est impair. Observer le motif (triangle de Sierpinski). Démontrer que $\binom{2^n}{k}$ est pair pour $1\leq k\leq 2^n-1$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Fonctions cosinus et sinus}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer sans calculatrice : $\cos(5\pi/6)$, $\sin(5\pi/6)$, $\cos(7\pi/4)$, $\sin(-\pi/3)$, $\tan(3\pi/4)$, $\cos(-2\pi/3)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Résoudre dans $[0;2\pi]$ : (a) $\cos x=\sqrt{3}/2$ ; (b) $\sin x=-1/2$ ; (c) $2\cos x-\sqrt{2}=0$ ; (d) $\sin^2 x=3/4$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\cos(2\pi/3+\pi/4)$ à l'aide de la formule d'addition.
+\end{exercice}
+
+\begin{exercice}{1}
+Vérifier $\cos^2 x+\sin^2 x=1$ pour $x=\pi/3$. Déduire $|\cos x|\leq 1$ et $|\sin x|\leq 1$.
+\end{exercice}
+
+\begin{exercice}{1}
+Étudier la parité de $f(x)=\sin x$, $g(x)=\cos x$, $h(x)=\tan x$.
+\end{exercice}
+
+\begin{exercice}{1}
+Résoudre sur $\mathbf{R}$ : $\cos x=\cos(2\pi/5)$ ; $\sin x=\sin(\pi/7)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer la dérivée de : (a) $f(x)=\sin(2x+1)$ ; (b) $g(x)=\cos(x^2)$ ; (c) $h(x)=\sin^2 x+\cos^2 x$.
+\end{exercice}
+
+\begin{exercice}{1}
+Trouver la période de $f(x)=\cos(3x)$, $g(x)=\sin(x/2)$, $h(x)=\cos(x)+\sin(2x)$.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer exactement $\cos(\pi/12)$ et $\sin(7\pi/12)$ à l'aide des formules d'addition.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer les formules du double angle : $\cos(2x)=\cos^2x-\sin^2x$ et $\sin(2x)=2\sin x\cos x$.
+\end{exercice}
+
+\begin{exercice}{2}
+Linéariser : (a) $\cos^2 x$ ; (b) $\sin^2 x$ ; (c) $\cos^3 x$ ; (d) $\sin^2x\cos x$. En déduire $\ds\int_0^{\pi/2}\cos^3 x\,dx$.
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que $f(x)=2\cos x-\sin x$ s'écrit $R\cos(x+\varphi)$. Calculer $R$ et $\varphi$. Résoudre $f(x)=\sqrt{3}$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Physique oscillatoire.} Position $x(t)=A\cos(\omega t+\phi)$. Pour $A=3$, $\omega=2\pi$, $\phi=\pi/3$ : trouver le maximum, la période et les instants où $x=0$.
+\end{exercice}
+
+\begin{exercice}{2}
+Résoudre sur $[0;2\pi]$ : (a) $\sqrt{3}\cos x+\sin x=\sqrt{2}$ ; (b) $\sin x-\cos x=1$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer $\cos(3x)=4\cos^3 x-3\cos x$ à l'aide des formules d'addition.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer $\ds\int_0^{\pi/4}\cos(2x)\,dx$ et $\ds\int_0^\pi\sin^2 x\,dx$ (linéarisation).
+\end{exercice}
+
+\begin{exercice}{2}
+Résoudre $\cos x\cos(2x)=\cos(3x)$ sur $[0;2\pi]$ (formule somme-produit).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Vibrations.} Une oscillation est modélisée par $f(t)=3\cos(2t)+4\sin(2t)$. Écrire $f$ sous la forme $A\cos(2t+\varphi)$. Calculer l'amplitude $A$ et la phase $\varphi$.
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer les formules d'addition à partir du produit scalaire : $\cos(a-b)=\cos a\cos b+\sin a\sin b$.
+\end{exercice}
+
+\begin{exercice}{3}
+Calculer $\ds\sum_{k=0}^n\cos(kx)$ et $\ds\sum_{k=0}^n\sin(kx)$ (utiliser les parties réelle et imaginaire de la somme géométrique $\sum e^{ikx}$).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Polynômes de Tchebychev.} Montrer que $\cos(nx)=T_n(\cos x)$ où $T_n$ est un polynôme de degré $n$. Calculer $T_0$, $T_1$, $T_2$, $T_3$. Montrer $T_{n+1}(x)=2xT_n(x)-T_{n-1}(x)$.
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer que pour tout $n\geq 1$ : $\ds\prod_{k=1}^{n-1}\sin\!\left(\dfrac{k\pi}{n}\right)=\dfrac{n}{2^{n-1}}$ (utiliser les racines $n$-ièmes de l'unité).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Résoudre le système $\cos\theta+\cos\phi=a$, $\sin\theta+\sin\phi=b$ (trouver $\theta+\phi$ et $\theta-\phi$ en fonction de $a$ et $b$). Condition d'existence ?
+\end{exercice}
+
+\begin{exercice}{3}
+Calculer $\ds\int_0^\pi x\sin(nx)\,dx$ pour tout entier $n\geq 1$ par intégration par parties.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Formule de Moivre.} $(\cos\theta+i\sin\theta)^n=\cos(n\theta)+i\sin(n\theta)$. En déduire $\cos(5\theta)$ en fonction de $\cos\theta$. Résoudre $16x^5-20x^3+5x=1$.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Calcul intégral}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Calculer : (a) $\ds\int_0^2(3x^2-2x+1)\,dx$ ; (b) $\ds\int_1^e\dfrac{2}{x}\,dx$ ; (c) $\ds\int_0^{\pi}\sin(2x)\,dx$ ; (d) $\ds\int_0^1 e^{-x}\,dx$ ; (e) $\ds\int_1^4\dfrac{3}{\sqrt{x}}\,dx$ ; (f) $\ds\int_0^{\pi/3}\cos x\,dx$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer l'aire délimitée par $y=x^2-2x$ et l'axe des abscisses entre $x=0$ et $x=2$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer l'aire comprise entre les courbes $y=x^2$ et $y=2x$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer la valeur moyenne de $f(x)=\sin x$ sur $[0;\pi]$.
+\end{exercice}
+
+\begin{exercice}{1}
+Montrer que $\ds\int_a^b f(x)\,dx\geq 0$ si $f\geq 0$ sur $[a;b]$ (propriété de positivité).
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer : (a) $\ds\int_0^1\dfrac{x}{x^2+1}\,dx$ ; (b) $\ds\int_0^{\pi/6}\sin(2x)\,dx$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $\ds\int_0^1(e^x+e^{-x})\,dx$. Interpréter comme une aire.
+\end{exercice}
+
+\begin{exercice}{1}
+Encadrer $\ds\int_0^1\dfrac{1}{\sqrt{1+x^3}}\,dx$ sans calculer l'intégrale.
+\end{exercice}
+
+\begin{exercice}{2}
+Intégration par parties : (a) $\ds\int_0^1(2x+1)e^x\,dx$ ; (b) $\ds\int_1^e x^2\ln x\,dx$ ; (c) $\ds\int_0^{\pi/2}x\sin x\,dx$.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer $\ds\int_0^1\arctan(x)\,dx$ par intégration par parties.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer l'inégalité de la moyenne : $\left|\ds\int_a^b f(x)\,dx\right|\leq(b-a)\max_{[a;b]}|f|$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Valeur moyenne physique.} Vitesse $v(t)=10e^{-0{,}5t}\cos(2\pi t)$. Calculer la valeur moyenne sur $[0;1]$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer la formule d'intégration par parties $\ds\int_a^b uv'\,dx=[uv]_a^b-\int_a^b u'v\,dx$.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer $\ds\int_0^{+\infty}e^{-x}\,dx$ et $\ds\int_0^{+\infty}xe^{-x}\,dx$ (intégrales impropres).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Physique.} La quantité de chaleur échangée est $Q=\ds\int_0^T P(t)\,dt$ avec $P(t)=100\sin^2(\pi t/T)$. Calculer $Q$ par linéarisation.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer l'aire entre $y=\ln x$ et l'axe des ordonnées entre $y=0$ et $y=1$ (intégrer par rapport à $y$).
+\end{exercice}
+
+\begin{exercice}{2}
+Montrer que $\ds\int_0^1 x^n\,dx=\dfrac{1}{n+1}$ et $\ds\int_0^1 x^n(1-x)^m\,dx=\dfrac{n!\,m!}{(n+m+1)!}$ (intégrale de Bêta, admettre).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Volume de révolution.} Calculer le volume du solide engendré par la rotation de $y=\sqrt{x}$ autour de l'axe des abscisses pour $x\in[0;4]$ (formule $V=\pi\ds\int_a^b[f(x)]^2\,dx$).
+\end{exercice}
+
+\begin{exercice}{3}
+Intégrales de Wallis $I_n=\ds\int_0^{\pi/2}\sin^n x\,dx$. Montrer $I_n=\dfrac{n-1}{n}I_{n-2}$. Calculer $I_0,\ldots,I_6$.
+\end{exercice}
+
+\begin{exercice}{3}
+Montrer $\ds\int_0^\pi x\sin(nx)\,dx=\dfrac{\pi(-1)^{n+1}}{n}+\dfrac{1-(-1)^n}{n^2}$ par IPP.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Volume de révolution.} Le volume obtenu en faisant tourner le graphe de $f$ autour de l'axe des $x$ entre $a$ et $b$ est $V=\pi\ds\int_a^b [f(x)]^2\,dx$. Calculer le volume de la sphère de rayon $R$ (faire tourner $f(x)=\sqrt{R^2-x^2}$).
+\end{exercice}
+
+\begin{exercice}{3}
+Démontrer par l'intégrale de Riemann que $\ds\lim_{n\to+\infty}\dfrac{1}{n}\ds\sum_{k=1}^n f(k/n)=\ds\int_0^1 f(x)\,dx$. Appliquer pour calculer $\ds\lim_{n\to+\infty}\dfrac{1^2+2^2+\cdots+n^2}{n^3}$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Inégalité isopérimétrique.} Parmi tous les rectangles de périmètre fixé $2p$, montrer que le carré maximise l'aire. Utiliser l'inégalité AM-GM ou l'intégrale.
+\end{exercice}
+
+\begin{exercice}{3}
+Calculer $\ds\int_0^1\dfrac{\ln(1+x)}{1+x^2}\,dx$ (méthode : développer $\ln(1+x)$ ou utiliser un paramètre $t$).
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Soit $f$ continue positive sur $[0;1]$ avec $\ds\int_0^1 f(x)\,dx=1$. Montrer que $\ds\int_0^1[f(x)]^2\,dx\geq 1$ (utiliser l'inégalité de Cauchy-Schwarz).
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Loi des grands nombres}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercice}{1}
+Loi de $X$ : $P(X=-1)=0{,}2$, $P(X=0)=0{,}3$, $P(X=2)=0{,}4$, $P(X=4)=0{,}1$. Calculer $E(X)$, $V(X)$, $\sigma(X)$.
+\end{exercice}
+
+\begin{exercice}{1}
+$X\sim\mathcal{B}(50;\,0{,}4)$. Calculer $E(X)$, $V(X)$, $\sigma(X)$. Donner l'intervalle $[E(X)-2\sigma;\,E(X)+2\sigma]$.
+\end{exercice}
+
+\begin{exercice}{1}
+Calculer $E(2X-3)$ et $V(2X-3)$ en fonction de $E(X)$ et $V(X)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Pour $X$ de loi uniforme sur $\{1,2,3,4,5,6\}$ (dé), calculer $E(X)$ et $V(X)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Appliquer Bienaymé-Tchebychev à $X\sim\mathcal{B}(40;\,0{,}3)$, $\delta=4$. Minorer $P(|X-E(X)|<4)$.
+\end{exercice}
+
+\begin{exercice}{1}
+Vérifier que $V(X)=E(X^2)-[E(X)]^2$. Appliquer pour $X\sim\mathcal{B}(5;\,0{,}5)$.
+\end{exercice}
+
+\begin{exercice}{1}
+\textbf{Assurance.} Un sinistre a probabilité $0{,}01$ et coûte $10\,000$\,€. Quelle prime $p$ l'assureur doit-il fixer pour espérer un bénéfice de $50$\,€ par assuré ?
+\end{exercice}
+
+\begin{exercice}{1}
+Soit $X$ une variable aléatoire centrée ($E(X)=0$) et de variance $V(X)=4$. Majorer $P(|X|\geq 3)$ par Bienaymé-Tchebychev.
+\end{exercice}
+
+\begin{exercice}{2}
+On lance $n$ fois un dé. Soit $f_n$ la fréquence du 6. Calculer $E(f_n)$ et $V(f_n)$. Montrer $P(|f_n-1/6|\geq 0{,}05)\leq\dfrac{1}{9n\times 0{,}0025}$. Trouver le $n$ minimal garantissant cette probabilité $\leq 1\,\%$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer l'inégalité de Bienaymé-Tchebychev $P(|X-\mu|\geq\delta)\leq\dfrac{V(X)}{\delta^2}$ à partir de la définition de la variance.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer $E(X)=np$ pour $X\sim\mathcal{B}(n;p)$.
+\end{exercice}
+
+\begin{exercice}{2}
+Démontrer $V(X)=np(1-p)$ pour $X\sim\mathcal{B}(n;p)$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Sondage.} On estime une proportion $p$ par une fréquence $f_n$. Montrer que pour une précision $\varepsilon$ et une confiance de $95\,\%$, il suffit de $n\geq\dfrac{1}{4\varepsilon^2\times 0{,}05}$.
+\end{exercice}
+
+\begin{exercice}{2}
+Calculer $E(X^2)$ pour $X\sim\mathcal{B}(n;p)$ et en déduire $V(X)$ (méthode via $E(X(X-1))$).
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Jeu équitable.} Pour quel gain $g$ le jeu suivant est-il équitable : on tire une carte, on gagne $g$ si cœur, on perd $3$\,€ sinon ?
+\end{exercice}
+
+\begin{exercice}{2}
+Inégalité de Markov : pour $X\geq 0$, montrer $P(X\geq a)\leq\dfrac{E(X)}{a}$. Appliquer à $X\sim\mathcal{B}(20;\,0{,}4)$ et $a=15$.
+\end{exercice}
+
+\begin{exercice}{2}
+\textbf{Monte-Carlo.} On approche $\pi/4$ par la fréquence de points $(x;y)$ dans le quart de disque ($x^2+y^2\leq 1$, $x,y\in[0;1]$). Estimer $\pi$ avec $n=10\,000$ tirages. Quel $n$ pour une précision de $0{,}01$ ?
+\end{exercice}
+
+\begin{exercice}{2}
+Inégalité de Bienaymé-Tchébychev : pour $X$ de variance $\sigma^2$, montrer $P(|X-\mu|\geq k\sigma)\leq\dfrac{1}{k^2}$. Pour $X\sim\mathcal{B}(100;\,0{,}5)$, donner une borne sur $P(|X-50|\geq 15)$. Comparer à la valeur exacte.
+\end{exercice}
+
+\begin{exercice}{3}
+Loi faible des grands nombres : montrer que $\overline{X}_n\to p$ en probabilité pour des variables de Bernoulli i.i.d. de paramètre $p$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Test de signe.} On observe 12 succès sur 20 épreuves. Tester $H_0:p=0{,}5$ contre $H_1:p>0{,}5$ au seuil $\alpha=5\,\%$. Calculer $P(X\geq 12)$ sous $H_0$.
+\end{exercice}
+
+\begin{exercice}{3}
+Calculer la fonction génératrice des moments $G(t)=E(e^{tX})$ pour $X\sim\mathcal{B}(n;p)$. En déduire $E(X)=G'(0)$ et $V(X)=G''(0)-[G'(0)]^2$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème — paradoxe de Saint-Pétersbourg.} On lance une pièce jusqu'au premier face. Si face au rang $k$, on gagne $2^k$\,€. Montrer que l'espérance de gain est infinie. Quel montant rationnel payer pour jouer ?
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Convergence $\mathcal{B}(n;p)\to\mathcal{P}(\lambda)$.} Montrer $\binom{n}{k}p^k(1-p)^{n-k}\to\dfrac{e^{-\lambda}\lambda^k}{k!}$ quand $n\to\infty$, $p\to 0$, $np\to\lambda$. Appliquer : $n=1000$, $p=0{,}002$.
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème.} Montrer que pour $X_1,\ldots,X_n$ i.i.d. d'espérance $\mu$ et variance $\sigma^2$, la variance de $\overline{X}_n=\frac{1}{n}\sum X_i$ est $\sigma^2/n$. Interpréter : pourquoi l'incertitude diminue-t-elle avec la taille de l'échantillon ?
+\end{exercice}
+
+\begin{exercice}{3}
+\textbf{Problème final — loi des grands nombres forte (admise).} Admettre que $\overline{X}_n\to\mu$ presque sûrement. Simuler avec une calculatrice : pour $X\sim\mathcal{B}(1;\,0{,}3)$, calculer $\overline{X}_n$ pour $n=10$, $100$, $1000$. Observer la convergence vers $0{,}3$.
+\end{exercice}
+
+\end{document}

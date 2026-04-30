@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python — Apprendre à programmer — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/skulpt-stdlib.js"></script>
+  <style>
+    .py-editor {
+      background: #1e1e2e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1rem 0 1.5rem;
+      box-shadow: 0 4px 18px rgba(0,0,0,.25);
+      font-family: 'Fira Code','Consolas','Courier New',monospace;
+    }
+    .py-editor-bar {
+      background: #313244;
+      padding: .45rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .py-editor-bar .dot { width:12px;height:12px;border-radius:50%; }
+    .dot-red{background:#f38ba8;} .dot-yel{background:#f9e2af;} .dot-grn{background:#a6e3a1;}
+    .py-editor-bar span.fname { color:#cdd6f4;font-size:.82rem;margin-left:.5rem; }
+    .py-editor-bar button.btn-run {
+      margin-left:auto;background:#a6e3a1;color:#1e1e2e;border:none;border-radius:6px;
+      padding:.32rem .9rem;font-size:.85rem;font-weight:700;cursor:pointer;
+      transition:background .2s;display:flex;align-items:center;gap:.35rem;
+    }
+    .py-editor-bar button.btn-run:hover{background:#94d59b;}
+    .py-editor textarea.py-code {
+      display:block;width:100%;box-sizing:border-box;background:#1e1e2e;color:#cdd6f4;
+      border:none;outline:none;resize:vertical;padding:1rem 1.2rem;font-size:.93rem;
+      line-height:1.6;min-height:90px;font-family:inherit;tab-size:4;
+    }
+    .py-output-wrap {
+      background:#181825;border-top:1px solid #313244;padding:.7rem 1.2rem;min-height:36px;
+    }
+    .py-output-wrap .py-label {
+      font-size:.75rem;color:#585b70;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;
+    }
+    .py-output { color:#a6e3a1;font-size:.9rem;white-space:pre-wrap;font-family:inherit; }
+    .py-output.error { color:#f38ba8; }
+    code.py {
+      background:#1e1e2e;color:#a6e3a1;padding:.1em .4em;border-radius:4px;
+      font-size:.9em;font-family:'Fira Code','Consolas','Courier New',monospace;
+    }
+    .type-table { width:100%;border-collapse:collapse;font-size:.9rem;margin:.7rem 0 1rem; }
+    .type-table th { background:#1e1e2e;color:#a6e3a1;padding:.5rem .8rem;text-align:left;border:1px solid #313244; }
+    .type-table td { padding:.45rem .8rem;border:1px solid #e0e0e0;vertical-align:top; }
+    .type-table tr:nth-child(even) td { background:#f5f5f5; }
+    .type-table code { font-family:'Fira Code','Consolas',monospace;font-size:.88em; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header" style="background:linear-gradient(135deg,#1a237e,#283593,#2e7d32);">
+    <div class="num">Chapitre 15 · Informatique</div>
+    <h1>🐍 Python — Apprendre à programmer</h1>
+    <p class="tagline">Variables, conditions, boucles, fonctions, listes : les bases du Python avec des exemples interactifs et des exercices corrigés.</p>
+  </div>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a>
+        <ol type="A" style="margin-top:.3rem;">
+          <li><a href="#variables">Variables et types</a></li>
+          <li><a href="#conditions">Conditions</a></li>
+          <li><a href="#boucles">Boucles</a></li>
+          <li><a href="#fonctions">Fonctions</a></li>
+          <li><a href="#listes">Listes</a></li>
+          <li><a href="#maths">Applications en maths</a></li>
+        </ol>
+      </li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices interactifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ========== INTRODUCTION ========== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      <strong>Python</strong> est l'un des langages de programmation les plus populaires au monde.
+      Facile à lire, puissant et polyvalent, il est utilisé en sciences des données, en intelligence artificielle,
+      en physique, en finance et — bien sûr — en mathématiques.
+    </p>
+    <div class="attention">
+      <strong>Bonne nouvelle :</strong> aucune installation requise ! Chaque exemple ci-dessous peut être modifié
+      et exécuté directement dans le navigateur. Cliquez sur <strong>▶ Exécuter</strong> pour lancer le code.
+    </div>
+    <p>Voici votre tout premier programme Python :</p>
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">bonjour.py</span>
+        <button class="btn-run" onclick="runPy('code-hello','out-hello')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-hello" rows="3">print("Bonjour, monde !")
+print("Python, c'est simple et puissant.")
+print(2 + 2, "=", 4)</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-hello"></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COURS ========== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <!-- A. Variables -->
+    <h3 id="variables">A. Variables et types</h3>
+
+    <div class="definition">
+      <strong>Définition — Variable</strong>
+      <p>Une <strong>variable</strong> est une case mémoire nommée. On la crée par une affectation avec <code class="py">=</code>. Python détecte automatiquement le type.</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Les quatre types fondamentaux</strong>
+      <table class="type-table">
+        <thead><tr><th>Type</th><th>Nom Python</th><th>Exemples</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Entier</td><td><code>int</code></td><td><code>3, -7, 1000</code></td><td>Nombre entier relatif</td></tr>
+          <tr><td>Décimal</td><td><code>float</code></td><td><code>3.14, -0.5</code></td><td>Nombre à virgule flottante</td></tr>
+          <tr><td>Chaîne</td><td><code>str</code></td><td><code>"Bonjour", 'abc'</code></td><td>Texte entre guillemets</td></tr>
+          <tr><td>Booléen</td><td><code>bool</code></td><td><code>True, False</code></td><td>Vrai ou Faux</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="methode">
+      <strong>Opérateurs arithmétiques</strong>
+      <table class="type-table">
+        <thead><tr><th>Op.</th><th>Signification</th><th>Exemple</th><th>Résultat</th></tr></thead>
+        <tbody>
+          <tr><td><code>+</code></td><td>Addition</td><td><code>3+4</code></td><td><code>7</code></td></tr>
+          <tr><td><code>-</code></td><td>Soustraction</td><td><code>10-3</code></td><td><code>7</code></td></tr>
+          <tr><td><code>*</code></td><td>Multiplication</td><td><code>5*3</code></td><td><code>15</code></td></tr>
+          <tr><td><code>/</code></td><td>Division (réelle)</td><td><code>7/2</code></td><td><code>3.5</code></td></tr>
+          <tr><td><code>//</code></td><td>Division entière</td><td><code>7//2</code></td><td><code>3</code></td></tr>
+          <tr><td><code>%</code></td><td>Modulo (reste)</td><td><code>7%2</code></td><td><code>1</code></td></tr>
+          <tr><td><code>**</code></td><td>Puissance</td><td><code>2**10</code></td><td><code>1024</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">variables.py</span>
+        <button class="btn-run" onclick="runPy('code-var','out-var')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-var" rows="12">x = 5          # entier
+y = 3.14       # flottant
+nom = "Alice"  # chaine
+actif = True   # booleen
+
+print("x =", x, "  type:", type(x))
+print("y =", y, "  type:", type(y))
+print("nom =", nom)
+
+# Operations
+print("\nCalculs :")
+print("x + y =", x + y)
+print("x ** 3 =", x ** 3)
+print("17 // 5 =", 17 // 5, "   reste :", 17 % 5)</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-var"></pre>
+      </div>
+    </div>
+
+    <!-- B. Conditions -->
+    <h3 id="conditions">B. Structures conditionnelles</h3>
+
+    <div class="definition">
+      <strong>Syntaxe — if / elif / else</strong>
+      <p>En Python, l'<strong>indentation</strong> (4 espaces) est obligatoire pour délimiter les blocs. Les opérateurs de comparaison sont : <code class="py">==</code>, <code class="py">!=</code>, <code class="py">&lt;</code>, <code class="py">&lt;=</code>, <code class="py">&gt;</code>, <code class="py">&gt;=</code>. Les opérateurs logiques : <code class="py">and</code>, <code class="py">or</code>, <code class="py">not</code>.</p>
+    </div>
+
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">conditions.py</span>
+        <button class="btn-run" onclick="runPy('code-cond','out-cond')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-cond" rows="15">note = 14   # modifiez cette valeur !
+
+if note >= 16:
+    mention = "Tres Bien"
+elif note >= 14:
+    mention = "Bien"
+elif note >= 12:
+    mention = "Assez Bien"
+elif note >= 10:
+    mention = "Passable"
+else:
+    mention = "Insuffisant"
+
+print("Note :", note, "/ 20  -->  Mention :", mention)
+
+n = 17
+if n % 2 == 0:
+    print(n, "est pair")
+else:
+    print(n, "est impair")</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-cond"></pre>
+      </div>
+    </div>
+
+    <!-- C. Boucles -->
+    <h3 id="boucles">C. Boucles</h3>
+
+    <div class="definition">
+      <strong>Boucle <code class="py">for</code></strong>
+      <p>Parcourt une séquence. <code class="py">range(a, b)</code> génère les entiers de <em>a</em> à <em>b</em>−1. <code class="py">range(n)</code> génère 0, 1, …, n−1.</p>
+    </div>
+    <div class="definition">
+      <strong>Boucle <code class="py">while</code></strong>
+      <p>Répète le bloc <em>tant que</em> la condition est vraie. Indispensable pour les <strong>algorithmes de seuil</strong>.</p>
+    </div>
+
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">boucles.py</span>
+        <button class="btn-run" onclick="runPy('code-loop','out-loop')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-loop" rows="18">print("=== Boucle for ===")
+somme = 0
+for i in range(1, 11):   # i de 1 a 10
+    somme += i
+print("Somme 1+2+...+10 =", somme)
+
+print("\nTable de multiplication de 7 :")
+for k in range(1, 11):
+    print("7 x", k, "=", 7 * k)
+
+print("\n=== Boucle while ===")
+# Seuil : plus petit n tel que 2^n > 1000
+n = 0
+while 2**n <= 1000:
+    n += 1
+print("Plus petit n tel que 2^n > 1000 : n =", n, "  (2^n =", 2**n, ")")</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-loop"></pre>
+      </div>
+    </div>
+
+    <!-- D. Fonctions -->
+    <h3 id="fonctions">D. Fonctions</h3>
+
+    <div class="definition">
+      <strong>Définition — Fonction Python</strong>
+      <p>Une <strong>fonction</strong> est un bloc de code réutilisable, défini avec <code class="py">def</code>. Elle peut recevoir des <strong>paramètres</strong> et retourner un résultat avec <code class="py">return</code>.</p>
+    </div>
+
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">fonctions.py</span>
+        <button class="btn-run" onclick="runPy('code-func','out-func')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-func" rows="22">def carre(x):
+    return x ** 2
+
+def discriminant(a, b, c):
+    return b**2 - 4*a*c
+
+def resoudre_trinome(a, b, c):
+    delta = discriminant(a, b, c)
+    if delta > 0:
+        x1 = (-b - delta**0.5) / (2*a)
+        x2 = (-b + delta**0.5) / (2*a)
+        print("Delta > 0 : x1 =", round(x1,4), "  x2 =", round(x2,4))
+    elif delta == 0:
+        x0 = -b / (2*a)
+        print("Delta = 0 : solution double x0 =", round(x0,4))
+    else:
+        print("Delta < 0 : pas de solution reelle")
+
+print("Carres :", [carre(k) for k in range(1, 6)])
+print()
+resoudre_trinome(1, -5, 6)   # x^2 - 5x + 6 = 0
+resoudre_trinome(1, -2, 1)   # x^2 - 2x + 1 = 0
+resoudre_trinome(1,  0, 1)   # x^2 + 1 = 0</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-func"></pre>
+      </div>
+    </div>
+
+    <!-- E. Listes -->
+    <h3 id="listes">E. Listes</h3>
+
+    <div class="definition">
+      <strong>Définition — Liste</strong>
+      <p>Une <strong>liste</strong> est une collection ordonnée entre crochets <code class="py">[ ]</code>. Les indices commencent à 0. <code class="py">lst[-1]</code> désigne le dernier élément.</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Opérations courantes</strong>
+      <ul style="columns:2;gap:2rem;">
+        <li><code class="py">lst[i]</code> — accès à l'indice i</li>
+        <li><code class="py">len(lst)</code> — longueur</li>
+        <li><code class="py">lst.append(x)</code> — ajouter en fin</li>
+        <li><code class="py">lst.sort()</code> — tri croissant</li>
+        <li><code class="py">sum(lst)</code> — somme</li>
+        <li><code class="py">min(lst)</code> / <code class="py">max(lst)</code></li>
+        <li><code class="py">sorted(lst)</code> — nouvelle liste triée</li>
+        <li><code class="py">[f(x) for x in lst]</code> — compréhension</li>
+      </ul>
+    </div>
+
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">listes.py</span>
+        <button class="btn-run" onclick="runPy('code-list','out-list')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-list" rows="16">notes = [12, 15, 8, 17, 11, 14, 9, 16]
+
+print("Notes :", notes)
+print("Nombre :", len(notes))
+print("Moyenne :", sum(notes) / len(notes))
+print("Max :", max(notes), "  Min :", min(notes))
+
+# Tri
+print("Triees :", sorted(notes))
+
+# Comprehension de liste
+doubles = [n * 2 for n in notes]
+print("Doublees :", doubles)
+
+# Filtrage
+admis = [n for n in notes if n >= 10]
+print("Admis (>= 10) :", admis)
+
+notes.append(13)
+print("Apres ajout de 13 :", notes)</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-list"></pre>
+      </div>
+    </div>
+
+    <!-- F. Applications maths -->
+    <h3 id="maths">F. Applications en mathématiques</h3>
+
+    <div class="attention">
+      <strong>Python et les maths :</strong> suites, algorithmes de seuil, intégration numérique, simulations probabilistes — autant de thèmes au programme de Terminale traités en quelques lignes.
+    </div>
+
+    <h4>F.1 — Suites et algorithme de seuil</h4>
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">suites.py</span>
+        <button class="btn-run" onclick="runPy('code-suites','out-suites')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-suites" rows="20">def suite_arithmetique(u0, r, n):
+    return [u0 + k * r for k in range(n + 1)]
+
+def suite_geometrique(u0, q, n):
+    return [u0 * (q ** k) for k in range(n + 1)]
+
+arith = suite_arithmetique(2, 3, 7)
+print("Suite arith. (u0=2, r=3) :", arith)
+print("  Somme S7 =", sum(arith))
+
+geom = suite_geometrique(1, 2, 9)
+print("\nSuite geom.  (u0=1, q=2) :", geom)
+print("  Somme S9 =", sum(geom))
+
+# Algorithme de seuil
+print("\nSeuil : premier n tel que (0.9)^n < 0.01")
+u, n = 1, 0
+while u >= 0.01:
+    u *= 0.9
+    n += 1
+print("  n =", n, "  (0.9)^n =", round(u, 8))</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-suites"></pre>
+      </div>
+    </div>
+
+    <h4>F.2 — Intégration numérique (méthode des rectangles)</h4>
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">integration.py</span>
+        <button class="btn-run" onclick="runPy('code-integ','out-integ')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-integ" rows="18">import math
+
+def integrale_rectangles(f, a, b, n):
+    h = (b - a) / n
+    return sum(f(a + k * h) for k in range(n)) * h
+
+# Integrale de sin(x) sur [0, pi] = 2
+f1 = lambda x: math.sin(x)
+print("Integrale de sin(x) sur [0, pi] (valeur exacte = 2) :")
+for n in [10, 100, 1000]:
+    approx = integrale_rectangles(f1, 0, math.pi, n)
+    print("  n =", n, "  approx =", round(approx, 8), "  erreur =", round(abs(approx - 2), 2e-8))
+
+# Approximation de pi
+print("\nApproximation de pi via l'integrale de 4/(1+x^2) sur [0,1] :")
+f2 = lambda x: 4 / (1 + x**2)
+for n in [100, 10000]:
+    pi_approx = integrale_rectangles(f2, 0, 1, n)
+    print("  n =", n, "  pi ~=", round(pi_approx, 8), "  erreur =", round(abs(pi_approx - math.pi), 10))</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-integ"></pre>
+      </div>
+    </div>
+
+    <h4>F.3 — Simulation probabiliste</h4>
+    <div class="py-editor">
+      <div class="py-editor-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+        <span class="fname">probabilites.py</span>
+        <button class="btn-run" onclick="runPy('code-proba','out-proba')">▶ Exécuter</button>
+      </div>
+      <textarea class="py-code" id="code-proba" rows="18">import random
+
+def simuler_pile_ou_face(n):
+    piles = sum(1 for _ in range(n) if random.random() < 0.5)
+    return piles / n
+
+print("Loi des grands nombres — pile ou face :")
+for n in [10, 100, 1000, 10000]:
+    freq = simuler_pile_ou_face(n)
+    print("  n =", n, "  frequence Pile =", round(freq, 5), "  ecart =", round(abs(freq - 0.5), 5))
+
+print("\nFrequences relatives : 6000 lancers d'un de :")
+lancers = [random.randint(1, 6) for _ in range(6000)]
+for face in range(1, 7):
+    freq = lancers.count(face) / 6000
+    barre = "#" * int(freq * 100)
+    print("  Face", face, ":", round(freq, 4), " ", barre)</textarea>
+      <div class="py-output-wrap">
+        <div class="py-label">Sortie</div>
+        <pre class="py-output" id="out-proba"></pre>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== EXEMPLES ========== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Factorielle et coefficients binomiaux</strong>
+      <div class="steps">
+        <p>On programme \(n!\) puis \(\binom{n}{k}\) pour reconstruire le triangle de Pascal.</p>
+      </div>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">exemple1_pascal.py</span>
+          <button class="btn-run" onclick="runPy('code-ex1','out-ex1')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-ex1" rows="16">def factorielle(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+def binom(n, k):
+    return factorielle(n) // (factorielle(k) * factorielle(n - k))
+
+print("Triangle de Pascal (lignes 0 a 6) :")
+for n in range(7):
+    ligne = [binom(n, k) for k in range(n + 1)]
+    print("  n=" + str(n) + " :", ligne)
+
+print()
+print("C(10,3) =", binom(10, 3))
+print("C(20,10) =", binom(20, 10))</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-ex1"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Méthode de Newton</strong>
+      <div class="steps">
+        <p>La suite \(x_{n+1} = x_n - \dfrac{f(x_n)}{f'(x_n)}\) converge très vite vers une racine de \(f\). On approche \(\sqrt[3]{2}\) en résolvant \(x^3-2=0\).</p>
+      </div>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">exemple2_newton.py</span>
+          <button class="btn-run" onclick="runPy('code-ex2','out-ex2')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-ex2" rows="18">def newton(f, df, x0, epsilon=1e-10, max_iter=50):
+    x = x0
+    for i in range(max_iter):
+        fx = f(x)
+        if abs(fx) < epsilon:
+            print("  Convergence en", i, "iterations.")
+            break
+        x = x - fx / df(x)
+    return x
+
+import math
+
+f  = lambda x: x**3 - 2
+df = lambda x: 3 * x**2
+
+racine = newton(f, df, x0=1.0)
+print("Racine cubique de 2 par Newton :")
+print("  racine^3 =", round(racine**3, 15), " (doit valoir 2)")
+print("  math.pow(2,1/3) =", round(2**(1/3), 15))
+
+# Resoudre cos(x) = x
+f2  = lambda x: math.cos(x) - x
+df2 = lambda x: -math.sin(x) - 1
+sol = newton(f2, df2, x0=0.5)
+print("\nSolution de cos(x) = x :")
+print("  x =", round(sol, 12))</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-ex2"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Crible d'Ératosthène</strong>
+      <div class="steps">
+        <p>Algorithme classique pour trouver tous les nombres premiers jusqu'à \(N\).</p>
+      </div>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">exemple3_crible.py</span>
+          <button class="btn-run" onclick="runPy('code-ex3','out-ex3')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-ex3" rows="16">def crible(N):
+    est_premier = [True] * (N + 1)
+    est_premier[0] = est_premier[1] = False
+    for p in range(2, int(N**0.5) + 1):
+        if est_premier[p]:
+            for m in range(p*p, N + 1, p):
+                est_premier[m] = False
+    return [n for n in range(N + 1) if est_premier[n]]
+
+premiers = crible(100)
+print("Premiers <= 100 (", len(premiers), "nombres ) :")
+print(premiers)
+
+grands = crible(1000)
+print("\nPremiers <= 1000 :", len(grands), "nombres")
+print("Les 5 derniers :", grands[-5:])
+
+jumeaux = [(p, p+2) for p in premiers if p+2 in premiers]
+print("\nPaires de premiers jumeaux <= 100 :", jumeaux)</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-ex3"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Suite de Fibonacci et nombre d'or</strong>
+      <div class="steps">
+        <p>\(F_0=0,\ F_1=1,\ F_{n+1}=F_n+F_{n-1}\). Le rapport \(\dfrac{F_{n+1}}{F_n}\) converge vers \(\varphi=\dfrac{1+\sqrt{5}}{2}\).</p>
+      </div>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">exemple4_fibonacci.py</span>
+          <button class="btn-run" onclick="runPy('code-ex4','out-ex4')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-ex4" rows="16">import math
+phi = (1 + math.sqrt(5)) / 2
+print("Nombre d'or phi =", round(phi, 10))
+
+F = [0, 1]
+for k in range(2, 21):
+    F.append(F[-1] + F[-2])
+print("\nFibonacci F0 a F20 :")
+print(F)
+
+print("\nConvergence des rapports vers phi :")
+for n in [5, 10, 15, 19]:
+    rapport = F[n+1] / F[n]
+    print("  F[" + str(n+1) + "]/F[" + str(n) + "] =", round(rapport, 10),
+          "  erreur :", round(abs(rapport - phi), 2))</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-ex4"></pre>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== EXERCICES ========== -->
+  <section id="exercices">
+    <h2>4. Exercices interactifs</h2>
+    <p>Complétez le code dans chaque éditeur, puis cliquez sur <strong>▶ Exécuter</strong> pour tester votre solution.</p>
+
+    <!-- EX 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Calculatrice</b>
+      <p>Écrire une fonction <code class="py">calculatrice(a, op, b)</code> qui prend deux nombres et un opérateur (<code class="py">'+'</code>, <code class="py">'-'</code>, <code class="py">'*'</code>, <code class="py">'/'</code>) et retourne le résultat.</p>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">ex1.py</span>
+          <button class="btn-run" onclick="runPy('code-xo1','out-xo1')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-xo1" rows="9">def calculatrice(a, op, b):
+    pass  # a completer !
+
+print(calculatrice(5, '+', 3))   # attendu : 8
+print(calculatrice(10, '-', 4))  # attendu : 6
+print(calculatrice(7, '*', 6))   # attendu : 42
+print(calculatrice(15, '/', 4))  # attendu : 3.75</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-xo1"></pre>
+        </div>
+      </div>
+      <button class="btn-toggle" data-target="cor-py-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-py-ex1">
+        <div class="corrige">
+          <div class="py-editor">
+            <div class="py-editor-bar">
+              <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+              <span class="fname">ex1_corrige.py</span>
+              <button class="btn-run" onclick="runPy('code-xo1c','out-xo1c')">▶ Exécuter</button>
+            </div>
+            <textarea class="py-code" id="code-xo1c" rows="12">def calculatrice(a, op, b):
+    if op == '+':
+        return a + b
+    elif op == '-':
+        return a - b
+    elif op == '*':
+        return a * b
+    elif op == '/':
+        if b == 0:
+            return "Erreur : division par zero"
+        return a / b
+    else:
+        return "Operateur inconnu"
+
+print(calculatrice(5, '+', 3))
+print(calculatrice(10, '-', 4))
+print(calculatrice(7, '*', 6))
+print(calculatrice(15, '/', 4))
+print(calculatrice(5, '/', 0))</textarea>
+            <div class="py-output-wrap">
+              <div class="py-label">Sortie</div>
+              <pre class="py-output" id="out-xo1c"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Maximum sans max()</b>
+      <p>Sans utiliser la fonction <code class="py">max()</code>, écrire <code class="py">mon_max(lst)</code> qui retourne le plus grand élément d'une liste.</p>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">ex2.py</span>
+          <button class="btn-run" onclick="runPy('code-xo2','out-xo2')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-xo2" rows="8">def mon_max(lst):
+    pass  # a completer !
+
+print(mon_max([3, 1, 7, 2, 9, 4]))   # 9
+print(mon_max([-5, -1, -8, -2]))      # -1
+print(mon_max([42]))                   # 42</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-xo2"></pre>
+        </div>
+      </div>
+      <button class="btn-toggle" data-target="cor-py-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-py-ex2">
+        <div class="corrige">
+          <div class="py-editor">
+            <div class="py-editor-bar">
+              <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+              <span class="fname">ex2_corrige.py</span>
+              <button class="btn-run" onclick="runPy('code-xo2c','out-xo2c')">▶ Exécuter</button>
+            </div>
+            <textarea class="py-code" id="code-xo2c" rows="9">def mon_max(lst):
+    maxi = lst[0]
+    for element in lst:
+        if element > maxi:
+            maxi = element
+    return maxi
+
+print(mon_max([3, 1, 7, 2, 9, 4]))
+print(mon_max([-5, -1, -8, -2]))
+print(mon_max([42]))</textarea>
+            <div class="py-output-wrap">
+              <div class="py-label">Sortie</div>
+              <pre class="py-output" id="out-xo2c"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Suite et algorithme de seuil</b>
+      <p>Soit \(u_0=100\) et \(u_{n+1}=0{,}85\,u_n\). Écrire une fonction qui retourne les \(N\) premiers termes, et une autre qui trouve le plus petit \(n\) tel que \(u_n &lt; 1\).</p>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">ex3.py</span>
+          <button class="btn-run" onclick="runPy('code-xo3','out-xo3')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-xo3" rows="11">def termes_suite(u0, q, N):
+    pass  # a completer
+
+def seuil(u0, q, limite):
+    pass  # a completer
+
+termes = termes_suite(100, 0.85, 10)
+print("10 premiers termes :", termes)
+n_seuil = seuil(100, 0.85, 1)
+print("Plus petit n tel que u_n < 1 : n =", n_seuil)</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-xo3"></pre>
+        </div>
+      </div>
+      <button class="btn-toggle" data-target="cor-py-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-py-ex3">
+        <div class="corrige">
+          <div class="py-editor">
+            <div class="py-editor-bar">
+              <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+              <span class="fname">ex3_corrige.py</span>
+              <button class="btn-run" onclick="runPy('code-xo3c','out-xo3c')">▶ Exécuter</button>
+            </div>
+            <textarea class="py-code" id="code-xo3c" rows="14">def termes_suite(u0, q, N):
+    termes = [u0]
+    for _ in range(N - 1):
+        termes.append(round(termes[-1] * q, 4))
+    return termes
+
+def seuil(u0, q, limite):
+    u, n = u0, 0
+    while u >= limite:
+        u *= q
+        n += 1
+    return n
+
+print("10 premiers termes :", termes_suite(100, 0.85, 10))
+n_s = seuil(100, 0.85, 1)
+print("Plus petit n tel que u_n < 1 : n =", n_s)
+print("Verification : 100 * 0.85^" + str(n_s) + " =", round(100 * 0.85**n_s, 6))</textarea>
+            <div class="py-output-wrap">
+              <div class="py-label">Sortie</div>
+              <pre class="py-output" id="out-xo3c"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Moyenne, variance, écart-type</b>
+      <p>Sans bibliothèque externe, calculer la moyenne \(\bar{x}\), la variance \(V=\frac{1}{n}\sum(x_i-\bar{x})^2\) et l'écart-type \(\sigma=\sqrt{V}\).</p>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">ex4.py</span>
+          <button class="btn-run" onclick="runPy('code-xo4','out-xo4')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-xo4" rows="10">def statistiques(valeurs):
+    pass  # retourner (moyenne, variance, ecart_type)
+
+donnees = [12, 15, 8, 17, 11, 14, 9, 16, 13, 10]
+moy, var, et = statistiques(donnees)
+print("Moyenne :", round(moy, 4))
+print("Variance :", round(var, 4))
+print("Ecart-type :", round(et, 4))</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-xo4"></pre>
+        </div>
+      </div>
+      <button class="btn-toggle" data-target="cor-py-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-py-ex4">
+        <div class="corrige">
+          <div class="py-editor">
+            <div class="py-editor-bar">
+              <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+              <span class="fname">ex4_corrige.py</span>
+              <button class="btn-run" onclick="runPy('code-xo4c','out-xo4c')">▶ Exécuter</button>
+            </div>
+            <textarea class="py-code" id="code-xo4c" rows="14">def statistiques(valeurs):
+    n   = len(valeurs)
+    moy = sum(valeurs) / n
+    var = sum((x - moy)**2 for x in valeurs) / n
+    et  = var ** 0.5
+    return moy, var, et
+
+donnees = [12, 15, 8, 17, 11, 14, 9, 16, 13, 10]
+moy, var, et = statistiques(donnees)
+print("Donnees :", donnees)
+print("Moyenne :", round(moy, 4))
+print("Variance :", round(var, 4))
+print("Ecart-type :", round(et, 4))
+dans = [x for x in donnees if moy - et <= x <= moy + et]
+print("Valeurs dans [x-s ; x+s] :", dans, "soit", len(dans), "/", len(donnees))</textarea>
+            <div class="py-output-wrap">
+              <div class="py-label">Sortie</div>
+              <pre class="py-output" id="out-xo4c"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Dichotomie</b>
+      <p>Implémenter la méthode de <strong>dichotomie</strong> pour approcher une racine de \(f\) sur \([a,b]\) avec \(f(a)\cdot f(b)\leq 0\). L'utiliser pour approcher \(\sqrt{2}\).</p>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">ex5.py</span>
+          <button class="btn-run" onclick="runPy('code-xo5','out-xo5')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-xo5" rows="10">def dichotomie(f, a, b, epsilon=1e-10):
+    pass  # a completer
+
+f = lambda x: x**2 - 2
+racine = dichotomie(f, 1, 2)
+print("Racine approchee :", round(racine, 12))
+print("Verification : racine^2 =", round(racine**2, 12))</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-xo5"></pre>
+        </div>
+      </div>
+      <button class="btn-toggle" data-target="cor-py-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-py-ex5">
+        <div class="corrige">
+          <div class="py-editor">
+            <div class="py-editor-bar">
+              <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+              <span class="fname">ex5_corrige.py</span>
+              <button class="btn-run" onclick="runPy('code-xo5c','out-xo5c')">▶ Exécuter</button>
+            </div>
+            <textarea class="py-code" id="code-xo5c" rows="18">def dichotomie(f, a, b, epsilon=1e-10):
+    iterations = 0
+    while (b - a) > epsilon:
+        m = (a + b) / 2
+        if f(a) * f(m) <= 0:
+            b = m
+        else:
+            a = m
+        iterations += 1
+    print("  Iterations :", iterations)
+    return (a + b) / 2
+
+import math
+
+f = lambda x: x**2 - 2
+print("Racine de x^2 - 2 sur [1, 2] :")
+r = dichotomie(f, 1, 2)
+print("  Approchee :", round(r, 12))
+print("  math.sqrt(2) :", round(math.sqrt(2), 12))
+print("  Erreur :", abs(r - math.sqrt(2)))
+
+f2 = lambda x: x**3 - 3
+print("\nRacine cubique de 3 :")
+r2 = dichotomie(f2, 1, 2)
+print("  Approchee :", round(r2, 12))</textarea>
+            <div class="py-output-wrap">
+              <div class="py-label">Sortie</div>
+              <pre class="py-output" id="out-xo5c"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Simulation de la loi binomiale</b>
+      <p>Simuler \(X\sim\mathcal{B}(20,\,0{,}3)\) sur 10 000 essais. Comparer l'espérance et la variance simulées aux valeurs théoriques \(E(X)=np\) et \(V(X)=np(1-p)\).</p>
+      <div class="py-editor">
+        <div class="py-editor-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+          <span class="fname">ex6.py</span>
+          <button class="btn-run" onclick="runPy('code-xo6','out-xo6')">▶ Exécuter</button>
+        </div>
+        <textarea class="py-code" id="code-xo6" rows="11">import random
+
+def simuler_binomiale(n, p, nb_essais):
+    pass  # retourner liste des nb_essais valeurs de X
+
+resultats = simuler_binomiale(20, 0.3, 10000)
+if resultats:
+    moy = sum(resultats) / len(resultats)
+    print("Esperance theorique :", 20 * 0.3)
+    print("Esperance simulee   :", round(moy, 4))
+    print("Variance theorique  :", 20 * 0.3 * 0.7)
+    var = sum((x - moy)**2 for x in resultats) / len(resultats)
+    print("Variance simulee    :", round(var, 4))</textarea>
+        <div class="py-output-wrap">
+          <div class="py-label">Sortie</div>
+          <pre class="py-output" id="out-xo6"></pre>
+        </div>
+      </div>
+      <button class="btn-toggle" data-target="cor-py-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-py-ex6">
+        <div class="corrige">
+          <div class="py-editor">
+            <div class="py-editor-bar">
+              <span class="dot dot-red"></span><span class="dot dot-yel"></span><span class="dot dot-grn"></span>
+              <span class="fname">ex6_corrige.py</span>
+              <button class="btn-run" onclick="runPy('code-xo6c','out-xo6c')">▶ Exécuter</button>
+            </div>
+            <textarea class="py-code" id="code-xo6c" rows="22">import random
+
+def simuler_binomiale(n, p, nb_essais):
+    resultats = []
+    for _ in range(nb_essais):
+        succes = sum(1 for _ in range(n) if random.random() < p)
+        resultats.append(succes)
+    return resultats
+
+n, p, nb = 20, 0.3, 10000
+res = simuler_binomiale(n, p, nb)
+moy = sum(res) / nb
+var = sum((x - moy)**2 for x in res) / nb
+
+print("B(" + str(n) + ", " + str(p) + ") simulee sur", nb, "essais :")
+print("  Esperance : theorique =", n*p, " | simulee =", round(moy, 4))
+print("  Variance  : theorique =", round(n*p*(1-p), 4), " | simulee =", round(var, 4))
+
+print("\nDistribution (k ou P(X=k) > 2%) :")
+for k in range(n + 1):
+    freq = res.count(k) / nb
+    if freq > 0.02:
+        barre = "#" * int(freq * 200)
+        print("  k=" + str(k).rjust(2) + "  freq=" + str(round(freq,4)).ljust(6) + "  " + barre)</textarea>
+            <div class="py-output-wrap">
+              <div class="py-label">Sortie</div>
+              <pre class="py-output" id="out-xo6c"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== SYNTHESE ========== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse Python</h2>
+
+      <h3>Structures essentielles</h3>
+      <table class="type-table">
+        <thead><tr><th>Concept</th><th>Syntaxe</th></tr></thead>
+        <tbody>
+          <tr><td>Affectation</td><td><code>x = 5</code></td></tr>
+          <tr><td>Affichage</td><td><code>print(x, "texte", 3+4)</code></td></tr>
+          <tr><td>Commentaire</td><td><code># commentaire</code></td></tr>
+          <tr><td>Condition</td><td><code>if cond: ... elif ...: ... else: ...</code></td></tr>
+          <tr><td>Boucle for</td><td><code>for i in range(n): ...</code></td></tr>
+          <tr><td>Boucle while</td><td><code>while condition: ...</code></td></tr>
+          <tr><td>Fonction</td><td><code>def f(x): ... return ...</code></td></tr>
+          <tr><td>Lambda</td><td><code>f = lambda x: x**2</code></td></tr>
+          <tr><td>Compréhension</td><td><code>[f(x) for x in lst if cond]</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Fonctions mathématiques — module <code class="py">math</code></h3>
+      <ul style="columns:2;gap:2rem;">
+        <li><code class="py">math.sqrt(x)</code> — racine carrée</li>
+        <li><code class="py">math.pi</code> — \(\pi\)</li>
+        <li><code class="py">math.e</code> — \(e\)</li>
+        <li><code class="py">math.sin(x)</code>, <code class="py">math.cos(x)</code></li>
+        <li><code class="py">math.log(x)</code> — \(\ln(x)\)</li>
+        <li><code class="py">math.factorial(n)</code> — \(n!\)</li>
+        <li><code class="py">abs(x)</code> — valeur absolue</li>
+        <li><code class="py">round(x, n)</code> — arrondi</li>
+      </ul>
+
+      <h3>Bonnes pratiques</h3>
+      <ul>
+        <li><strong>Indentation :</strong> toujours 4 espaces.</li>
+        <li><strong>Noms explicites :</strong> <code class="py">moyenne_notes</code> plutôt que <code class="py">mn</code>.</li>
+        <li><strong>Tester :</strong> vérifier sur des cas simples avant les cas complexes.</li>
+        <li><strong>Boucle while :</strong> s'assurer que la condition finit par devenir fausse.</li>
+        <li><strong>Commenter :</strong> expliquer le <em>pourquoi</em>, pas le <em>quoi</em>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="14-loi-grands-nombres.html">← Précédent</a>
+    <a href="../index.html">Accueil →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+
+<script>
+function runPy(codeId, outId) {
+  var code = document.getElementById(codeId).value;
+  var outEl = document.getElementById(outId);
+  outEl.textContent = '';
+  outEl.className = 'py-output';
+
+  function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles['files'][x] === undefined)
+      throw "Fichier introuvable : '" + x + "'";
+    return Sk.builtinFiles['files'][x];
+  }
+
+  Sk.configure({
+    output: function(text) { outEl.textContent += text; },
+    read: builtinRead,
+    __future__: Sk.python3
+  });
+
+  Sk.misceval.asyncToPromise(function() {
+    return Sk.importMainWithBody('<stdin>', false, code, true);
+  }).then(
+    function() {},
+    function(err) {
+      outEl.textContent = err.toString();
+      outEl.className = 'py-output error';
+    }
+  );
+}
+</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

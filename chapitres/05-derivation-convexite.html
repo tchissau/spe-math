@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dérivation et convexité — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 5 · Analyse</div>
+    <h1>Dérivation et convexité</h1>
+    <p class="tagline">La dérivée seconde révèle la courbure d'une fonction — comprendre comment une courbe se retourne change tout à l'analyse graphique.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/05-derivation-convexite.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a>
+        <ul>
+          <li><a href="#composee">A. Dérivée d'une fonction composée</a></li>
+          <li><a href="#seconde">A.2 Dérivée seconde</a></li>
+          <li><a href="#convexite">B. Convexité</a></li>
+          <li><a href="#inflexion">B.2 Point d'inflexion</a></li>
+        </ul>
+      </li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== INTRODUCTION ===== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      En Première, vous avez appris à dériver les fonctions usuelles et à étudier les variations d'une fonction
+      à l'aide de sa dérivée. En Terminale, nous allons pousser cette étude plus loin grâce à deux outils puissants :
+    </p>
+    <ul>
+      <li>La <strong>dérivée d'une fonction composée</strong>, qui permet de dériver des expressions plus complexes comme \(e^{2x-1}\), \(\sqrt{x^2+1}\), \(\cos(3x)\), etc.</li>
+      <li>La <strong>dérivée seconde</strong> et la notion de <strong>convexité</strong>, qui permettent de décrire la courbure d'une courbe et de localiser les points d'inflexion.</li>
+    </ul>
+    <div class="attention">
+      <strong>Rappel :</strong> La dérivée \(f'(a)\) représente le coefficient directeur de la tangente à la courbe de \(f\) au point d'abscisse \(a\). Si \(f'(a) > 0\), la fonction est croissante en \(a\) ; si \(f'(a) < 0\), elle est décroissante.
+    </div>
+    <p>
+      La dérivée seconde \(f''\) nous dira, elle, si la courbe est « creusée vers le haut » ou « creusée vers le bas » — c'est-à-dire si elle est <strong>convexe</strong> ou <strong>concave</strong>.
+    </p>
+  </section>
+
+  <!-- ===== COURS ===== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3 id="composee">A. Compléments sur les dérivées</h3>
+
+    <h4>A.1 Dérivée d'une fonction composée</h4>
+
+    <div class="definition">
+      <strong>Définition — Fonction composée :</strong><br/>
+      Soient \(u\) définie sur \(I\) à valeurs dans \(J\) et \(v\) définie sur \(J\).
+      La composée \(v \circ u\) est définie sur \(I\) par :
+      \[
+        (v \circ u)(x) = v(u(x))
+      \]
+      On lit « \(v\) composée de \(u\) ».
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Dérivée de la composée :</strong><br/>
+      Si \(u\) est dérivable sur \(I\) et \(v\) dérivable sur \(J\), alors \(v \circ u\) est dérivable sur \(I\) et :
+      \[
+        (v \circ u)'(x_0) = u'(x_0) \times v'(u(x_0))
+      \]
+      <em>En pratique :</em> on dérive la fonction extérieure (en laissant l'intérieur intact), puis on multiplie par la dérivée de l'intérieur.
+    </div>
+
+    <div class="propriete">
+      <strong>Propriétés particulières :</strong><br/>
+      Deux cas à connaître absolument :
+      <ol>
+        <li>
+          Si \(f(x) = e^{u(x)}\), alors \(f\) est dérivable et :
+          \[ f'(x) = u'(x)\,e^{u(x)} \]
+        </li>
+        <li>
+          Si \(f(x) = \sqrt{u(x)}\) avec \(u(x) > 0\), alors \(f\) est dérivable et :
+          \[ f'(x) = \dfrac{u'(x)}{2\sqrt{u(x)}} \]
+        </li>
+      </ol>
+    </div>
+
+    <div class="attention">
+      <strong>Remarque :</strong> En général \(u \circ v \neq v \circ u\). La composition n'est pas commutative !<br/>
+      <em>Exemple :</em> avec \(u(x) = x^2\) et \(v(x) = x+1\) :
+      \[
+        u(v(x)) = (x+1)^2 = x^2 + 2x + 1 \quad \text{et} \quad v(u(x)) = x^2 + 1
+      \]
+      Ces deux expressions sont bien différentes.
+    </div>
+
+    <h4 id="seconde">A.2 Dérivée seconde</h4>
+
+    <div class="definition">
+      <strong>Définition — Dérivée seconde :</strong><br/>
+      Si \(f'\) est dérivable sur \(I\), on note \(f''\) sa dérivée, appelée <strong>dérivée seconde</strong> de \(f\).
+      \[ f'' = (f')' \]
+      La dérivée seconde mesure le taux de variation de la dérivée, c'est-à-dire la façon dont la pente de la courbe évolue.
+    </div>
+
+    <div class="astuce">
+      <strong>Astuce :</strong> Pour calculer \(f''\), il suffit de dériver \(f'\) en utilisant toutes les règles habituelles (somme, produit, composée...).
+    </div>
+
+    <h3 id="convexite">B. Convexité</h3>
+
+    <h4>B.1 Fonctions convexes et concaves</h4>
+
+    <div class="definition">
+      <strong>Définition — Sécante :</strong><br/>
+      Une <strong>sécante</strong> à la courbe \(\mathcal{C}_f\) est une droite \((AB)\) où \(A\) et \(B\) sont deux points distincts de \(\mathcal{C}_f\).
+    </div>
+
+    <div class="definition">
+      <strong>Définition — Convexité / concavité :</strong><br/>
+      <ul>
+        <li>\(f\) est <strong>convexe</strong> sur \(I\) si sa courbe est <em>en dessous</em> de chacune de ses sécantes entre les points d'intersection (la courbe est « creusée vers le haut »).</li>
+        <li>\(f\) est <strong>concave</strong> sur \(I\) si sa courbe est <em>au-dessus</em> de ses sécantes (la courbe est « en cloche »).</li>
+      </ul>
+    </div>
+
+    <!-- ===== FIGURES : Convexe vs Concave — sécantes ===== -->
+    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;margin:1.3rem 0 1.8rem;">
+
+      <!-- Panneau CONVEXE -->
+      <figure style="flex:1;min-width:200px;max-width:260px;text-align:center;">
+        <svg viewBox="0 0 240 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;background:#F8F9FF;border-radius:8px;border:1.5px solid #1565C0;">
+          <!-- Axes -->
+          <line x1="18" y1="155" x2="222" y2="155" stroke="#bbb" stroke-width="1"/>
+          <line x1="120" y1="168" x2="120" y2="18" stroke="#bbb" stroke-width="1"/>
+          <text x="218" y="150" font-size="10" fill="#999" font-family="serif" font-style="italic">x</text>
+          <text x="125" y="18" font-size="10" fill="#999" font-family="serif" font-style="italic">y</text>
+          <!-- Région hachurée entre sécante (haut) et courbe (bas) -->
+          <polygon points="60,99 180,99 160,130 140,149 120,155 100,149 80,130 60,99"
+                   fill="#BBDEFB" opacity="0.55"/>
+          <!-- Courbe y = x² -->
+          <polyline points="40,55 60,99 80,130 100,149 120,155 140,149 160,130 180,99 200,55"
+                    fill="none" stroke="#1565C0" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Sécante (AB) -->
+          <line x1="40" y1="99" x2="200" y2="99" stroke="#E53935" stroke-width="2" stroke-dasharray="5,4"/>
+          <!-- Points A et B -->
+          <circle cx="60" cy="99" r="4" fill="#E53935"/>
+          <circle cx="180" cy="99" r="4" fill="#E53935"/>
+          <text x="46" y="92" font-size="11" fill="#E53935" font-family="serif" font-style="italic">A</text>
+          <text x="184" y="92" font-size="11" fill="#E53935" font-family="serif" font-style="italic">B</text>
+          <!-- Étiquettes -->
+          <text x="120" y="175" font-size="10" fill="#E53935" text-anchor="middle" font-family="sans-serif">——— sécante (AB)</text>
+          <text x="120" y="32" font-size="11" fill="#1565C0" text-anchor="middle" font-weight="bold" font-family="sans-serif">f(x) = x²</text>
+          <!-- Flèche indiquant position relative -->
+          <text x="118" y="140" font-size="9" fill="#1565C0" text-anchor="middle" font-family="sans-serif">courbe</text>
+          <line x1="120" y1="126" x2="120" y2="104" stroke="#1565C0" stroke-width="1.2" marker-end="url(#arUp)"/>
+          <text x="118" y="89" font-size="9" fill="#E53935" text-anchor="middle" font-family="sans-serif">sécante</text>
+        </svg>
+        <figcaption style="margin-top:.5rem;font-size:.85rem;line-height:1.4;">
+          <strong style="color:#1565C0">Fonction CONVEXE</strong><br/>
+          Courbe <em>en dessous</em> de la sécante<br/>
+          \( f''(x) \geq 0 \) — « creusée vers le haut »
+        </figcaption>
+      </figure>
+
+      <!-- Panneau CONCAVE -->
+      <figure style="flex:1;min-width:200px;max-width:260px;text-align:center;">
+        <svg viewBox="0 0 240 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;background:#F8F9FF;border-radius:8px;border:1.5px solid #2E7D32;">
+          <!-- Axes -->
+          <line x1="18" y1="155" x2="222" y2="155" stroke="#bbb" stroke-width="1"/>
+          <line x1="120" y1="168" x2="120" y2="18" stroke="#bbb" stroke-width="1"/>
+          <text x="218" y="150" font-size="10" fill="#999" font-family="serif" font-style="italic">x</text>
+          <text x="125" y="18" font-size="10" fill="#999" font-family="serif" font-style="italic">y</text>
+          <!-- Région hachurée entre courbe (haut) et sécante (bas) -->
+          <polygon points="60,99 80,80 100,61 120,55 140,61 160,80 180,99 60,99"
+                   fill="#C8E6C9" opacity="0.65"/>
+          <!-- Courbe y = 4 − x² -->
+          <polyline points="40,155 60,99 80,80 100,61 120,55 140,61 160,80 180,99 200,155"
+                    fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Sécante (AB) -->
+          <line x1="40" y1="99" x2="200" y2="99" stroke="#E53935" stroke-width="2" stroke-dasharray="5,4"/>
+          <!-- Points A et B -->
+          <circle cx="60" cy="99" r="4" fill="#E53935"/>
+          <circle cx="180" cy="99" r="4" fill="#E53935"/>
+          <text x="46" y="92" font-size="11" fill="#E53935" font-family="serif" font-style="italic">A</text>
+          <text x="184" y="92" font-size="11" fill="#E53935" font-family="serif" font-style="italic">B</text>
+          <!-- Étiquettes -->
+          <text x="120" y="175" font-size="10" fill="#E53935" text-anchor="middle" font-family="sans-serif">——— sécante (AB)</text>
+          <text x="120" y="32" font-size="11" fill="#2E7D32" text-anchor="middle" font-weight="bold" font-family="sans-serif">f(x) = 4 − x²</text>
+          <text x="118" y="72" font-size="9" fill="#2E7D32" text-anchor="middle" font-family="sans-serif">courbe</text>
+          <text x="118" y="113" font-size="9" fill="#E53935" text-anchor="middle" font-family="sans-serif">sécante</text>
+        </svg>
+        <figcaption style="margin-top:.5rem;font-size:.85rem;line-height:1.4;">
+          <strong style="color:#2E7D32">Fonction CONCAVE</strong><br/>
+          Courbe <em>au-dessus</em> de la sécante<br/>
+          \( f''(x) \leq 0 \) — « en cloche »
+        </figcaption>
+      </figure>
+
+    </div>
+    <!-- ===================================================== -->
+
+    <div class="propriete">
+      <strong>Propriété — Équivalences pour la convexité :</strong><br/>
+      Si \(f\) est deux fois dérivable sur \(I\), les propositions suivantes sont <strong>équivalentes</strong> :
+      <ol>
+        <li>\(f\) est convexe sur \(I\)</li>
+        <li>\(f'\) est <strong>croissante</strong> sur \(I\)</li>
+        <li>\(f''\) est <strong>positive</strong> sur \(I\) \(\bigl(f''(x) \geq 0 \text{ pour tout } x \in I\bigr)\)</li>
+      </ol>
+      De même, \(f\) est <strong>concave</strong> sur \(I\) si et seulement si \(f''(x) \leq 0\) sur \(I\).
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Courbe et tangentes :</strong><br/>
+      Si \(f\) est <strong>convexe</strong> sur \(I\), alors la courbe de \(f\) est <em>au-dessus</em> de chacune de ses tangentes.<br/>
+      Si \(f\) est <strong>concave</strong> sur \(I\), alors la courbe de \(f\) est <em>en dessous</em> de chacune de ses tangentes.
+    </div>
+
+    <!-- ===== FIGURES : Convexe vs Concave — tangentes ===== -->
+    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;margin:1.3rem 0 1.8rem;">
+
+      <!-- Panneau CONVEXE — tangente -->
+      <figure style="flex:1;min-width:200px;max-width:260px;text-align:center;">
+        <svg viewBox="0 0 240 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;background:#F8F9FF;border-radius:8px;border:1.5px solid #1565C0;">
+          <!-- Axes -->
+          <line x1="18" y1="155" x2="222" y2="155" stroke="#bbb" stroke-width="1"/>
+          <line x1="120" y1="170" x2="120" y2="18" stroke="#bbb" stroke-width="1"/>
+          <text x="218" y="150" font-size="10" fill="#999" font-family="serif" font-style="italic">x</text>
+          <text x="125" y="18" font-size="10" fill="#999" font-family="serif" font-style="italic">y</text>
+          <!-- Région hachurée : courbe au-dessus, tangente en dessous -->
+          <polygon points="40,155 40,55 60,99 80,130 100,149 120,155 140,149 160,130 180,99 200,55 200,155"
+                   fill="#BBDEFB" opacity="0.5"/>
+          <!-- Courbe y = x² -->
+          <polyline points="40,55 60,99 80,130 100,149 120,155 140,149 160,130 180,99 200,55"
+                    fill="none" stroke="#1565C0" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Tangente en x=0 : y=0 (l'axe des x) -->
+          <line x1="18" y1="155" x2="222" y2="155" stroke="#E53935" stroke-width="2" stroke-dasharray="5,4"/>
+          <!-- Point de contact -->
+          <circle cx="120" cy="155" r="4.5" fill="#FF6F00"/>
+          <text x="120" y="148" font-size="9" fill="#FF6F00" text-anchor="middle" font-family="sans-serif">contact</text>
+          <!-- Étiquettes -->
+          <text x="120" y="175" font-size="9.5" fill="#E53935" text-anchor="middle" font-family="sans-serif">— — tangente en x=0</text>
+          <text x="120" y="32" font-size="11" fill="#1565C0" text-anchor="middle" font-weight="bold" font-family="sans-serif">f(x) = x²</text>
+          <!-- Flèche courbe au-dessus -->
+          <text x="62" y="75" font-size="8.5" fill="#1565C0" text-anchor="middle" font-family="sans-serif" font-style="italic">courbe</text>
+          <text x="62" y="83" font-size="8.5" fill="#1565C0" text-anchor="middle" font-family="sans-serif" font-style="italic">au-dessus</text>
+        </svg>
+        <figcaption style="margin-top:.5rem;font-size:.85rem;line-height:1.4;">
+          <strong style="color:#1565C0">Fonction CONVEXE</strong><br/>
+          Courbe <em>au-dessus</em> de chaque tangente<br/>
+          \( f''(x) \geq 0 \)
+        </figcaption>
+      </figure>
+
+      <!-- Panneau CONCAVE — tangente -->
+      <figure style="flex:1;min-width:200px;max-width:260px;text-align:center;">
+        <svg viewBox="0 0 240 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;background:#F8F9FF;border-radius:8px;border:1.5px solid #2E7D32;">
+          <!-- Axes -->
+          <line x1="18" y1="155" x2="222" y2="155" stroke="#bbb" stroke-width="1"/>
+          <line x1="120" y1="170" x2="120" y2="18" stroke="#bbb" stroke-width="1"/>
+          <text x="218" y="150" font-size="10" fill="#999" font-family="serif" font-style="italic">x</text>
+          <text x="125" y="18" font-size="10" fill="#999" font-family="serif" font-style="italic">y</text>
+          <!-- Région hachurée : tangente en haut, courbe en dessous -->
+          <polygon points="40,55 200,55 200,155 180,99 160,80 140,61 120,55 100,61 80,80 60,99 40,155"
+                   fill="#C8E6C9" opacity="0.55"/>
+          <!-- Courbe y = 4 − x² -->
+          <polyline points="40,155 60,99 80,80 100,61 120,55 140,61 160,80 180,99 200,155"
+                    fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Tangente en x=0 : y=4 (horizontale, au sommet) -->
+          <line x1="18" y1="55" x2="222" y2="55" stroke="#E53935" stroke-width="2" stroke-dasharray="5,4"/>
+          <!-- Point de contact -->
+          <circle cx="120" cy="55" r="4.5" fill="#FF6F00"/>
+          <text x="120" y="48" font-size="9" fill="#FF6F00" text-anchor="middle" font-family="sans-serif">contact</text>
+          <!-- Étiquettes -->
+          <text x="120" y="175" font-size="9.5" fill="#E53935" text-anchor="middle" font-family="sans-serif">— — tangente en x=0</text>
+          <text x="120" y="27" font-size="11" fill="#2E7D32" text-anchor="middle" font-weight="bold" font-family="sans-serif">f(x) = 4 − x²</text>
+          <text x="62" y="115" font-size="8.5" fill="#2E7D32" text-anchor="middle" font-family="sans-serif" font-style="italic">courbe</text>
+          <text x="62" y="123" font-size="8.5" fill="#2E7D32" text-anchor="middle" font-family="sans-serif" font-style="italic">en dessous</text>
+        </svg>
+        <figcaption style="margin-top:.5rem;font-size:.85rem;line-height:1.4;">
+          <strong style="color:#2E7D32">Fonction CONCAVE</strong><br/>
+          Courbe <em>en dessous</em> de chaque tangente<br/>
+          \( f''(x) \leq 0 \)
+        </figcaption>
+      </figure>
+
+    </div>
+    <!-- ===================================================== -->
+
+    <div class="methode">
+      <strong>Méthode — Étudier la convexité :</strong>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Calculer \(f'(x)\).</div>
+        <div class="step"><span class="step-num">2</span> Calculer \(f''(x) = (f')'(x)\).</div>
+        <div class="step"><span class="step-num">3</span> Étudier le signe de \(f''(x)\) sur \(I\).</div>
+        <div class="step"><span class="step-num">4</span> Conclure : \(f'' \geq 0 \Rightarrow\) convexe ; \(f'' \leq 0 \Rightarrow\) concave.</div>
+      </div>
+    </div>
+
+    <h4 id="inflexion">B.2 Point d'inflexion</h4>
+
+    <div class="definition">
+      <strong>Définition — Point d'inflexion :</strong><br/>
+      Un <strong>point d'inflexion</strong> est un point où la courbe <em>traverse</em> sa tangente. En ce point, la courbe change de sens de courbure (de convexe à concave ou inversement).
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Caractérisation :</strong><br/>
+      Le point \(A\bigl(a\,;\,f(a)\bigr)\) est un <strong>point d'inflexion</strong> de \(\mathcal{C}_f\) si et seulement si \(f''\) <em>s'annule en \(a\) en changeant de signe</em>.
+    </div>
+
+    <div class="attention">
+      <strong>Important :</strong> \(f''(a) = 0\) n'est <em>pas suffisant</em> pour conclure à un point d'inflexion — il faut que \(f''\) <strong>change de signe</strong> en \(a\).
+      Contre-exemple : \(f(x) = x^4\), \(f''(0) = 0\) mais \(f''\) ne change pas de signe en 0, donc \((0;0)\) n'est pas un point d'inflexion.
+    </div>
+
+    <!-- ===== FIGURE : Point d'inflexion — f(x)=x³ ===== -->
+    <div style="display:flex;justify-content:center;margin:1.3rem 0 1.8rem;">
+      <figure style="max-width:320px;text-align:center;">
+        <svg viewBox="0 0 280 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;background:#FFFDE7;border-radius:8px;border:1.5px solid #FF6F00;">
+          <!-- Axes -->
+          <line x1="18" y1="92" x2="262" y2="92" stroke="#aaa" stroke-width="1"/>
+          <line x1="140" y1="170" x2="140" y2="12" stroke="#aaa" stroke-width="1"/>
+          <text x="258" y="88" font-size="10" fill="#999" font-family="serif" font-style="italic">x</text>
+          <text x="145" y="14" font-size="10" fill="#999" font-family="serif" font-style="italic">y</text>
+          <!-- Origine -->
+          <text x="132" y="103" font-size="9" fill="#aaa" font-family="serif">O</text>
+
+          <!-- Zone concave (x<0) : courbe sous la tangente — ombre rouge -->
+          <polygon points="60,170 68,147 80,125 92,111 108,97 120,93 140,92 60,92"
+                   fill="#FFCDD2" opacity="0.55"/>
+          <!-- Zone convexe (x>0) : courbe sur la tangente — ombre bleue -->
+          <polygon points="140,92 160,91 172,87 188,79 200,68 212,52 212,92"
+                   fill="#BBDEFB" opacity="0.55"/>
+
+          <!-- Tangente en x=0 : y=0 (l'axe des x) — ligne rouge pointillée -->
+          <line x1="18" y1="92" x2="262" y2="92" stroke="#E53935" stroke-width="2" stroke-dasharray="6,4"/>
+
+          <!-- Courbe y = x³ : origin=(140,92), x-scale=36, y-scale=20 -->
+          <!-- x=-1.5→(86,158); x=-1.2→(97,136); x=-1→(104,112); x=-0.8→(111,102);
+               x=-0.5→(122,94.5); x=0→(140,92); x=0.5→(158,89.5); x=0.8→(169,82);
+               x=1→(176,72); x=1.2→(183,58); x=1.5→(194,27) -->
+          <polyline points="60,170 68,148 80,128 92,112 108,99 122,94 140,92 158,90 172,87 188,79 200,67 212,51"
+                    fill="none" stroke="#5E35B1" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+
+          <!-- Point d'inflexion en (0,0) -->
+          <circle cx="140" cy="92" r="5" fill="#FF6F00" stroke="#fff" stroke-width="1.5"/>
+
+          <!-- Étiquettes zones -->
+          <text x="88" y="72" font-size="9" fill="#C62828" text-anchor="middle" font-weight="bold" font-family="sans-serif">CONCAVE</text>
+          <text x="88" y="81" font-size="8.5" fill="#C62828" text-anchor="middle" font-family="sans-serif">(f'' &lt; 0)</text>
+          <text x="200" y="108" font-size="9" fill="#1565C0" text-anchor="middle" font-weight="bold" font-family="sans-serif">CONVEXE</text>
+          <text x="200" y="117" font-size="8.5" fill="#1565C0" text-anchor="middle" font-family="sans-serif">(f'' &gt; 0)</text>
+
+          <!-- Label point d'inflexion -->
+          <text x="140" y="82" font-size="9" fill="#FF6F00" text-anchor="middle" font-weight="bold" font-family="sans-serif">Point d'inflexion</text>
+          <text x="140" y="72" font-size="8.5" fill="#FF6F00" text-anchor="middle" font-family="sans-serif">(0 ; 0)</text>
+
+          <!-- Label tangente -->
+          <text x="238" y="88" font-size="8.5" fill="#E53935" text-anchor="end" font-family="sans-serif">tangente</text>
+
+          <!-- Label courbe -->
+          <text x="65" y="163" font-size="10" fill="#5E35B1" font-family="serif" font-style="italic">f(x)=x³</text>
+        </svg>
+        <figcaption style="margin-top:.6rem;font-size:.85rem;line-height:1.5;">
+          <strong style="color:#FF6F00">Point d'inflexion en (0 ; 0)</strong> de \(f(x)=x^3\)<br/>
+          La courbe <em>traverse</em> sa tangente :<br/>
+          concave pour \(x &lt; 0\) \(\bigl(f''(x)=6x&lt;0\bigr)\), convexe pour \(x &gt; 0\) \(\bigl(f''(x)&gt;0\bigr)\)
+        </figcaption>
+      </figure>
+    </div>
+    <!-- ===================================================== -->
+
+  </section>
+
+  <!-- ===== EXEMPLES GUIDÉS ===== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Dériver \(f(x) = e^{2x-1}\)</strong>
+      <p>On pose \(u(x) = 2x - 1\), donc \(f(x) = e^{u(x)}\).</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Identifier l'intérieur : \(u(x) = 2x - 1\).</div>
+        <div class="step"><span class="step-num">2</span> Dériver l'intérieur : \(u'(x) = 2\).</div>
+        <div class="step"><span class="step-num">3</span> Appliquer la formule \((e^u)' = u' \cdot e^u\).</div>
+        <div class="step"><span class="step-num">4</span> Résultat : \(f'(x) = 2\,e^{2x-1}\).</div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Dériver \(g(x) = \sqrt{3x^2 + 1}\)</strong>
+      <p>On pose \(u(x) = 3x^2 + 1\), donc \(g(x) = \sqrt{u(x)}\).</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Identifier l'intérieur : \(u(x) = 3x^2 + 1 > 0\) pour tout \(x\) (bien défini sur \(\mathbb{R}\)).</div>
+        <div class="step"><span class="step-num">2</span> Dériver l'intérieur : \(u'(x) = 6x\).</div>
+        <div class="step"><span class="step-num">3</span> Appliquer la formule \((\sqrt{u})' = \dfrac{u'}{2\sqrt{u}}\).</div>
+        <div class="step"><span class="step-num">4</span> Résultat :
+          \[ g'(x) = \frac{6x}{2\sqrt{3x^2+1}} = \frac{3x}{\sqrt{3x^2+1}} \]
+        </div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Dériver \(h(x) = e^{x^2}(2x+1)\) (produit et composée)</strong>
+      <p>On utilise la règle du produit \((uv)' = u'v + uv'\) avec \(u(x) = e^{x^2}\) et \(v(x) = 2x+1\).</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Dériver \(e^{x^2}\) : par la règle de la composée avec l'intérieur \(x^2\) de dérivée \(2x\), on obtient \((e^{x^2})' = 2x\,e^{x^2}\).</div>
+        <div class="step"><span class="step-num">2</span> Dériver \(2x+1\) : \((2x+1)' = 2\).</div>
+        <div class="step"><span class="step-num">3</span> Appliquer la règle du produit :
+          \[ h'(x) = 2x\,e^{x^2}\cdot(2x+1) + e^{x^2}\cdot 2 \]
+        </div>
+        <div class="step"><span class="step-num">4</span> Factoriser par \(e^{x^2}\) :
+          \[ h'(x) = e^{x^2}\bigl(2x(2x+1) + 2\bigr) = e^{x^2}(4x^2 + 2x + 2) \]
+        </div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Convexité de \(f(x) = x^3 - 3x\)</strong>
+      <p>Nous allons calculer les dérivées, étudier la convexité et trouver le point d'inflexion.</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> <em>Calcul de \(f'\) :</em> \(f'(x) = 3x^2 - 3 = 3(x^2-1) = 3(x-1)(x+1)\).</div>
+        <div class="step"><span class="step-num">2</span> <em>Calcul de \(f''\) :</em> \(f''(x) = 6x\).</div>
+        <div class="step"><span class="step-num">3</span> <em>Signe de \(f''\) :</em>
+          <ul>
+            <li>Si \(x < 0\) : \(f''(x) = 6x < 0\) → \(f\) est <strong>concave</strong> sur \(]-\infty\,;\,0[\).</li>
+            <li>Si \(x > 0\) : \(f''(x) = 6x > 0\) → \(f\) est <strong>convexe</strong> sur \(]0\,;\,+\infty[\).</li>
+          </ul>
+        </div>
+        <div class="step"><span class="step-num">4</span> <em>Point d'inflexion :</em> \(f''(0) = 0\) et \(f''\) change de signe en \(0\).
+          Le point d'inflexion est \(\bigl(0\,;\,f(0)\bigr) = (0\,;\,0)\). En ce point, la courbe traverse sa tangente (de pente \(f'(0) = -3\)).
+        </div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — La courbe de \(e^x\) est au-dessus de ses tangentes</strong>
+      <p>Montrons que \(e^x \geq 1 + x\) pour tout \(x \in \mathbb{R}\) à l'aide de la convexité.</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Calculer \(f(x) = e^x\) : \(f'(x) = e^x\) et \(f''(x) = e^x > 0\) pour tout \(x\).</div>
+        <div class="step"><span class="step-num">2</span> Donc \(f\) est <strong>convexe sur \(\mathbb{R}\)</strong>.</div>
+        <div class="step"><span class="step-num">3</span> La tangente en \(a = 0\) est : \(y = f(0) + f'(0)(x - 0) = 1 + x\).</div>
+        <div class="step"><span class="step-num">4</span> Puisque \(f\) est convexe, sa courbe est au-dessus de toutes ses tangentes. En particulier :
+          \[ e^x \geq 1 + x \quad \text{pour tout } x \in \mathbb{R} \]
+          L'égalité n'a lieu qu'en \(x = 0\).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXERCICES ===== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- Ex 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Dérivées de fonctions composées</b>
+      <p>Calculer la dérivée de chacune des fonctions suivantes :</p>
+      <ol type="a">
+        <li>\(f(x) = e^{3x+1}\)</li>
+        <li>\(g(x) = (2x-1)^4\)</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch5-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch5-ex1">
+        <div class="corrige">
+          <p><strong>a) \(f(x) = e^{3x+1}\)</strong></p>
+          <p>On pose \(u(x) = 3x+1\), donc \(u'(x) = 3\). Par la formule \((e^u)' = u'e^u\) :</p>
+          \[ f'(x) = 3\,e^{3x+1} \]
+          <p><strong>b) \(g(x) = (2x-1)^4\)</strong></p>
+          <p>On pose \(u(x) = 2x-1\), donc \(u'(x) = 2\). Par la formule \((u^n)' = n\,u'\,u^{n-1}\) :</p>
+          \[ g'(x) = 4 \times 2 \times (2x-1)^3 = 8(2x-1)^3 \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Racine d'une composée</b>
+      <p>Calculer la dérivée de \(h(x) = \sqrt{x^2 + 4}\) et préciser son domaine de dérivabilité.</p>
+      <button class="btn-toggle" data-target="cor-ch5-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch5-ex2">
+        <div class="corrige">
+          <p>On pose \(u(x) = x^2 + 4\). Comme \(u(x) = x^2 + 4 \geq 4 > 0\) pour tout \(x \in \mathbb{R}\), \(h\) est bien définie et dérivable sur \(\mathbb{R}\).</p>
+          <p>On calcule \(u'(x) = 2x\). Puis :</p>
+          \[ h'(x) = \frac{u'(x)}{2\sqrt{u(x)}} = \frac{2x}{2\sqrt{x^2+4}} = \frac{x}{\sqrt{x^2+4}} \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Dérivée et tableau de variations</b>
+      <p>Soit \(f(x) = e^x(x^2 - 2x + 2)\).</p>
+      <ol>
+        <li>Calculer \(f'(x)\) et simplifier.</li>
+        <li>Dresser le tableau de variations de \(f\) sur \(\mathbb{R}\).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch5-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch5-ex3">
+        <div class="corrige">
+          <p><strong>1) Calcul de \(f'(x)\) :</strong></p>
+          <p>On utilise la règle du produit avec \(u = e^x\) et \(v = x^2 - 2x + 2\) :</p>
+          \[ f'(x) = e^x(x^2-2x+2) + e^x(2x-2) = e^x\bigl(x^2-2x+2+2x-2\bigr) = e^x \cdot x^2 \]
+          <p>Donc \(f'(x) = x^2 e^x\).</p>
+          <p><strong>2) Signe de \(f'(x)\) :</strong></p>
+          <p>Comme \(e^x > 0\) toujours et \(x^2 \geq 0\) toujours, on a \(f'(x) \geq 0\) pour tout \(x \in \mathbb{R}\).</p>
+          <p>\(f'(x) = 0\) uniquement en \(x = 0\).</p>
+          <p>Donc \(f\) est <strong>croissante sur \(\mathbb{R}\)</strong> (elle « marque une pause » en \(x = 0\) sans jamais décroître).</p>
+          <p>La valeur \(f(0) = e^0(0-0+2) = 2\) est un minimum global.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Convexité et points d'inflexion</b>
+      <p>Soit \(f(x) = x^4 - 6x^2\).</p>
+      <ol>
+        <li>Calculer \(f'(x)\) et \(f''(x)\).</li>
+        <li>Étudier la convexité de \(f\) sur \(\mathbb{R}\).</li>
+        <li>Trouver les points d'inflexion de \(\mathcal{C}_f\).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch5-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch5-ex4">
+        <div class="corrige">
+          <p><strong>1) Calcul des dérivées :</strong></p>
+          \[ f'(x) = 4x^3 - 12x = 4x(x^2-3) \]
+          \[ f''(x) = 12x^2 - 12 = 12(x^2-1) = 12(x-1)(x+1) \]
+          <p><strong>2) Signe de \(f''(x)\) :</strong></p>
+          <ul>
+            <li>\(x < -1\) : \((x-1) < 0\) et \((x+1) < 0\), donc \(f''(x) = 12(+) > 0\) → <strong>convexe</strong></li>
+            <li>\(-1 < x < 1\) : \((x-1) < 0\) et \((x+1) > 0\), donc \(f''(x) = 12(-) < 0\) → <strong>concave</strong></li>
+            <li>\(x > 1\) : \((x-1) > 0\) et \((x+1) > 0\), donc \(f''(x) = 12(+) > 0\) → <strong>convexe</strong></li>
+          </ul>
+          <p><strong>3) Points d'inflexion :</strong></p>
+          <p>\(f''(x) = 0\) pour \(x = -1\) et \(x = 1\), et \(f''\) change de signe en ces deux valeurs.</p>
+          <ul>
+            <li>En \(x = -1\) : \(f(-1) = 1 - 6 = -5\). Point d'inflexion : \((-1\,;\,-5)\).</li>
+            <li>En \(x = 1\) : \(f(1) = 1 - 6 = -5\). Point d'inflexion : \((1\,;\,-5)\).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Inégalité fondamentale par la convexité</b>
+      <p>Le but est de montrer que \(e^x \geq 1 + x\) pour tout \(x \in \mathbb{R}\).</p>
+      <ol>
+        <li>Poser \(g(x) = e^x - 1 - x\). Calculer \(g'(x)\) et \(g''(x)\).</li>
+        <li>Montrer que \(g\) est convexe sur \(\mathbb{R}\).</li>
+        <li>Montrer que \(g\) admet un minimum global et calculer ce minimum.</li>
+        <li>Conclure.</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch5-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch5-ex5">
+        <div class="corrige">
+          <p><strong>1) Dérivées de \(g\) :</strong></p>
+          \[ g'(x) = e^x - 1 \qquad g''(x) = e^x \]
+          <p><strong>2) Convexité :</strong></p>
+          <p>Comme \(e^x > 0\) pour tout \(x\), on a \(g''(x) > 0\) pour tout \(x \in \mathbb{R}\). Donc \(g\) est <strong>convexe sur \(\mathbb{R}\)</strong>.</p>
+          <p><strong>3) Minimum :</strong></p>
+          <p>\(g'(x) = 0 \Leftrightarrow e^x = 1 \Leftrightarrow x = 0\).</p>
+          <p>Puisque \(g\) est convexe, \(g'(x) = 0\) est un minimum global. La valeur minimale est :</p>
+          \[ g(0) = e^0 - 1 - 0 = 0 \]
+          <p><strong>4) Conclusion :</strong></p>
+          <p>Pour tout \(x \in \mathbb{R}\), \(g(x) \geq g(0) = 0\), c'est-à-dire :</p>
+          \[ e^x - 1 - x \geq 0 \quad \Longleftrightarrow \quad \boxed{e^x \geq 1 + x} \]
+          <p>L'égalité n'a lieu qu'en \(x = 0\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Étude complète de \(f(x) = (x^2+1)e^{-x}\)</b>
+      <p>Soit \(f(x) = (x^2+1)e^{-x}\) définie sur \(\mathbb{R}\).</p>
+      <ol>
+        <li>Calculer \(f'(x)\). Dresser le tableau de variations.</li>
+        <li>Calculer \(f''(x)\).</li>
+        <li>Étudier la convexité et trouver les points d'inflexion.</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch5-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch5-ex6">
+        <div class="corrige">
+          <p><strong>1) Calcul de \(f'(x)\) :</strong></p>
+          <p>Règle du produit avec \(u = x^2+1\) et \(v = e^{-x}\) :</p>
+          \[ f'(x) = 2x\,e^{-x} + (x^2+1)(-1)e^{-x} = e^{-x}\bigl(2x - x^2 - 1\bigr) = e^{-x}(-x^2+2x-1) \]
+          \[ f'(x) = -e^{-x}(x^2-2x+1) = -e^{-x}(x-1)^2 \]
+          <p>Comme \(e^{-x} > 0\) et \((x-1)^2 \geq 0\), on a \(f'(x) \leq 0\) pour tout \(x\). Donc \(f\) est <strong>décroissante sur \(\mathbb{R}\)</strong>.</p>
+          <p>\(f'(x) = 0\) en \(x = 1\) : la courbe admet une tangente horizontale en \(\bigl(1\,;\,2e^{-1}\bigr)\) mais pas d'extremum.</p>
+
+          <p><strong>2) Calcul de \(f''(x)\) :</strong></p>
+          <p>On dérive \(f'(x) = -e^{-x}(x-1)^2\) par la règle du produit :</p>
+          \[ f''(x) = e^{-x}(x-1)^2 + (-e^{-x})\cdot 2(x-1) = e^{-x}\bigl((x-1)^2 - 2(x-1)\bigr) \]
+          \[ f''(x) = e^{-x}(x-1)(x-1-2) = e^{-x}(x-1)(x-3) \]
+
+          <p><strong>3) Signe de \(f''(x)\) et points d'inflexion :</strong></p>
+          <p>\(f''(x) = 0\) pour \(x = 1\) et \(x = 3\). Tableau des signes :</p>
+          <ul>
+            <li>\(x < 1\) : \((x-1) < 0\) et \((x-3) < 0\), donc \(f''(x) > 0\) → <strong>convexe</strong></li>
+            <li>\(1 < x < 3\) : \((x-1) > 0\) et \((x-3) < 0\), donc \(f''(x) < 0\) → <strong>concave</strong></li>
+            <li>\(x > 3\) : \((x-1) > 0\) et \((x-3) > 0\), donc \(f''(x) > 0\) → <strong>convexe</strong></li>
+          </ul>
+          <p>Les points d'inflexion sont :</p>
+          <ul>
+            <li>\(x = 1\) : \(f(1) = 2e^{-1} = \tfrac{2}{e}\). Point : \(\bigl(1\,;\,\tfrac{2}{e}\bigr)\).</li>
+            <li>\(x = 3\) : \(f(3) = 10e^{-3} = \tfrac{10}{e^3}\). Point : \(\bigl(3\,;\,\tfrac{10}{e^3}\bigr)\).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SYNTHÈSE ===== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Dérivée d'une composée</h3>
+      <p>Si \(f(x) = v(u(x))\), alors \(f'(x) = u'(x) \cdot v'(u(x))\).</p>
+      <table>
+        <thead><tr><th>\(f(x)\)</th><th>\(f'(x)\)</th></tr></thead>
+        <tbody>
+          <tr><td>\(e^{u(x)}\)</td><td>\(u'(x)\,e^{u(x)}\)</td></tr>
+          <tr><td>\(\sqrt{u(x)}\)</td><td>\(\dfrac{u'(x)}{2\sqrt{u(x)}}\)</td></tr>
+          <tr><td>\([u(x)]^n\)</td><td>\(n\,u'(x)\,[u(x)]^{n-1}\)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Convexité — résumé</h3>
+      <ul>
+        <li>\(f'' \geq 0\) sur \(I\) \(\Longleftrightarrow\) \(f\) convexe sur \(I\) \(\Longleftrightarrow\) courbe <strong>au-dessus</strong> des tangentes.</li>
+        <li>\(f'' \leq 0\) sur \(I\) \(\Longleftrightarrow\) \(f\) concave sur \(I\) \(\Longleftrightarrow\) courbe <strong>en dessous</strong> des tangentes.</li>
+        <li>Point d'inflexion en \(a\) : \(f''(a) = 0\) <strong>et</strong> \(f''\) change de signe en \(a\).</li>
+      </ul>
+
+      <h3>Inégalité à retenir</h3>
+      \[ \forall x \in \mathbb{R},\quad e^x \geq 1 + x \]
+      <p>Conséquence directe de la convexité de \(x \mapsto e^x\).</p>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="04-limites-fonctions.html">← Précédent : Limites de fonctions</a>
+    <a href="06-continuite.html">Suivant : Continuité →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

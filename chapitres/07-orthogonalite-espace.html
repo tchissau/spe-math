@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orthogonalité, équations et distances dans l'espace — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 7 · Géométrie</div>
+    <h1>Orthogonalité, équations et distances dans l'espace</h1>
+    <p class="tagline">Le produit scalaire, outil algébrique puissant, permet de mesurer des angles, des distances et de décrire des plans par une simple équation.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/07-orthogonalite-espace.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a>
+        <ul>
+          <li><a href="#capacites">A. Capacités attendues</a></li>
+          <li><a href="#produit-scalaire">B. Produit scalaire dans l'espace</a></li>
+          <li><a href="#repere">C. Produit scalaire dans un repère orthonormé</a></li>
+          <li><a href="#orthogonalite">D. Orthogonalité dans l'espace</a></li>
+          <li><a href="#projection">E. Projection orthogonale et distance</a></li>
+        </ul>
+      </li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== INTRODUCTION ===== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      En Première, vous avez étudié le produit scalaire dans le plan. Dans ce chapitre, on étend ces outils à
+      l'espace à trois dimensions. Le produit scalaire permet de :
+    </p>
+    <ul>
+      <li>déterminer si deux vecteurs (ou deux droites) sont <strong>orthogonaux</strong> ;</li>
+      <li>calculer l'<strong>angle</strong> entre deux vecteurs ;</li>
+      <li>trouver l'<strong>équation cartésienne</strong> d'un plan à partir d'un vecteur normal ;</li>
+      <li>calculer la <strong>distance</strong> d'un point à un plan.</li>
+    </ul>
+    <div class="attention">
+      <strong>Repère :</strong> Dans tout ce chapitre, on travaille dans un repère orthonormé
+      \(\bigl(O\,;\,\overrightarrow{i},\overrightarrow{j},\overrightarrow{k}\bigr)\) de l'espace,
+      où \(\overrightarrow{i}\), \(\overrightarrow{j}\), \(\overrightarrow{k}\) sont deux à deux
+      orthogonaux et de norme 1.
+    </div>
+  </section>
+
+  <!-- ===== COURS ===== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3 id="capacites">A. Capacités attendues</h3>
+    <div class="propriete">
+      <ol>
+        <li>Utiliser les propriétés du produit scalaire dans l'espace.</li>
+        <li>Déterminer l'orthogonalité de deux vecteurs, de deux droites.</li>
+        <li>Déterminer l'orthogonalité d'une droite et d'un plan.</li>
+        <li>Déterminer une base orthonormée.</li>
+        <li>Calculer des longueurs dans l'espace.</li>
+        <li>Utiliser le produit scalaire pour calculer une longueur ou une mesure d'angle.</li>
+        <li>Calculer la distance entre un point et un plan.</li>
+      </ol>
+    </div>
+
+    <h3 id="produit-scalaire">B. Produit scalaire dans l'espace</h3>
+
+    <div class="definition">
+      <strong>Définition — Produit scalaire :</strong><br/>
+      Soient \(\overrightarrow{u} = \overrightarrow{AB}\) et \(\overrightarrow{v} = \overrightarrow{AC}\).
+      Il existe un plan \(\mathcal{P}\) contenant \(A\), \(B\), \(C\).
+      Le <strong>produit scalaire</strong> \(\overrightarrow{u} \cdot \overrightarrow{v}\) est
+      le produit scalaire calculé dans ce plan \(\mathcal{P}\).
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Formules du produit scalaire :</strong>
+      <ul>
+        <li>
+          <em>Formule angulaire :</em>
+          \[ \overrightarrow{u} \cdot \overrightarrow{v} = \|\overrightarrow{u}\| \times \|\overrightarrow{v}\| \times \cos\bigl(\widehat{BAC}\bigr) \]
+        </li>
+        <li>
+          <em>Formule de projection :</em> Si \(H\) est le projeté orthogonal de \(C\) sur \((AB)\) :
+          \[ \overrightarrow{AB} \cdot \overrightarrow{AC} = \overrightarrow{AB} \cdot \overrightarrow{AH} = AB \times AH \]
+          (avec signe : positif si \(H\) est du même côté que \(B\) par rapport à \(A\), négatif sinon).
+        </li>
+      </ul>
+    </div>
+
+    <div class="definition">
+      <strong>Définition — Vecteurs orthogonaux :</strong><br/>
+      \(\overrightarrow{u}\) et \(\overrightarrow{v}\) sont <strong>orthogonaux</strong> si et seulement si :
+      \[ \overrightarrow{u} \cdot \overrightarrow{v} = 0 \]
+    </div>
+
+    <div class="propriete">
+      <strong>Propriétés algébriques du produit scalaire :</strong>
+      <ul>
+        <li><em>Commutativité :</em> \(\overrightarrow{u} \cdot \overrightarrow{v} = \overrightarrow{v} \cdot \overrightarrow{u}\)</li>
+        <li><em>Bilinéarité :</em> \(\overrightarrow{u} \cdot (k\overrightarrow{v}) = k(\overrightarrow{u} \cdot \overrightarrow{v})\)</li>
+        <li><em>Distributivité :</em> \(\overrightarrow{u} \cdot (\overrightarrow{v} + \overrightarrow{w}) = \overrightarrow{u} \cdot \overrightarrow{v} + \overrightarrow{u} \cdot \overrightarrow{w}\)</li>
+        <li><em>Carré scalaire :</em> \(\overrightarrow{u} \cdot \overrightarrow{u} = \|\overrightarrow{u}\|^2\)</li>
+        <li><em>Développement :</em>
+          \[ \|\overrightarrow{u} + \overrightarrow{v}\|^2 = \|\overrightarrow{u}\|^2 + 2\,\overrightarrow{u} \cdot \overrightarrow{v} + \|\overrightarrow{v}\|^2 \]
+          \[ \|\overrightarrow{u} - \overrightarrow{v}\|^2 = \|\overrightarrow{u}\|^2 - 2\,\overrightarrow{u} \cdot \overrightarrow{v} + \|\overrightarrow{v}\|^2 \]
+        </li>
+        <li><em>Identités polaires :</em>
+          \[ \overrightarrow{u} \cdot \overrightarrow{v} = \frac{1}{4}\bigl(\|\overrightarrow{u}+\overrightarrow{v}\|^2 - \|\overrightarrow{u}-\overrightarrow{v}\|^2\bigr) \]
+        </li>
+      </ul>
+    </div>
+
+    <h3 id="repere">C. Produit scalaire dans un repère orthonormé</h3>
+
+    <div class="definition">
+      <strong>Définition — Base orthonormée :</strong><br/>
+      Une base \((\overrightarrow{i},\overrightarrow{j},\overrightarrow{k})\) est <strong>orthonormée</strong> si :
+      <ul>
+        <li>les trois vecteurs sont deux à deux <strong>orthogonaux</strong> : \(\overrightarrow{i} \cdot \overrightarrow{j} = \overrightarrow{j} \cdot \overrightarrow{k} = \overrightarrow{i} \cdot \overrightarrow{k} = 0\)</li>
+        <li>chaque vecteur est de norme 1 : \(\|\overrightarrow{i}\| = \|\overrightarrow{j}\| = \|\overrightarrow{k}\| = 1\)</li>
+      </ul>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Formules analytiques dans un repère orthonormé :</strong><br/>
+      Si \(\overrightarrow{u}(x\,;y\,;z)\) et \(\overrightarrow{v}(x'\,;y'\,;z')\) :
+      \[
+        \overrightarrow{u} \cdot \overrightarrow{v} = xx' + yy' + zz'
+      \]
+      \[
+        \|\overrightarrow{u}\| = \sqrt{x^2 + y^2 + z^2}
+      \]
+      Si \(A(x_A\,;y_A\,;z_A)\) et \(B(x_B\,;y_B\,;z_B)\) :
+      \[
+        AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2 + (z_B - z_A)^2}
+      \]
+    </div>
+
+    <div class="astuce">
+      <strong>Astuce :</strong> Dans un repère orthonormé, calculer le produit scalaire revient à une simple multiplication terme à terme puis addition. C'est la formule à utiliser en pratique dans les exercices.
+    </div>
+
+    <h3 id="orthogonalite">D. Orthogonalité dans l'espace</h3>
+
+    <h4>D.1 Orthogonalité de deux droites</h4>
+
+    <div class="definition">
+      <strong>Définition :</strong><br/>
+      Deux droites \((d_1)\) et \((d_2)\) de vecteurs directeurs respectifs \(\overrightarrow{u_1}\) et
+      \(\overrightarrow{u_2}\) sont <strong>orthogonales</strong> si et seulement si :
+      \[ \overrightarrow{u_1} \cdot \overrightarrow{u_2} = 0 \]
+      <em>Attention :</em> deux droites orthogonales dans l'espace ne sont pas nécessairement sécantes
+      (elles peuvent être <em>gauches</em>).
+    </div>
+
+    <h4>D.2 Orthogonalité d'une droite et d'un plan</h4>
+
+    <div class="definition">
+      <strong>Définition :</strong><br/>
+      Une droite \((d)\) est <strong>orthogonale</strong> à un plan \((\mathcal{P})\) si elle est orthogonale
+      à <em>toutes</em> les droites de \((\mathcal{P})\). En pratique, il suffit de vérifier qu'elle est
+      orthogonale à <strong>deux droites non parallèles</strong> de \((\mathcal{P})\).
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Vecteur normal :</strong><br/>
+      Le vecteur directeur \(\overrightarrow{n}\) de \((d)\) est appelé <strong>vecteur normal</strong>
+      au plan \((\mathcal{P})\). Il est orthogonal à tout vecteur du plan :
+      \[ \overrightarrow{n} \cdot \overrightarrow{u} = 0 \quad \text{pour tout } \overrightarrow{u} \in (\mathcal{P}) \]
+    </div>
+
+    <h4>D.3 Équation cartésienne d'un plan</h4>
+
+    <div class="propriete">
+      <strong>Propriété — Équation d'un plan :</strong><br/>
+      Un plan \((\mathcal{P})\) de <strong>vecteur normal</strong> \(\overrightarrow{n}(a\,;b\,;c)\)
+      passant par le point \(A(x_0\,;y_0\,;z_0)\) a pour équation cartésienne :
+      \[ a(x - x_0) + b(y - y_0) + c(z - z_0) = 0 \]
+      ce qui s'écrit aussi sous la forme développée :
+      \[ ax + by + cz + d = 0 \quad \text{avec } d = -ax_0 - by_0 - cz_0 \]
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Trouver l'équation d'un plan :</strong>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Identifier un vecteur normal \(\overrightarrow{n}(a\,;b\,;c)\) au plan.</div>
+        <div class="step"><span class="step-num">2</span> Identifier un point \(A(x_0\,;y_0\,;z_0)\) appartenant au plan.</div>
+        <div class="step"><span class="step-num">3</span> Écrire \(a(x-x_0)+b(y-y_0)+c(z-z_0)=0\) et développer.</div>
+        <div class="step"><span class="step-num">4</span> Vérifier en substituant les coordonnées de \(A\) (on doit obtenir 0).</div>
+      </div>
+    </div>
+
+    <div class="attention">
+      <strong>Réciproquement :</strong> Si un plan a pour équation \(ax+by+cz+d=0\), alors
+      \(\overrightarrow{n}(a\,;b\,;c)\) en est un vecteur normal. On peut lire directement le vecteur normal
+      sur l'équation cartésienne.
+    </div>
+
+    <h3 id="projection">E. Projection orthogonale d'un point sur un plan — Distance</h3>
+
+    <div class="definition">
+      <strong>Définition — Projeté orthogonal :</strong><br/>
+      Le <strong>projeté orthogonal</strong> de \(M\) sur le plan \((\mathcal{P})\) est le point \(H\)
+      de \((\mathcal{P})\) tel que \((MH)\) est orthogonale à \((\mathcal{P})\).
+      Autrement dit, \(\overrightarrow{MH}\) est colinéaire au vecteur normal \(\overrightarrow{n}\).
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Distance d'un point à un plan :</strong><br/>
+      La distance du point \(M(x_0\,;y_0\,;z_0)\) au plan d'équation \(ax+by+cz+d=0\) est :
+      \[ d(M, \mathcal{P}) = \frac{|ax_0 + by_0 + cz_0 + d|}{\sqrt{a^2 + b^2 + c^2}} \]
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Trouver le projeté orthogonal de \(M\) sur \((\mathcal{P})\) :</strong>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Écrire la droite \((\Delta)\) passant par \(M\) de vecteur directeur \(\overrightarrow{n}(a\,;b\,;c)\) :
+          \[ \begin{cases} x = x_0 + at \\ y = y_0 + bt \\ z = z_0 + ct \end{cases} \]
+        </div>
+        <div class="step"><span class="step-num">2</span> Substituer dans l'équation du plan pour trouver la valeur de \(t\).</div>
+        <div class="step"><span class="step-num">3</span> Calculer les coordonnées de \(H\) en substituant \(t\) dans la représentation paramétrique.</div>
+        <div class="step"><span class="step-num">4</span> Vérifier que \(H\) vérifie bien l'équation du plan.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXEMPLES GUIDÉS ===== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Produit scalaire et angle</strong>
+      <p>
+        Soient \(A(1\,;2\,;3)\), \(B(3\,;0\,;-1)\), \(C(0\,;1\,;2)\).
+        Calculer \(\overrightarrow{AB} \cdot \overrightarrow{AC}\) et l'angle \(\widehat{BAC}\).
+      </p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Calculer les vecteurs :
+          \[ \overrightarrow{AB} = B - A = (3-1\,;\,0-2\,;\,-1-3) = (2\,;\,-2\,;\,-4) \]
+          \[ \overrightarrow{AC} = C - A = (0-1\,;\,1-2\,;\,2-3) = (-1\,;\,-1\,;\,-1) \]
+        </div>
+        <div class="step"><span class="step-num">2</span> Produit scalaire :
+          \[ \overrightarrow{AB} \cdot \overrightarrow{AC} = 2 \times (-1) + (-2) \times (-1) + (-4) \times (-1) = -2 + 2 + 4 = 4 \]
+        </div>
+        <div class="step"><span class="step-num">3</span> Normes :
+          \[ \|\overrightarrow{AB}\| = \sqrt{4+4+16} = \sqrt{24} = 2\sqrt{6} \]
+          \[ \|\overrightarrow{AC}\| = \sqrt{1+1+1} = \sqrt{3} \]
+        </div>
+        <div class="step"><span class="step-num">4</span> Angle :
+          \[ \cos(\widehat{BAC}) = \frac{4}{2\sqrt{6} \times \sqrt{3}} = \frac{4}{2\sqrt{18}} = \frac{4}{6\sqrt{2}} = \frac{2}{3\sqrt{2}} = \frac{\sqrt{2}}{3} \]
+          Donc \(\widehat{BAC} = \arccos\!\left(\dfrac{\sqrt{2}}{3}\right) \approx 61{,}9°\).
+        </div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Équation d'un plan</strong>
+      <p>
+        Trouver l'équation du plan \((\mathcal{P})\) passant par \(A(1\,;-1\,;2)\) de vecteur normal
+        \(\overrightarrow{n}(2\,;-3\,;1)\).
+      </p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> On applique la formule avec \(a=2\), \(b=-3\), \(c=1\), \(x_0=1\), \(y_0=-1\), \(z_0=2\) :
+          \[ 2(x-1) + (-3)(y-(-1)) + 1(z-2) = 0 \]
+        </div>
+        <div class="step"><span class="step-num">2</span> Développer :
+          \[ 2x - 2 - 3y - 3 + z - 2 = 0 \]
+          \[ 2x - 3y + z - 7 = 0 \]
+        </div>
+        <div class="step"><span class="step-num">3</span> Vérification : \(2(1) - 3(-1) + (2) - 7 = 2 + 3 + 2 - 7 = 0\). ✓</div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Distance d'un point à un plan</strong>
+      <p>Calculer la distance du point \(M(3\,;0\,;1)\) au plan \(x + 2y - 2z + 1 = 0\).</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Identifier \(a=1\), \(b=2\), \(c=-2\), \(d=1\), et les coordonnées \(x_0=3\), \(y_0=0\), \(z_0=1\).</div>
+        <div class="step"><span class="step-num">2</span> Appliquer la formule :
+          \[ d = \frac{|1\times3 + 2\times0 + (-2)\times1 + 1|}{\sqrt{1^2+2^2+(-2)^2}} = \frac{|3+0-2+1|}{\sqrt{1+4+4}} = \frac{|2|}{\sqrt{9}} = \frac{2}{3} \]
+        </div>
+      </div>
+      <p>La distance de \(M\) au plan est \(\dfrac{2}{3}\).</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Droites orthogonales</strong>
+      <p>
+        Montrer que les droites \((d_1)\) de vecteur directeur \(\overrightarrow{u_1}(1\,;2\,;-1)\)
+        et \((d_2)\) de vecteur directeur \(\overrightarrow{u_2}(2\,;-1\,;0)\) sont orthogonales.
+      </p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Calculer le produit scalaire :
+          \[ \overrightarrow{u_1} \cdot \overrightarrow{u_2} = 1\times2 + 2\times(-1) + (-1)\times0 = 2 - 2 + 0 = 0 \]
+        </div>
+        <div class="step"><span class="step-num">2</span> Comme le produit scalaire est nul, les vecteurs directeurs sont orthogonaux : les droites \((d_1)\) et \((d_2)\) sont donc <strong>orthogonales</strong>.</div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — Projeté orthogonal d'un point sur un plan</strong>
+      <p>Trouver le projeté orthogonal de \(M(1\,;0\,;3)\) sur le plan \((\mathcal{P})\) d'équation \(x - y + z - 2 = 0\).</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Le vecteur normal est \(\overrightarrow{n}(1\,;-1\,;1)\). La droite passant par \(M\) dans la direction de \(\overrightarrow{n}\) est :
+          \[ \begin{cases} x = 1 + t \\ y = 0 - t = -t \\ z = 3 + t \end{cases} \]
+        </div>
+        <div class="step"><span class="step-num">2</span> Substituer dans l'équation du plan :
+          \[ (1+t) - (-t) + (3+t) - 2 = 0 \]
+          \[ 1 + t + t + 3 + t - 2 = 0 \]
+          \[ 3t + 2 = 0 \implies t = -\frac{2}{3} \]
+        </div>
+        <div class="step"><span class="step-num">3</span> Coordonnées du projeté \(H\) :
+          \[ x_H = 1 + \left(-\frac{2}{3}\right) = \frac{1}{3}, \quad y_H = -\left(-\frac{2}{3}\right) = \frac{2}{3}, \quad z_H = 3 + \left(-\frac{2}{3}\right) = \frac{7}{3} \]
+          Donc \(H\!\left(\dfrac{1}{3}\,;\,\dfrac{2}{3}\,;\,\dfrac{7}{3}\right)\).
+        </div>
+        <div class="step"><span class="step-num">4</span> Vérification : \(\frac{1}{3} - \frac{2}{3} + \frac{7}{3} - 2 = \frac{1-2+7}{3} - 2 = \frac{6}{3} - 2 = 2 - 2 = 0\). ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXERCICES ===== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- Ex 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Produit scalaire et orthogonalité</b>
+      <p>
+        Soient \(\overrightarrow{u}(2\,;-1\,;3)\) et \(\overrightarrow{v}(1\,;4\,;2)\).
+      </p>
+      <ol>
+        <li>Calculer \(\overrightarrow{u} \cdot \overrightarrow{v}\).</li>
+        <li>Ces vecteurs sont-ils orthogonaux ?</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch7-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch7-ex1">
+        <div class="corrige">
+          <p><strong>1) Produit scalaire :</strong></p>
+          \[ \overrightarrow{u} \cdot \overrightarrow{v} = 2 \times 1 + (-1) \times 4 + 3 \times 2 = 2 - 4 + 6 = 4 \]
+          <p><strong>2)</strong> Comme \(\overrightarrow{u} \cdot \overrightarrow{v} = 4 \neq 0\), les vecteurs \(\overrightarrow{u}\) et \(\overrightarrow{v}\) ne sont <strong>pas orthogonaux</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Équation cartésienne d'un plan</b>
+      <p>
+        Trouver l'équation cartésienne du plan passant par \(A(2\,;1\,;0)\) et de vecteur normal
+        \(\overrightarrow{n}(1\,;-2\,;3)\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch7-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch7-ex2">
+        <div class="corrige">
+          <p>On applique la formule avec \(a=1\), \(b=-2\), \(c=3\) et le point \(A(2\,;1\,;0)\) :</p>
+          \[ 1(x-2) + (-2)(y-1) + 3(z-0) = 0 \]
+          \[ x - 2 - 2y + 2 + 3z = 0 \]
+          \[ \boxed{x - 2y + 3z = 0} \]
+          <p>Vérification : \(2 - 2(1) + 3(0) = 2 - 2 = 0\). ✓</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Distance d'un point à un plan</b>
+      <p>
+        Calculer la distance du point \(P(1\,;2\,;3)\) au plan d'équation \(2x - y + 2z - 1 = 0\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch7-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch7-ex3">
+        <div class="corrige">
+          <p>On identifie \(a=2\), \(b=-1\), \(c=2\), \(d=-1\) et \(P(1\,;2\,;3)\).</p>
+          \[ d = \frac{|2\times1 + (-1)\times2 + 2\times3 + (-1)|}{\sqrt{2^2+(-1)^2+2^2}} = \frac{|2 - 2 + 6 - 1|}{\sqrt{4+1+4}} = \frac{|5|}{\sqrt{9}} = \frac{5}{3} \]
+          <p>La distance de \(P\) au plan est \(\dfrac{5}{3}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Triangle rectangle dans l'espace</b>
+      <p>
+        Soient les points \(A(1\,;0\,;1)\), \(B(2\,;1\,;0)\), \(C(0\,;2\,;2)\).
+        Vérifier que le triangle \(ABC\) est rectangle en \(A\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch7-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch7-ex4">
+        <div class="corrige">
+          <p>On calcule les vecteurs depuis \(A\) :</p>
+          \[ \overrightarrow{AB} = (2-1\,;\,1-0\,;\,0-1) = (1\,;\,1\,;\,-1) \]
+          \[ \overrightarrow{AC} = (0-1\,;\,2-0\,;\,2-1) = (-1\,;\,2\,;\,1) \]
+          <p>Produit scalaire :</p>
+          \[ \overrightarrow{AB} \cdot \overrightarrow{AC} = 1\times(-1) + 1\times2 + (-1)\times1 = -1 + 2 - 1 = 0 \]
+          <p>Le produit scalaire est nul, donc \(\overrightarrow{AB} \perp \overrightarrow{AC}\) : le triangle \(ABC\) est bien <strong>rectangle en \(A\)</strong>.</p>
+          <p>On peut aussi calculer les longueurs pour vérifier le théorème de Pythagore :</p>
+          \[ AB = \sqrt{1+1+1} = \sqrt{3}, \quad AC = \sqrt{1+4+1} = \sqrt{6}, \quad BC = \sqrt{(0-2)^2+(2-1)^2+(2-0)^2} = \sqrt{4+1+4} = 3 \]
+          \[ AB^2 + AC^2 = 3 + 6 = 9 = BC^2 \checkmark \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Projeté orthogonal sur un plan</b>
+      <p>
+        Trouver le projeté orthogonal de \(M(2\,;3\,;-1)\) sur le plan \((\mathcal{P})\) d'équation
+        \(x + y - z - 1 = 0\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch7-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch7-ex5">
+        <div class="corrige">
+          <p>Le vecteur normal au plan est \(\overrightarrow{n}(1\,;1\,;-1)\).</p>
+          <p>La droite par \(M\) de vecteur directeur \(\overrightarrow{n}\) a pour représentation paramétrique :</p>
+          \[ \begin{cases} x = 2 + t \\ y = 3 + t \\ z = -1 - t \end{cases} \]
+          <p>On substitue dans l'équation du plan :</p>
+          \[ (2+t) + (3+t) - (-1-t) - 1 = 0 \]
+          \[ 2+t+3+t+1+t-1 = 0 \]
+          \[ 3t + 5 = 0 \implies t = -\frac{5}{3} \]
+          <p>Coordonnées du projeté \(H\) :</p>
+          \[ x_H = 2 - \frac{5}{3} = \frac{1}{3}, \quad y_H = 3 - \frac{5}{3} = \frac{4}{3}, \quad z_H = -1 + \frac{5}{3} = \frac{2}{3} \]
+          <p>Donc \(H\!\left(\dfrac{1}{3}\,;\,\dfrac{4}{3}\,;\,\dfrac{2}{3}\right)\).</p>
+          <p>Vérification : \(\frac{1}{3} + \frac{4}{3} - \frac{2}{3} - 1 = \frac{1+4-2}{3} - 1 = \frac{3}{3} - 1 = 1 - 1 = 0\). ✓</p>
+          <p>La distance \(MH\) vaut :
+          \[ MH = \frac{|2+3-(-1)-1|}{\sqrt{1^2+1^2+(-1)^2}} = \frac{|5|}{\sqrt{3}} = \frac{5\sqrt{3}}{3} \]
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Tétraèdre régulier</b>
+      <p>
+        On considère le tétraèdre \(OABC\) avec \(O(0\,;0\,;0)\), \(A(1\,;0\,;0)\),
+        \(B(0\,;1\,;0)\), \(C(0\,;0\,;1)\).
+      </p>
+      <ol>
+        <li>Calculer les longueurs de toutes les arêtes.</li>
+        <li>Vérifier que \(OA\), \(OB\) et \(OC\) sont deux à deux orthogonaux.</li>
+        <li>Calculer l'angle \(\widehat{AOB}\).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch7-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch7-ex6">
+        <div class="corrige">
+          <p><strong>1) Longueurs des arêtes :</strong></p>
+          <p>Arêtes issues de \(O\) :</p>
+          \[ OA = \sqrt{1^2+0+0} = 1, \quad OB = \sqrt{0+1^2+0} = 1, \quad OC = \sqrt{0+0+1^2} = 1 \]
+          <p>Arêtes opposées :</p>
+          \[ AB = \sqrt{(0-1)^2+(1-0)^2+0} = \sqrt{1+1} = \sqrt{2} \]
+          \[ AC = \sqrt{(0-1)^2+0+(1-0)^2} = \sqrt{2} \]
+          \[ BC = \sqrt{0+(0-1)^2+(1-0)^2} = \sqrt{2} \]
+          <p>Bilan : \(OA = OB = OC = 1\) et \(AB = AC = BC = \sqrt{2}\). Ce n'est pas un tétraèdre régulier (les arêtes ne sont pas toutes égales), mais les trois arêtes issues de \(O\) sont égales et les trois arêtes du triangle \(ABC\) sont égales.</p>
+
+          <p><strong>2) Orthogonalité deux à deux :</strong></p>
+          \[ \overrightarrow{OA}(1\,;0\,;0), \quad \overrightarrow{OB}(0\,;1\,;0), \quad \overrightarrow{OC}(0\,;0\,;1) \]
+          \[ \overrightarrow{OA} \cdot \overrightarrow{OB} = 1\times0+0\times1+0\times0 = 0 \checkmark \]
+          \[ \overrightarrow{OA} \cdot \overrightarrow{OC} = 1\times0+0\times0+0\times1 = 0 \checkmark \]
+          \[ \overrightarrow{OB} \cdot \overrightarrow{OC} = 0\times0+1\times0+0\times1 = 0 \checkmark \]
+          <p>\(OA\), \(OB\) et \(OC\) sont bien <strong>deux à deux orthogonaux</strong>. \(\bigl(\overrightarrow{OA}, \overrightarrow{OB}, \overrightarrow{OC}\bigr)\) forme en fait la base orthonormée canonique !</p>
+
+          <p><strong>3) Angle \(\widehat{AOB}\) :</strong></p>
+          \[ \cos(\widehat{AOB}) = \frac{\overrightarrow{OA} \cdot \overrightarrow{OB}}{\|\overrightarrow{OA}\| \times \|\overrightarrow{OB}\|} = \frac{0}{1 \times 1} = 0 \]
+          <p>Donc \(\widehat{AOB} = 90°\). Les droites \((OA)\) et \((OB)\) sont <strong>perpendiculaires</strong> (ce qui était attendu puisque leurs vecteurs directeurs sont orthogonaux).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SYNTHÈSE ===== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Produit scalaire dans un repère orthonormé</h3>
+      <p>Si \(\overrightarrow{u}(x\,;y\,;z)\) et \(\overrightarrow{v}(x'\,;y'\,;z')\) :</p>
+      \[ \overrightarrow{u} \cdot \overrightarrow{v} = xx' + yy' + zz' \]
+      \[ \|\overrightarrow{u}\| = \sqrt{x^2+y^2+z^2} \]
+      \[ \cos\theta = \frac{\overrightarrow{u} \cdot \overrightarrow{v}}{\|\overrightarrow{u}\|\,\|\overrightarrow{v}\|} \]
+
+      <h3>Orthogonalité</h3>
+      <ul>
+        <li>Vecteurs : \(\overrightarrow{u} \perp \overrightarrow{v} \Leftrightarrow \overrightarrow{u} \cdot \overrightarrow{v} = 0\)</li>
+        <li>Droites : orthogonales si leurs vecteurs directeurs sont orthogonaux.</li>
+        <li>Droite \(\perp\) plan : le vecteur directeur de la droite est normal au plan.</li>
+      </ul>
+
+      <h3>Plan d'équation \(ax+by+cz+d=0\)</h3>
+      <ul>
+        <li>Vecteur normal : \(\overrightarrow{n}(a\,;b\,;c)\).</li>
+        <li>Construction : \(a(x-x_0)+b(y-y_0)+c(z-z_0)=0\) avec \(A(x_0\,;y_0\,;z_0)\) dans le plan.</li>
+        <li>Distance de \(M(x_0\,;y_0\,;z_0)\) au plan : \(\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}\).</li>
+      </ul>
+
+      <h3>Projeté orthogonal</h3>
+      <p>Droite par \(M\) de vecteur directeur \(\overrightarrow{n}\) → substituer dans l'équation du plan → trouver \(t\) → calculer \(H\).</p>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="06-continuite.html">← Précédent : Continuité</a>
+    <a href="08-loi-binomiale.html">Suivant : Loi binomiale →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

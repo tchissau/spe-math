@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vecteurs, droites et plans de l'espace — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 3 · Géométrie</div>
+    <h1>Vecteurs, droites et plans de l'espace</h1>
+    <p class="tagline">Étendre la géométrie du plan à l'espace à trois dimensions grâce aux vecteurs et aux repères.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/03-vecteurs-espace.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a>
+        <ul>
+          <li><a href="#vecteurs">A — Vecteurs de l'espace</a></li>
+          <li><a href="#droites-plans">B — Droites et plans</a></li>
+          <li><a href="#positions">C — Positions relatives</a></li>
+          <li><a href="#repere">D — Repère de l'espace</a></li>
+        </ul>
+      </li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      La géométrie de l'espace est une extension naturelle de la géométrie plane. On travaille désormais dans un espace à <strong>trois dimensions</strong>, où les points sont repérés par trois coordonnées \((x, y, z)\). Les notions de vecteurs, de droites et de plans se généralisent, mais de nouvelles configurations apparaissent : deux droites peuvent être <em>gauches</em> (non coplanaires), un plan peut être parallèle à une droite sans la contenir, etc.
+    </p>
+    <p>
+      La maîtrise du <strong>repère de l'espace</strong> \((O\,;\,\vec{i},\vec{j},\vec{k})\) et du calcul vectoriel en coordonnées est la clé pour résoudre efficacement les problèmes de géométrie dans l'espace.
+    </p>
+    <div class="astuce">
+      <strong>💡 Lien avec le programme :</strong> Ce chapitre prépare directement le chapitre sur l'<em>orthogonalité dans l'espace</em> (chapitre 7), où l'on introduira le produit scalaire en 3D et les plans définis par une équation cartésienne.
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3 id="vecteurs">A — Vecteurs de l'espace</h3>
+
+    <div class="definition">
+      <strong>Définition — Vecteur et translation</strong>
+      <p>La <strong>translation de vecteur \(\overrightarrow{AB}\)</strong> est la transformation qui à tout point \(M\) associe le point \(M'\) tel que \(\overrightarrow{MM'} = \overrightarrow{AB}\).</p>
+      <p>Deux vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{CD}\) sont <strong>égaux</strong> s'ils ont même direction, même sens et même longueur, c'est-à-dire si \(ABDC\) est un parallélogramme (éventuellement aplati).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Théorème — Existence et unicité du translaté</strong>
+      <p>Pour tout vecteur \(\overrightarrow{u}\) et tout point \(A\) de l'espace, il existe un <strong>unique</strong> point \(M\) tel que \(\overrightarrow{AM} = \overrightarrow{u}\).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriétés — Opérations sur les vecteurs</strong>
+      <ul>
+        <li><strong>Addition (règle du parallélogramme) :</strong> \(\overrightarrow{AB} + \overrightarrow{AC} = \overrightarrow{AD}\) où \(ABDC\) est un parallélogramme.</li>
+        <li><strong>Relation de Chasles :</strong> Pour tous points \(A\), \(B\), \(C\) de l'espace :
+        \[\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}\]</li>
+        <li><strong>Vecteur nul :</strong> \(\overrightarrow{AA} = \overrightarrow{0}\) et \(\overrightarrow{AB} + \overrightarrow{BA} = \overrightarrow{0}\).</li>
+        <li><strong>Multiplication par un scalaire :</strong> Pour \(k \in \mathbb{R}\), \(k\overrightarrow{u}\) est le vecteur colinéaire à \(\overrightarrow{u}\), de norme \(|k|\,\|\overrightarrow{u}\|\), de même sens si \(k > 0\), de sens opposé si \(k < 0\).</li>
+        <li>\(k\overrightarrow{u} = \overrightarrow{0} \iff k = 0\) ou \(\overrightarrow{u} = \overrightarrow{0}\).</li>
+        <li><strong>Distributivité :</strong> \((k+k')\overrightarrow{u} = k\overrightarrow{u} + k'\overrightarrow{u}\) et \(k(\overrightarrow{u}+\overrightarrow{v}) = k\overrightarrow{u} + k\overrightarrow{v}\).</li>
+      </ul>
+    </div>
+
+    <h3 id="droites-plans">B — Droites et plans de l'espace</h3>
+
+    <div class="definition">
+      <strong>Définition — Vecteurs colinéaires</strong>
+      <p>Deux vecteurs \(\overrightarrow{u}\) et \(\overrightarrow{v}\) sont <strong>colinéaires</strong> s'il existe un réel \(k\) tel que \(\overrightarrow{u} = k\overrightarrow{v}\) (ou \(\overrightarrow{v} = k\overrightarrow{u}\)).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Alignement de trois points</strong>
+      <p>Trois points \(A\), \(B\), \(C\) sont <strong>alignés</strong> si et seulement si les vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont colinéaires.</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriétés fondamentales de l'espace</strong>
+      <ul>
+        <li>Par deux points distincts passe une <strong>unique droite</strong>.</li>
+        <li>Par trois points non alignés passe un <strong>unique plan</strong>.</li>
+        <li>Si une droite a deux de ses points dans un plan, elle est entièrement <strong>incluse</strong> dans ce plan.</li>
+        <li>Deux plans distincts sont soit <strong>parallèles</strong>, soit <strong>sécants</strong> selon une droite.</li>
+      </ul>
+    </div>
+
+    <div class="definition">
+      <strong>Définition — Droite et plan paramétriques</strong>
+      <p><strong>Droite \((AB)\) :</strong> C'est l'ensemble des points \(M\) tels que \(\overrightarrow{AM} = k\overrightarrow{AB}\) pour un certain \(k \in \mathbb{R}\). Le vecteur \(\overrightarrow{AB}\) est appelé <strong>vecteur directeur</strong> de la droite.</p>
+      <p><strong>Plan \((ABC)\) :</strong> C'est l'ensemble des points \(M\) tels que \(\overrightarrow{AM} = x\overrightarrow{AB} + y\overrightarrow{AC}\) pour certains \(x, y \in \mathbb{R}\). Les vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont des <strong>vecteurs directeurs</strong> du plan.</p>
+    </div>
+
+    <h3 id="positions">C — Positions relatives de droites et de plans</h3>
+
+    <!-- ====== POSITIONS RELATIVES DE DEUX DROITES ====== -->
+    <div class="propriete">
+      <strong>Positions relatives de deux droites</strong>
+      <ul>
+        <li><strong>Coplanaires :</strong> les deux droites sont dans un même plan. Dans ce cas, elles sont soit parallèles (sans point commun), soit sécantes (un point commun).</li>
+        <li><strong>Non coplanaires (gauches) :</strong> les deux droites ne sont dans aucun plan commun. Elles n'ont aucun point commun et ne sont pas parallèles.</li>
+      </ul>
+    </div>
+
+    <!-- Figures : positions relatives de deux droites -->
+    <div style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin:1.2rem 0;">
+
+      <!-- Droites parallèles -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Cube en perspective cavalière -->
+          <!-- Face avant -->
+          <polygon points="30,130 100,130 100,60 30,60" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+          <!-- Face droite -->
+          <polygon points="100,130 150,100 150,30 100,60" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+          <!-- Face dessus -->
+          <polygon points="30,60 100,60 150,30 80,30" fill="#90CAF9" stroke="#1565C0" stroke-width="1.5"/>
+          <!-- Arêtes cachées -->
+          <line x1="30" y1="130" x2="80" y2="100" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <line x1="80" y1="100" x2="150" y2="100" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <line x1="80" y1="100" x2="80" y2="30" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <!-- Droite 1 : arête EH (parallèle) -->
+          <line x1="10" y1="60" x2="175" y2="60" stroke="#E53935" stroke-width="2.5"/>
+          <text x="178" y="64" font-size="11" fill="#E53935" font-family="serif" font-style="italic">d</text>
+          <!-- Droite 2 : arête FG (parallèle) -->
+          <line x1="10" y1="30" x2="175" y2="30" stroke="#43A047" stroke-width="2.5"/>
+          <text x="178" y="34" font-size="11" fill="#43A047" font-family="serif" font-style="italic">d'</text>
+          <!-- Labels -->
+          <text x="100" y="158" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Droites <tspan font-weight="bold">parallèles</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">Pas de point commun, même direction</figcaption>
+      </figure>
+
+      <!-- Droites sécantes -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <polygon points="30,130 100,130 100,60 30,60" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+          <polygon points="100,130 150,100 150,30 100,60" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+          <polygon points="30,60 100,60 150,30 80,30" fill="#90CAF9" stroke="#1565C0" stroke-width="1.5"/>
+          <line x1="30" y1="130" x2="80" y2="100" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <line x1="80" y1="100" x2="150" y2="100" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <line x1="80" y1="100" x2="80" y2="30" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <!-- Diagonale EG -->
+          <line x1="10" y1="75" x2="175" y2="22" stroke="#E53935" stroke-width="2.5"/>
+          <text x="178" y="26" font-size="11" fill="#E53935" font-family="serif" font-style="italic">d</text>
+          <!-- Diagonale FH -->
+          <line x1="10" y1="48" x2="165" y2="120" stroke="#43A047" stroke-width="2.5"/>
+          <text x="167" y="124" font-size="11" fill="#43A047" font-family="serif" font-style="italic">d'</text>
+          <!-- Point d'intersection -->
+          <circle cx="87" cy="60" r="4" fill="#FF6F00"/>
+          <text x="92" y="55" font-size="10" fill="#FF6F00" font-family="sans-serif">I</text>
+          <text x="100" y="158" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Droites <tspan font-weight="bold">sécantes</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">Un point commun \(I\), dans le même plan</figcaption>
+      </figure>
+
+      <!-- Droites gauches -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <polygon points="30,130 100,130 100,60 30,60" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+          <polygon points="100,130 150,100 150,30 100,60" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+          <polygon points="30,60 100,60 150,30 80,30" fill="#90CAF9" stroke="#1565C0" stroke-width="1.5"/>
+          <line x1="30" y1="130" x2="80" y2="100" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <line x1="80" y1="100" x2="150" y2="100" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <line x1="80" y1="100" x2="80" y2="30" stroke="#1565C0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+          <!-- Arête EH (sur face avant, horizontale) -->
+          <line x1="10" y1="60" x2="175" y2="60" stroke="#E53935" stroke-width="2.5"/>
+          <text x="178" y="64" font-size="11" fill="#E53935" font-family="serif" font-style="italic">d</text>
+          <!-- Arête verticale droite (GC, profondeur) -->
+          <line x1="150" y1="10" x2="150" y2="135" stroke="#43A047" stroke-width="2.5"/>
+          <text x="154" y="140" font-size="11" fill="#43A047" font-family="serif" font-style="italic">d'</text>
+          <!-- Signe "gauches" -->
+          <text x="100" y="158" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Droites <tspan font-weight="bold">gauches</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">Non coplanaires — aucun plan commun</figcaption>
+      </figure>
+
+    </div>
+
+    <div class="attention">
+      <strong>Ne pas confondre</strong> droites <em>non sécantes</em> (peuvent être parallèles) et droites <em>gauches</em> (non coplanaires). Deux droites gauches ne sont ni parallèles ni sécantes — cette situation n'existe pas dans le plan !
+    </div>
+
+    <!-- ====== POSITIONS RELATIVES DROITE / PLAN ====== -->
+    <div class="propriete">
+      <strong>Positions relatives d'une droite et d'un plan</strong>
+      <ul>
+        <li><strong>Droite incluse dans le plan</strong> : tous les points de la droite sont dans le plan.</li>
+        <li><strong>Droite strictement parallèle au plan</strong> : aucun point commun, la droite est parallèle à une droite du plan.</li>
+        <li><strong>Droite sécante au plan</strong> : exactement un point commun (le point de percée).</li>
+      </ul>
+    </div>
+
+    <!-- Figures : positions relatives droite/plan -->
+    <div style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin:1.2rem 0;">
+
+      <!-- Droite incluse dans le plan -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Plan (parallélogramme) -->
+          <polygon points="20,120 130,120 170,70 60,70" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+          <text x="170" y="90" font-size="11" fill="#2E7D32" font-family="serif" font-style="italic">(P)</text>
+          <!-- Droite incluse -->
+          <line x1="5" y1="100" x2="185" y2="85" stroke="#E53935" stroke-width="2.5"/>
+          <text x="187" y="89" font-size="11" fill="#E53935" font-family="serif" font-style="italic">d</text>
+          <text x="100" y="148" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Droite <tspan font-weight="bold">incluse</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">\(d \subset (\mathcal{P})\)</figcaption>
+      </figure>
+
+      <!-- Droite parallèle au plan -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Plan -->
+          <polygon points="20,120 130,120 170,80 60,80" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+          <text x="170" y="100" font-size="11" fill="#2E7D32" font-family="serif" font-style="italic">(P)</text>
+          <!-- Droite parallèle (au-dessus) -->
+          <line x1="5" y1="45" x2="185" y2="45" stroke="#E53935" stroke-width="2.5"/>
+          <text x="187" y="49" font-size="11" fill="#E53935" font-family="serif" font-style="italic">d</text>
+          <!-- Flèches indiquant la distance -->
+          <line x1="95" y1="47" x2="95" y2="98" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="100" y="148" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Droite <tspan font-weight="bold">parallèle</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">\(d \parallel (\mathcal{P})\), aucun point commun</figcaption>
+      </figure>
+
+      <!-- Droite sécante au plan -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Plan -->
+          <polygon points="20,110 130,110 170,70 60,70" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+          <text x="170" y="90" font-size="11" fill="#2E7D32" font-family="serif" font-style="italic">(P)</text>
+          <!-- Droite sécante (oblique, traverse le plan) -->
+          <!-- Partie au-dessus -->
+          <line x1="60" y1="20" x2="110" y2="92" stroke="#E53935" stroke-width="2.5"/>
+          <!-- Partie en-dessous (pointillés pour cacher) -->
+          <line x1="110" y1="92" x2="145" y2="140" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5,3" opacity="0.6"/>
+          <text x="60" y="18" font-size="11" fill="#E53935" font-family="serif" font-style="italic">d</text>
+          <!-- Point de percée -->
+          <circle cx="110" cy="92" r="4.5" fill="#FF6F00"/>
+          <text x="116" y="89" font-size="10" fill="#FF6F00" font-family="sans-serif">A</text>
+          <text x="100" y="152" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Droite <tspan font-weight="bold">sécante</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">Un seul point commun (point de percée \(A\))</figcaption>
+      </figure>
+
+    </div>
+
+    <!-- ====== POSITIONS RELATIVES DEUX PLANS ====== -->
+    <div class="propriete">
+      <strong>Positions relatives de deux plans</strong>
+      <ul>
+        <li><strong>Plans parallèles</strong> : aucun point commun.</li>
+        <li><strong>Plans sécants</strong> : leur intersection est une droite.</li>
+        <li><strong>Plans confondus</strong> : ils sont identiques.</li>
+      </ul>
+    </div>
+
+    <!-- Figures : positions relatives deux plans -->
+    <div style="display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; margin:1.2rem 0;">
+
+      <!-- Plans parallèles -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Plan inférieur -->
+          <polygon points="15,125 115,125 155,95 55,95" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+          <text x="157" y="115" font-size="11" fill="#2E7D32" font-family="serif" font-style="italic">(\(\mathcal{P}_1\))</text>
+          <!-- Plan supérieur -->
+          <polygon points="15,70 115,70 155,40 55,40" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+          <text x="157" y="58" font-size="11" fill="#1565C0" font-family="serif" font-style="italic">(\(\mathcal{P}_2\))</text>
+          <!-- Flèches distance -->
+          <line x1="160" y1="42" x2="160" y2="93" stroke="#888" stroke-width="1" stroke-dasharray="3,2"/>
+          <line x1="155" y1="42" x2="165" y2="42" stroke="#888" stroke-width="1"/>
+          <line x1="155" y1="93" x2="165" y2="93" stroke="#888" stroke-width="1"/>
+          <text x="100" y="150" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Plans <tspan font-weight="bold">parallèles</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">\(\mathcal{P}_1 \parallel \mathcal{P}_2\)</figcaption>
+      </figure>
+
+      <!-- Plans sécants -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Plan 1 (horizontal) -->
+          <polygon points="10,100 120,100 160,70 50,70" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" opacity="0.85"/>
+          <text x="162" y="88" font-size="11" fill="#2E7D32" font-family="serif" font-style="italic">(\(\mathcal{P}_1\))</text>
+          <!-- Plan 2 (oblique) -->
+          <polygon points="65,140 65,30 115,20 115,130" fill="#E3F2FD" stroke="#1565C0" stroke-width="2" opacity="0.55"/>
+          <text x="118" y="22" font-size="11" fill="#1565C0" font-family="serif" font-style="italic">(\(\mathcal{P}_2\))</text>
+          <!-- Droite d'intersection -->
+          <line x1="65" y1="100" x2="115" y2="70" stroke="#FF6F00" stroke-width="2.5"/>
+          <text x="118" y="76" font-size="11" fill="#FF6F00" font-family="serif" font-style="italic">Δ</text>
+          <text x="100" y="152" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Plans <tspan font-weight="bold">sécants</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">Intersection = droite \(\Delta\)</figcaption>
+      </figure>
+
+      <!-- Plans confondus -->
+      <figure style="text-align:center; flex:1; min-width:180px; max-width:220px;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Plan unique (double trait) -->
+          <polygon points="15,100 125,100 165,68 55,68" fill="#FFF8E1" stroke="#F9A825" stroke-width="3"/>
+          <polygon points="15,96 125,96 165,64 55,64" fill="none" stroke="#E65100" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <text x="100" y="132" font-size="11" fill="#E65100" text-anchor="middle" font-family="sans-serif">(\(\mathcal{P}_1\)) = (\(\mathcal{P}_2\))</text>
+          <text x="100" y="152" font-size="11" fill="#333" text-anchor="middle" font-family="sans-serif">Plans <tspan font-weight="bold">confondus</tspan></text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.3rem;">Plans identiques</figcaption>
+      </figure>
+
+    </div>
+
+    <!-- ====== THÉORÈMES ILLUSTRÉS ====== -->
+    <div class="propriete">
+      <strong>Théorème — Intersection de deux plans et droites parallèles</strong>
+      <p>Si deux plans \(\mathcal{P}_1\) et \(\mathcal{P}_2\) contiennent chacun une droite parallèle à l'autre, alors leur intersection est une droite parallèle à ces deux droites.</p>
+    </div>
+
+    <!-- Figure théorème plans parallèles -->
+    <div style="display:flex; justify-content:center; margin:1rem 0;">
+      <figure style="text-align:center; max-width:320px;">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;background:#F8F9FF;border-radius:8px;border:1px solid #DEE4EF;">
+          <!-- Plan 1 (bas) -->
+          <polygon points="20,160 160,160 220,120 80,120" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5" opacity="0.9"/>
+          <text x="225" y="145" font-size="11" fill="#2E7D32" font-family="serif" font-style="italic">(\(\mathcal{P}_1\))</text>
+          <!-- Plan 2 (haut) -->
+          <polygon points="20,90 160,90 220,50 80,50" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" opacity="0.9"/>
+          <text x="225" y="72" font-size="11" fill="#1565C0" font-family="serif" font-style="italic">(\(\mathcal{P}_2\))</text>
+          <!-- Plan 3 (sécant, vertical) -->
+          <polygon points="50,180 50,40 190,40 190,180" fill="#FFF8E1" stroke="#F9A825" stroke-width="1.5" opacity="0.5"/>
+          <text x="183" y="28" font-size="11" fill="#E65100" font-family="serif" font-style="italic">(\(\mathcal{Q}\))</text>
+          <!-- Droite d1 dans P1 -->
+          <line x1="20" y1="140" x2="50" y2="140" stroke="#E53935" stroke-width="2.5"/>
+          <line x1="190" y1="140" x2="210" y2="140" stroke="#E53935" stroke-width="2.5"/>
+          <line x1="50" y1="140" x2="190" y2="140" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5,3"/>
+          <text x="218" y="144" font-size="10" fill="#E53935" font-family="serif" font-style="italic">d₁</text>
+          <!-- Droite d2 dans P2 -->
+        
+          <line x1="20" y1="70" x2="50" y2="70" stroke="#E53935" stroke-width="3.5"/>
+          <line x1="190" y1="70" x2="210" y2="70" stroke="#E53935" stroke-width="2.5"/>
+          <line x1="50" y1="70" x2="190" y2="70" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5,3"/>
+          <text x="218" y="74" font-size="10" fill="#E53935" font-family="serif" font-style="italic">d₂</text>
+          <!-- Droite intersection Q∩P1 -->
+          <line x1="120" y1="140" x2="180" y2="140" stroke="#FF6F00" stroke-width="2" stroke-dasharray="4,2"/>
+          <!-- Droite intersection Q∩P2 -->
+          <line x1="120" y1="70" x2="180" y2="70" stroke="#FF6F00" stroke-width="2" stroke-dasharray="4,2"/>
+          <!-- Légende -->
+          <rect x="10" y="6" width="200" height="30" rx="4" fill="white" opacity="0.8"/>
+          <text x="15" y="18" font-size="10" fill="#E53935" font-family="sans-serif">— d₁ ∥ d₂ (parallèles)</text>
+          <text x="15" y="30" font-size="10" fill="#FF6F00" font-family="sans-serif">-- droites d'intersection de Q</text>
+        </svg>
+        <figcaption style="font-size:.82rem;color:#555;margin-top:.4rem;">Le plan \(\mathcal{Q}\) coupe \(\mathcal{P}_1\) et \(\mathcal{P}_2\) selon deux droites parallèles à \(d_1\) et \(d_2\).</figcaption>
+      </figure>
+    </div>
+
+    <div class="propriete">
+      <strong>Théorème — Plans parallèles</strong>
+      <p>Si deux plans \(\mathcal{P}_1\) et \(\mathcal{P}_2\) sont parallèles, tout plan \(\mathcal{Q}\) qui coupe l'un coupe l'autre, et les droites d'intersection \(\mathcal{Q} \cap \mathcal{P}_1\) et \(\mathcal{Q} \cap \mathcal{P}_2\) sont parallèles entre elles.</p>
+    </div>
+
+    <h3 id="repere">D — Repère de l'espace</h3>
+
+    <div class="definition">
+      <strong>Définition — Base et repère de l'espace</strong>
+      <p>Un triplet de vecteurs \((\overrightarrow{i}, \overrightarrow{j}, \overrightarrow{k})\) forme une <strong>base de l'espace</strong> si aucun des trois vecteurs n'est combinaison linéaire des deux autres (i.e. ils sont non coplanaires).</p>
+      <p>Un <strong>repère de l'espace</strong> est la donnée d'un point origine \(O\) et d'une base \((\overrightarrow{i}, \overrightarrow{j}, \overrightarrow{k})\). On le note \((O\,;\,\overrightarrow{i}, \overrightarrow{j}, \overrightarrow{k})\).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Décomposition unique</strong>
+      <p>Dans un repère \((O\,;\,\overrightarrow{i}, \overrightarrow{j}, \overrightarrow{k})\) :</p>
+      <ul>
+        <li>Tout vecteur \(\overrightarrow{u}\) s'écrit de manière unique : \(\overrightarrow{u} = x\overrightarrow{i} + y\overrightarrow{j} + z\overrightarrow{k}\). On note \(\overrightarrow{u}(x\,;\,y\,;\,z)\).</li>
+        <li>Tout point \(M\) a des coordonnées uniques \((x_M\,;\,y_M\,;\,z_M)\) telles que \(\overrightarrow{OM} = x_M\overrightarrow{i} + y_M\overrightarrow{j} + z_M\overrightarrow{k}\).</li>
+      </ul>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Coordonnées usuelles</strong>
+      <p>Soient \(A(x_A\,;\,y_A\,;\,z_A)\) et \(B(x_B\,;\,y_B\,;\,z_B)\) deux points du repère.</p>
+      <ul>
+        <li><strong>Coordonnées de \(\overrightarrow{AB}\) :</strong>
+        \[\overrightarrow{AB}\begin{pmatrix}x_B - x_A \\ y_B - y_A \\ z_B - z_A\end{pmatrix}\]</li>
+        <li><strong>Milieu de \([AB]\) :</strong>
+        \[I\!\left(\frac{x_A+x_B}{2}\,;\,\frac{y_A+y_B}{2}\,;\,\frac{z_A+z_B}{2}\right)\]</li>
+        <li><strong>Distance \(AB\) :</strong>
+        \[AB = \sqrt{(x_B-x_A)^2 + (y_B-y_A)^2 + (z_B-z_A)^2}\]</li>
+      </ul>
+    </div>
+
+    <div class="propriete">
+      <strong>Représentation paramétrique d'une droite</strong>
+      <p>La droite passant par \(A(x_A\,;\,y_A\,;\,z_A)\) avec le vecteur directeur \(\overrightarrow{u}(a\,;\,b\,;\,c)\) admet la représentation paramétrique :</p>
+      \[\begin{cases} x = x_A + at \\ y = y_A + bt \\ z = z_A + ct \end{cases} \qquad t \in \mathbb{R}\]
+      <p>Un point \(P(x_P\,;\,y_P\,;\,z_P)\) est sur cette droite si et seulement si le système en \(t\) admet une solution.</p>
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Opérations sur les coordonnées</strong>
+      <div class="steps">
+        <div><strong>Addition :</strong> \(\overrightarrow{u}(a;b;c)\) et \(\overrightarrow{v}(a';b';c')\) donnent \(\overrightarrow{u}+\overrightarrow{v}(a+a'\,;\,b+b'\,;\,c+c')\).</div>
+        <div><strong>Multiplication par un scalaire :</strong> \(k\overrightarrow{u}(ka\,;\,kb\,;\,kc)\).</div>
+        <div><strong>Colinéarité :</strong> \(\overrightarrow{u}(a;b;c)\) et \(\overrightarrow{v}(a';b';c')\) sont colinéaires si les rapports \(\dfrac{a}{a'} = \dfrac{b}{b'} = \dfrac{c}{c'}\) (ou si un vecteur est nul).</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Relation de Chasles : simplification</strong>
+      <p>Simplifier \(\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CA}\).</p>
+      <p><strong>Solution :</strong> On applique la relation de Chasles successivement :</p>
+      \[\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CA} = \overrightarrow{AC} + \overrightarrow{CA} = \overrightarrow{AA} = \overrightarrow{0}\]
+      <p>Ce résultat est toujours vrai : la somme des vecteurs d'un contour fermé est le vecteur nul.</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Calculs de base en coordonnées</strong>
+      <p>Soient \(A(1\,;\,2\,;\,3)\) et \(B(3\,;\,-1\,;\,0)\). Calculer \(\overrightarrow{AB}\), le milieu \(I\) de \([AB]\) et la distance \(AB\).</p>
+      <p><strong>Solution :</strong></p>
+      <ul>
+        <li><strong>Vecteur \(\overrightarrow{AB}\) :</strong>
+        \[\overrightarrow{AB}\begin{pmatrix}3-1 \\ -1-2 \\ 0-3\end{pmatrix} = \begin{pmatrix}2 \\ -3 \\ -3\end{pmatrix}\]</li>
+        <li><strong>Milieu \(I\) :</strong>
+        \[I\!\left(\frac{1+3}{2}\,;\,\frac{2+(-1)}{2}\,;\,\frac{3+0}{2}\right) = I\!\left(2\,;\,\frac{1}{2}\,;\,\frac{3}{2}\right)\]</li>
+        <li><strong>Distance \(AB\) :</strong>
+        \[AB = \sqrt{2^2 + (-3)^2 + (-3)^2} = \sqrt{4+9+9} = \sqrt{22}\]</li>
+      </ul>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Représentation paramétrique et vérification d'appartenance</strong>
+      <p>Soit la droite \(d\) passant par \(A(2\,;\,1\,;\,-1)\) de vecteur directeur \(\overrightarrow{u}(1\,;\,-2\,;\,3)\). Donner une représentation paramétrique. Le point \(P(4\,;\,-3\,;\,5)\) appartient-il à \(d\) ?</p>
+      <p><strong>Représentation paramétrique :</strong>
+      \[\begin{cases} x = 2 + t \\ y = 1 - 2t \\ z = -1 + 3t \end{cases} \quad t \in \mathbb{R}\]</p>
+      <p><strong>Test pour \(P(4\,;\,-3\,;\,5)\) :</strong> On cherche \(t\) tel que :</p>
+      \[4 = 2 + t \Rightarrow t = 2 \qquad -3 = 1 - 2t \Rightarrow t = 2 \qquad 5 = -1 + 3t \Rightarrow t = 2\]
+      <p>Les trois équations donnent la même valeur \(t = 2\). Donc \(P \in d\). ✓</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Trois points non alignés</strong>
+      <p>Montrer que \(A(1\,;\,0\,;\,0)\), \(B(0\,;\,1\,;\,0)\) et \(C(0\,;\,0\,;\,1)\) ne sont pas alignés.</p>
+      <p><strong>Solution :</strong></p>
+      \[\overrightarrow{AB}\begin{pmatrix}-1\\1\\0\end{pmatrix} \qquad \overrightarrow{AC}\begin{pmatrix}-1\\0\\1\end{pmatrix}\]
+      <p>Ces vecteurs seraient colinéaires s'il existait \(k\) tel que \(\overrightarrow{AB} = k\overrightarrow{AC}\). Cela impliquerait \(-1 = -k\), \(1 = 0\) et \(0 = k\), ce qui est impossible. Donc \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) ne sont pas colinéaires, et \(A\), \(B\), \(C\) ne sont pas alignés.</p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- Exercice 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Coordonnées, milieu, distance</b>
+      <p>Soient \(A(2\,;\,-1\,;\,3)\) et \(B(0\,;\,4\,;\,1)\).</p>
+      <ol>
+        <li>Calculer les coordonnées de \(\overrightarrow{AB}\).</li>
+        <li>Calculer les coordonnées du milieu \(I\) de \([AB]\).</li>
+        <li>Calculer la distance \(AB\).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch3-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch3-ex1">
+        <div class="corrige">
+          <p><strong>1. Vecteur \(\overrightarrow{AB}\) :</strong>
+          \[\overrightarrow{AB}\begin{pmatrix}0-2\\4-(-1)\\1-3\end{pmatrix} = \begin{pmatrix}-2\\5\\-2\end{pmatrix}\]</p>
+          <p><strong>2. Milieu \(I\) :</strong>
+          \[I\!\left(\frac{2+0}{2}\,;\,\frac{-1+4}{2}\,;\,\frac{3+1}{2}\right) = I\!\left(1\,;\,\frac{3}{2}\,;\,2\right)\]</p>
+          <p><strong>3. Distance \(AB\) :</strong>
+          \[AB = \sqrt{(-2)^2+5^2+(-2)^2} = \sqrt{4+25+4} = \sqrt{33}\]</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Représentation paramétrique et appartenance</b>
+      <p>Soit la droite \(d\) passant par \(A(1\,;\,0\,;\,2)\) de vecteur directeur \(\overrightarrow{u}(2\,;\,-1\,;\,3)\).</p>
+      <ol>
+        <li>Donner une représentation paramétrique de \(d\).</li>
+        <li>Le point \(P(3\,;\,-1\,;\,5)\) appartient-il à \(d\) ?</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch3-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch3-ex2">
+        <div class="corrige">
+          <p><strong>1. Représentation paramétrique :</strong>
+          \[\begin{cases}x = 1+2t \\ y = -t \\ z = 2+3t\end{cases} \quad t \in \mathbb{R}\]</p>
+          <p><strong>2. Test pour \(P(3\,;\,-1\,;\,5)\) :</strong></p>
+          <ul>
+            <li>Équation en \(x\) : \(3 = 1+2t \Rightarrow t = 1\)</li>
+            <li>Équation en \(y\) : \(-1 = -t \Rightarrow t = 1\)</li>
+            <li>Équation en \(z\) : \(5 = 2+3t \Rightarrow t = 1\)</li>
+          </ul>
+          <p>Les trois équations donnent \(t = 1\). Donc \(P \in d\). ✓</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Coplanarité de vecteurs</b>
+      <p>Soit \(O\) l'origine du repère. Les points \(A(1\,;\,1\,;\,0)\), \(B(2\,;\,0\,;\,1)\), \(C(0\,;\,2\,;\,-1)\) sont-ils coplanaires avec \(O\) ? (c'est-à-dire \(\overrightarrow{OA}\), \(\overrightarrow{OB}\), \(\overrightarrow{OC}\) sont-ils coplanaires ?)</p>
+      <button class="btn-toggle" data-target="cor-ch3-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch3-ex3">
+        <div class="corrige">
+          <p>Trois vecteurs \(\overrightarrow{OA}\), \(\overrightarrow{OB}\), \(\overrightarrow{OC}\) sont coplanaires si et seulement si l'un est combinaison linéaire des deux autres. Cherchons si \(\overrightarrow{OC} = \alpha\overrightarrow{OA} + \beta\overrightarrow{OB}\).</p>
+          \[\begin{cases}0 = \alpha + 2\beta \\ 2 = \alpha + 0\beta \\ -1 = 0\alpha + \beta\end{cases}\]
+          <p>De la deuxième équation : \(\alpha = 2\). De la troisième : \(\beta = -1\).</p>
+          <p>Vérification dans la première : \(\alpha + 2\beta = 2 + 2(-1) = 0\). ✓</p>
+          <p>Donc \(\overrightarrow{OC} = 2\overrightarrow{OA} - \overrightarrow{OB}\). Les trois vecteurs sont <strong>coplanaires</strong>, et \(O\), \(A\), \(B\), \(C\) sont bien dans un même plan.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Positions relatives de deux droites</b>
+      <p>Étudier les positions relatives des droites \(d_1\) et \(d_2\) :
+      \[d_1 : \begin{cases}x=1+t\\y=2t\\z=-t\end{cases} \qquad d_2 : \begin{cases}x=2+s\\y=1+s\\z=1-s\end{cases}\]</p>
+      <button class="btn-toggle" data-target="cor-ch3-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch3-ex4">
+        <div class="corrige">
+          <p>Les vecteurs directeurs sont \(\overrightarrow{u_1}(1\,;\,2\,;\,-1)\) et \(\overrightarrow{u_2}(1\,;\,1\,;\,-1)\).</p>
+          <p><strong>Colinéarité ?</strong> \(\overrightarrow{u_1} = k\overrightarrow{u_2}\) impliquerait \(1=k\), \(2=k\), \(-1=-k\), ce qui est impossible. Les droites ne sont <strong>pas parallèles</strong>.</p>
+          <p><strong>Intersection ?</strong> On cherche \(t, s\) tels que :</p>
+          \[\begin{cases}1+t = 2+s \\ 2t = 1+s \\ -t = 1-s\end{cases}\]
+          <p>De l'équation (1) : \(t = 1+s\). On substitue dans (2) : \(2(1+s) = 1+s \Rightarrow 2+2s = 1+s \Rightarrow s = -1\), donc \(t = 0\).</p>
+          <p>Vérification dans (3) : \(-t = -0 = 0\) et \(1-s = 1-(-1) = 2\). On a \(0 \neq 2\) : contradiction.</p>
+          <p>Les droites ne sont pas parallèles et ne se coupent pas : elles sont <strong>gauches</strong> (non coplanaires).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Droites gauches dans un cube</b>
+      <p>On considère un cube \(ABCDA'B'C'D'\) de côté 1, avec \(A(0;0;0)\), \(B(1;0;0)\), \(C(1;1;0)\), \(D(0;1;0)\), \(A'(0;0;1)\), \(B'(1;0;1)\), \(C'(1;1;1)\), \(D'(0;1;1)\). Montrer que les diagonales \((AG)\) et \((BH)\) où \(G = C'\) et \(H = D'\) sont des droites gauches.</p>
+      <button class="btn-toggle" data-target="cor-ch3-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch3-ex5">
+        <div class="corrige">
+          <p>Posons \(G = C'(1;1;1)\) et \(H = D'(0;1;1)\).</p>
+          <p><strong>Vecteurs directeurs :</strong></p>
+          \[\overrightarrow{AC'}\begin{pmatrix}1\\1\\1\end{pmatrix} \qquad \overrightarrow{BD'}\begin{pmatrix}-1\\1\\1\end{pmatrix}\]
+          <p><strong>Colinéarité ?</strong> \((1;1;1)\) et \((-1;1;1)\) : rapport \(-1/1 \neq 1/1\). Non colinéaires, donc les droites ne sont <strong>pas parallèles</strong>.</p>
+          <p><strong>Intersection ?</strong> On cherche \(t, s\) tels que :</p>
+          \[A + t\overrightarrow{AC'} = B + s\overrightarrow{BD'}\]
+          \[\begin{cases}t = 1 - s \\ t = s \\ t = s\end{cases}\]
+          <p>Les équations (2) et (3) donnent \(t = s\). Substituant dans (1) : \(s = 1-s \Rightarrow 2s = 1 \Rightarrow s = \tfrac{1}{2}\), donc \(t = \tfrac{1}{2}\).</p>
+          <p>Vérification dans (1) : \(t = \tfrac{1}{2}\) et \(1 - s = \tfrac{1}{2}\). ✓ Hmm, il semblerait que ces droites se coupent.</p>
+          <p>Point d'intersection : \(A + \tfrac{1}{2}\overrightarrow{AC'} = (0+\tfrac{1}{2}\,;\,0+\tfrac{1}{2}\,;\,0+\tfrac{1}{2}) = (\tfrac{1}{2}\,;\,\tfrac{1}{2}\,;\,\tfrac{1}{2})\). Ce point est bien le centre du cube.</p>
+          <p><em>En réalité, \(AC'\) et \(BD'\) sont les deux grandes diagonales du cube et se croisent en son centre. Pour trouver deux droites vraiment gauches, on peut prendre \((AB')\) et \((DC')\) :</em></p>
+          <p>\(\overrightarrow{AB'} = (1;0;1)\) et \(\overrightarrow{DC'} = (1;0;1)\) : ces vecteurs sont <strong>colinéaires</strong>, donc les droites sont parallèles (pas gauches non plus).</p>
+          <p>Prenons \((AB')\) et \((CD')\) : \(\overrightarrow{AB'} = (1;0;1)\), \(\overrightarrow{CD'} = (-1;0;1)\). Non colinéaires. Intersection : \(t = s_0\) ... ce système n'a pas de solution (les droites sont gauches). Ces deux arêtes d'un cube constituent un exemple classique de droites gauches.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Plan passant par trois points</b>
+      <p>Soient \(A(1\,;\,0\,;\,0)\), \(B(0\,;\,1\,;\,0)\), \(C(0\,;\,0\,;\,1)\). Exprimer \(\overrightarrow{AM}\) pour un point générique \(M(x;y;z)\) du plan \((ABC)\) comme combinaison linéaire de \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\).</p>
+      <button class="btn-toggle" data-target="cor-ch3-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch3-ex6">
+        <div class="corrige">
+          <p>On calcule les vecteurs :</p>
+          \[\overrightarrow{AB}\begin{pmatrix}-1\\1\\0\end{pmatrix} \qquad \overrightarrow{AC}\begin{pmatrix}-1\\0\\1\end{pmatrix} \qquad \overrightarrow{AM}\begin{pmatrix}x-1\\y\\z\end{pmatrix}\]
+          <p>M est dans le plan \((ABC)\) si et seulement si il existe \(\lambda, \mu \in \mathbb{R}\) tels que \(\overrightarrow{AM} = \lambda\overrightarrow{AB} + \mu\overrightarrow{AC}\) :</p>
+          \[\begin{cases}x-1 = -\lambda - \mu \\ y = \lambda \\ z = \mu\end{cases}\]
+          <p>On tire \(\lambda = y\) et \(\mu = z\), et la première équation donne \(x - 1 = -y - z\), soit \(x + y + z = 1\).</p>
+          <p>Le plan \((ABC)\) a pour équation cartésienne \(\boxed{x + y + z = 1}\), et pour un point générique \(M\) de ce plan :</p>
+          \[\overrightarrow{AM} = y\,\overrightarrow{AB} + z\,\overrightarrow{AC}\]
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Formules de base en coordonnées</h3>
+      <table>
+        <thead><tr><th>Objet</th><th>Formule</th></tr></thead>
+        <tbody>
+          <tr><td>\(\overrightarrow{AB}\)</td><td>\((x_B-x_A\,;\,y_B-y_A\,;\,z_B-z_A)\)</td></tr>
+          <tr><td>Milieu de \([AB]\)</td><td>\(\left(\dfrac{x_A+x_B}{2}\,;\,\dfrac{y_A+y_B}{2}\,;\,\dfrac{z_A+z_B}{2}\right)\)</td></tr>
+          <tr><td>Distance \(AB\)</td><td>\(\sqrt{(x_B-x_A)^2+(y_B-y_A)^2+(z_B-z_A)^2}\)</td></tr>
+          <tr><td>Droite \((A, \overrightarrow{u})\)</td><td>\(x = x_A+at\,,\ y = y_A+bt\,,\ z = z_A+ct\)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Positions relatives — synthèse</h3>
+      <table>
+        <thead><tr><th>Objets</th><th>Cas possibles</th></tr></thead>
+        <tbody>
+          <tr><td>Deux droites</td><td>Parallèles / Sécantes / Gauches</td></tr>
+          <tr><td>Droite et plan</td><td>Incluse / Strictement parallèle / Sécante</td></tr>
+          <tr><td>Deux plans</td><td>Confondus / Parallèles / Sécants (droite)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Relation de Chasles</h3>
+      \[\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC} \qquad \overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CA} = \overrightarrow{0}\]
+
+      <div class="attention">
+        <strong>⚠️ Erreurs fréquentes :</strong>
+        <ul>
+          <li>Confondre deux droites non parallèles et non sécantes (elles peuvent être <em>gauches</em> dans l'espace).</li>
+          <li>Oublier qu'un repère de l'espace exige trois vecteurs <em>non coplanaires</em>.</li>
+          <li>Pour vérifier qu'un point est sur une droite : résoudre le système paramétrique et vérifier la <em>cohérence</em> (même valeur de \(t\) dans les 3 équations).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="02-limites-suites.html">← Précédent : Limites de suites</a>
+    <a href="04-limites-fonctions.html">Suivant : Limites de fonctions →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

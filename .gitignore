@@ -1,0 +1,17 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.dvi
+*.ps
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# macOS
+.DS_Store
+.localized
+
+# Claude / outils internes
+.claude/

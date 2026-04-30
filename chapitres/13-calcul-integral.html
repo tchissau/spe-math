@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calcul intégral — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 13 · Analyse</div>
+    <h1>Calcul intégral</h1>
+    <p class="tagline">De l'aire sous une courbe à l'intégration par parties : les outils fondamentaux du calcul intégral en Terminale.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/13-calcul-integral.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ========== INTRODUCTION ========== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Le calcul intégral est l'une des grandes constructions des mathématiques modernes. À l'origine, il permettait de calculer des aires et des volumes. Aujourd'hui, il est au cœur de la physique (travail d'une force, charge électrique), de la probabilité (lois continues), de l'économie (surplus du consommateur) et de bien d'autres domaines.
+    </p>
+    <p>
+      En Terminale, on formalise la notion d'intégrale définie, on établit le lien fondamental avec les primitives (théorème fondamental de l'analyse), et on apprend la technique de l'<strong>intégration par parties</strong> (IPP), indispensable pour intégrer des produits de fonctions.
+    </p>
+    <div class="attention">
+      <strong>Prérequis :</strong> primitives des fonctions usuelles (polynômes, \(e^x\), \(\ln\), \(\sin\), \(\cos\)), dérivation (produit, composée).
+    </div>
+  </section>
+
+  <!-- ========== COURS ========== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3>A. Intégrale et primitive</h3>
+
+    <h4>A.1 Intégrale d'une fonction de signe constant</h4>
+
+    <div class="definition">
+      <strong>Définition — Intégrale d'une fonction positive</strong>
+      <p>
+        Soit \(f\) une fonction <strong>continue et positive</strong> sur \([a;b]\). On appelle <strong>intégrale de \(a\) à \(b\) de \(f\)</strong> l'aire (en unités d'aire) de la surface \(\mathcal{D}\) délimitée par :
+      </p>
+      <ul>
+        <li>la courbe représentative de \(f\),</li>
+        <li>l'axe des abscisses,</li>
+        <li>les droites d'équations \(x = a\) et \(x = b\).</li>
+      </ul>
+      <p>On note cette aire :</p>
+      \[
+        \text{aire}(\mathcal{D}) = \int_a^b f(x)\,\mathrm{d}x
+      \]
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Fonction négative</strong>
+      <p>Si \(f\) est continue et <strong>négative</strong> sur \([a;b]\), l'aire de la surface délimitée par la courbe et l'axe des abscisses vaut :</p>
+      \[
+        \text{aire}(\mathcal{D}) = \int_a^b -f(x)\,\mathrm{d}x = -\int_a^b f(x)\,\mathrm{d}x
+      \]
+      <p>L'intégrale est alors négative, mais l'aire est toujours positive (on prend la valeur absolue).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Théorème — Primitive qui s'annule en \(a\)</strong>
+      <p>Soit \(f\) continue sur \([a;b]\). La fonction \(F_a\) définie par :</p>
+      \[
+        F_a(x) = \int_a^x f(t)\,\mathrm{d}t
+      \]
+      <p>est la <strong>primitive de \(f\) qui s'annule en \(a\)</strong> (c'est-à-dire \(F_a(a) = 0\) et \(F_a'(x) = f(x)\)).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété fondamentale du calcul intégral</strong>
+      <p>Si \(F\) est <strong>une</strong> primitive quelconque de \(f\) sur \([a;b]\), alors :</p>
+      \[
+        \int_a^b f(t)\,\mathrm{d}t = F(b) - F(a) = \bigl[F(x)\bigr]_a^b
+      \]
+      <p>Cette formule est le pont entre la notion géométrique d'aire et le calcul algébrique de primitives. Elle est fondamentale.</p>
+    </div>
+
+    <div class="astuce">
+      <strong>Notation :</strong> On écrit \(\bigl[F(x)\bigr]_a^b\) pour \(F(b) - F(a)\). Cela évite d'écrire les bornes à chaque étape du calcul.
+    </div>
+
+    <h4>A.2 Intégrale d'une fonction de signe quelconque</h4>
+
+    <div class="propriete">
+      <strong>Propriété — Cas général</strong>
+      <p>Pour \(f\) continue sur \([a;b]\) et \(F\) une primitive quelconque de \(f\) :</p>
+      \[
+        \int_a^b f(x)\,\mathrm{d}x = \bigl[F(x)\bigr]_a^b = F(b) - F(a)
+      \]
+      <p>Cette formule est valable quelle que soit le signe de \(f\). L'intégrale peut être négative.</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriétés de l'intégrale</strong>
+      <ul>
+        <li><strong>Intégrale nulle :</strong> \(\displaystyle\int_a^a f(x)\,\mathrm{d}x = 0\)</li>
+        <li><strong>Inversion des bornes :</strong> \(\displaystyle\int_b^a f(x)\,\mathrm{d}x = -\int_a^b f(x)\,\mathrm{d}x\)</li>
+        <li><strong>Relation de Chasles :</strong>
+          \[\int_a^c f(x)\,\mathrm{d}x = \int_a^b f(x)\,\mathrm{d}x + \int_b^c f(x)\,\mathrm{d}x\]
+          (valable pour tout réel \(b\), même en dehors de \([a;c]\))</li>
+        <li><strong>Linéarité :</strong>
+          \[\int_a^b \bigl(f(x)+g(x)\bigr)\,\mathrm{d}x = \int_a^b f(x)\,\mathrm{d}x + \int_a^b g(x)\,\mathrm{d}x\]
+          \[\int_a^b \lambda f(x)\,\mathrm{d}x = \lambda \int_a^b f(x)\,\mathrm{d}x\]</li>
+      </ul>
+    </div>
+
+    <h4>A.3 Signe de l'intégrale</h4>
+
+    <div class="propriete">
+      <strong>Propriété — Comparaison</strong>
+      <ul>
+        <li>Si \(f(x) \geq 0\) sur \([a;b]\), alors \(\displaystyle\int_a^b f(x)\,\mathrm{d}x \geq 0\).</li>
+        <li>Si \(f(x) \leq 0\) sur \([a;b]\), alors \(\displaystyle\int_a^b f(x)\,\mathrm{d}x \leq 0\).</li>
+        <li>Si \(f(x) \geq g(x)\) sur \([a;b]\), alors \(\displaystyle\int_a^b f(x)\,\mathrm{d}x \geq \int_a^b g(x)\,\mathrm{d}x\).</li>
+      </ul>
+    </div>
+
+    <h4>A.4 Intégration par parties (IPP)</h4>
+
+    <div class="propriete">
+      <strong>Théorème — Intégration par parties</strong>
+      <p>Si \(u\) et \(v\) sont deux fonctions dérivables sur \([a;b]\) dont les dérivées \(u'\) et \(v'\) sont continues sur \([a;b]\), alors :</p>
+      \[
+        \int_a^b u(x)\,v'(x)\,\mathrm{d}x = \bigl[u(x)\,v(x)\bigr]_a^b - \int_a^b u'(x)\,v(x)\,\mathrm{d}x
+      \]
+      <p>Cette formule provient de la règle de dérivation du produit : \((uv)' = u'v + uv'\), qu'on intègre des deux côtés.</p>
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Choisir \(u\) et \(v'\)</strong>
+      <p>Le choix de \(u\) et \(v'\) est crucial. En général :</p>
+      <ul>
+        <li>\(u\) doit être une fonction dont la dérivée est plus simple : polynôme, \(\ln\), etc.</li>
+        <li>\(v'\) doit être une fonction facile à intégrer : \(e^x\), \(\cos\), \(\sin\), etc.</li>
+        <li>Mnémotechnique : <em>LIATE</em> — Logarithme, Inverse, Algébrique (polynôme), Trigonométrique, Exponentielle. Le premier dans cette liste est en général \(u\).</li>
+      </ul>
+    </div>
+
+    <h3>B. Applications du calcul intégral</h3>
+
+    <h4>B.1 Aire entre deux courbes</h4>
+
+    <div class="propriete">
+      <strong>Propriété — Aire entre deux courbes</strong>
+      <p>Soient \(f\) et \(g\) deux fonctions continues sur \([a;b]\) avec \(f(x) \leq g(x)\) pour tout \(x \in [a;b]\). L'aire de la surface comprise entre les courbes \(\mathcal{C}_f\) et \(\mathcal{C}_g\) vaut :</p>
+      \[
+        \mathcal{A} = \int_a^b \bigl(g(x) - f(x)\bigr)\,\mathrm{d}x
+      \]
+      <p>On intègre toujours la fonction du <strong>dessus moins la fonction du dessous</strong>. La quantité intégrée est toujours positive, donc l'aire est positive.</p>
+    </div>
+
+    <div class="attention">
+      <strong>Attention :</strong> Si \(f\) et \(g\) se croisent sur \([a;b]\), il faut découper l'intervalle en sous-intervalles sur chacun desquels l'ordre entre \(f\) et \(g\) est constant, puis appliquer la formule sur chaque sous-intervalle.
+    </div>
+
+    <h4>B.2 Valeur moyenne d'une fonction</h4>
+
+    <div class="definition">
+      <strong>Définition — Valeur moyenne</strong>
+      <p>Soit \(f\) une fonction continue sur \([a;b]\) (avec \(a < b\)). La <strong>valeur moyenne</strong> de \(f\) sur \([a;b]\) est le réel :</p>
+      \[
+        \mu = \frac{1}{b-a}\int_a^b f(x)\,\mathrm{d}x
+      \]
+      <p>
+        <em>Interprétation :</em> \(\mu\) est la hauteur du rectangle de base \([a;b]\) dont l'aire est égale à celle du domaine sous la courbe de \(f\). Autrement dit : \(\mu \times (b-a) = \displaystyle\int_a^b f(x)\,\mathrm{d}x\).
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== EXEMPLES ========== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Calcul direct</strong>
+      <p>Calculer \(\displaystyle\int_1^3(2x^2-3x+1)\,\mathrm{d}x\).</p>
+      <div class="steps">
+        <p><strong>Étape 1 :</strong> Trouver une primitive de \(2x^2 - 3x + 1\). On intègre terme à terme :</p>
+        \[
+          F(x) = \frac{2x^3}{3} - \frac{3x^2}{2} + x
+        \]
+        <p><strong>Étape 2 :</strong> Appliquer la formule \([F(x)]_1^3 = F(3) - F(1)\).</p>
+        \[
+          F(3) = \frac{2 \times 27}{3} - \frac{3 \times 9}{2} + 3 = 18 - \frac{27}{2} + 3 = 21 - \frac{27}{2} = \frac{42-27}{2} = \frac{15}{2}
+        \]
+        \[
+          F(1) = \frac{2}{3} - \frac{3}{2} + 1 = \frac{4}{6} - \frac{9}{6} + \frac{6}{6} = \frac{1}{6}
+        \]
+        \[
+          \int_1^3(2x^2-3x+1)\,\mathrm{d}x = \frac{15}{2} - \frac{1}{6} = \frac{45}{6} - \frac{1}{6} = \frac{44}{6} = \frac{22}{3}
+        \]
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — IPP : \(\displaystyle\int_0^1 x e^x\,\mathrm{d}x\)</strong>
+      <div class="steps">
+        <p><strong>Choix :</strong> On pose \(u(x) = x\) (polynôme, se simplifie en dérivant) et \(v'(x) = e^x\) (facile à intégrer).</p>
+        <p>Alors \(u'(x) = 1\) et \(v(x) = e^x\).</p>
+        <p><strong>Application de l'IPP :</strong></p>
+        \[
+          \int_0^1 x\,e^x\,\mathrm{d}x = \bigl[x\,e^x\bigr]_0^1 - \int_0^1 1\cdot e^x\,\mathrm{d}x
+        \]
+        \[
+          = \bigl[x\,e^x\bigr]_0^1 - \bigl[e^x\bigr]_0^1
+          = (1\cdot e^1 - 0\cdot e^0) - (e^1 - e^0)
+          = e - (e - 1) = 1
+        \]
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Aire entre deux courbes</strong>
+      <p>Calculer l'aire entre \(f(x) = x^2\) et \(g(x) = x\) sur \([0;1]\).</p>
+      <div class="steps">
+        <p><strong>Étape 1 :</strong> Vérifier qui est au-dessus. Sur \([0;1]\) : \(g(x) - f(x) = x - x^2 = x(1-x) \geq 0\) (car \(0 \leq x \leq 1\)). Donc \(g(x) \geq f(x)\) : la droite \(y=x\) est au-dessus de la parabole \(y=x^2\).</p>
+        <p><strong>Étape 2 :</strong> Calculer l'intégrale :</p>
+        \[
+          \mathcal{A} = \int_0^1 (x - x^2)\,\mathrm{d}x = \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 = \frac{1}{2} - \frac{1}{3} = \frac{3-2}{6} = \frac{1}{6}
+        \]
+        <p><strong>Conclusion :</strong> L'aire est \(\dfrac{1}{6}\) u.a.</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Valeur moyenne</strong>
+      <p>Calculer la valeur moyenne de \(f(x) = \cos(x)\) sur \(\left[0;\dfrac{\pi}{2}\right]\).</p>
+      <div class="steps">
+        \[
+          \mu = \frac{1}{\frac{\pi}{2} - 0}\int_0^{\pi/2}\cos(x)\,\mathrm{d}x = \frac{2}{\pi}\bigl[\sin(x)\bigr]_0^{\pi/2} = \frac{2}{\pi}\left(\sin\tfrac{\pi}{2} - \sin 0\right) = \frac{2}{\pi}(1 - 0) = \frac{2}{\pi}
+        \]
+        <p>La valeur moyenne de cosinus sur \([0;\frac{\pi}{2}]\) est \(\dfrac{2}{\pi} \approx 0{,}637\).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — Deux IPP successives : \(\displaystyle\int_0^1 x^2 e^x\,\mathrm{d}x\)</strong>
+      <div class="steps">
+        <p><strong>Première IPP :</strong> \(u = x^2\), \(v' = e^x\), donc \(u' = 2x\), \(v = e^x\).</p>
+        \[
+          \int_0^1 x^2 e^x\,\mathrm{d}x = \bigl[x^2 e^x\bigr]_0^1 - \int_0^1 2x\,e^x\,\mathrm{d}x = e - 2\int_0^1 x\,e^x\,\mathrm{d}x
+        \]
+        <p><strong>Deuxième IPP</strong> (on utilise le résultat de l'exemple 2) : \(\displaystyle\int_0^1 xe^x\,\mathrm{d}x = 1\).</p>
+        \[
+          \int_0^1 x^2 e^x\,\mathrm{d}x = e - 2 \times 1 = e - 2
+        \]
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXERCICES ========== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Calcul direct</b>
+      <p>Calculer \(\displaystyle\int_0^2(3x^2+2x-1)\,\mathrm{d}x\).</p>
+      <button class="btn-toggle" data-target="cor-ch13-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch13-ex1">
+        <div class="corrige">
+          <p>Une primitive de \(3x^2+2x-1\) est \(F(x) = x^3 + x^2 - x\). Donc :</p>
+          \[
+            \int_0^2(3x^2+2x-1)\,\mathrm{d}x = \bigl[x^3+x^2-x\bigr]_0^2
+          \]
+          \[
+            = (8 + 4 - 2) - (0 + 0 - 0) = 10
+          \]
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Fonctions usuelles</b>
+      <p>Calculer :</p>
+      <ol type="a">
+        <li>\(\displaystyle\int_1^e\frac{2}{x}\,\mathrm{d}x\)</li>
+        <li>\(\displaystyle\int_0^{\pi}\sin(x)\,\mathrm{d}x\)</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch13-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch13-ex2">
+        <div class="corrige">
+          <p><strong>a)</strong> Une primitive de \(\dfrac{2}{x}\) est \(2\ln|x|\). Donc :</p>
+          \[
+            \int_1^e\frac{2}{x}\,\mathrm{d}x = \bigl[2\ln(x)\bigr]_1^e = 2\ln(e) - 2\ln(1) = 2 \times 1 - 2 \times 0 = 2
+          \]
+          <p><strong>b)</strong> Une primitive de \(\sin(x)\) est \(-\cos(x)\). Donc :</p>
+          \[
+            \int_0^{\pi}\sin(x)\,\mathrm{d}x = \bigl[-\cos(x)\bigr]_0^{\pi} = -\cos(\pi) + \cos(0) = -(-1) + 1 = 2
+          \]
+          <p><em>Interprétation :</em> Comme \(\sin(x) \geq 0\) sur \([0;\pi]\), l'aire sous la courbe de sinus vaut 2 u.a.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — IPP</b>
+      <p>Calculer \(\displaystyle\int_0^1 x\,e^{-x}\,\mathrm{d}x\) par intégration par parties.</p>
+      <button class="btn-toggle" data-target="cor-ch13-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch13-ex3">
+        <div class="corrige">
+          <p><strong>Choix :</strong> \(u(x) = x\) et \(v'(x) = e^{-x}\), donc \(u'(x) = 1\) et \(v(x) = -e^{-x}\).</p>
+          \[
+            \int_0^1 x\,e^{-x}\,\mathrm{d}x = \bigl[x \times (-e^{-x})\bigr]_0^1 - \int_0^1 1 \times (-e^{-x})\,\mathrm{d}x
+          \]
+          \[
+            = \bigl[-x\,e^{-x}\bigr]_0^1 + \int_0^1 e^{-x}\,\mathrm{d}x
+          \]
+          \[
+            = \bigl(-1\cdot e^{-1} - 0\bigr) + \bigl[-e^{-x}\bigr]_0^1
+          \]
+          \[
+            = -e^{-1} + (-e^{-1} + e^0) = -e^{-1} - e^{-1} + 1 = 1 - \frac{2}{e}
+          \]
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Aire et signe de \(f\)</b>
+      <p>Calculer l'aire de la surface délimitée par \(f(x) = x^2 - 4\) et l'axe des abscisses sur \([-2;2]\).</p>
+      <button class="btn-toggle" data-target="cor-ch13-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch13-ex4">
+        <div class="corrige">
+          <p><strong>Signe de \(f\) :</strong> Sur \([-2;2]\), \(x^2 \leq 4\) donc \(f(x) = x^2 - 4 \leq 0\). La courbe est entièrement <em>sous</em> l'axe des abscisses.</p>
+          <p><strong>Aire :</strong> Puisque \(f(x) \leq 0\), l'aire vaut \(-\displaystyle\int_{-2}^{2}f(x)\,\mathrm{d}x\).</p>
+          \[
+            \int_{-2}^{2}(x^2-4)\,\mathrm{d}x = \left[\frac{x^3}{3} - 4x\right]_{-2}^{2}
+          \]
+          \[
+            = \left(\frac{8}{3} - 8\right) - \left(\frac{-8}{3} + 8\right) = \frac{8}{3} - 8 + \frac{8}{3} - 8 = \frac{16}{3} - 16 = \frac{16 - 48}{3} = -\frac{32}{3}
+          \]
+          <p>L'intégrale vaut \(-\dfrac{32}{3}\), donc l'aire vaut \(\dfrac{32}{3}\) u.a.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — \(\displaystyle\int_1^e \ln(x)\,\mathrm{d}x\) par IPP</b>
+      <p>Calculer \(\displaystyle\int_1^e \ln(x)\,\mathrm{d}x\) en utilisant l'intégration par parties.</p>
+      <button class="btn-toggle" data-target="cor-ch13-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch13-ex5">
+        <div class="corrige">
+          <p><strong>Astuce :</strong> On écrit \(\ln(x) = \ln(x) \times 1\) et on choisit :</p>
+          <ul>
+            <li>\(u(x) = \ln(x)\) donc \(u'(x) = \dfrac{1}{x}\)</li>
+            <li>\(v'(x) = 1\) donc \(v(x) = x\)</li>
+          </ul>
+          <p><strong>Application de l'IPP :</strong></p>
+          \[
+            \int_1^e \ln(x)\,\mathrm{d}x = \bigl[x\ln(x)\bigr]_1^e - \int_1^e x \cdot \frac{1}{x}\,\mathrm{d}x
+          \]
+          \[
+            = \bigl[x\ln(x)\bigr]_1^e - \int_1^e 1\,\mathrm{d}x
+          \]
+          \[
+            = (e\ln(e) - 1\cdot\ln(1)) - \bigl[x\bigr]_1^e
+          \]
+          \[
+            = (e \cdot 1 - 1 \cdot 0) - (e - 1) = e - e + 1 = 1
+          \]
+          <p><strong>Conclusion :</strong> \(\displaystyle\int_1^e \ln(x)\,\mathrm{d}x = 1\).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Aire entre \(e^x\) et \(x+1\)</b>
+      <p>Soit \(f(x) = e^x\) et \(g(x) = x + 1\). Calculer l'aire de la surface délimitée par \(\mathcal{C}_f\) et \(\mathcal{C}_g\) sur \([-1;2]\).</p>
+      <button class="btn-toggle" data-target="cor-ch13-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch13-ex6">
+        <div class="corrige">
+          <p><strong>Étape 1 — Intersections :</strong> On résout \(e^x = x+1\).</p>
+          <p>On remarque que \(x = 0\) est une solution : \(e^0 = 1 = 0+1\). ✓</p>
+          <p>On peut montrer que c'est la seule solution (car \(h(x) = e^x - x - 1\) vérifie \(h'(x) = e^x - 1 = 0\) en \(x=0\), et \(h''(x) = e^x > 0\) donc \(h\) est convexe avec un minimum en \(x=0\), où \(h(0) = 0\)).</p>
+          <p><strong>Étape 2 — Ordre des fonctions :</strong></p>
+          <ul>
+            <li>Sur \([-1;0]\) : On teste en \(x=-1\) : \(f(-1) = e^{-1} \approx 0{,}37\) et \(g(-1) = 0\). Donc \(f(x) \geq g(x)\).</li>
+            <li>Sur \([0;2]\) : On teste en \(x=1\) : \(f(1) = e \approx 2{,}72\) et \(g(1) = 2\). Donc \(f(x) \geq g(x)\).</li>
+          </ul>
+          <p>En fait, \(e^x \geq x+1\) pour tout \(x\) (par convexité), donc \(f \geq g\) sur tout \([-1;2]\).</p>
+          <p><strong>Étape 3 — Calcul de l'aire :</strong></p>
+          \[
+            \mathcal{A} = \int_{-1}^{2} (e^x - x - 1)\,\mathrm{d}x = \left[e^x - \frac{x^2}{2} - x\right]_{-1}^{2}
+          \]
+          \[
+            = \left(e^2 - 2 - 2\right) - \left(e^{-1} - \frac{1}{2} + 1\right)
+          \]
+          \[
+            = e^2 - 4 - e^{-1} + \frac{1}{2} - 1 = e^2 - e^{-1} - \frac{9}{2}
+          \]
+          <p><strong>Conclusion :</strong> \(\mathcal{A} = e^2 - \dfrac{1}{e} - \dfrac{9}{2} \approx 7{,}39 - 0{,}37 - 4{,}5 = 2{,}52\) u.a.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== SYNTHESE ========== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Formule fondamentale</h3>
+      <p>Si \(F\) est une primitive de \(f\) sur \([a;b]\) :</p>
+      \[
+        \int_a^b f(x)\,\mathrm{d}x = \bigl[F(x)\bigr]_a^b = F(b) - F(a)
+      \]
+
+      <h3>Propriétés clés</h3>
+      <ul>
+        <li><strong>Chasles :</strong> \(\displaystyle\int_a^c = \int_a^b + \int_b^c\)</li>
+        <li><strong>Linéarité :</strong> \(\displaystyle\int_a^b (\lambda f + \mu g) = \lambda \int_a^b f + \mu \int_a^b g\)</li>
+        <li><strong>Inversion :</strong> \(\displaystyle\int_b^a f = -\int_a^b f\)</li>
+      </ul>
+
+      <h3>Intégration par parties (IPP)</h3>
+      \[
+        \int_a^b u\,v' = \bigl[u\,v\bigr]_a^b - \int_a^b u'\,v
+      \]
+
+      <h3>Applications</h3>
+      <ul>
+        <li><strong>Aire entre deux courbes</strong> (\(g \geq f\) sur \([a;b]\)) : \(\displaystyle\mathcal{A} = \int_a^b (g-f)\)</li>
+        <li><strong>Valeur moyenne :</strong> \(\mu = \dfrac{1}{b-a}\displaystyle\int_a^b f(x)\,\mathrm{d}x\)</li>
+      </ul>
+
+      <h3>Primitives à connaître</h3>
+      <table class="tableau-valeurs">
+        <thead>
+          <tr><th>Fonction \(f(x)\)</th><th>Primitive \(F(x)\)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>\(x^n\) (\(n \neq -1\))</td><td>\(\dfrac{x^{n+1}}{n+1}\)</td></tr>
+          <tr><td>\(\dfrac{1}{x}\)</td><td>\(\ln|x|\)</td></tr>
+          <tr><td>\(e^x\)</td><td>\(e^x\)</td></tr>
+          <tr><td>\(\cos(x)\)</td><td>\(\sin(x)\)</td></tr>
+          <tr><td>\(\sin(x)\)</td><td>\(-\cos(x)\)</td></tr>
+          <tr><td>\(u'(x)e^{u(x)}\)</td><td>\(e^{u(x)}\)</td></tr>
+          <tr><td>\(\dfrac{u'(x)}{u(x)}\)</td><td>\(\ln|u(x)|\)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="12-cosinus-sinus.html">← Précédent : cos/sin</a>
+    <a href="14-loi-grands-nombres.html">Suivant : Loi des grands nombres →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

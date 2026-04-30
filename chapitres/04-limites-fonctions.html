@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Limites de fonctions — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 4 · Analyse</div>
+    <h1>Limites de fonctions</h1>
+    <p class="tagline">Décrire le comportement d'une fonction aux bords de son domaine et interpréter les asymptotes.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/04-limites-fonctions.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a>
+        <ul>
+          <li><a href="#limite-infini">B — Limite en l'infini</a></li>
+          <li><a href="#limite-reel">C — Limite en un réel</a></li>
+          <li><a href="#operations">D — Opérations sur les limites</a></li>
+          <li><a href="#comparaison">E — Limites et comparaison</a></li>
+          <li><a href="#composition">F — Composition de limites</a></li>
+        </ul>
+      </li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      L'étude des limites de fonctions prolonge celle des limites de suites : on s'intéresse au comportement de \(f(x)\) lorsque \(x\) s'approche de \(+\infty\), de \(-\infty\), ou d'une valeur réelle \(a\). Ces limites permettent d'identifier les <strong>asymptotes</strong> d'une courbe, de comprendre les discontinuités, et de préparer l'étude des dérivées.
+    </p>
+    <p>
+      Les règles de calcul sont très proches de celles vues pour les suites, avec quelques subtilités propres aux fonctions : les limites à gauche et à droite d'un point peuvent différer, et l'on parle d'<strong>asymptote verticale</strong> lorsqu'une limite est infinie en un réel.
+    </p>
+    <div class="attention">
+      <strong>⚠️ Formes indéterminées :</strong> Comme pour les suites, les opérations \(+\infty - \infty\), \(0 \times \infty\), \(\frac{\infty}{\infty}\) et \(\frac{0}{0}\) sont des formes indéterminées. Elles nécessitent une transformation algébrique avant de conclure.
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3 id="limite-infini">B — Limite d'une fonction en l'infini</h3>
+
+    <div class="definition">
+      <strong>Définition — Limite infinie en \(+\infty\)</strong>
+      <p>\(f\) a pour limite \(+\infty\) en \(+\infty\) si pour tout réel \(A > 0\), l'intervalle \(]A\,;+\infty[\) contient toutes les valeurs \(f(x)\) pour \(x\) suffisamment grand. On note :</p>
+      \[\lim_{x \to +\infty} f(x) = +\infty\]
+      <p>De même, \(\displaystyle\lim_{x\to+\infty} f(x) = -\infty\) si pour tout \(B < 0\), \(f(x) < B\) pour \(x\) assez grand.</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Limites en \(+\infty\) à connaître</strong>
+      \[\lim_{x\to+\infty} x^n = +\infty \quad (n \geq 1) \qquad \lim_{x\to+\infty} e^x = +\infty \qquad \lim_{x\to+\infty} \sqrt{x} = +\infty\]
+      \[\lim_{x\to+\infty} \frac{1}{x} = 0 \qquad \lim_{x\to+\infty} \frac{1}{x^n} = 0 \quad (n \geq 1) \qquad \lim_{x\to+\infty} \frac{1}{\sqrt{x}} = 0\]
+    </div>
+
+    <div class="definition">
+      <strong>Définition — Limite finie en \(+\infty\) : asymptote horizontale</strong>
+      <p>Si \(\displaystyle\lim_{x\to+\infty} f(x) = \ell \in \mathbb{R}\), la droite d'équation \(y = \ell\) est une <strong>asymptote horizontale</strong> à la courbe de \(f\) en \(+\infty\).</p>
+      <p>De même pour la limite en \(-\infty\).</p>
+    </div>
+
+    <div class="astuce">
+      <strong>💡 Astuce :</strong> Les mêmes définitions s'appliquent pour les limites en \(-\infty\). Les limites classiques en \(-\infty\) : \(\displaystyle\lim_{x\to-\infty} x^n\) dépend de la parité de \(n\), et \(\displaystyle\lim_{x\to-\infty} e^x = 0\).
+    </div>
+
+    <h3 id="limite-reel">C — Limite d'une fonction en un réel</h3>
+
+    <div class="definition">
+      <strong>Définition — Limite en un réel \(a\)</strong>
+      <p>\(f\) a pour limite \(\ell \in \mathbb{R}\) en \(a\) si \(f(x)\) se rapproche arbitrairement de \(\ell\) lorsque \(x\) se rapproche de \(a\) (sans nécessairement être égal à \(a\)). On note \(\displaystyle\lim_{x\to a} f(x) = \ell\).</p>
+      <p>\(f\) a pour limite \(+\infty\) en \(a\) si \(f(x)\) devient arbitrairement grand quand \(x \to a\). La droite \(x = a\) est alors une <strong>asymptote verticale</strong> à la courbe de \(f\).</p>
+    </div>
+
+    <div class="definition">
+      <strong>Définition — Limites à gauche et à droite</strong>
+      <p>La <strong>limite à gauche</strong> de \(f\) en \(a\) est la limite de \(f(x)\) lorsque \(x\) tend vers \(a\) avec \(x < a\). On note \(\displaystyle\lim_{x \to a^-} f(x)\).</p>
+      <p>La <strong>limite à droite</strong> de \(f\) en \(a\) est la limite de \(f(x)\) lorsque \(x\) tend vers \(a\) avec \(x > a\). On note \(\displaystyle\lim_{x \to a^+} f(x)\).</p>
+      <p>\(f\) admet une limite en \(a\) si et seulement si la limite à gauche et la limite à droite existent et sont égales.</p>
+    </div>
+
+    <h3 id="operations">D — Opérations sur les limites</h3>
+
+    <p>Dans tout ce qui suit, \(\alpha\) représente indifféremment \(-\infty\), un réel \(a\) ou \(+\infty\).</p>
+
+    <div class="propriete">
+      <strong>Tableau — Limite d'une somme</strong>
+      <table>
+        <thead><tr><th>\(\lim f\)</th><th>\(\lim g\)</th><th>\(\lim (f+g)\)</th></tr></thead>
+        <tbody>
+          <tr><td>\(\ell_1\)</td><td>\(\ell_2\)</td><td>\(\ell_1 + \ell_2\)</td></tr>
+          <tr><td>\(\ell_1\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td></tr>
+          <tr><td>\(\ell_1\)</td><td>\(-\infty\)</td><td>\(-\infty\)</td></tr>
+          <tr><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td></tr>
+          <tr><td>\(-\infty\)</td><td>\(-\infty\)</td><td>\(-\infty\)</td></tr>
+          <tr><td>\(+\infty\)</td><td>\(-\infty\)</td><td><strong>F.I.</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="propriete">
+      <strong>Tableau — Limite d'un produit</strong>
+      <table>
+        <thead><tr><th>\(\lim f\)</th><th>\(\lim g\)</th><th>\(\lim (f \times g)\)</th></tr></thead>
+        <tbody>
+          <tr><td>\(\ell_1\)</td><td>\(\ell_2\)</td><td>\(\ell_1 \times \ell_2\)</td></tr>
+          <tr><td>\(\ell_1 > 0\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td></tr>
+          <tr><td>\(\ell_1 < 0\)</td><td>\(+\infty\)</td><td>\(-\infty\)</td></tr>
+          <tr><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td></tr>
+          <tr><td>\(-\infty\)</td><td>\(-\infty\)</td><td>\(+\infty\)</td></tr>
+          <tr><td>\(+\infty\)</td><td>\(-\infty\)</td><td>\(-\infty\)</td></tr>
+          <tr><td>\(0\)</td><td>\(\pm\infty\)</td><td><strong>F.I.</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="propriete">
+      <strong>Tableau — Limite d'un quotient \(f/g\)</strong>
+      <table>
+        <thead><tr><th>\(\lim f\)</th><th>\(\lim g\)</th><th>\(\lim (f/g)\)</th></tr></thead>
+        <tbody>
+          <tr><td>\(\ell_1\)</td><td>\(\ell_2 \neq 0\)</td><td>\(\ell_1/\ell_2\)</td></tr>
+          <tr><td>\(\ell_1\)</td><td>\(\pm\infty\)</td><td>\(0\)</td></tr>
+          <tr><td>\(\pm\infty\)</td><td>\(\ell_2 \neq 0\)</td><td>\(\pm\infty\) (règle des signes)</td></tr>
+          <tr><td>\(\pm\infty\)</td><td>\(\pm\infty\)</td><td><strong>F.I.</strong></td></tr>
+          <tr><td>\(\ell_1 \neq 0\)</td><td>\(0^+\)</td><td>\(\pm\infty\) (signe de \(\ell_1\))</td></tr>
+          <tr><td>\(\ell_1 \neq 0\)</td><td>\(0^-\)</td><td>\(\mp\infty\) (signe opposé de \(\ell_1\))</td></tr>
+          <tr><td>\(0\)</td><td>\(0\)</td><td><strong>F.I.</strong></td></tr>
+        </tbody>
+      </table>
+      <p><em>Rappel :</em> \(0^+\) signifie « tend vers 0 par valeurs positives », \(0^-\) par valeurs négatives.</p>
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Lever les formes indéterminées</strong>
+      <div class="steps">
+        <div><strong>F.I. \(\infty/\infty\) (polynômes) :</strong> Diviser numérateur et dénominateur par la plus haute puissance de \(x\).</div>
+        <div><strong>F.I. \(\infty - \infty\) :</strong> Factoriser par le terme dominant, ou multiplier par l'expression conjuguée.</div>
+        <div><strong>F.I. \(0/0\) :</strong> Factoriser (par \((x-a)\)) pour simplifier la fraction.</div>
+        <div><strong>F.I. \(0 \times \infty\) :</strong> Réécrire comme quotient \(\frac{0}{1/\infty}\) ou \(\frac{\infty}{1/0}\).</div>
+      </div>
+    </div>
+
+    <h3 id="comparaison">E — Limites et comparaison</h3>
+
+    <div class="propriete">
+      <strong>Propriété — Passage à la limite par minoration</strong>
+      <p>Si pour \(x\) assez grand \(f(x) \geq g(x)\) et \(\displaystyle\lim_{x\to+\infty} g(x) = +\infty\), alors \(\displaystyle\lim_{x\to+\infty} f(x) = +\infty\).</p>
+    </div>
+
+    <div class="theoreme">
+      <strong>Théorème des gendarmes</strong>
+      <p>Si pour \(x\) au voisinage de \(\alpha\) on a \(g(x) \leq f(x) \leq h(x)\) et si \(\displaystyle\lim_{x\to\alpha} g(x) = \lim_{x\to\alpha} h(x) = \ell\), alors :</p>
+      \[\lim_{x\to\alpha} f(x) = \ell\]
+    </div>
+
+    <div class="exemple">
+      <strong>Application — Gendarmes avec cosinus</strong>
+      <p>Pour \(x \neq 0\), montrons que \(\displaystyle\lim_{x\to+\infty}\frac{\cos x}{x^2} = 0\).</p>
+      <p>Puisque \(-1 \leq \cos x \leq 1\) et \(x^2 > 0\) pour \(x > 0\) :</p>
+      \[-\frac{1}{x^2} \leq \frac{\cos x}{x^2} \leq \frac{1}{x^2}\]
+      <p>Or \(\displaystyle\lim_{x\to+\infty}\!\left(-\frac{1}{x^2}\right) = 0\) et \(\displaystyle\lim_{x\to+\infty}\frac{1}{x^2} = 0\). Par les gendarmes : \(\displaystyle\lim_{x\to+\infty}\frac{\cos x}{x^2} = 0\).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Croissances comparées</strong>
+      <p>Pour tout entier \(n \geq 1\) :</p>
+      \[\lim_{x\to+\infty} \frac{e^x}{x^n} = +\infty \qquad \text{(l'exponentielle l'emporte sur tout polynôme)}\]
+      \[\lim_{x\to-\infty} x^n e^x = 0 \qquad \text{(l'exponentielle écrase tout polynôme en } -\infty\text{)}\]
+    </div>
+
+    <h3 id="composition">F — Composition de limites</h3>
+
+    <div class="propriete">
+      <strong>Théorème — Limite d'une composée</strong>
+      <p>Soient \(f\) et \(g\) deux fonctions. Si \(\displaystyle\lim_{x\to a} f(x) = b\) et \(\displaystyle\lim_{x\to b} g(x) = c\), alors :</p>
+      \[\lim_{x\to a} g(f(x)) = c\]
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Utiliser la composition</strong>
+      <div class="steps">
+        <div><strong>Étape 1 :</strong> Identifier la fonction « intérieure » \(f\) et la fonction « extérieure » \(g\).</div>
+        <div><strong>Étape 2 :</strong> Calculer \(\displaystyle\lim_{x\to a} f(x) = b\).</div>
+        <div><strong>Étape 3 :</strong> Calculer \(\displaystyle\lim_{X\to b} g(X) = c\) (changement de variable \(X = f(x)\)).</div>
+        <div><strong>Conclusion :</strong> \(\displaystyle\lim_{x\to a} g(f(x)) = c\).</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Forme \(\infty/\infty\) : diviser par \(x^2\)</strong>
+      <p>Calculer \(\displaystyle\lim_{x\to+\infty}\frac{3x^2+1}{x^2-5}\).</p>
+      <p><strong>Solution :</strong> Forme \(\dfrac{\infty}{\infty}\). On divise numérateur et dénominateur par \(x^2\) :</p>
+      \[\frac{3x^2+1}{x^2-5} = \frac{3 + \dfrac{1}{x^2}}{1 - \dfrac{5}{x^2}} \xrightarrow[x\to+\infty]{} \frac{3+0}{1-0} = \mathbf{3}\]
+      <p>La droite \(y = 3\) est une asymptote horizontale en \(+\infty\).</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Asymptotes d'une fonction rationnelle</strong>
+      <p>Étudier les asymptotes de \(f(x) = \dfrac{2x+1}{x-3}\).</p>
+      <p><strong>Asymptotes horizontales :</strong></p>
+      \[\lim_{x\to+\infty}\frac{2x+1}{x-3} = \lim_{x\to+\infty}\frac{2+\frac{1}{x}}{1-\frac{3}{x}} = \frac{2}{1} = 2\]
+      <p>De même \(\displaystyle\lim_{x\to-\infty} f(x) = 2\). La droite \(y = 2\) est asymptote horizontale en \(\pm\infty\).</p>
+      <p><strong>Asymptote verticale :</strong> \(f\) n'est pas définie en \(x = 3\).</p>
+      \[\lim_{x\to 3^+}\frac{2x+1}{x-3} = \frac{7}{0^+} = +\infty \qquad \lim_{x\to 3^-}\frac{2x+1}{x-3} = \frac{7}{0^-} = -\infty\]
+      <p>La droite \(x = 3\) est une asymptote verticale.</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Limite à gauche et à droite en un point</strong>
+      <p>Déterminer \(\displaystyle\lim_{x\to 2^-} \frac{1}{x-2}\) et \(\displaystyle\lim_{x\to 2^+} \frac{1}{x-2}\).</p>
+      <p><strong>Solution :</strong></p>
+      <ul>
+        <li>Si \(x \to 2^-\) : \(x - 2 \to 0^-\), donc \(\dfrac{1}{x-2} \to -\infty\).</li>
+        <li>Si \(x \to 2^+\) : \(x - 2 \to 0^+\), donc \(\dfrac{1}{x-2} \to +\infty\).</li>
+      </ul>
+      <p>Les limites à gauche et à droite sont différentes. La droite \(x = 2\) est une asymptote verticale à la courbe de \(f(x) = \dfrac{1}{x-2}\).</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Théorème des gendarmes</strong>
+      <p>Calculer \(\displaystyle\lim_{x\to+\infty}\frac{\cos x}{x^2}\). (Déjà traité dans le cours — rappel de la méthode.)</p>
+      <p>On encadre : \(-\dfrac{1}{x^2} \leq \dfrac{\cos x}{x^2} \leq \dfrac{1}{x^2}\). Les deux bornes tendent vers 0, donc la limite est \(\mathbf{0}\).</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — Composition de limites</strong>
+      <p>Calculer \(\displaystyle\lim_{x\to+\infty} e^{-x^2}\).</p>
+      <p><strong>Solution :</strong> On pose \(u = -x^2\). Alors :</p>
+      \[\lim_{x\to+\infty} u = \lim_{x\to+\infty}(-x^2) = -\infty\]
+      <p>Et \(\displaystyle\lim_{u\to-\infty} e^u = 0\). Par le théorème de composition :</p>
+      \[\lim_{x\to+\infty} e^{-x^2} = \mathbf{0}\]
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- Exercice 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Limite d'un quotient en \(+\infty\)</b>
+      <p>Calculer \(\displaystyle\lim_{x\to+\infty}\frac{4x-1}{2x+3}\).</p>
+      <button class="btn-toggle" data-target="cor-ch4-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch4-ex1">
+        <div class="corrige">
+          <p>Forme \(\dfrac{\infty}{\infty}\). On divise par \(x\) :</p>
+          \[\frac{4x-1}{2x+3} = \frac{4-\dfrac{1}{x}}{2+\dfrac{3}{x}} \xrightarrow[x\to+\infty]{} \frac{4-0}{2+0} = \frac{4}{2} = \mathbf{2}\]
+          <p>La droite \(y = 2\) est une asymptote horizontale en \(+\infty\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Asymptotes d'une fonction rationnelle</b>
+      <p>Soit \(g(x) = \dfrac{x+2}{x-1}\). Déterminer les asymptotes horizontales et verticales de la courbe de \(g\).</p>
+      <button class="btn-toggle" data-target="cor-ch4-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch4-ex2">
+        <div class="corrige">
+          <p><strong>Asymptote horizontale :</strong></p>
+          \[\lim_{x\to\pm\infty}\frac{x+2}{x-1} = \lim_{x\to\pm\infty}\frac{1+\frac{2}{x}}{1-\frac{1}{x}} = \frac{1}{1} = 1\]
+          <p>La droite \(y = 1\) est une asymptote horizontale en \(+\infty\) et en \(-\infty\).</p>
+          <p><strong>Asymptote verticale :</strong> \(g\) n'est pas définie en \(x = 1\).</p>
+          \[\lim_{x\to 1^+}\frac{x+2}{x-1} = \frac{3}{0^+} = +\infty \qquad \lim_{x\to 1^-}\frac{x+2}{x-1} = \frac{3}{0^-} = -\infty\]
+          <p>La droite \(x = 1\) est une asymptote verticale.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Forme \(\infty - \infty\) : expression conjuguée</b>
+      <p>Calculer \(\displaystyle\lim_{x\to+\infty}(\sqrt{x+1}-\sqrt{x})\).</p>
+      <button class="btn-toggle" data-target="cor-ch4-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch4-ex3">
+        <div class="corrige">
+          <p>Forme \(+\infty - \infty\). On multiplie et divise par l'expression conjuguée \(\sqrt{x+1}+\sqrt{x}\) :</p>
+          \[\sqrt{x+1}-\sqrt{x} = \frac{(\sqrt{x+1}-\sqrt{x})(\sqrt{x+1}+\sqrt{x})}{\sqrt{x+1}+\sqrt{x}} = \frac{(x+1)-x}{\sqrt{x+1}+\sqrt{x}} = \frac{1}{\sqrt{x+1}+\sqrt{x}}\]
+          <p>Or \(\displaystyle\lim_{x\to+\infty}(\sqrt{x+1}+\sqrt{x}) = +\infty\), donc :</p>
+          \[\lim_{x\to+\infty}(\sqrt{x+1}-\sqrt{x}) = \lim_{x\to+\infty}\frac{1}{\sqrt{x+1}+\sqrt{x}} = \mathbf{0}\]
+          <p>Bien que les deux termes tendent chacun vers \(+\infty\), leur différence tend vers \(0\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Forme \(0/0\) : factorisation</b>
+      <p>Calculer \(\displaystyle\lim_{x\to 2}\frac{x^3-8}{x-2}\).</p>
+      <button class="btn-toggle" data-target="cor-ch4-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch4-ex4">
+        <div class="corrige">
+          <p>En \(x = 2\) : numérateur \(= 8-8 = 0\) et dénominateur \(= 0\). Forme \(\dfrac{0}{0}\).</p>
+          <p>On factorise \(x^3 - 8\) en utilisant l'identité \(a^3 - b^3 = (a-b)(a^2+ab+b^2)\) avec \(a = x\), \(b = 2\) :</p>
+          \[x^3 - 8 = (x-2)(x^2 + 2x + 4)\]
+          <p>Donc pour \(x \neq 2\) :</p>
+          \[\frac{x^3-8}{x-2} = \frac{(x-2)(x^2+2x+4)}{x-2} = x^2+2x+4\]
+          <p>En passant à la limite :</p>
+          \[\lim_{x\to 2}\frac{x^3-8}{x-2} = \lim_{x\to 2}(x^2+2x+4) = 4+4+4 = \mathbf{12}\]
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Croissances comparées</b>
+      <p>Montrer que \(\displaystyle\lim_{x\to+\infty}\frac{e^x}{x^3} = +\infty\).</p>
+      <button class="btn-toggle" data-target="cor-ch4-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch4-ex5">
+        <div class="corrige">
+          <p>C'est un résultat direct de la propriété des croissances comparées, applicable pour tout \(n \geq 1\) :</p>
+          \[\lim_{x\to+\infty}\frac{e^x}{x^n} = +\infty\]
+          <p>Ici \(n = 3\), donc \(\displaystyle\lim_{x\to+\infty}\frac{e^x}{x^3} = +\infty\).</p>
+          <p><strong>Justification intuitive :</strong> On peut écrire \(\dfrac{e^x}{x^3} = \dfrac{1}{x^3} \cdot e^x\). Même si \(\dfrac{1}{x^3} \to 0\), la croissance de \(e^x\) est tellement rapide qu'elle « écrase » \(x^3\). Formellement, pour tout \(A > 0\), il existe un rang à partir duquel \(e^x > A x^3\), donc \(\dfrac{e^x}{x^3} > A\).</p>
+          <p><strong>Preuve par développement de \(e^x\) :</strong> Pour \(x > 0\) :
+          \[e^x = \sum_{k=0}^{+\infty}\frac{x^k}{k!} \geq \frac{x^4}{4!} = \frac{x^4}{24}\]
+          Donc \(\dfrac{e^x}{x^3} \geq \dfrac{x^4/24}{x^3} = \dfrac{x}{24} \xrightarrow[x\to+\infty]{} +\infty\). Par comparaison, \(\dfrac{e^x}{x^3} \to +\infty\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Asymptote oblique</b>
+      <p>Soit \(f(x) = \dfrac{x^2+x}{x-1}\). Étudier les asymptotes de \(f\) (horizontale, verticale, oblique).</p>
+      <button class="btn-toggle" data-target="cor-ch4-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch4-ex6">
+        <div class="corrige">
+          <p><strong>Asymptote verticale :</strong> \(f\) n'est pas définie en \(x = 1\).</p>
+          \[\lim_{x\to 1^+}\frac{x^2+x}{x-1} = \frac{2}{0^+} = +\infty \qquad \lim_{x\to 1^-}\frac{x^2+x}{x-1} = \frac{2}{0^-} = -\infty\]
+          <p>La droite \(x = 1\) est une <strong>asymptote verticale</strong>.</p>
+
+          <p><strong>Comportement en \(\pm\infty\) :</strong></p>
+          \[\lim_{x\to\pm\infty} f(x) = \lim_{x\to\pm\infty}\frac{x^2+x}{x-1} = \lim_{x\to\pm\infty}\frac{x^2}{x} = \lim_{x\to\pm\infty} x = \pm\infty\]
+          <p>Il n'y a pas d'asymptote horizontale. On cherche une asymptote oblique de la forme \(y = ax + b\).</p>
+
+          <p><strong>Division euclidienne :</strong> On effectue \((x^2+x) \div (x-1)\) :</p>
+          \[x^2 + x = (x-1)(x+2) + 2\]
+          <p>Vérification : \((x-1)(x+2) + 2 = x^2 + 2x - x - 2 + 2 = x^2 + x\). ✓</p>
+          <p>Donc :
+          \[f(x) = \frac{x^2+x}{x-1} = x+2 + \frac{2}{x-1}\]</p>
+          <p>Or \(\displaystyle\lim_{x\to\pm\infty}\frac{2}{x-1} = 0\), donc :</p>
+          \[\lim_{x\to\pm\infty}[f(x)-(x+2)] = 0\]
+          <p>La droite \(y = x + 2\) est une <strong>asymptote oblique</strong> à la courbe de \(f\) en \(+\infty\) et en \(-\infty\).</p>
+
+          <p><strong>Position relative :</strong> \(f(x) - (x+2) = \dfrac{2}{x-1}\).</p>
+          <ul>
+            <li>Pour \(x > 1\) : \(\dfrac{2}{x-1} > 0\), la courbe est <em>au-dessus</em> de l'asymptote oblique.</li>
+            <li>Pour \(x < 1\) : \(\dfrac{2}{x-1} < 0\), la courbe est <em>en-dessous</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Types d'asymptotes</h3>
+      <table>
+        <thead><tr><th>Type</th><th>Équation</th><th>Condition</th></tr></thead>
+        <tbody>
+          <tr><td>Horizontale</td><td>\(y = \ell\)</td><td>\(\lim_{x\to\pm\infty} f(x) = \ell \in \mathbb{R}\)</td></tr>
+          <tr><td>Verticale</td><td>\(x = a\)</td><td>\(\lim_{x\to a} f(x) = \pm\infty\)</td></tr>
+          <tr><td>Oblique</td><td>\(y = ax+b\)</td><td>\(\lim_{x\to\pm\infty}[f(x)-(ax+b)] = 0\)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Croissances comparées à retenir</h3>
+      \[\lim_{x\to+\infty}\frac{e^x}{x^n} = +\infty \qquad \lim_{x\to-\infty} x^n e^x = 0 \qquad (n \geq 1)\]
+
+      <h3>Théorème de composition</h3>
+      \[\lim_{x\to a} f(x) = b \text{ et } \lim_{X\to b} g(X) = c \implies \lim_{x\to a} g(f(x)) = c\]
+
+      <h3>Les 4 formes indéterminées et leur traitement</h3>
+      <table>
+        <thead><tr><th>F.I.</th><th>Méthode</th><th>Exemple</th></tr></thead>
+        <tbody>
+          <tr><td>\(\infty/\infty\)</td><td>Diviser par le terme dominant</td><td>\(\dfrac{3x^2+1}{x^2-5}\)</td></tr>
+          <tr><td>\(\infty - \infty\)</td><td>Factoriser ou conjugué</td><td>\(\sqrt{x+1}-\sqrt{x}\)</td></tr>
+          <tr><td>\(0/0\)</td><td>Factoriser par \((x-a)\)</td><td>\(\dfrac{x^3-8}{x-2}\)</td></tr>
+          <tr><td>\(0 \times \infty\)</td><td>Réécrire en quotient</td><td>\(x \cdot e^{-x}\)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="attention">
+        <strong>⚠️ Erreurs fréquentes :</strong>
+        <ul>
+          <li>Oublier de distinguer limite à gauche (\(x \to a^-\)) et limite à droite (\(x \to a^+\)) : elles peuvent être différentes.</li>
+          <li>Conclure qu'il y a une asymptote horizontale sans vérifier la limite en \(-\infty\) (elle peut être différente de celle en \(+\infty\)).</li>
+          <li>Négliger la recherche d'une asymptote oblique quand la limite en l'infini est \(\pm\infty\).</li>
+          <li>Appliquer les règles opératoires sans vérifier l'absence de F.I.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="03-vecteurs-espace.html">← Précédent : Vecteurs</a>
+    <a href="05-derivation-convexite.html">Suivant : Dérivation →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

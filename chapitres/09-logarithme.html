@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fonction logarithme népérien — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 9 · Analyse</div>
+    <h1>Fonction logarithme népérien</h1>
+    <p class="tagline">La fonction qui transforme les produits en sommes — outil incontournable de l'analyse.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/09-logarithme.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ========== INTRODUCTION ========== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Le logarithme népérien est la fonction réciproque de la fonction exponentielle. Il est défini sur
+      \(]0\,;\,+\infty[\) et joue un rôle central en analyse : il permet de linéariser des équations
+      exponentielles, d'étudier des croissances, et fournit une primitive fondamentale de \(\dfrac{1}{x}\).
+    </p>
+    <p>
+      Sa propriété algébrique clé — transformer les produits en sommes — en fait un outil précieux
+      tant pour le calcul que pour la modélisation (décroissance radioactive, acoustique en décibels,
+      échelle de Richter…).
+    </p>
+    <div class="attention">
+      <strong>Prérequis :</strong> fonction exponentielle, dérivation, limites de fonctions,
+      étude de fonctions (tableau de variations).
+    </div>
+  </section>
+
+  <!-- ========== COURS ========== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3>A — Propriétés algébriques</h3>
+
+    <div class="propriete">
+      <strong>Propriétés fondamentales du logarithme</strong><br>
+      Pour tous réels \(a > 0\) et \(b > 0\) :
+      \[
+        \ln(ab) = \ln(a) + \ln(b)
+      \]
+      \[
+        \ln\!\left(\frac{a}{b}\right) = \ln(a) - \ln(b)
+      \]
+      \[
+        \ln(a^n) = n\ln(a) \quad \text{pour tout entier } n \in \mathbb{Z}
+      \]
+      \[
+        \ln(1) = 0 \qquad \ln(e) = 1
+      \]
+      \[
+        \ln(e^a) = a \qquad e^{\ln(a)} = a \text{ pour } a > 0
+      \]
+      Le domaine de définition de \(\ln\) est \(]0\,;\,+\infty[\).
+    </div>
+
+    <div class="attention">
+      <strong>Erreurs fréquentes à éviter :</strong>
+      <ul>
+        <li>\(\ln(a+b) \neq \ln(a)+\ln(b)\) — le \(\ln\) transforme les <em>produits</em>, pas les sommes !</li>
+        <li>\(\ln(-x)\) n'existe pas pour \(x > 0\).</li>
+        <li>\(\ln(0)\) n'existe pas.</li>
+      </ul>
+    </div>
+
+    <h3>B — Équations avec logarithme et exponentielle</h3>
+
+    <div class="methode">
+      <strong>B.1 — Équation de la forme \(\ln(X) = a\)</strong><br>
+      \[
+        \ln(X) = a \;\Leftrightarrow\; X = e^a \quad (\text{avec la condition } X > 0,
+        \text{ automatiquement vérifiée car } e^a > 0)
+      \]
+      <strong>Méthode :</strong>
+      <ol>
+        <li>Déterminer le domaine de validité (l'expression dans le \(\ln\) doit être \(> 0\)).</li>
+        <li>Appliquer la bijection : \(\ln(X) = a \Leftrightarrow X = e^a\).</li>
+        <li>Vérifier que la solution appartient au domaine.</li>
+      </ol>
+    </div>
+
+    <div class="methode">
+      <strong>B.2 — Équation de la forme \(e^X = a\)</strong><br>
+      <ul>
+        <li>Si \(a \leq 0\) : <strong>pas de solution</strong> (car \(e^X > 0\) toujours).</li>
+        <li>Si \(a > 0\) : l'unique solution est \(X = \ln(a)\).</li>
+      </ul>
+    </div>
+
+    <h3>C — Étude de la fonction logarithme</h3>
+
+    <div class="propriete">
+      <strong>C.1 — Continuité et limites</strong><br>
+      \(\ln\) est <strong>continue et strictement croissante</strong> sur \(]0\,;\,+\infty[\).
+      \[
+        \lim_{x \to 0^+} \ln(x) = -\infty \qquad \lim_{x \to +\infty} \ln(x) = +\infty
+      \]
+      <strong>Croissances comparées :</strong> pour tout entier \(k \geq 1\) :
+      \[
+        \lim_{x \to +\infty} \frac{\ln(x)}{x^k} = 0
+        \qquad \text{(\(\ln\) croît moins vite que toute puissance de } x)
+      \]
+      \[
+        \lim_{x \to 0^+} x^k \ln(x) = 0
+        \qquad \text{(\(x^k\) l'emporte sur } |\ln(x)| \text{ en } 0^+)
+      \]
+    </div>
+
+    <div class="propriete">
+      <strong>C.2 — Dérivée du logarithme</strong><br>
+      \[
+        (\ln x)' = \frac{1}{x} \quad \text{sur } ]0\,;\,+\infty[
+      \]
+      <strong>Dérivée de la composée :</strong> si \(u > 0\) sur \(I\) et \(u\) est dérivable :
+      \[
+        \bigl(\ln(u(x))\bigr)' = \frac{u'(x)}{u(x)}
+      \]
+    </div>
+
+    <div class="astuce">
+      <strong>Mémo :</strong> reconnaître la forme \(\dfrac{u'}{u}\) dans une expression, c'est
+      repérer la dérivée d'un \(\ln\). Très utile pour les primitives !
+    </div>
+  </section>
+
+  <!-- ========== EXEMPLES ========== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Simplification d'une expression</strong>
+      <div class="steps">
+        <p>Simplifier \(A = \ln(8) + \ln(3) - \ln(6) + 2\ln(2)\).</p>
+        <p><strong>Étape 1 :</strong> Transformer \(2\ln(2) = \ln(2^2) = \ln(4)\).</p>
+        <p><strong>Étape 2 :</strong> Regrouper avec les propriétés :
+        \[
+          A = \ln(8) + \ln(3) + \ln(4) - \ln(6)
+            = \ln\!\left(\frac{8 \times 3 \times 4}{6}\right)
+            = \ln(16)
+        \]
+        </p>
+        <p><strong>Étape 3 :</strong> \(\ln(16) = \ln(2^4) = 4\ln(2)\).</p>
+        <p><strong>Résultat :</strong> \(A = 4\ln(2)\).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Résoudre \(\ln(x+1) = 2\)</strong>
+      <div class="steps">
+        <p><strong>Domaine :</strong> \(x + 1 > 0 \Leftrightarrow x > -1\).</p>
+        <p><strong>Résolution :</strong>
+        \[
+          \ln(x+1) = 2 \Leftrightarrow x+1 = e^2 \Leftrightarrow x = e^2 - 1
+        \]
+        </p>
+        <p><strong>Vérification :</strong> \(e^2 - 1 \approx 6{,}39 > -1\) ✓.</p>
+        <p><strong>Conclusion :</strong> La solution est \(x = e^2 - 1\).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Résoudre \(\ln(x) + \ln(x+2) = \ln(3)\)</strong>
+      <div class="steps">
+        <p><strong>Domaine :</strong> \(x > 0\) et \(x + 2 > 0\), donc \(x > 0\).</p>
+        <p><strong>Transformation :</strong>
+        \[
+          \ln(x) + \ln(x+2) = \ln(3)
+          \Leftrightarrow \ln\bigl(x(x+2)\bigr) = \ln(3)
+          \Leftrightarrow x(x+2) = 3
+        \]
+        </p>
+        <p><strong>Équation du second degré :</strong>
+        \[
+          x^2 + 2x - 3 = 0 \Leftrightarrow (x+3)(x-1) = 0
+          \Rightarrow x = -3 \text{ ou } x = 1
+        \]
+        </p>
+        <p><strong>Sélection :</strong> \(x = -3 \notin ]0\,;\,+\infty[\) donc on rejette. L'unique solution est \(x = 1\).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Dériver des fonctions composées</strong>
+      <div class="steps">
+        <p>\(f(x) = \ln(x^2 + 1)\) : ici \(u = x^2+1 > 0\), \(u' = 2x\).
+        \[ f'(x) = \frac{2x}{x^2+1} \]
+        </p>
+        <p>\(g(x) = x\ln(x) - x\) sur \(]0\,;\,+\infty[\) :
+        \[ g'(x) = 1 \cdot \ln(x) + x \cdot \frac{1}{x} - 1 = \ln(x) + 1 - 1 = \ln(x) \]
+        </p>
+        <p><em>Conclusion :</em> \(g\) est une primitive de \(\ln(x)\), c'est-à-dire
+        \(\displaystyle\int \ln(x)\,dx = x\ln(x) - x + C\).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — Étude complète de \(f(x) = x - \ln(x)\) sur \(]0\,;\,+\infty[\)</strong>
+      <div class="steps">
+        <p><strong>Dérivée :</strong> \(f'(x) = 1 - \dfrac{1}{x} = \dfrac{x-1}{x}\).</p>
+        <p><strong>Signe de \(f'\) :</strong></p>
+        <ul>
+          <li>\(f'(x) < 0\) si \(0 < x < 1\) : \(f\) est décroissante.</li>
+          <li>\(f'(x) > 0\) si \(x > 1\) : \(f\) est croissante.</li>
+        </ul>
+        <p><strong>Minimum :</strong> en \(x = 1\), \(f(1) = 1 - \ln(1) = 1 - 0 = 1\).</p>
+        <p><strong>Conclusion :</strong> \(f(x) \geq 1 > 0\) pour tout \(x > 0\), ce qui donne
+        l'inégalité classique :
+        \[ \boxed{\ln(x) \leq x - 1 \quad \text{pour tout } x > 0} \]
+        avec égalité seulement en \(x = 1\).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXERCICES ========== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- EX 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Calculs algébriques</b>
+      <p>
+        <ol>
+          <li>Simplifier \(A = 3\ln(2) + \ln(4) - \ln(8)\).</li>
+          <li>Résoudre \(\ln(x) = 4\).</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch9-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch9-ex1">
+        <div class="corrige">
+          <p><strong>1.</strong> \(3\ln(2) = \ln(2^3) = \ln(8)\) et \(\ln(4) = \ln(2^2)\).
+          \[ A = \ln(8) + \ln(4) - \ln(8) = \ln(4) = 2\ln(2) \]
+          </p>
+          <p><strong>2.</strong> Domaine : \(x > 0\).
+          \[ \ln(x) = 4 \Leftrightarrow x = e^4 \]
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Équations exponentielles et logarithmiques</b>
+      <p>
+        Résoudre dans \(\mathbb{R}\) :
+        <ol>
+          <li>\(e^{2x+1} = 5\)</li>
+          <li>\(\ln(3x - 1) = 0\)</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch9-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch9-ex2">
+        <div class="corrige">
+          <p><strong>1.</strong>
+          \[
+            e^{2x+1} = 5 \Leftrightarrow 2x+1 = \ln(5) \Leftrightarrow x = \frac{\ln(5)-1}{2}
+          \]
+          </p>
+          <p><strong>2.</strong> Domaine : \(3x - 1 > 0 \Leftrightarrow x > \dfrac{1}{3}\).
+          \[
+            \ln(3x-1) = 0 \Leftrightarrow 3x-1 = e^0 = 1 \Leftrightarrow 3x = 2 \Leftrightarrow x = \frac{2}{3}
+          \]
+          Vérification : \(\dfrac{2}{3} > \dfrac{1}{3}\) ✓. Solution : \(x = \dfrac{2}{3}\).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Équation avec domaine à préciser</b>
+      <p>
+        Résoudre \(\ln(x^2 - 4x + 3) = 0\) en précisant soigneusement le domaine de validité.
+      </p>
+      <button class="btn-toggle" data-target="cor-ch9-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch9-ex3">
+        <div class="corrige">
+          <p><strong>Domaine :</strong> il faut \(x^2 - 4x + 3 > 0\).</p>
+          <p>Racines : \(x^2 - 4x + 3 = (x-1)(x-3) = 0\) donc \(x = 1\) ou \(x = 3\).
+          Le trinôme est \(> 0\) pour \(x < 1\) ou \(x > 3\). Domaine : \(D = ]-\infty\,;\,1[ \cup ]3\,;\,+\infty[\).</p>
+          <p><strong>Résolution :</strong>
+          \[
+            \ln(x^2-4x+3) = 0 \Leftrightarrow x^2 - 4x + 3 = 1 \Leftrightarrow x^2 - 4x + 2 = 0
+          \]
+          Discriminant : \(\Delta = 16 - 8 = 8\). Racines : \(x = \dfrac{4 \pm 2\sqrt{2}}{2} = 2 \pm \sqrt{2}\).
+          </p>
+          <p><strong>Sélection dans \(D\) :</strong>
+          \(x_1 = 2 - \sqrt{2} \approx 0{,}59 < 1\) ✓ et \(x_2 = 2 + \sqrt{2} \approx 3{,}41 > 3\) ✓.
+          </p>
+          <p>Les deux solutions sont \(x = 2 - \sqrt{2}\) et \(x = 2 + \sqrt{2}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Dérivation et maximum</b>
+      <p>
+        <ol>
+          <li>Dériver \(f(x) = \ln(2x^2 - x + 3)\) sur son domaine de définition.</li>
+          <li>Dériver \(g(x) = \dfrac{\ln(x)}{x}\) sur \(]0\,;\,+\infty[\) et trouver le maximum de \(g\).</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch9-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch9-ex4">
+        <div class="corrige">
+          <p><strong>1.</strong> Discriminant de \(2x^2-x+3\) : \(\Delta = 1 - 24 = -23 < 0\).
+          Donc \(2x^2 - x + 3 > 0\) pour tout \(x\), domaine : \(\mathbb{R}\).
+          \[ f'(x) = \frac{4x - 1}{2x^2 - x + 3} \]
+          </p>
+          <p><strong>2.</strong> En utilisant la règle du quotient (\(u = \ln x\), \(v = x\)) :
+          \[ g'(x) = \frac{\tfrac{1}{x} \cdot x - \ln(x) \cdot 1}{x^2} = \frac{1 - \ln(x)}{x^2} \]
+          </p>
+          <p>Signe de \(g'\) : \(g'(x) > 0 \Leftrightarrow \ln(x) < 1 \Leftrightarrow x < e\).
+          <br>Donc \(g\) est croissante sur \(]0\,;\,e[\) et décroissante sur \(]e\,;\,+\infty[\).
+          </p>
+          <p>Maximum atteint en \(x = e\) : \(g(e) = \dfrac{\ln(e)}{e} = \dfrac{1}{e}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Étude complète de \(h(x) = \ln(x) - \sqrt{x}\)</b>
+      <p>
+        Étudier la fonction \(h(x) = \ln(x) - \sqrt{x}\) sur \(]0\,;\,+\infty[\) :
+        dresser le tableau de variations complet et trouver les extrema.
+      </p>
+      <button class="btn-toggle" data-target="cor-ch9-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch9-ex5">
+        <div class="corrige">
+          <p><strong>Dérivée :</strong>
+          \[ h'(x) = \frac{1}{x} - \frac{1}{2\sqrt{x}} = \frac{1}{x} - \frac{1}{2\sqrt{x}} \]
+          On réduit au même dénominateur \(2x\) :
+          \[ h'(x) = \frac{2\sqrt{x} - x}{2x} = \frac{\sqrt{x}(2 - \sqrt{x})}{2x} = \frac{2 - \sqrt{x}}{2\sqrt{x}} \]
+          </p>
+          <p><strong>Signe de \(h'\) :</strong> \(h'(x) > 0 \Leftrightarrow 2 - \sqrt{x} > 0 \Leftrightarrow \sqrt{x} < 2 \Leftrightarrow x < 4\).</p>
+          <p>\(h\) est croissante sur \(]0\,;\,4[\), décroissante sur \(]4\,;\,+\infty[\).</p>
+          <p><strong>Maximum en \(x = 4\) :</strong>
+          \[ h(4) = \ln(4) - \sqrt{4} = \ln(4) - 2 = 2\ln(2) - 2 \approx 1{,}386 - 2 = -0{,}614 \]
+          </p>
+          <p><strong>Limites :</strong>
+          \[
+            \lim_{x \to 0^+} h(x) = -\infty - 0 = -\infty
+          \]
+          \[
+            \lim_{x \to +\infty} h(x) = \lim_{x \to +\infty} \sqrt{x}\!\left(\frac{\ln x}{\sqrt{x}} - 1\right)
+            = +\infty \times (0 - 1) = -\infty
+          \]
+          (car \(\frac{\ln x}{\sqrt{x}} \to 0\) par croissances comparées).
+          </p>
+          <p><strong>Tableau de variations :</strong></p>
+          <table style="border-collapse:collapse; margin:0.5em auto; text-align:center;">
+            <tr>
+              <th style="border:1px solid #ccc; padding:6px 14px;">\(x\)</th>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(0^+\)</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;"></td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(4\)</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;"></td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(+\infty\)</td>
+            </tr>
+            <tr>
+              <th style="border:1px solid #ccc; padding:6px 14px;">\(h'(x)\)</th>
+              <td style="border:1px solid #ccc; padding:6px 14px;"></td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(+\)</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(0\)</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(-\)</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;"></td>
+            </tr>
+            <tr>
+              <th style="border:1px solid #ccc; padding:6px 14px;">\(h(x)\)</th>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(-\infty\)</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">↗</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(2\ln 2-2\)</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">↘</td>
+              <td style="border:1px solid #ccc; padding:6px 14px;">\(-\infty\)</td>
+            </tr>
+          </table>
+          <p>\(h\) admet un maximum (global) en \(x = 4\) valant \(2\ln(2)-2 \approx -0{,}614\). La fonction \(h\) est toujours négative.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Démontrer l'inégalité \(\ln(x) \leq x - 1\)</b>
+      <p>
+        Montrer que pour tout \(x > 0\) : \(\ln(x) \leq x - 1\), avec égalité si et seulement si \(x = 1\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch9-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch9-ex6">
+        <div class="corrige">
+          <p>On pose \(f(x) = \ln(x) - x + 1\) sur \(]0\,;\,+\infty[\).
+          Il s'agit de montrer que \(f(x) \leq 0\) pour tout \(x > 0\).
+          </p>
+          <p><strong>Dérivée :</strong>
+          \[ f'(x) = \frac{1}{x} - 1 = \frac{1-x}{x} \]
+          </p>
+          <p><strong>Signe :</strong> \(f'(x) > 0\) si \(x < 1\) et \(f'(x) < 0\) si \(x > 1\).</p>
+          <p><strong>Donc \(f\) atteint un maximum en \(x = 1\) :</strong>
+          \[ f(1) = \ln(1) - 1 + 1 = 0 \]
+          </p>
+          <p><strong>Conclusion :</strong> pour tout \(x > 0\), \(f(x) \leq f(1) = 0\), soit
+          \[ \boxed{\ln(x) \leq x - 1} \]
+          avec égalité uniquement en \(x = 1\).
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== SYNTHESE ========== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Propriétés algébriques clés</h3>
+      <ul>
+        <li>\(\ln(ab) = \ln a + \ln b\) — les produits deviennent des sommes.</li>
+        <li>\(\ln(a^n) = n\ln a\) — les exposants descendent devant.</li>
+        <li>\(\ln(1) = 0\), \(\ln(e) = 1\).</li>
+        <li>\(e^{\ln a} = a\) et \(\ln(e^a) = a\) — \(\ln\) et \(\exp\) sont réciproques.</li>
+      </ul>
+
+      <h3>Résolution d'équations</h3>
+      <ul>
+        <li>\(\ln(f(x)) = a \Leftrightarrow f(x) = e^a\) (avec \(f(x) > 0\)).</li>
+        <li>\(e^{g(x)} = b\) : si \(b \leq 0\) → pas de solution ; si \(b > 0\) → \(g(x) = \ln b\).</li>
+        <li>Toujours préciser le domaine avant de résoudre.</li>
+      </ul>
+
+      <h3>Dérivée et limites</h3>
+      <ul>
+        <li>\((\ln x)' = \dfrac{1}{x}\) ; \((\ln u)' = \dfrac{u'}{u}\).</li>
+        <li>\(\lim_{x\to 0^+} \ln x = -\infty\) ; \(\lim_{x\to+\infty} \ln x = +\infty\).</li>
+        <li>Croissances comparées : \(\dfrac{\ln x}{x^k} \to 0\) et \(x^k \ln x \to 0\) en \(0^+\).</li>
+      </ul>
+
+      <h3>Inégalité fondamentale</h3>
+      <p>\(\ln(x) \leq x - 1\) pour tout \(x > 0\), égalité en \(x = 1\).</p>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="08-loi-binomiale.html">← Précédent</a>
+    <a href="10-primitives-eq-diff.html">Suivant →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Combinatoire et dénombrement — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 11 · Probabilités</div>
+    <h1>Combinatoire et dénombrement</h1>
+    <p class="tagline">Compter sans lister : arrangements, permutations et combinaisons au service des probabilités.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/11-combinatoire.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ========== INTRODUCTION ========== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Dans de nombreux problèmes de probabilités, calculer \(P(A)\) revient à compter le nombre
+      d'issues favorables et le nombre total d'issues. Ce chapitre fournit les outils
+      <strong>combinatoires</strong> pour effectuer ces comptages efficacement, sans avoir à
+      lister exhaustivement toutes les possibilités.
+    </p>
+    <p>
+      La question centrale est : <em>l'ordre compte-t-il ?</em>
+    </p>
+    <ul>
+      <li><strong>Oui</strong> (podium, anagramme, code) → <strong>arrangements et permutations</strong>.</li>
+      <li><strong>Non</strong> (comité, main de cartes, groupe) → <strong>combinaisons</strong>.</li>
+    </ul>
+    <div class="attention">
+      <strong>Prérequis :</strong> probabilités classiques, principe multiplicatif (chapitre 8).
+    </div>
+  </section>
+
+  <!-- ========== COURS ========== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3>A — Arrangements et permutations</h3>
+
+    <div class="definition">
+      <strong>Factorielle :</strong> Pour tout entier \(n \geq 1\) :
+      \[
+        n! = n \times (n-1) \times \cdots \times 2 \times 1
+      \]
+      Convention : \(0! = 1\).
+    </div>
+
+    <div class="exemple" style="margin:0.5em 0;">
+      \(5! = 5 \times 4 \times 3 \times 2 \times 1 = 120\) ; \quad \(1! = 1\) ; \quad \(0! = 1\).
+    </div>
+
+    <div class="definition">
+      <strong>Arrangement :</strong> Un <em>\(k\)-arrangement</em> d'un ensemble \(A\) à \(n\) éléments
+      est un \(k\)-uplet \((a_1, a_2, \ldots, a_k)\) d'éléments <strong>distincts</strong> de \(A\).
+      L'<strong>ordre compte</strong>.
+    </div>
+
+    <div class="propriete">
+      <strong>Nombre de \(k\)-arrangements</strong> d'un ensemble à \(n\) éléments (\(k \leq n\)) :
+      \[
+        A_n^k = \frac{n!}{(n-k)!} = n \times (n-1) \times \cdots \times (n-k+1)
+        \quad \text{(\(k\) facteurs)}
+      \]
+    </div>
+
+    <div class="definition">
+      <strong>Permutation :</strong> Une permutation d'un ensemble \(E\) à \(n\) éléments est un
+      \(n\)-arrangement de \(E\), c'est-à-dire un \(n\)-uplet de <strong>tous</strong> ses éléments
+      dans un certain ordre.
+    </div>
+
+    <div class="propriete">
+      Le nombre de permutations d'un ensemble à \(n\) éléments est :
+      \[
+        A_n^n = \frac{n!}{(n-n)!} = \frac{n!}{0!} = n!
+      \]
+    </div>
+
+    <div class="methode">
+      <strong>Application aux anagrammes :</strong> le nombre d'anagrammes d'un mot de \(n\) lettres
+      <em>toutes distinctes</em> est \(n!\).
+    </div>
+
+    <h3>B — Combinaisons</h3>
+
+    <div class="propriete">
+      Le nombre de parties d'un ensemble fini à \(n\) éléments est \(2^n\).<br>
+      <em>Justification :</em> pour chaque élément, on choisit indépendamment de l'inclure (1)
+      ou non (0) dans une partie → \(2^n\) séquences binaires distinctes.
+    </div>
+
+    <div class="definition">
+      <strong>Combinaison :</strong> Une <em>\(k\)-combinaison</em> d'un ensemble \(E\) à \(n\)
+      éléments est une <strong>partie</strong> de \(E\) à \(k\) éléments (l'ordre <strong>ne compte pas</strong>).
+      Son nombre est noté \(\dbinom{n}{k}\) (« k parmi n »).
+    </div>
+
+    <div class="propriete">
+      <strong>B.1 — Propriétés des coefficients binomiaux</strong>
+      \[
+        \binom{n}{k} = \frac{n!}{k!(n-k)!}
+      \]
+      <ol>
+        <li><strong>Symétrie :</strong> \(\dbinom{n}{k} = \dbinom{n}{n-k}\)
+        (choisir \(k\) éléments revient à exclure \(n-k\) éléments).</li>
+        <li><strong>Relation de Pascal :</strong> pour \(1 \leq k \leq n-1\) :
+        \[ \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k} \]
+        </li>
+        <li><strong>Cas particuliers :</strong>
+        \[ \binom{n}{0} = 1, \quad \binom{n}{1} = n, \quad \binom{n}{2} = \frac{n(n-1)}{2} \]
+        </li>
+      </ol>
+    </div>
+
+    <div class="methode">
+      <strong>Lien entre arrangements et combinaisons :</strong>
+      \[
+        A_n^k = \binom{n}{k} \times k!
+      \]
+      En effet, pour former un \(k\)-arrangement : on choisit d'abord les \(k\) éléments
+      (\(\binom{n}{k}\) façons) puis on les ordonne (\(k!\) façons).
+    </div>
+
+    <div class="astuce">
+      <strong>Triangle de Pascal</strong> — les coefficients \(\binom{n}{k}\) s'organisent en triangle,
+      chaque case étant la somme des deux cases situées juste au-dessus (relation de Pascal) :
+      <pre style="text-align:center; font-family:monospace; line-height:1.8;">
+n=0 :         1
+n=1 :        1  1
+n=2 :       1  2  1
+n=3 :      1  3  3  1
+n=4 :     1  4  6  4  1
+n=5 :    1  5 10 10  5  1
+      </pre>
+    </div>
+  </section>
+
+  <!-- ========== EXEMPLES ========== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Calculs de base</strong>
+      <div class="steps">
+        <p>\(5! = 120\)</p>
+        <p>\(\dfrac{10!}{7!} = 10 \times 9 \times 8 = 720\) (on simplifie les facteurs communs).</p>
+        <p>\(\dbinom{8}{3} = \dfrac{8!}{3! \times 5!} = \dfrac{8 \times 7 \times 6}{3 \times 2 \times 1} = \dfrac{336}{6} = 56\).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Podium d'une course : arrangements</strong>
+      <div class="steps">
+        <p><strong>Situation :</strong> 10 coureurs s'affrontent. Combien de podiums (1er, 2e, 3e distincts) possibles ?</p>
+        <p>L'ordre compte (la médaille d'or est différente de la médaille d'argent).
+        C'est un 3-arrangement de 10 éléments :
+        \[ A_{10}^3 = \frac{10!}{7!} = 10 \times 9 \times 8 = 720 \text{ podiums} \]
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Comité de membres : combinaisons</strong>
+      <div class="steps">
+        <p><strong>Situation :</strong> Parmi 12 personnes, choisir un comité de 4 membres (sans rôle attribué).</p>
+        <p>L'ordre ne compte pas → combinaison :
+        \[ \binom{12}{4} = \frac{12!}{4! \times 8!} = \frac{12 \times 11 \times 10 \times 9}{4 \times 3 \times 2 \times 1} = \frac{11880}{24} = 495 \]
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Probabilité aux cartes</strong>
+      <div class="steps">
+        <p><strong>Situation :</strong> On tire 5 cartes dans un jeu de 52. Quelle est la probabilité d'obtenir exactement 2 as ?</p>
+        <p><strong>Nombre total de mains de 5 cartes :</strong> \(\dbinom{52}{5} = 2\,598\,960\).</p>
+        <p><strong>Mains favorables :</strong> 2 as parmi 4 et 3 non-as parmi 48 :
+        \[ \binom{4}{2} \times \binom{48}{3} = 6 \times 17\,296 = 103\,776 \]
+        </p>
+        <p><strong>Probabilité :</strong>
+        \[ P = \frac{103\,776}{2\,598\,960} \approx 0{,}0399 \approx 4\,\% \]
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — Triangle de Pascal (lignes 0 à 5)</strong>
+      <div class="steps">
+        <p>En appliquant \(\dbinom{n}{k} = \dbinom{n-1}{k-1} + \dbinom{n-1}{k}\) à chaque étape :</p>
+        <table style="border-collapse:collapse; margin:0.5em auto; text-align:center;">
+          <tr>
+            <th style="padding:4px 10px; border:1px solid #ccc;">\(n\)</th>
+            <th style="padding:4px 10px; border:1px solid #ccc;" colspan="6">Coefficients \(\binom{n}{k}\)</th>
+          </tr>
+          <tr>
+            <td style="padding:4px 10px; border:1px solid #ccc;">0</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;" colspan="6">1</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 10px; border:1px solid #ccc;">1</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;" colspan="3">1</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;" colspan="3">1</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 10px; border:1px solid #ccc;">2</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">1</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;" colspan="2">2</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;" colspan="3">1</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 10px; border:1px solid #ccc;">3</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">1</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">3</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">3</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;" colspan="3">1</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 10px; border:1px solid #ccc;">4</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">1</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">4</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">6</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">4</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;" colspan="2">1</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 10px; border:1px solid #ccc;">5</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">1</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">5</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">10</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">10</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">5</td>
+            <td style="padding:4px 10px; border:1px solid #ccc;">1</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXERCICES ========== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- EX 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Calculs fondamentaux</b>
+      <p>
+        Calculer :
+        <ol>
+          <li>\(7!\)</li>
+          <li>\(\dbinom{6}{2}\)</li>
+          <li>\(\dfrac{9!}{6!}\)</li>
+          <li>Le nombre d'anagrammes du mot MATHS.</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch11-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch11-ex1">
+        <div class="corrige">
+          <p><strong>1.</strong> \(7! = 7 \times 6 \times 5 \times 4 \times 3 \times 2 \times 1 = 5040\).</p>
+          <p><strong>2.</strong> \(\dbinom{6}{2} = \dfrac{6!}{2! \times 4!} = \dfrac{6 \times 5}{2 \times 1} = 15\).</p>
+          <p><strong>3.</strong> \(\dfrac{9!}{6!} = 9 \times 8 \times 7 = 504\).</p>
+          <p><strong>4.</strong> MATHS comporte 5 lettres toutes distinctes (M, A, T, H, S).
+          Le nombre d'anagrammes est \(5! = 120\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Groupes d'élèves</b>
+      <p>
+        Dans une classe de 30 élèves :
+        <ol>
+          <li>Combien de groupes de 3 élèves peut-on former ?</li>
+          <li>Combien de groupes de 3 si le délégué de classe doit <em>toujours</em> être dans le groupe ?</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch11-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch11-ex2">
+        <div class="corrige">
+          <p><strong>1.</strong> On choisit 3 élèves parmi 30, sans tenir compte de l'ordre :
+          \[ \binom{30}{3} = \frac{30 \times 29 \times 28}{3 \times 2 \times 1} = \frac{24\,360}{6} = 4\,060 \]
+          </p>
+          <p><strong>2.</strong> Le délégué est déjà dans le groupe, il reste à choisir 2 élèves parmi les 29 autres :
+          \[ \binom{29}{2} = \frac{29 \times 28}{2} = 406 \]
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Loto</b>
+      <p>
+        Au Loto, on tire 6 numéros distincts parmi 49 (l'ordre ne compte pas).
+        <ol>
+          <li>Combien de combinaisons de 6 numéros possibles ?</li>
+          <li>Un joueur a exactement 5 numéros « bons » (c'est-à-dire parmi les 6 gagnants).
+          Combien de grilles de 6 numéros peuvent contenir exactement ces 5 bons numéros ?</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch11-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch11-ex3">
+        <div class="corrige">
+          <p><strong>1.</strong>
+          \[
+            \binom{49}{6} = \frac{49!}{6! \times 43!} = \frac{49 \times 48 \times 47 \times 46 \times 45 \times 44}{720}
+            = 13\,983\,816
+          \]
+          Il y a près de <strong>14 millions</strong> de combinaisons possibles !
+          </p>
+          <p><strong>2.</strong> Pour avoir exactement 5 numéros bons :
+          <ul>
+            <li>Choisir 5 numéros parmi les 6 gagnants : \(\dbinom{6}{5} = 6\) façons.</li>
+            <li>Choisir le 6e numéro parmi les \(49 - 6 = 43\) numéros <em>non</em> gagnants :
+            \(\dbinom{43}{1} = 43\) façons.</li>
+          </ul>
+          Total : \(6 \times 43 = 258\) grilles.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Symétrie des coefficients binomiaux</b>
+      <p>
+        <ol>
+          <li>Montrer que \(\dbinom{n}{k} = \dbinom{n}{n-k}\) en utilisant la formule factorielle.</li>
+          <li>En déduire \(\dbinom{10}{7}\) sachant que \(\dbinom{10}{3} = 120\).</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch11-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch11-ex4">
+        <div class="corrige">
+          <p><strong>1.</strong>
+          \[
+            \binom{n}{n-k} = \frac{n!}{(n-k)!\,\bigl(n-(n-k)\bigr)!} = \frac{n!}{(n-k)!\,k!} = \binom{n}{k}
+          \]
+          L'égalité est immédiate car \(k!(n-k)! = (n-k)!k!\).
+          </p>
+          <p><strong>2.</strong> Par symétrie : \(\dbinom{10}{7} = \dbinom{10}{10-7} = \dbinom{10}{3} = 120\).</p>
+          <p><em>Interprétation :</em> choisir 7 éléments parmi 10 revient à choisir les 3 éléments
+          qu'on <em>n'inclut pas</em>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Démonstration de la relation de Pascal</b>
+      <p>
+        Démontrer algébriquement la relation de Pascal :
+        \[
+          \binom{n}{k} + \binom{n}{k+1} = \binom{n+1}{k+1}
+          \quad \text{pour } 0 \leq k \leq n-1
+        \]
+      </p>
+      <button class="btn-toggle" data-target="cor-ch11-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch11-ex5">
+        <div class="corrige">
+          <p>On développe le membre gauche en réduisant au même dénominateur.
+          Le dénominateur commun est \(k!(n-k)!\) multiplié intelligemment :</p>
+          \[
+            \binom{n}{k} + \binom{n}{k+1}
+            = \frac{n!}{k!(n-k)!} + \frac{n!}{(k+1)!(n-k-1)!}
+          \]
+          <p>On met au même dénominateur \((k+1)!(n-k)!\) :</p>
+          \[
+            = \frac{n!(k+1)}{(k+1)!(n-k)!} + \frac{n!(n-k)}{(k+1)!(n-k)!}
+            = \frac{n!\bigl[(k+1)+(n-k)\bigr]}{(k+1)!(n-k)!}
+            = \frac{n!(n+1)}{(k+1)!(n-k)!}
+          \]
+          \[
+            = \frac{(n+1)!}{(k+1)!\bigl((n+1)-(k+1)\bigr)!}
+            = \binom{n+1}{k+1}
+          \]
+          <p>La relation est démontrée. \(\square\)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Somme des coefficients binomiaux : \(\displaystyle\sum_{k=0}^{n}\binom{n}{k} = 2^n\)</b>
+      <p>
+        Démontrer que pour tout entier \(n \geq 0\) :
+        \[
+          \sum_{k=0}^{n} \binom{n}{k} = 2^n
+        \]
+        <em>On pourra utiliser deux approches différentes.</em>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch11-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch11-ex6">
+        <div class="corrige">
+          <p><strong>Approche 1 — Argument combinatoire :</strong></p>
+          <p>Le membre gauche \(\displaystyle\sum_{k=0}^n \binom{n}{k}\) compte le nombre total de parties d'un ensemble \(E\) à \(n\) éléments, en les regroupant par cardinal :
+          \(\binom{n}{0}\) parties de cardinal 0, \(\binom{n}{1}\) de cardinal 1, …, \(\binom{n}{n}\) de cardinal \(n\).
+          </p>
+          <p>Le nombre total de parties d'un ensemble à \(n\) éléments est \(2^n\)
+          (pour chaque élément, 2 choix : inclus ou exclu).
+          Donc \(\displaystyle\sum_{k=0}^n \binom{n}{k} = 2^n\). \(\square\)
+          </p>
+
+          <p><strong>Approche 2 — Formule du binôme :</strong></p>
+          <p>La formule du binôme de Newton donne, pour tous réels \(a\) et \(b\) :
+          \[ (a+b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k b^{n-k} \]
+          En prenant \(a = b = 1\) :
+          \[ 2^n = (1+1)^n = \sum_{k=0}^{n} \binom{n}{k} 1^k \cdot 1^{n-k} = \sum_{k=0}^{n} \binom{n}{k} \]
+          Ce qui établit le résultat. \(\square\)
+          </p>
+
+          <p><strong>Vérification pour \(n = 3\) :</strong>
+          \(\binom{3}{0} + \binom{3}{1} + \binom{3}{2} + \binom{3}{3} = 1 + 3 + 3 + 1 = 8 = 2^3\) ✓.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== SYNTHESE ========== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>L'ordre compte-t-il ?</h3>
+      <ul>
+        <li><strong>Oui</strong> → arrangements ou permutations.</li>
+        <li><strong>Non</strong> → combinaisons.</li>
+      </ul>
+
+      <h3>Formules à retenir</h3>
+      <ul>
+        <li>\(n! = n \times (n-1) \times \cdots \times 1\), \quad \(0! = 1\).</li>
+        <li>Arrangements : \(A_n^k = \dfrac{n!}{(n-k)!}\) (\(k\) facteurs décroissants à partir de \(n\)).</li>
+        <li>Permutations : \(n!\).</li>
+        <li>Combinaisons : \(\dbinom{n}{k} = \dfrac{n!}{k!(n-k)!}\).</li>
+      </ul>
+
+      <h3>Propriétés des coefficients binomiaux</h3>
+      <ul>
+        <li>Symétrie : \(\dbinom{n}{k} = \dbinom{n}{n-k}\).</li>
+        <li>Pascal : \(\dbinom{n}{k} + \dbinom{n}{k+1} = \dbinom{n+1}{k+1}\).</li>
+        <li>Somme : \(\displaystyle\sum_{k=0}^n \binom{n}{k} = 2^n\).</li>
+        <li>Cas simples : \(\dbinom{n}{0} = 1\), \(\dbinom{n}{1} = n\), \(\dbinom{n}{2} = \dfrac{n(n-1)}{2}\).</li>
+      </ul>
+
+      <h3>Stratégie pour les problèmes de probabilité</h3>
+      <ol>
+        <li>Identifier l'univers \(\Omega\) et son cardinal (souvent une combinaison).</li>
+        <li>Compter les issues favorables (décomposer si nécessaire, utiliser le principe multiplicatif).</li>
+        <li>Appliquer \(P(A) = \dfrac{|A|}{|\Omega|}\) si équiprobabilité.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="10-primitives-eq-diff.html">← Précédent</a>
+    <a href="12-cosinus-sinus.html">Suivant →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

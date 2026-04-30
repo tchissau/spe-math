@@ -1,0 +1,231 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\author{Ulrich TCHISSAMBOU}
+\title{\textbf{Démonstrations}\\[4pt]
+       \large Mathématiques --- Terminale Spécialité}
+\date{}
+
+\newcommand{\vc}[1]{\overrightarrow{#1}}
+
+\newtheoremstyle{enoncestyle}
+  {8pt}{8pt}{\normalfont}{0pt}{\bfseries\color{blue!70!black}}{.}{.5em}{}
+\theoremstyle{enoncestyle}
+\newtheorem{enonce}{Énoncé}[section]
+
+\renewenvironment{proof}[1][\proofname]{%
+  \par\medskip
+  \noindent\textbf{\color{black!70}#1.}\quad\itshape
+}{%
+  \hfill$\blacksquare$\par\medskip
+}
+
+\setcounter{tocdepth}{2}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Chapitre 2 — Limites de suite}
+% ============================================================
+
+\subsection{Unicité de la limite d'une suite}
+
+\begin{mdframed}[linecolor=blue!40,backgroundcolor=blue!4,linewidth=1pt]
+\begin{enonce}
+Si une suite $(u_n)$ a une limite réelle, alors cette limite est unique.
+\end{enonce}
+\end{mdframed}
+
+\begin{proof}[Démonstration]
+Supposons que $(u_n)$ ait deux limites $\ell_1$ et $\ell_2$ avec $\ell_1 \neq \ell_2$.
+Posons :
+\[
+    \varepsilon = \frac{|\ell_1 - \ell_2|}{3} > 0.
+\]
+Par définition de la limite :
+\begin{itemize}
+    \item il existe $N_1$ tel que pour tout $n \geq N_1$, $|u_n - \ell_1| < \varepsilon$ ;
+    \item il existe $N_2$ tel que pour tout $n \geq N_2$, $|u_n - \ell_2| < \varepsilon$.
+\end{itemize}
+Pour $n \geq \max(N_1, N_2)$, par inégalité triangulaire :
+\[
+    |\ell_1 - \ell_2| \leq |u_n - \ell_1| + |u_n - \ell_2|
+    < 2\varepsilon = \frac{2}{3}|\ell_1 - \ell_2|.
+\]
+On obtient $|\ell_1 - \ell_2| < \dfrac{2}{3}|\ell_1 - \ell_2|$, ce qui est impossible
+si $\ell_1 \neq \ell_2$. Donc $\ell_1 = \ell_2$.
+\end{proof}
+
+% ============================================================
+\section{Chapitre 3 — Vecteurs, droites et plans de l'espace}
+% ============================================================
+
+\subsection{Parallélisme de l'intersection de deux plans}
+
+\begin{mdframed}[linecolor=blue!40,backgroundcolor=blue!4,linewidth=1pt]
+\begin{enonce}
+Si deux plans $\mathcal{P}$ et $\mathcal{P}'$ contiennent respectivement deux droites
+$(d)$ et $(d')$ parallèles entre elles, alors leur intersection
+$(d'') = \mathcal{P} \cap \mathcal{P}'$ est parallèle à $(d)$ et $(d')$.
+\end{enonce}
+\end{mdframed}
+
+\begin{proof}[Démonstration]
+Soit $\vc{v}$ un vecteur directeur commun à $(d)$ et $(d')$ (elles sont parallèles, donc
+colinéaires).
+
+Soit $\vc{w}$ un vecteur directeur de la droite d'intersection
+$(d'') = \mathcal{P} \cap \mathcal{P}'$.
+
+Supposons par l'absurde que $\vc{w}$ et $\vc{v}$ ne soient pas colinéaires. Alors
+$(\vc{v}, \vc{w})$ serait une base commune à $\mathcal{P}$ (qui contient $(d)$ de vecteur
+$\vc{v}$ et $(d'')$ de vecteur $\vc{w}$) et à $\mathcal{P}'$ (qui contient $(d')$ de
+vecteur $\vc{v}$ et $(d'')$ de vecteur $\vc{w}$). Cela impliquerait
+$\mathcal{P} = \mathcal{P}'$, contrairement à l'hypothèse qu'ils sont sécants.
+
+Donc $\vc{w}$ et $\vc{v}$ sont colinéaires : $(d'')$ est parallèle à $(d)$ et $(d')$.
+\end{proof}
+
+% ============================================================
+\section{Chapitre 8 — Loi binomiale}
+% ============================================================
+
+\subsection{Nombre de parties d'un ensemble fini}
+
+\begin{mdframed}[linecolor=blue!40,backgroundcolor=blue!4,linewidth=1pt]
+\begin{enonce}
+Le nombre de parties d'un ensemble fini à $n$ éléments est $2^n$.
+\end{enonce}
+\end{mdframed}
+
+\begin{proof}[Démonstration]
+Soit $E = \{x_1, x_2, \ldots, x_n\}$. À toute partie $A \subseteq E$, on associe le mot
+binaire $(b_1, b_2, \ldots, b_n)$ défini par :
+\[
+    b_i = \begin{cases} 1 & \text{si } x_i \in A, \\ 0 & \text{sinon.}\end{cases}
+\]
+Cette correspondance est une bijection entre les parties de $E$ et les mots binaires de
+longueur $n$. Chaque $b_i$ pouvant prendre $2$ valeurs indépendamment, il y a :
+\[
+    \underbrace{2 \times 2 \times \cdots \times 2}_{n \text{ facteurs}} = 2^n
+\]
+mots distincts, donc $2^n$ parties.
+\end{proof}
+
+\subsection{Formule de la loi binomiale $P(X=k)$}
+
+\begin{mdframed}[linecolor=blue!40,backgroundcolor=blue!4,linewidth=1pt]
+\begin{enonce}
+Soit $X \sim \mathcal{B}(n;p)$. Pour tout entier $k \in \{0, 1, \ldots, n\}$ :
+\[
+    P(X = k) = \binom{n}{k}\,p^k\,(1-p)^{n-k}.
+\]
+\end{enonce}
+\end{mdframed}
+
+\begin{proof}[Démonstration]
+On répète $n$ épreuves de Bernoulli indépendantes, chaque succès ayant probabilité $p$.
+
+\textbf{Probabilité d'un chemin fixé.}
+Un chemin réalisant $k$ succès dans des positions déterminées a pour probabilité :
+\[
+    \underbrace{p \cdots p}_{k}\; \times \underbrace{(1-p)\cdots(1-p)}_{n-k}
+    = p^k(1-p)^{n-k}.
+\]
+
+\textbf{Nombre de chemins favorables.}
+Choisir les positions des $k$ succès parmi $n$ épreuves revient à choisir une partie à $k$
+éléments de $\{1, \ldots, n\}$, soit $\dbinom{n}{k}$ chemins distincts.
+
+\textbf{Conclusion.}
+Ces chemins sont deux à deux incompatibles, donc par la règle d'additivité :
+\[
+    P(X = k) = \binom{n}{k}\,p^k\,(1-p)^{n-k}.
+\]
+\end{proof}
+
+% ============================================================
+\section{Chapitre 10 — Primitives et équations différentielles}
+% ============================================================
+
+\subsection{Solutions de $y' = ay$}
+
+\begin{mdframed}[linecolor=blue!40,backgroundcolor=blue!4,linewidth=1pt]
+\begin{enonce}
+Les solutions de l'équation différentielle $y' = ay$ (avec $a \in \mathbf{R}^*$)
+sont exactement les fonctions $x \mapsto k\,e^{ax}$, $k \in \mathbf{R}$.
+\end{enonce}
+\end{mdframed}
+
+\begin{proof}[Démonstration]
+\textbf{Ces fonctions sont bien solutions.}
+Posons $f_k(x) = ke^{ax}$. Alors :
+\[
+    f_k'(x) = k\,a\,e^{ax} = a\,f_k(x),
+\]
+donc $f_k$ vérifie $y' = ay$.
+
+\textbf{Ce sont les seules solutions.}
+Soit $y$ une solution quelconque. Posons $g(x) = y(x)\,e^{-ax}$. Sa dérivée est :
+\begin{align*}
+    g'(x) &= y'(x)\,e^{-ax} + y(x)\cdot(-a)\,e^{-ax} \\
+          &= a\,y(x)\,e^{-ax} - a\,y(x)\,e^{-ax} = 0.
+\end{align*}
+$g$ est donc constante : $g(x) = k$ pour un certain $k \in \mathbf{R}$, ce qui donne
+$y(x) = k\,e^{ax}$.
+\end{proof}
+
+\subsection{Solutions de $y' = ay + b$}
+
+\begin{mdframed}[linecolor=blue!40,backgroundcolor=blue!4,linewidth=1pt]
+\begin{enonce}
+Les solutions de l'équation différentielle $y' = ay + b$ ($a \neq 0$, $b \neq 0$)
+sont les fonctions $x \mapsto k\,e^{ax} - \dfrac{b}{a}$, $k \in \mathbf{R}$.
+\end{enonce}
+\end{mdframed}
+
+\begin{proof}[Démonstration]
+\textbf{Étape 1 : solution particulière constante.}
+Cherchons $f : x \mapsto c$ solution. Alors $f'= 0$, et l'équation donne $0 = ac + b$,
+soit $c = -\dfrac{b}{a}$. La fonction $f : x \mapsto -\dfrac{b}{a}$ est une solution
+particulière.
+
+\textbf{Étape 2 : résoudre l'équation homogène.}
+Soit $g$ une solution quelconque de $y' = ay + b$. Posons $h = g - f$. Alors :
+\[
+    h'(x) = g'(x) - f'(x)
+    = \bigl(a\,g(x) + b\bigr) - \bigl(a\,f(x) + b\bigr)
+    = a\,\bigl(g(x) - f(x)\bigr) = a\,h(x).
+\]
+Donc $h$ est solution de $y' = ay$, d'où $h(x) = k\,e^{ax}$ (démonstration précédente).
+
+\textbf{Conclusion.}
+\[
+    g(x) = h(x) + f(x) = k\,e^{ax} - \frac{b}{a}.
+\]
+\end{proof}
+
+% ============================================================
+\section{Chapitre 11 — Combinatoire et dénombrement}
+% ============================================================
+
+\subsection{Nombre de parties d'un ensemble fini}
+
+La démonstration est identique à celle du chapitre~8, section~3.1 :
+à chaque partie de $E$ correspond un unique mot binaire de longueur $n$, et il y a
+$2^n$ tels mots. \hfill$\blacksquare$
+
+\end{document}

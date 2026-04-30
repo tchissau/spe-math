@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Récurrence et Suites — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 1 · Analyse</div>
+    <h1>Récurrence et Suites</h1>
+    <p class="tagline">Maîtriser la démonstration par récurrence et l'étude de la monotonie des suites.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/01-recurrence-suites.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a>
+        <ul>
+          <li><a href="#recurrence">A — Raisonnement par récurrence</a></li>
+          <li><a href="#monotonie">B — Monotonie d'une suite</a></li>
+        </ul>
+      </li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Dans ce chapitre, nous allons étudier deux outils fondamentaux de l'analyse : le <strong>raisonnement par récurrence</strong>, qui permet de démontrer qu'une propriété est vraie pour tous les entiers naturels à partir d'un certain rang, et l'<strong>étude de la monotonie</strong> des suites, qui décrit leur comportement global.
+    </p>
+    <p>
+      Ces techniques sont omniprésentes en mathématiques : on les retrouve aussi bien dans l'étude des suites définies par récurrence que dans la démonstration de formules comme la somme des \(n\) premiers entiers ou la somme des termes d'une suite géométrique.
+    </p>
+    <div class="attention">
+      <strong>⚠️ Point de vigilance :</strong> Une démonstration par récurrence comporte <em>obligatoirement</em> deux étapes : l'initialisation et l'hérédité. Oublier l'une des deux invalide complètement la démonstration.
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3 id="recurrence">A — Raisonnement par récurrence</h3>
+
+    <div class="definition">
+      <strong>Définition — Propriété mathématique</strong>
+      <p>Une <strong>propriété mathématique</strong> est une phrase (qui dépend éventuellement d'un paramètre entier \(n\)) pouvant être vraie ou fausse.</p>
+      <p>On la note \(P(n)\). Par exemple : « \(u_n = 2 \times 3^n + 1\) » est une propriété dépendant de \(n\).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Théorème — Raisonnement par récurrence</strong>
+      <p>
+        Soient \(n_0 \in \mathbb{N}\) et \(P(n)\) une propriété dépendant de l'entier naturel \(n\), définie pour tout \(n \geq n_0\).
+      </p>
+      <p>On suppose que :</p>
+      <ol>
+        <li><strong>Initialisation :</strong> \(P(n_0)\) est vraie.</li>
+        <li><strong>Hérédité :</strong> Pour tout entier \(k \geq n_0\), si \(P(k)\) est vraie alors \(P(k+1)\) est vraie.</li>
+      </ol>
+      <p>Alors, pour tout entier naturel \(n \geq n_0\), \(P(n)\) est vraie.</p>
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Rédiger une démonstration par récurrence</strong>
+      <p>Voici la structure type à utiliser :</p>
+      <div class="steps">
+        <div><strong>Étape 0 — Poser la propriété :</strong> « Soit \(P(n)\) la propriété : [écrire la formule]. »</div>
+        <div><strong>Étape 1 — Initialisation :</strong> Vérifier que \(P(n_0)\) est vraie (calcul numérique).</div>
+        <div><strong>Étape 2 — Hérédité :</strong> « Soit \(k \geq n_0\). Supposons que \(P(k)\) est vraie [c'est l'<em>hypothèse de récurrence</em>]. Montrons que \(P(k+1)\) est vraie. » Puis calculer.</div>
+        <div><strong>Étape 3 — Conclusion :</strong> « Par le principe de récurrence, \(P(n)\) est vraie pour tout \(n \geq n_0\). »</div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple du cours</strong>
+      <p>Soit \((u_n)\) la suite définie par \(u_0 = 3\) et \(u_{n+1} = 3u_n - 2\). Démontrer par récurrence que pour tout \(n \in \mathbb{N}\) :
+      \[ u_n = 2 \times 3^n + 1 \]</p>
+      <p><strong>Soit \(P(n)\) la propriété :</strong> « \(u_n = 2 \times 3^n + 1\). »</p>
+      <p><strong>Initialisation (\(n=0\)) :</strong> On a \(u_0 = 3\) par définition. Or \(2 \times 3^0 + 1 = 2 \times 1 + 1 = 3\). Donc \(P(0)\) est vraie.</p>
+      <p><strong>Hérédité :</strong> Soit \(k \in \mathbb{N}\). Supposons que \(P(k)\) est vraie, c'est-à-dire \(u_k = 2 \times 3^k + 1\). Montrons que \(P(k+1)\) est vraie, i.e. \(u_{k+1} = 2 \times 3^{k+1} + 1\).</p>
+      <p>Par définition de la suite : \(u_{k+1} = 3u_k - 2\). Par hypothèse de récurrence :</p>
+      \[ u_{k+1} = 3(2 \times 3^k + 1) - 2 = 6 \times 3^k + 3 - 2 = 6 \times 3^k + 1 = 2 \times 3^{k+1} + 1 \]
+      <p>Donc \(P(k+1)\) est vraie.</p>
+      <p><strong>Conclusion :</strong> Par le principe de récurrence, pour tout \(n \in \mathbb{N}\), \(u_n = 2 \times 3^n + 1\).</p>
+    </div>
+
+    <h3 id="monotonie">B — Monotonie d'une suite</h3>
+
+    <div class="definition">
+      <strong>Définition — Suite monotone</strong>
+      <p>Une suite \((u_n)\) est :</p>
+      <ul>
+        <li><strong>croissante</strong> si pour tout \(n \in \mathbb{N}\), \(u_n \leq u_{n+1}\) ;</li>
+        <li><strong>strictement croissante</strong> si pour tout \(n \in \mathbb{N}\), \(u_n < u_{n+1}\) ;</li>
+        <li><strong>décroissante</strong> si pour tout \(n \in \mathbb{N}\), \(u_n \geq u_{n+1}\) ;</li>
+        <li><strong>strictement décroissante</strong> si pour tout \(n \in \mathbb{N}\), \(u_n > u_{n+1}\) ;</li>
+        <li><strong>monotone</strong> si elle est croissante ou décroissante.</li>
+      </ul>
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — 4 méthodes pour étudier la monotonie</strong>
+      <div class="steps">
+        <div>
+          <strong>Méthode 1 (différence) :</strong> Calculer \(u_{n+1} - u_n\) et étudier son signe.
+          <br>Si \(u_{n+1} - u_n \geq 0\) pour tout \(n\), la suite est croissante.
+        </div>
+        <div>
+          <strong>Méthode 2 (quotient) :</strong> Si \(u_n > 0\) pour tout \(n\), calculer \(\dfrac{u_{n+1}}{u_n}\) et comparer à 1.
+          <br>Si \(\dfrac{u_{n+1}}{u_n} \geq 1\), la suite est croissante.
+        </div>
+        <div>
+          <strong>Méthode 3 (fonction) :</strong> S'il existe une fonction \(f\) telle que \(u_n = f(n)\), étudier le sens de variation de \(f\) sur \([0;+\infty[\).
+        </div>
+        <div>
+          <strong>Méthode 4 (récurrence) :</strong> Démontrer par récurrence la propriété \(P(n) : u_n \leq u_{n+1}\).
+        </div>
+      </div>
+    </div>
+
+    <div class="definition">
+      <strong>Définition — Suite bornée</strong>
+      <p>Une suite \((u_n)\) est :</p>
+      <ul>
+        <li><strong>majorée</strong> s'il existe un réel \(M\) tel que \(u_n \leq M\) pour tout \(n \in \mathbb{N}\) ;</li>
+        <li><strong>minorée</strong> s'il existe un réel \(m\) tel que \(u_n \geq m\) pour tout \(n \in \mathbb{N}\) ;</li>
+        <li><strong>bornée</strong> si elle est à la fois majorée et minorée.</li>
+      </ul>
+    </div>
+
+    <div class="astuce">
+      <strong>💡 Astuce :</strong> Pour montrer qu'une suite définie par récurrence est bornée, on utilise souvent la <strong>récurrence</strong>. Par exemple, pour montrer que \(u_n \geq m\), on pose \(P(n) : u_n \geq m\) et on démontre cette propriété par récurrence.
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Monotonie par la méthode de la fonction</strong>
+      <p>Soit \(u_n = 3n + 1\). Étudier la monotonie de \((u_n)\).</p>
+      <p><strong>Solution :</strong> On pose \(f(x) = 3x + 1\), définie sur \([0;+\infty[\). On a \(f'(x) = 3 > 0\), donc \(f\) est strictement croissante sur \([0;+\infty[\).</p>
+      <p>Puisque \(u_n = f(n)\) et que \(f\) est croissante, la suite \((u_n)\) est <strong>strictement croissante</strong>.</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Suite définie par récurrence : premiers termes, monotonie, minoration</strong>
+      <p>Soit \((v_n)\) définie par \(v_0 = 4\) et \(v_{n+1} = \dfrac{v_n}{2} + 1\).</p>
+      <p><strong>Calcul des premiers termes :</strong></p>
+      <ul>
+        <li>\(v_0 = 4\)</li>
+        <li>\(v_1 = \dfrac{4}{2} + 1 = 3\)</li>
+        <li>\(v_2 = \dfrac{3}{2} + 1 = 2{,}5\)</li>
+        <li>\(v_3 = \dfrac{2{,}5}{2} + 1 = 2{,}25\)</li>
+      </ul>
+      <p>La suite semble décroissante et se rapproche de 2.</p>
+      <p><strong>Monotonie (méthode 1 — différence) :</strong></p>
+      \[ v_{n+1} - v_n = \left(\frac{v_n}{2} + 1\right) - v_n = -\frac{v_n}{2} + 1 = \frac{2 - v_n}{2} \]
+      <p>Pour conclure, il faut savoir le signe de \(2 - v_n\). Montrons par récurrence que \(v_n \geq 2\) pour tout \(n \in \mathbb{N}\).</p>
+      <p><strong>Minoration par 2 (récurrence) :</strong> Soit \(P(n) : v_n \geq 2\).</p>
+      <ul>
+        <li><em>Init.</em> \(v_0 = 4 \geq 2\). Vrai.</li>
+        <li><em>Hérédité.</em> Supposons \(v_k \geq 2\). Alors \(v_{k+1} = \dfrac{v_k}{2} + 1 \geq \dfrac{2}{2} + 1 = 2\). Vrai.</li>
+      </ul>
+      <p>Donc \(v_n \geq 2\) pour tout \(n\), ce qui donne \(2 - v_n \leq 0\), donc \(v_{n+1} - v_n \leq 0\).</p>
+      <p>La suite \((v_n)\) est <strong>décroissante et minorée par 2</strong>.</p>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Récurrence sur une somme</strong>
+      <p>Démontrer que pour tout \(n \geq 1\) :
+      \[ 1 + 3 + 5 + \cdots + (2n-1) = n^2 \]</p>
+      <p><strong>Soit \(P(n)\) la propriété :</strong> « \(\displaystyle\sum_{k=1}^{n}(2k-1) = n^2\). »</p>
+      <p><strong>Initialisation (\(n=1\)) :</strong> Le membre gauche vaut \(2(1)-1 = 1\) et le membre droit vaut \(1^2 = 1\). Donc \(P(1)\) est vraie.</p>
+      <p><strong>Hérédité :</strong> Supposons \(P(k)\) vraie pour un entier \(k \geq 1\), i.e. \(\displaystyle\sum_{k'=1}^{k}(2k'-1) = k^2\). Montrons \(P(k+1)\).</p>
+      \[ \sum_{k'=1}^{k+1}(2k'-1) = \sum_{k'=1}^{k}(2k'-1) + (2(k+1)-1) = k^2 + 2k+2-1 = k^2 + 2k + 1 = (k+1)^2 \]
+      <p>Donc \(P(k+1)\) est vraie.</p>
+      <p><strong>Conclusion :</strong> Par récurrence, pour tout \(n \geq 1\), \(1 + 3 + \cdots + (2n-1) = n^2\). \(\square\)</p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- Exercice 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Premiers termes et monotonie évidente</b>
+      <p>Soit \((u_n)\) la suite définie par \(u_0 = 1\) et \(u_{n+1} = u_n + 4\).</p>
+      <ol>
+        <li>Calculer \(u_1\), \(u_2\) et \(u_3\).</li>
+        <li>Cette suite est-elle croissante ? Justifier par la méthode de la différence.</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch1-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch1-ex1">
+        <div class="corrige">
+          <p><strong>1. Calcul des premiers termes :</strong></p>
+          <ul>
+            <li>\(u_1 = u_0 + 4 = 1 + 4 = 5\)</li>
+            <li>\(u_2 = u_1 + 4 = 5 + 4 = 9\)</li>
+            <li>\(u_3 = u_2 + 4 = 9 + 4 = 13\)</li>
+          </ul>
+          <p><strong>2. Monotonie (méthode 1) :</strong></p>
+          <p>Pour tout \(n \in \mathbb{N}\) :
+          \[ u_{n+1} - u_n = (u_n + 4) - u_n = 4 > 0 \]
+          Donc \(u_{n+1} > u_n\) pour tout \(n\), la suite est <strong>strictement croissante</strong>.</p>
+          <p>Il s'agit d'une suite arithmétique de raison \(r = 4 > 0\), ce qui confirme ce résultat.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Récurrence classique : puissances de 2</b>
+      <p>Démontrer par récurrence que pour tout \(n \in \mathbb{N}\) :
+      \[ 2^n \geq n + 1 \]</p>
+      <button class="btn-toggle" data-target="cor-ch1-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch1-ex2">
+        <div class="corrige">
+          <p><strong>Soit \(P(n)\) la propriété :</strong> « \(2^n \geq n+1\). »</p>
+          <p><strong>Initialisation (\(n=0\)) :</strong> \(2^0 = 1\) et \(0+1 = 1\). On a bien \(1 \geq 1\). Donc \(P(0)\) est vraie.</p>
+          <p><strong>Hérédité :</strong> Soit \(k \in \mathbb{N}\). Supposons \(P(k)\) vraie : \(2^k \geq k+1\). Montrons \(P(k+1)\) : \(2^{k+1} \geq k+2\).</p>
+          \[ 2^{k+1} = 2 \times 2^k \geq 2(k+1) = 2k+2 \]
+          <p>Or \(2k + 2 \geq k + 2\) car \(k \geq 0\), donc \(k \geq 0 \Rightarrow k + 2 \leq 2k + 2\). Ainsi \(2^{k+1} \geq k + 2\). \(P(k+1)\) est vraie.</p>
+          <p><strong>Conclusion :</strong> Pour tout \(n \in \mathbb{N}\), \(2^n \geq n+1\). \(\square\)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Monotonie d'une suite quotient</b>
+      <p>Soit \(u_n = \dfrac{3n+1}{n+2}\). Étudier la monotonie de \((u_n)\) par la méthode de votre choix.</p>
+      <button class="btn-toggle" data-target="cor-ch1-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch1-ex3">
+        <div class="corrige">
+          <p><strong>Méthode 1 — Différence :</strong></p>
+          \[ u_{n+1} - u_n = \frac{3(n+1)+1}{(n+1)+2} - \frac{3n+1}{n+2} = \frac{3n+4}{n+3} - \frac{3n+1}{n+2} \]
+          <p>On réduit au même dénominateur \((n+3)(n+2)\) :</p>
+          \[ u_{n+1} - u_n = \frac{(3n+4)(n+2) - (3n+1)(n+3)}{(n+3)(n+2)} \]
+          <p>Développons le numérateur :</p>
+          \[ (3n+4)(n+2) = 3n^2 + 6n + 4n + 8 = 3n^2 + 10n + 8 \]
+          \[ (3n+1)(n+3) = 3n^2 + 9n + n + 3 = 3n^2 + 10n + 3 \]
+          \[ \text{Numérateur} = (3n^2+10n+8) - (3n^2+10n+3) = 5 \]
+          <p>Donc :
+          \[ u_{n+1} - u_n = \frac{5}{(n+3)(n+2)} \]
+          Pour tout \(n \in \mathbb{N}\), \((n+2) > 0\) et \((n+3) > 0\), donc \(u_{n+1} - u_n > 0\).</p>
+          <p>La suite \((u_n)\) est <strong>strictement croissante</strong>.</p>
+          <p><em>Remarque :</em> On pouvait aussi utiliser la méthode 3 : \(f(x) = \dfrac{3x+1}{x+2}\), \(f'(x) = \dfrac{3(x+2)-(3x+1)}{(x+2)^2} = \dfrac{5}{(x+2)^2} > 0\), donc \(f\) est croissante.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Minoration et monotonie par récurrence</b>
+      <p>Soit \((u_n)\) définie par \(u_0 = 5\) et \(u_{n+1} = \dfrac{u_n+3}{2}\).</p>
+      <ol>
+        <li>Montrer par récurrence que \(u_n \geq 3\) pour tout \(n \in \mathbb{N}\).</li>
+        <li>Étudier la monotonie de \((u_n)\).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch1-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch1-ex4">
+        <div class="corrige">
+          <p><strong>1. Minoration par 3 :</strong> Soit \(P(n) : u_n \geq 3\).</p>
+          <ul>
+            <li><em>Init.</em> \(u_0 = 5 \geq 3\). Vrai.</li>
+            <li><em>Hérédité.</em> Supposons \(u_k \geq 3\). Alors :
+            \[ u_{k+1} = \frac{u_k + 3}{2} \geq \frac{3+3}{2} = \frac{6}{2} = 3 \]
+            Donc \(P(k+1)\) est vraie.</li>
+          </ul>
+          <p>Par récurrence, \(u_n \geq 3\) pour tout \(n \in \mathbb{N}\).</p>
+          <p><strong>2. Monotonie (méthode 1) :</strong></p>
+          \[ u_{n+1} - u_n = \frac{u_n + 3}{2} - u_n = \frac{u_n + 3 - 2u_n}{2} = \frac{3 - u_n}{2} \]
+          <p>Or on vient de montrer que \(u_n \geq 3\), donc \(3 - u_n \leq 0\), d'où \(u_{n+1} - u_n \leq 0\).</p>
+          <p>La suite \((u_n)\) est <strong>décroissante</strong> et <strong>minorée par 3</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Forme explicite par récurrence</b>
+      <p>Soit \((u_n)\) définie par \(u_0 = 2\) et \(u_{n+1} = 2u_n + 1\). Démontrer par récurrence que pour tout \(n \in \mathbb{N}\) :
+      \[ u_n = 3 \times 2^n - 1 \]</p>
+      <button class="btn-toggle" data-target="cor-ch1-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch1-ex5">
+        <div class="corrige">
+          <p><strong>Soit \(P(n)\) la propriété :</strong> « \(u_n = 3 \times 2^n - 1\). »</p>
+          <p><strong>Initialisation (\(n=0\)) :</strong> \(u_0 = 2\) et \(3 \times 2^0 - 1 = 3 - 1 = 2\). Donc \(P(0)\) est vraie.</p>
+          <p><strong>Hérédité :</strong> Soit \(k \in \mathbb{N}\). Supposons \(u_k = 3 \times 2^k - 1\). Montrons \(u_{k+1} = 3 \times 2^{k+1} - 1\).</p>
+          \[ u_{k+1} = 2u_k + 1 = 2(3 \times 2^k - 1) + 1 = 6 \times 2^k - 2 + 1 = 6 \times 2^k - 1 = 3 \times 2^{k+1} - 1 \]
+          <p>Donc \(P(k+1)\) est vraie.</p>
+          <p><strong>Conclusion :</strong> Par le principe de récurrence, pour tout \(n \in \mathbb{N}\), \(u_n = 3 \times 2^n - 1\). \(\square\)</p>
+          <p><em>Vérification :</em> \(u_1 = 2 \times 2 + 1 = 5\) et \(3 \times 2^1 - 1 = 5\). ✓</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Somme des carrés</b>
+      <p>Démontrer par récurrence que pour tout \(n \in \mathbb{N}\) :
+      \[ \sum_{k=0}^{n} k^2 = \frac{n(n+1)(2n+1)}{6} \]</p>
+      <button class="btn-toggle" data-target="cor-ch1-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch1-ex6">
+        <div class="corrige">
+          <p><strong>Soit \(P(n)\) la propriété :</strong> « \(\displaystyle\sum_{k=0}^{n} k^2 = \dfrac{n(n+1)(2n+1)}{6}\). »</p>
+          <p><strong>Initialisation (\(n=0\)) :</strong> \(\displaystyle\sum_{k=0}^{0} k^2 = 0\) et \(\dfrac{0 \times 1 \times 1}{6} = 0\). Donc \(P(0)\) est vraie.</p>
+          <p><strong>Hérédité :</strong> Soit \(p \in \mathbb{N}\). Supposons \(P(p)\) vraie. Montrons \(P(p+1)\) : \(\displaystyle\sum_{k=0}^{p+1} k^2 = \dfrac{(p+1)(p+2)(2p+3)}{6}\).</p>
+          \[ \sum_{k=0}^{p+1} k^2 = \sum_{k=0}^{p} k^2 + (p+1)^2 = \frac{p(p+1)(2p+1)}{6} + (p+1)^2 \]
+          <p>On factorise par \((p+1)\) :</p>
+          \[ = (p+1)\left[\frac{p(2p+1)}{6} + (p+1)\right] = (p+1) \cdot \frac{p(2p+1) + 6(p+1)}{6} \]
+          \[ = (p+1) \cdot \frac{2p^2 + p + 6p + 6}{6} = (p+1) \cdot \frac{2p^2 + 7p + 6}{6} \]
+          <p>Or \(2p^2 + 7p + 6 = (p+2)(2p+3)\) (vérification : \((p+2)(2p+3) = 2p^2 + 3p + 4p + 6 = 2p^2 + 7p + 6\)). Donc :</p>
+          \[ \sum_{k=0}^{p+1} k^2 = \frac{(p+1)(p+2)(2p+3)}{6} \]
+          <p>\(P(p+1)\) est vraie.</p>
+          <p><strong>Conclusion :</strong> Par le principe de récurrence, pour tout \(n \in \mathbb{N}\), \(\displaystyle\sum_{k=0}^{n} k^2 = \dfrac{n(n+1)(2n+1)}{6}\). \(\square\)</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Le raisonnement par récurrence</h3>
+      <p><strong>Structure obligatoire en 3 étapes :</strong></p>
+      <ol>
+        <li><strong>Initialisation</strong> : vérifier que \(P(n_0)\) est vraie (calcul numérique).</li>
+        <li><strong>Hérédité</strong> : fixer \(k \geq n_0\), supposer \(P(k)\) vraie (hypothèse de récurrence), et démontrer \(P(k+1)\).</li>
+        <li><strong>Conclusion</strong> : « Par le principe de récurrence, \(P(n)\) est vraie pour tout \(n \geq n_0\). »</li>
+      </ol>
+
+      <h3>Monotonie — Résumé des méthodes</h3>
+      <table>
+        <thead><tr><th>Méthode</th><th>Ce qu'on calcule</th><th>Conclusion croissante</th></tr></thead>
+        <tbody>
+          <tr><td>Différence</td><td>\(u_{n+1}-u_n\)</td><td>\(\geq 0\)</td></tr>
+          <tr><td>Quotient</td><td>\(u_{n+1}/u_n\) (si \(u_n>0\))</td><td>\(\geq 1\)</td></tr>
+          <tr><td>Fonction</td><td>Signe de \(f'\) sur \([0;+\infty[\)</td><td>\(f'\geq 0\)</td></tr>
+          <tr><td>Récurrence</td><td>Prouver \(P(n):u_n\leq u_{n+1}\)</td><td>Par récurrence</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Erreurs fréquentes à éviter</h3>
+      <div class="attention">
+        <ul>
+          <li>Oublier l'<strong>initialisation</strong> : la démonstration est invalide.</li>
+          <li>Oublier l'<strong>hérédité</strong> : la démonstration est invalide.</li>
+          <li>Dans l'hérédité, oublier d'écrire explicitement l'<strong>hypothèse de récurrence</strong>.</li>
+          <li>Conclure que \(u_{n+1} - u_n \geq 0\) implique croissante sans avoir vérifié le signe.</li>
+          <li>Confondre « montrer que \(u_n \geq m\) » avec « supposer que \(u_n \geq m\) » — ce n'est pas la même chose !</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <span></span>
+    <a href="02-limites-suites.html">Suivant : Limites de suites →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

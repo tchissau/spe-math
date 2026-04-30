@@ -1,0 +1,82 @@
+
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+
+\title{Méthodes fondamentales – Spécialité Mathématiques}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Raisonnement par récurrence}
+\textbf{Méthode :}
+\begin{itemize}
+\item Initialisation : vérifier $P(n_0)$
+\item Hérédité : supposer $P(k)$ vraie et montrer $P(k+1)$
+\item Conclusion
+\end{itemize}
+
+\textbf{Exemple :} Montrer que $1+2+\cdots+n=\frac{n(n+1)}{2}$.
+
+\section{Monotonie d’une suite}
+\textbf{Méthode :} Étudier $u_{n+1}-u_n$.
+
+\textbf{Exemple :} $u_n = n^2$ \\
+$u_{n+1}-u_n = 2n+1 > 0$ donc croissante.
+
+\section{Limite d’une suite}
+\textbf{Méthode :} Identifier le terme dominant.
+
+\textbf{Exemple :}
+\[
+\frac{3n^2+1}{5n^2-4} \to \frac{3}{5}
+\]
+
+\section{Croissances comparées}
+\textbf{Hiérarchie :} $\ln n \ll n^k \ll q^n \ll n!$
+
+\textbf{Exemple :}
+\[
+\frac{n^5}{2^n} \to 0
+\]
+
+\section{Suites récurrentes}
+\textbf{Méthode :} Chercher le point fixe.
+
+\textbf{Exemple :} $u_{n+1} = \frac{1}{2}u_n +3$ \\
+$\ell = 6$
+
+\section{Dérivation}
+\textbf{Exemple :}
+\[
+f(x)=\ln(x^2+1), \quad f'(x)=\frac{2x}{x^2+1}
+\]
+
+\section{Convexité}
+\textbf{Méthode :} Étudier $f''$.
+
+\textbf{Exemple :} $f(x)=x^2 \Rightarrow f''(x)=2>0$ donc convexe.
+
+\section{Continuité – TVI}
+\textbf{Méthode :} Continuité + changement de signe.
+
+\textbf{Exemple :} $f(x)=x^3-2$ sur $[1,2]$.
+
+\section{Loi binomiale}
+\[
+P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}
+\]
+
+\section{Équations différentielles}
+\[
+y'=ay \Rightarrow y=Ce^{ax}
+\]
+
+\section{Intégration}
+\[
+\int_0^1 x\,dx = \frac{1}{2}
+\]
+
+\end{document}

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fonctions cosinus et sinus — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 12 · Analyse</div>
+    <h1>Fonctions cosinus et sinus</h1>
+    <p class="tagline">Du cercle trigonométrique aux dérivées et primitives : maîtriser les deux fonctions fondamentales de l'analyse.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/12-cosinus-sinus.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ========== INTRODUCTION ========== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Les fonctions cosinus et sinus sont les pierres angulaires de la trigonométrie. Apparues pour décrire des phénomènes périodiques (oscillations, ondes, rotations), elles sont omniprésentes en physique, en musique, en ingénierie. En Terminale, on approfondit leur étude : dérivées, primitives, résolution d'équations, et étude de fonctions composées.
+    </p>
+    <div class="attention">
+      <strong>Prérequis indispensables :</strong> cercle trigonométrique, valeurs remarquables de cos et sin, radians, identité remarquable \(\cos^2(x)+\sin^2(x)=1\).
+    </div>
+    <p>
+      Dans ce chapitre, on travaille toujours <strong>en radians</strong>. Le cercle trigonométrique est le cercle de centre \(O\) et de rayon 1. À tout réel \(x\), on associe un point \(M\) sur ce cercle : l'abscisse de \(M\) est \(\cos(x)\), l'ordonnée est \(\sin(x)\).
+    </p>
+  </section>
+
+  <!-- ========== COURS ========== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3>A. Fonctions sinus et cosinus</h3>
+
+    <h4>A.1 Généralités</h4>
+
+    <div class="definition">
+      <strong>Définition — Cosinus et sinus</strong>
+      <p>
+        Dans un repère orthonormal, on considère le cercle trigonométrique (de centre \(O\), rayon 1). Pour un réel \(x\), on note \(M\) le point du cercle correspondant à l'angle \(x\) (mesuré en radians, dans le sens trigonométrique depuis l'axe des abscisses).
+      </p>
+      <ul>
+        <li>La fonction <strong>cosinus</strong> est définie sur \(\mathbb{R}\) par : \(\cos(x) =\) abscisse de \(M\).</li>
+        <li>La fonction <strong>sinus</strong> est définie sur \(\mathbb{R}\) par : \(\sin(x) =\) ordonnée de \(M\).</li>
+      </ul>
+      <p>On a donc toujours \(M = (\cos(x),\, \sin(x))\) et \(-1 \leq \cos(x) \leq 1\), \(-1 \leq \sin(x) \leq 1\).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Parité et périodicité</strong>
+      <ul>
+        <li>\(\cos\) est une fonction <strong>paire</strong> : \(\cos(-x)=\cos(x)\) pour tout \(x\in\mathbb{R}\).</li>
+        <li>\(\sin\) est une fonction <strong>impaire</strong> : \(\sin(-x)=-\sin(x)\) pour tout \(x\in\mathbb{R}\).</li>
+        <li>\(\cos\) et \(\sin\) sont toutes deux <strong>\(2\pi\)-périodiques</strong> : \(\cos(x+2\pi)=\cos(x)\) et \(\sin(x+2\pi)=\sin(x)\).</li>
+      </ul>
+      <p>
+        <em>Conséquence :</em> La courbe de \(\cos\) est symétrique par rapport à l'axe des ordonnées. L'étude de \(\cos\) sur \([0;\pi]\) suffit (par parité, on en déduit le reste). L'étude de \(\sin\) sur \(\left[-\frac{\pi}{2};\frac{3\pi}{2}\right]\) permet de reconstituer une période entière.
+      </p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Résolution d'équations trigonométriques</strong>
+      <p>Pour tout réel \(a\) :</p>
+      \[
+        \cos(x) = \cos(a) \iff x = a + 2k\pi \quad \text{ou} \quad x = -a + 2k\pi, \quad k \in \mathbb{Z}
+      \]
+      \[
+        \sin(x) = \sin(a) \iff x = a + 2k\pi \quad \text{ou} \quad x = \pi - a + 2k\pi, \quad k \in \mathbb{Z}
+      \]
+      <p>
+        <em>Méthode :</em> On lit d'abord la valeur de référence \(a\) (sur \([0;\pi]\) pour cosinus, sur \(\left[-\frac{\pi}{2};\frac{\pi}{2}\right]\) pour sinus), puis on applique la formule pour trouver toutes les solutions.
+      </p>
+    </div>
+
+    <div class="methode">
+      <strong>Valeurs usuelles</strong>
+      <p>À connaître absolument (à retrouver depuis le cercle trigonométrique) :</p>
+      <table class="tableau-valeurs">
+        <thead>
+          <tr>
+            <th>\(x\)</th>
+            <th>\(0\)</th>
+            <th>\(\dfrac{\pi}{6}\)</th>
+            <th>\(\dfrac{\pi}{4}\)</th>
+            <th>\(\dfrac{\pi}{3}\)</th>
+            <th>\(\dfrac{\pi}{2}\)</th>
+            <th>\(\pi\)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(\cos(x)\)</td>
+            <td>\(1\)</td>
+            <td>\(\dfrac{\sqrt{3}}{2}\)</td>
+            <td>\(\dfrac{\sqrt{2}}{2}\)</td>
+            <td>\(\dfrac{1}{2}\)</td>
+            <td>\(0\)</td>
+            <td>\(-1\)</td>
+          </tr>
+          <tr>
+            <td>\(\sin(x)\)</td>
+            <td>\(0\)</td>
+            <td>\(\dfrac{1}{2}\)</td>
+            <td>\(\dfrac{\sqrt{2}}{2}\)</td>
+            <td>\(\dfrac{\sqrt{3}}{2}\)</td>
+            <td>\(1\)</td>
+            <td>\(0\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Tableau de variations de cosinus sur \([0\,;\,\pi]\)</h4>
+    <p>
+      Puisque \(\cos\) est <strong>paire</strong> et \(2\pi\)-périodique, son étude sur \([0\,;\,\pi]\) suffit.
+      Sur cet intervalle, \(\cos'(x)=-\sin(x)\leq 0\), donc \(\cos\) est <strong>strictement décroissante</strong>.
+    </p>
+
+    <!-- Tableau tkztab — cosinus (image LaTeX compilée) -->
+    <figure style="margin:.8rem 0 1.2rem;text-align:center;">
+      <img src="../images/tkztab-cos.png"
+           alt="Tableau de variations de cos(x) sur [0;π] — style tkztab"
+           style="max-width:620px;width:100%;height:auto;border-radius:6px;
+                  box-shadow:0 2px 10px rgba(21,101,192,.18);"
+           loading="lazy"/>
+    </figure>
+    <!-- Tableau tkztab — sinus (image LaTeX compilée) -->
+    <figure style="margin:.8rem 0 1.2rem;text-align:center;">
+      <img src="../images/tkztab-sin.png"
+           alt="Tableau de variations de sin(x) sur [-π/2 ; 3π/2] — style tkztab"
+           style="max-width:900px;width:100%;height:auto;border-radius:6px;
+                  box-shadow:0 2px 10px rgba(198,40,40,.18);"
+           loading="lazy"/>
+    </figure>
+
+    <h4>Tableau de variations de sinus sur \(\left[-\dfrac{\pi}{2}\,;\,\dfrac{3\pi}{2}\right]\)</h4>
+    <p>
+      Sur cet intervalle, \(\sin'(x)=\cos(x)\) s'annule en \(x=\dfrac{\pi}{2}\) (et change de signe) :
+      \(\sin\) est <strong>strictement croissante</strong> sur \(\left[-\dfrac{\pi}{2};\dfrac{\pi}{2}\right]\)
+      et <strong>strictement décroissante</strong> sur \(\left[\dfrac{\pi}{2};\dfrac{3\pi}{2}\right]\).
+      Elle atteint son maximum \(1\) en \(x=\dfrac{\pi}{2}\) et son minimum \(-1\) aux extrémités.
+    </p>
+
+    <!-- ===== Représentations graphiques GeoGebra ===== -->
+    <h3>Représentations graphiques</h3>
+    <p>
+      Les deux applets ci-dessous illustrent les courbes de \(\cos\) et \(\sin\) sur deux périodes.
+      L'axe des abscisses est gradué en <strong>multiples de \(\dfrac{\pi}{2}\)</strong>.
+    </p>
+
+    <div class="ggb-wrap" id="ggb-cos"></div>
+    <p style="text-align:center;font-size:.85rem;color:#555;margin-top:.3rem;">
+      Courbe de \(y=\cos(x)\) — en bleu — sur \([-2\pi\,;\,2\pi]\)
+    </p>
+
+    <div class="ggb-wrap" id="ggb-sin" style="margin-top:1.5rem;"></div>
+    <p style="text-align:center;font-size:.85rem;color:#555;margin-top:.3rem;">
+      Courbe de \(y=\sin(x)\) — en rouge — sur \([-2\pi\,;\,2\pi]\)
+    </p>
+
+    <!-- ===== GeoGebra scripts ===== -->
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script>
+    /* ---- cosinus applet ---- */
+    var paramsCos = {
+      "appName"    : "graphing",
+      "width"      : 700,
+      "height"     : 320,
+      "showToolBar": false,
+      "showMenuBar": false,
+      "showAlgebraInput": false,
+      "showResetIcon": true,
+      "language"   : "fr",
+      "appletOnLoad": function(api) {
+        api.evalCommand('f(x) = cos(x)');
+        api.setColor('f', 21, 101, 192);        /* bleu */
+        api.setLineThickness('f', 4);
+        api.setCoordSystem(-6.5, 6.5, -1.6, 1.6);
+        /* graduation en multiples de π/2 */
+        api.evalCommand('SetAxisSteps(1, π/2)');
+        api.evalCommand('SetAxisLabels(1, true)');
+        api.evalCommand('ShowGrid(true)');
+      }
+    };
+    var appletCos = new GGBApplet(paramsCos, '6.0', 'ggb-cos');
+    appletCos.inject();
+
+    /* ---- sinus applet ---- */
+    var paramsSin = {
+      "appName"    : "graphing",
+      "width"      : 700,
+      "height"     : 320,
+      "showToolBar": false,
+      "showMenuBar": false,
+      "showAlgebraInput": false,
+      "showResetIcon": true,
+      "language"   : "fr",
+      "appletOnLoad": function(api) {
+        api.evalCommand('g(x) = sin(x)');
+        api.setColor('g', 198, 40, 40);        /* rouge */
+        api.setLineThickness('g', 4);
+        api.setCoordSystem(-6.5, 6.5, -1.6, 1.6);
+        /* graduation en multiples de π/2 */
+        api.evalCommand('SetAxisSteps(1, π/2)');
+        api.evalCommand('SetAxisLabels(1, true)');
+        api.evalCommand('ShowGrid(true)');
+      }
+    };
+    var appletSin = new GGBApplet(paramsSin, '6.0', 'ggb-sin');
+    appletSin.inject();
+    </script>
+
+    <!-- ===== A.2 Dérivées ===== -->
+    <h4>A.2 Dérivées</h4>
+
+    <div class="propriete">
+      <strong>Propriété — Dérivées de cos et sin</strong>
+      <ul>
+        <li>La fonction \(\cos\) est dérivable sur \(\mathbb{R}\) et \(\cos'(x) = -\sin(x)\).</li>
+        <li>La fonction \(\sin\) est dérivable sur \(\mathbb{R}\) et \(\sin'(x) = \cos(x)\).</li>
+      </ul>
+      <p>
+        <em>Astuce mnémotechnique :</em> \(\cos \xrightarrow{\text{dériver}} -\sin \xrightarrow{\text{dériver}} -\cos \xrightarrow{\text{dériver}} \sin \xrightarrow{\text{dériver}} \cos\).
+        On tourne en cycle de longueur 4, avec un signe négatif au passage par \(-\sin\) et \(-\cos\).
+      </p>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Dérivées de fonctions composées</strong>
+      <p>Si \(u\) est une fonction dérivable sur un intervalle \(I\), alors :</p>
+      \[
+        \bigl(\cos(u(x))\bigr)' = -u'(x)\,\sin(u(x))
+      \]
+      \[
+        \bigl(\sin(u(x))\bigr)' = u'(x)\,\cos(u(x))
+      \]
+    </div>
+
+    <!-- ===== A.3 Primitives ===== -->
+    <h4>A.3 Primitives</h4>
+
+    <div class="propriete">
+      <strong>Propriété — Primitives de cos et sin</strong>
+      <ul>
+        <li>Une primitive de \(\cos(x)\) est \(\sin(x)\) : \(\displaystyle\int \cos(x)\,dx = \sin(x) + C\).</li>
+        <li>Une primitive de \(\sin(x)\) est \(-\cos(x)\) : \(\displaystyle\int \sin(x)\,dx = -\cos(x) + C\).</li>
+      </ul>
+      <p>Pour les fonctions composées (\(a\) constante non nulle) :</p>
+      \[
+        \int \cos(ax+b)\,dx = \frac{1}{a}\sin(ax+b) + C
+        \qquad
+        \int \sin(ax+b)\,dx = -\frac{1}{a}\cos(ax+b) + C
+      \]
+    </div>
+
+    <!-- ===== B. Formules fondamentales ===== -->
+    <h3>B. Formules fondamentales</h3>
+
+    <div class="propriete">
+      <strong>Identité pythagoricienne</strong>
+      \[
+        \cos^2(x) + \sin^2(x) = 1 \quad \text{pour tout } x\in\mathbb{R}
+      \]
+      <p>On en déduit immédiatement : \(\cos^2(x) = 1 - \sin^2(x)\) et \(\sin^2(x) = 1 - \cos^2(x)\).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Formules de duplication (angle double)</strong>
+      \[
+        \cos(2x) = \cos^2(x) - \sin^2(x) = 2\cos^2(x) - 1 = 1 - 2\sin^2(x)
+      \]
+      \[
+        \sin(2x) = 2\sin(x)\cos(x)
+      \]
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Linéarisation</strong>
+      <p>
+        Pour calculer l'intégrale de \(\cos^2(x)\) ou \(\sin^2(x)\), on linéarise d'abord :
+      </p>
+      \[
+        \cos^2(x) = \frac{1+\cos(2x)}{2}
+        \qquad
+        \sin^2(x) = \frac{1-\cos(2x)}{2}
+      \]
+      <p>Ces formules se déduisent directement de \(\cos(2x) = 2\cos^2(x)-1\) et \(\cos(2x) = 1-2\sin^2(x)\).</p>
+    </div>
+
+    <div class="propriete">
+      <strong>Compléments — Relations entre cos et sin</strong>
+      \[
+        \cos\!\left(\frac{\pi}{2}-x\right) = \sin(x)
+        \qquad
+        \sin\!\left(\frac{\pi}{2}-x\right) = \cos(x)
+      \]
+      \[
+        \cos(\pi - x) = -\cos(x)
+        \qquad
+        \sin(\pi - x) = \sin(x)
+      \]
+      \[
+        \cos(\pi + x) = -\cos(x)
+        \qquad
+        \sin(\pi + x) = -\sin(x)
+      \]
+    </div>
+
+  </section>
+
+  <!-- ========== EXEMPLES ========== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Dérivée d'une fonction composée</strong>
+      <div class="steps">
+        <p><strong>Calculer la dérivée de \(f(x) = \sin(3x^2 - 1)\).</strong></p>
+        <p>
+          On pose \(u(x) = 3x^2 - 1\), donc \(u'(x) = 6x\).
+          La fonction est de la forme \(\sin(u)\), donc :
+        </p>
+        \[
+          f'(x) = u'(x)\cos(u(x)) = 6x\,\cos(3x^2-1)
+        \]
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Résolution d'une équation trigonométrique</strong>
+      <div class="steps">
+        <p><strong>Résoudre \(\cos(x) = \dfrac{1}{2}\) sur \([0\,;\,2\pi]\).</strong></p>
+        <p>
+          On cherche \(a \in [0;\pi]\) tel que \(\cos(a) = \dfrac{1}{2}\).
+          D'après le tableau des valeurs usuelles, \(a = \dfrac{\pi}{3}\).
+        </p>
+        <p>Donc les solutions sur \(\mathbb{R}\) sont :</p>
+        \[
+          x = \frac{\pi}{3} + 2k\pi \quad \text{ou} \quad x = -\frac{\pi}{3} + 2k\pi, \quad k\in\mathbb{Z}
+        \]
+        <p>
+          Sur \([0\,;\,2\pi]\) : \(x_1 = \dfrac{\pi}{3}\) et \(x_2 = 2\pi - \dfrac{\pi}{3} = \dfrac{5\pi}{3}\).
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Primitive d'une fonction trigonométrique</strong>
+      <div class="steps">
+        <p><strong>Calculer \(\displaystyle\int_0^{\pi/2} \sin(2x)\,dx\).</strong></p>
+        <p>
+          On utilise la primitive de \(\sin(ax)\) : une primitive de \(\sin(2x)\) est
+          \(-\dfrac{1}{2}\cos(2x)\).
+        </p>
+        \[
+          \int_0^{\pi/2} \sin(2x)\,dx
+          = \left[-\frac{1}{2}\cos(2x)\right]_0^{\pi/2}
+          = -\frac{1}{2}\cos(\pi) - \left(-\frac{1}{2}\cos(0)\right)
+          = \frac{1}{2} + \frac{1}{2} = 1
+        \]
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Linéarisation et intégrale de \(\cos^2\)</strong>
+      <div class="steps">
+        <p><strong>Calculer \(\displaystyle\int_0^{\pi} \cos^2(x)\,dx\).</strong></p>
+        <p>
+          On linéarise : \(\cos^2(x) = \dfrac{1+\cos(2x)}{2}\).
+        </p>
+        \[
+          \int_0^{\pi} \cos^2(x)\,dx
+          = \int_0^{\pi} \frac{1+\cos(2x)}{2}\,dx
+          = \frac{1}{2}\left[x + \frac{\sin(2x)}{2}\right]_0^{\pi}
+          = \frac{1}{2}\!\left(\pi + \frac{\sin(2\pi)}{2} - 0 - \frac{\sin 0}{2}\right)
+          = \frac{\pi}{2}
+        \]
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== EXERCICES ========== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- EX 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Valeurs remarquables et parité</b>
+      <p>
+        <ol>
+          <li>Donner les valeurs exactes de \(\cos\!\left(\dfrac{2\pi}{3}\right)\) et \(\sin\!\left(\dfrac{2\pi}{3}\right)\) en utilisant les formules de symétrie.</li>
+          <li>Justifier que \(\cos\!\left(-\dfrac{\pi}{4}\right) = \dfrac{\sqrt{2}}{2}\).</li>
+          <li>Calculer \(\sin\!\left(\dfrac{5\pi}{6}\right)\).</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch12-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch12-ex1">
+        <div class="corrige">
+          <p><strong>1.</strong> On écrit \(\dfrac{2\pi}{3} = \pi - \dfrac{\pi}{3}\). Donc :</p>
+          \[
+            \cos\!\left(\frac{2\pi}{3}\right) = -\cos\!\left(\frac{\pi}{3}\right) = -\frac{1}{2}
+            \qquad
+            \sin\!\left(\frac{2\pi}{3}\right) = \sin\!\left(\frac{\pi}{3}\right) = \frac{\sqrt{3}}{2}
+          \]
+          <p><strong>2.</strong> Cosinus est une fonction paire donc \(\cos\!\left(-\dfrac{\pi}{4}\right) = \cos\!\left(\dfrac{\pi}{4}\right) = \dfrac{\sqrt{2}}{2}\).</p>
+          <p><strong>3.</strong> On écrit \(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\), donc :
+          \(\sin\!\left(\dfrac{5\pi}{6}\right) = \sin\!\left(\dfrac{\pi}{6}\right) = \dfrac{1}{2}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Dérivées</b>
+      <p>Calculer la dérivée de chacune des fonctions suivantes :</p>
+      <ol>
+        <li>\(f(x) = \cos(5x)\)</li>
+        <li>\(g(x) = \sin(x^2 + 1)\)</li>
+        <li>\(h(x) = x\cos(x)\)</li>
+        <li>\(k(x) = \sin^2(x)\) <em>(rappel : \(\sin^2(x) = (\sin x)^2\))</em></li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch12-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch12-ex2">
+        <div class="corrige">
+          <p><strong>1.</strong> \(f'(x) = -5\sin(5x)\).</p>
+          <p><strong>2.</strong> \(g'(x) = 2x\cos(x^2+1)\).</p>
+          <p><strong>3.</strong> Règle du produit : \(h'(x) = 1\cdot\cos(x) + x\cdot(-\sin(x)) = \cos(x) - x\sin(x)\).</p>
+          <p><strong>4.</strong> On pose \(u = \sin(x)\), \(u' = \cos(x)\). Alors \(k(x) = u^2\), donc \(k'(x) = 2u\cdot u' = 2\sin(x)\cos(x) = \sin(2x)\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Résolution d'équations trigonométriques</b>
+      <p>Résoudre dans \(\mathbb{R}\) :</p>
+      <ol>
+        <li>\(\sin(x) = \dfrac{\sqrt{3}}{2}\)</li>
+        <li>\(\cos(2x) = 0\)</li>
+        <li>\(2\cos(x) + 1 = 0\)</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch12-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch12-ex3">
+        <div class="corrige">
+          <p><strong>1.</strong> La valeur de référence est \(a = \dfrac{\pi}{3}\) (car \(\sin\!\left(\dfrac{\pi}{3}\right) = \dfrac{\sqrt{3}}{2}\)). Donc :
+          \[
+            x = \frac{\pi}{3} + 2k\pi \quad \text{ou} \quad x = \pi - \frac{\pi}{3} + 2k\pi = \frac{2\pi}{3} + 2k\pi, \quad k\in\mathbb{Z}
+          \]
+          </p>
+          <p><strong>2.</strong> \(\cos(2x) = 0 \Leftrightarrow 2x = \dfrac{\pi}{2} + k\pi \Leftrightarrow x = \dfrac{\pi}{4} + \dfrac{k\pi}{2}\), \(k\in\mathbb{Z}\).</p>
+          <p><strong>3.</strong> \(2\cos(x)+1=0 \Leftrightarrow \cos(x) = -\dfrac{1}{2}\). La valeur de référence est \(\dfrac{\pi}{3}\), et \(\cos\!\left(\dfrac{2\pi}{3}\right) = -\dfrac{1}{2}\). Donc :
+          \[
+            x = \frac{2\pi}{3} + 2k\pi \quad \text{ou} \quad x = -\frac{2\pi}{3} + 2k\pi, \quad k\in\mathbb{Z}
+          \]
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Primitives et intégrales</b>
+      <p>Calculer les intégrales suivantes :</p>
+      <ol>
+        <li>\(\displaystyle\int_0^{\pi} \sin(x)\,dx\)</li>
+        <li>\(\displaystyle\int_0^{\pi/4} \cos(2x)\,dx\)</li>
+        <li>\(\displaystyle\int_0^{\pi/2} \sin^2(x)\,dx\)</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch12-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch12-ex4">
+        <div class="corrige">
+          <p><strong>1.</strong>
+          \[
+            \int_0^{\pi} \sin(x)\,dx = \bigl[-\cos(x)\bigr]_0^{\pi} = -\cos(\pi)+\cos(0) = 1+1 = 2
+          \]
+          </p>
+          <p><strong>2.</strong>
+          \[
+            \int_0^{\pi/4} \cos(2x)\,dx = \left[\frac{\sin(2x)}{2}\right]_0^{\pi/4}
+            = \frac{\sin(\pi/2)}{2} - \frac{\sin(0)}{2} = \frac{1}{2}
+          \]
+          </p>
+          <p><strong>3.</strong> Linéarisation : \(\sin^2(x) = \dfrac{1-\cos(2x)}{2}\).
+          \[
+            \int_0^{\pi/2} \sin^2(x)\,dx
+            = \int_0^{\pi/2}\frac{1-\cos(2x)}{2}\,dx
+            = \frac{1}{2}\left[x - \frac{\sin(2x)}{2}\right]_0^{\pi/2}
+            = \frac{1}{2}\cdot\frac{\pi}{2} = \frac{\pi}{4}
+          \]
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Étude d'une fonction trigonométrique</b>
+      <p>
+        On considère la fonction \(f(x) = x + \sin(x)\) définie sur \(\mathbb{R}\).
+        <ol>
+          <li>Montrer que \(f\) est strictement croissante sur \(\mathbb{R}\).</li>
+          <li>Montrer que \(f\) est une fonction impaire.</li>
+          <li>Dresser le tableau de variations de \(f\) sur \(\left[-\dfrac{\pi}{2};\dfrac{\pi}{2}\right]\)
+          et préciser les extremums.</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch12-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch12-ex5">
+        <div class="corrige">
+          <p><strong>1.</strong> \(f'(x) = 1 + \cos(x)\). Or \(\cos(x) \geq -1\) pour tout \(x\), donc \(f'(x) \geq 0\).
+          De plus \(f'(x) = 0 \Leftrightarrow \cos(x) = -1 \Leftrightarrow x = \pi + 2k\pi\) (points isolés).
+          Donc \(f\) est strictement croissante sur \(\mathbb{R}\).</p>
+          <p><strong>2.</strong> \(f(-x) = -x + \sin(-x) = -x - \sin(x) = -(x+\sin(x)) = -f(x)\).
+          Donc \(f\) est impaire.</p>
+          <p><strong>3.</strong> Sur \(\left[-\dfrac{\pi}{2};\dfrac{\pi}{2}\right]\), \(f\) est strictement croissante.
+          \[
+            f\!\left(-\frac{\pi}{2}\right) = -\frac{\pi}{2} + \sin\!\left(-\frac{\pi}{2}\right) = -\frac{\pi}{2} - 1
+            \approx -2{,}57
+          \]
+          \[
+            f\!\left(\frac{\pi}{2}\right) = \frac{\pi}{2} + 1 \approx 2{,}57
+          \]
+          \(f\) est donc croissante de \(-\dfrac{\pi}{2}-1\) à \(\dfrac{\pi}{2}+1\), sans extremum local sur cet intervalle ouvert.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Application des formules de duplication</b>
+      <p>
+        <ol>
+          <li>Exprimer \(\cos(3x)\) en fonction de \(\cos(x)\) uniquement.
+          <em>Indication : écrire \(3x = 2x + x\) et utiliser les formules d'addition.</em></li>
+          <li>En déduire une équation du 3e degré en \(t = \cos(x)\) pour résoudre
+          \(\cos(3x) = 0\).</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch12-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch12-ex6">
+        <div class="corrige">
+          <p><strong>1.</strong>
+          \[
+            \cos(3x) = \cos(2x+x) = \cos(2x)\cos(x) - \sin(2x)\sin(x)
+          \]
+          \[
+            = (2\cos^2(x)-1)\cos(x) - 2\sin(x)\cos(x)\cdot\sin(x)
+            = 2\cos^3(x) - \cos(x) - 2\cos(x)\sin^2(x)
+          \]
+          En remplaçant \(\sin^2(x) = 1-\cos^2(x)\) :
+          \[
+            = 2\cos^3(x) - \cos(x) - 2\cos(x)(1-\cos^2(x))
+            = 4\cos^3(x) - 3\cos(x)
+          \]
+          Donc \(\cos(3x) = 4\cos^3(x) - 3\cos(x)\).
+          </p>
+          <p><strong>2.</strong> \(\cos(3x) = 0 \Leftrightarrow 4t^3 - 3t = 0\) avec \(t = \cos(x)\).
+          On factorise : \(t(4t^2-3) = 0\), donc \(t = 0\) ou \(t^2 = \dfrac{3}{4}\), soit \(t = \pm\dfrac{\sqrt{3}}{2}\).
+          \[
+            \cos(x) = 0 \Rightarrow x = \frac{\pi}{2}+k\pi
+            \quad;\quad
+            \cos(x) = \frac{\sqrt{3}}{2} \Rightarrow x = \pm\frac{\pi}{6}+2k\pi
+            \quad;\quad
+            \cos(x) = -\frac{\sqrt{3}}{2} \Rightarrow x = \pm\frac{5\pi}{6}+2k\pi
+          \]
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== SYNTHESE ========== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Définition et propriétés de base</h3>
+      <ul>
+        <li>Définies sur \(\mathbb{R}\), à valeurs dans \([-1;1]\).</li>
+        <li>\(\cos\) est <strong>paire</strong>, \(\sin\) est <strong>impaire</strong>, toutes deux \(2\pi\)-<strong>périodiques</strong>.</li>
+        <li>Identité fondamentale : \(\cos^2(x)+\sin^2(x)=1\).</li>
+      </ul>
+
+      <h3>Valeurs usuelles à retenir</h3>
+      <table class="tableau-valeurs" style="font-size:.9rem;">
+        <thead>
+          <tr>
+            <th>\(x\)</th>
+            <th>\(0\)</th>
+            <th>\(\frac{\pi}{6}\)</th>
+            <th>\(\frac{\pi}{4}\)</th>
+            <th>\(\frac{\pi}{3}\)</th>
+            <th>\(\frac{\pi}{2}\)</th>
+            <th>\(\pi\)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(\cos(x)\)</td>
+            <td>\(1\)</td>
+            <td>\(\frac{\sqrt{3}}{2}\)</td>
+            <td>\(\frac{\sqrt{2}}{2}\)</td>
+            <td>\(\frac{1}{2}\)</td>
+            <td>\(0\)</td>
+            <td>\(-1\)</td>
+          </tr>
+          <tr>
+            <td>\(\sin(x)\)</td>
+            <td>\(0\)</td>
+            <td>\(\frac{1}{2}\)</td>
+            <td>\(\frac{\sqrt{2}}{2}\)</td>
+            <td>\(\frac{\sqrt{3}}{2}\)</td>
+            <td>\(1\)</td>
+            <td>\(0\)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Dérivées et primitives</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:.9rem;margin:.5rem 0;">
+        <thead>
+          <tr style="background:#e8eaf6;">
+            <th style="padding:6px 12px;border:1px solid #9fa8da;">Fonction</th>
+            <th style="padding:6px 12px;border:1px solid #9fa8da;">Dérivée</th>
+            <th style="padding:6px 12px;border:1px solid #9fa8da;">Primitive</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\cos(x)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(-\sin(x)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\sin(x)+C\)</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\sin(x)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\cos(x)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(-\cos(x)+C\)</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\cos(u(x))\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(-u'(x)\sin(u(x))\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">—</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\sin(u(x))\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(u'(x)\cos(u(x))\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">—</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\cos(ax+b)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(-a\sin(ax+b)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\dfrac{1}{a}\sin(ax+b)+C\)</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(\sin(ax+b)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(a\cos(ax+b)\)</td>
+            <td style="padding:6px 12px;border:1px solid #9fa8da;">\(-\dfrac{1}{a}\cos(ax+b)+C\)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Formules clés</h3>
+      <ul>
+        <li>Angle double : \(\cos(2x) = 2\cos^2(x)-1 = 1-2\sin^2(x)\) et \(\sin(2x) = 2\sin(x)\cos(x)\).</li>
+        <li>Linéarisation : \(\cos^2(x) = \dfrac{1+\cos(2x)}{2}\), \quad \(\sin^2(x) = \dfrac{1-\cos(2x)}{2}\).</li>
+        <li>Équations : \(\cos(x)=\cos(a) \Leftrightarrow x = \pm a + 2k\pi\) ; \(\sin(x)=\sin(a) \Leftrightarrow x = a + 2k\pi\) ou \(x = \pi-a+2k\pi\).</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="11-combinatoire.html">← Précédent</a>
+    <a href="13-calcul-integral.html">Suivant →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>
+

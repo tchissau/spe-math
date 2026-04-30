@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loi des grands nombres — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html" class="active">Loi grands nb.</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 14 · Probabilités</div>
+    <h1>Loi des grands nombres</h1>
+    <p class="tagline">Plus on répète une expérience, plus la fréquence observée se rapproche de la probabilité théorique — c'est le fondement mathématique de tous les sondages, assurances et statistiques.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/14-loi-grands-nombres.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+
+    <p>
+      Lancez une pièce équilibrée 10 fois : vous pouvez très bien obtenir 7 faces. Mais si vous la lancez 10 000 fois, la fréquence des faces sera très proche de \(\frac{1}{2}\). C'est l'idée fondamentale de la <strong>loi des grands nombres</strong>.
+    </p>
+    <p>
+      Ce chapitre donne les outils mathématiques pour <em>quantifier</em> cet écart entre fréquence observée et probabilité théorique. On dispose de deux inégalités puissantes :
+    </p>
+    <ul>
+      <li>L'<strong>inégalité de Markov</strong> : majore la probabilité qu'une VA dépasse un seuil.</li>
+      <li>L'<strong>inégalité de Bienaymé-Tchebychev</strong> : majore la probabilité qu'une VA s'écarte de son espérance.</li>
+    </ul>
+    <p>
+      Ces outils sont utilisés partout : sondages électoraux, contrôle qualité en industrie, tests médicaux, études statistiques.
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3>Rappels — Variables aléatoires et transformations</h3>
+
+    <div class="definition">
+      Soit \(X\) une variable aléatoire prenant les valeurs \(x_1, x_2, \ldots, x_n\).
+      La variable aléatoire \(Y = aX + b\) (où \(a, b \in \mathbb{R}\)) prend pour valeurs les réels \(y_i = ax_i + b\).
+    </div>
+
+    <div class="propriete">
+      <b class="titre">Espérance, variance, écart-type de \(aX+b\)</b>
+      Soit \(X\) une variable aléatoire et \(Y = aX+b\) :
+      <ul>
+        <li>\(E(aX+b) = aE(X)+b\)</li>
+        <li>\(V(aX+b) = a^2 V(X)\)</li>
+        <li>\(\sigma(aX) = |a|\,\sigma(X)\)</li>
+      </ul>
+    </div>
+
+    <div class="astuce">
+      Un décalage (ajouter \(b\)) ne change pas la variance : la dispersion reste la même, seul le centre change. Un facteur \(a\) multiplie l'écart-type par \(|a|\).
+    </div>
+
+    <!-- ---- A ---- -->
+    <h3 id="inegalites">A) Inégalités</h3>
+
+    <h4>A.1 Inégalité de Markov</h4>
+
+    <div class="definition">
+      Une variable aléatoire est dite <strong>positive ou nulle</strong> si toutes les valeurs qu'elle prend sont des réels positifs ou nuls.
+    </div>
+
+    <div class="propriete">
+      <b class="titre">Inégalité de Markov</b>
+      Soit \(X\) une variable aléatoire à valeurs positives ou nulles, et \(a > 0\) un réel. Alors :
+      \[P(X \geq a) \leq \frac{E(X)}{a}\]
+    </div>
+
+    <div class="exemple">
+      <b class="titre">Illustration intuitive</b>
+      Si le gain moyen d'un jeu est \(E(X) = 3\,€\), alors la probabilité de gagner plus de \(10\,€\) ne peut pas dépasser \(\frac{3}{10} = 0{,}3\).
+      <br>Cette borne est souvent grossière, mais elle est toujours valable sans hypothèse supplémentaire.
+    </div>
+
+    <div class="attention">
+      L'inégalité de Markov ne s'applique qu'à des variables aléatoires à valeurs <strong>positives ou nulles</strong>. Si \(X\) peut prendre des valeurs négatives, on ne peut pas l'utiliser directement.
+    </div>
+
+    <h4>A.2 Inégalité de Bienaymé-Tchebychev</h4>
+
+    <div class="propriete">
+      <b class="titre">Inégalité de Bienaymé-Tchebychev</b>
+      Soit \(X\) une variable aléatoire d'espérance \(E(X)\) et de variance \(V(X)\), et \(a > 0\). Alors :
+      \[P\bigl(|X - E(X)| \geq a\bigr) \leq \frac{V(X)}{a^2}\]
+    </div>
+
+    <p>
+      Cette inégalité mesure la probabilité que \(X\) s'écarte de son espérance d'au moins \(a\). Plus la variance est faible, plus cette probabilité est petite — la VA est concentrée autour de son espérance.
+    </p>
+
+    <div class="astuce">
+      Reformulation utile : \(P\bigl(E(X)-a \leq X \leq E(X)+a\bigr) \geq 1 - \dfrac{V(X)}{a^2}\).
+      <br>En posant \(a = k\sigma\) (où \(\sigma = \sqrt{V(X)}\)) : \(P\bigl(|X-E(X)| \geq k\sigma\bigr) \leq \dfrac{1}{k^2}\).
+    </div>
+
+    <!-- ---- B ---- -->
+    <h3 id="concentration">B) Inégalité de concentration et loi des grands nombres</h3>
+
+    <div class="definition">
+      <b class="titre">Échantillon de taille \(n\)</b>
+      Soit \(X\) une variable aléatoire. Un <strong>échantillon de taille \(n\)</strong> de la loi de \(X\) est une liste \((X_1, X_2, \ldots, X_n)\) de variables aléatoires <strong>indépendantes</strong> et <strong>de même loi</strong> que \(X\).
+      <br><br>
+      On appelle <strong>moyenne empirique</strong> la variable aléatoire :
+      \[M_n = \frac{1}{n}\sum_{i=1}^n X_i\]
+    </div>
+
+    <div class="propriete">
+      <b class="titre">Espérance et variance de \(M_n\)</b>
+      Si les \(X_i\) sont indépendantes et de même loi que \(X\) :
+      \[E(M_n) = E(X) \qquad \text{et} \qquad V(M_n) = \frac{V(X)}{n}\]
+      L'écart-type de \(M_n\) vaut \(\dfrac{\sigma(X)}{\sqrt{n}}\) : il diminue quand \(n\) augmente.
+    </div>
+
+    <div class="propriete">
+      <b class="titre">Théorème — Inégalité de concentration</b>
+      Soit \(X\) une VA d'espérance \(E(X)\) et de variance \(V(X)\). Pour tout réel \(a > 0\) :
+      \[P\bigl(|M_n - E(X)| \geq a\bigr) \leq \frac{V(X)}{n\,a^2}\]
+    </div>
+
+    <div class="methode">
+      <b>Comment utiliser l'inégalité de concentration ?</b>
+      <ol class="steps">
+        <li>Identifier \(E(X)\) et \(V(X)\).</li>
+        <li>Choisir le seuil \(a\) (écart toléré autour de l'espérance).</li>
+        <li>Appliquer la formule : \(P(|M_n - E(X)| \geq a) \leq \dfrac{V(X)}{na^2}\).</li>
+        <li>Pour trouver \(n\) : résoudre \(\dfrac{V(X)}{na^2} \leq \varepsilon\), soit \(n \geq \dfrac{V(X)}{\varepsilon\, a^2}\).</li>
+      </ol>
+    </div>
+
+    <div class="propriete">
+      <b class="titre">Loi des grands nombres</b>
+      Pour tout réel \(a > 0\) :
+      \[\lim_{n \to +\infty} P\bigl(|M_n - E(X)| \geq a\bigr) = 0\]
+      La moyenne empirique <strong>converge en probabilité</strong> vers l'espérance. Plus \(n\) est grand, plus \(M_n\) est concentrée autour de \(E(X)\).
+    </div>
+
+    <h4>B.1 Application à une fréquence (loi de Bernoulli)</h4>
+
+    <p>
+      Soit \(X_i\) une VA de Bernoulli de paramètre \(p\) : \(E(X_i) = p\) et \(V(X_i) = p(1-p)\).
+      La fréquence empirique est \(F_n = \dfrac{1}{n}\displaystyle\sum_{i=1}^n X_i\).
+    </p>
+
+    <div class="propriete">
+      L'inégalité de concentration donne :
+      \[P\bigl(|F_n - p| \geq a\bigr) \leq \frac{p(1-p)}{na^2}\]
+      Or \(p(1-p) \leq \dfrac{1}{4}\) pour tout \(p \in [0;1]\) (maximum atteint en \(p = \frac{1}{2}\)), donc :
+      \[P\bigl(|F_n - p| \geq a\bigr) \leq \frac{1}{4na^2}\]
+    </div>
+
+    <div class="astuce">
+      Cette dernière inégalité est très pratique car elle ne dépend pas de \(p\) ! On peut l'utiliser même sans connaître la vraie valeur de \(p\) (cas d'un sondage).
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <b class="titre">Exemple 1 — Inégalité de Markov</b>
+      <p>Un jeu de hasard procure un gain \(X \geq 0\) avec \(E(X) = 4\,€\). Majorer \(P(X \geq 12)\).</p>
+      <p><strong>Solution :</strong> \(X \geq 0\) et \(a = 12\), donc par l'inégalité de Markov :</p>
+      \[P(X \geq 12) \leq \frac{E(X)}{a} = \frac{4}{12} = \frac{1}{3} \approx 0{,}333\]
+      <p>La probabilité de gagner plus de 12 € est au plus \(\frac{1}{3}\).</p>
+    </div>
+
+    <div class="exemple">
+      <b class="titre">Exemple 2 — Inégalité de Bienaymé-Tchebychev</b>
+      <p>Soit \(X \sim \mathcal{B}(100;\, 0{,}4)\). Majorer \(P(|X - 40| \geq 10)\).</p>
+      <p><strong>Solution :</strong></p>
+      <ul>
+        <li>\(E(X) = np = 100 \times 0{,}4 = 40\)</li>
+        <li>\(V(X) = np(1-p) = 100 \times 0{,}4 \times 0{,}6 = 24\)</li>
+      </ul>
+      <p>Avec \(a = 10\) :</p>
+      \[P(|X - 40| \geq 10) \leq \frac{V(X)}{a^2} = \frac{24}{100} = 0{,}24\]
+      <p>La probabilité de s'écarter de plus de 10 de la valeur 40 est au plus \(0{,}24\).</p>
+    </div>
+
+    <div class="exemple">
+      <b class="titre">Exemple 3 — Inégalité de concentration</b>
+      <p>On lance une pièce (\(p = 0{,}5\)) \(n = 400\) fois. \(F_n\) est la fréquence de "pile". Majorer \(P(|F_n - 0{,}5| \geq 0{,}05)\).</p>
+      <p><strong>Solution :</strong> On utilise \(p(1-p) \leq \frac{1}{4}\) :</p>
+      \[P(|F_n - 0{,}5| \geq 0{,}05) \leq \frac{1}{4 \times 400 \times (0{,}05)^2} = \frac{1}{4 \times 400 \times 0{,}0025} = \frac{1}{4} = 0{,}25\]
+      <p>La probabilité que la fréquence s'écarte de plus de 5 % de 0,5 est au plus \(0{,}25\).</p>
+    </div>
+
+    <div class="exemple">
+      <b class="titre">Exemple 4 — Taille d'échantillon nécessaire</b>
+      <p>On veut que \(P(|F_n - p| \geq 0{,}03) \leq 0{,}05\). Quel \(n\) minimum faut-il ?</p>
+      <p><strong>Solution :</strong> On utilise \(p(1-p) \leq \frac{1}{4}\). Il suffit que :</p>
+      \[\frac{1}{4na^2} \leq 0{,}05 \quad \text{avec } a = 0{,}03\]
+      \[\frac{1}{4n \times 0{,}0009} \leq 0{,}05 \implies 4n \times 0{,}0009 \geq \frac{1}{0{,}05} = 20\]
+      \[n \geq \frac{20}{4 \times 0{,}0009} = \frac{20}{0{,}0036} \approx 5556\]
+      <p>Il faut au moins \(n = 5556\) observations.</p>
+    </div>
+
+    <div class="exemple">
+      <b class="titre">Exemple 5 — Loi des grands nombres (interprétation)</b>
+      <p>
+        On lance un dé équilibré \(n\) fois. La fréquence du "6" est \(F_n\). La loi des grands nombres affirme que \(F_n\) converge en probabilité vers \(p = \frac{1}{6}\).
+      </p>
+      <p>Concrètement : pour tout \(\varepsilon > 0\), on peut rendre \(P(|F_n - \frac{1}{6}| \geq \varepsilon)\) aussi petit qu'on veut en prenant \(n\) assez grand.</p>
+      <p>Application numérique avec \(\varepsilon = 0{,}01\) et \(n = 10\,000\) :</p>
+      \[P\!\left(\left|F_n - \tfrac{1}{6}\right| \geq 0{,}01\right) \leq \frac{1}{4 \times 10\,000 \times 0{,}0001} = \frac{1}{4} = 0{,}25\]
+      <p>Avec \(n = 100\,000\) : le majorant tombe à \(0{,}025\). La convergence est lente mais garantie.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Inégalité de Markov</b>
+      <p>Soit \(X\) une variable aléatoire positive avec \(E(X) = 6\).</p>
+      <ol>
+        <li>Majorer \(P(X \geq 18)\).</li>
+        <li>Majorer \(P(X \geq 30)\).</li>
+        <li>Peut-on avoir \(P(X \geq 3) \leq 1\) d'après Markov ? Que conclut-on ?</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch14-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch14-ex1">
+        <div class="corrige">
+          <ol>
+            <li>\(P(X \geq 18) \leq \dfrac{E(X)}{18} = \dfrac{6}{18} = \dfrac{1}{3}\).</li>
+            <li>\(P(X \geq 30) \leq \dfrac{6}{30} = \dfrac{1}{5} = 0{,}2\).</li>
+            <li>Markov donnerait \(P(X \geq 3) \leq \dfrac{6}{3} = 2\). Cette borne est \(> 1\), elle n'est donc pas informative (une probabilité est toujours \(\leq 1\)). Markov n'est utile que quand le majorant est \(\leq 1\), i.e. quand \(a \geq E(X)\).</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Bienaymé-Tchebychev</b>
+      <p>Soit \(X\) avec \(E(X) = 15\) et \(V(X) = 9\).</p>
+      <ol>
+        <li>Majorer \(P(|X - 15| \geq 6)\).</li>
+        <li>En déduire une minoration de \(P(9 \leq X \leq 21)\).</li>
+        <li>Majorer \(P(|X - 15| \geq 3)\).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch14-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch14-ex2">
+        <div class="corrige">
+          <ol>
+            <li>\(P(|X-15| \geq 6) \leq \dfrac{V(X)}{a^2} = \dfrac{9}{36} = \dfrac{1}{4} = 0{,}25\).</li>
+            <li>\(P(9 \leq X \leq 21) = P(|X-15| \leq 6) = 1 - P(|X-15| \geq 6) \geq 1 - \dfrac{1}{4} = \dfrac{3}{4} = 0{,}75\).</li>
+            <li>\(P(|X-15| \geq 3) \leq \dfrac{9}{9} = 1\). Borne non informative (majorant = 1).</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Loi binomiale et Bienaymé-Tchebychev</b>
+      <p>Soit \(X \sim \mathcal{B}(80;\, 0{,}25)\).</p>
+      <ol>
+        <li>Calculer \(E(X)\) et \(V(X)\).</li>
+        <li>Majorer \(P(|X - E(X)| \geq 8)\).</li>
+        <li>En déduire une minoration de \(P(12 \leq X \leq 28)\).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch14-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch14-ex3">
+        <div class="corrige">
+          <ol>
+            <li>\(E(X) = 80 \times 0{,}25 = 20\) et \(V(X) = 80 \times 0{,}25 \times 0{,}75 = 15\).</li>
+            <li>\(P(|X-20| \geq 8) \leq \dfrac{15}{64} \approx 0{,}234\).</li>
+            <li>\(P(12 \leq X \leq 28) = P(|X-20| \leq 8) \geq 1 - \dfrac{15}{64} = \dfrac{49}{64} \approx 0{,}766\).</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Taille d'échantillon pour un sondage</b>
+      <p>
+        Un sondeur veut estimer la proportion \(p\) d'une opinion dans une population.
+        Il veut que la probabilité que sa fréquence observée \(F_n\) s'écarte de \(p\) de plus de \(2{,}5\%\) soit au plus \(4\%\).
+      </p>
+      <p>Quel est le nombre minimal de personnes à interroger ?</p>
+      <button class="btn-toggle" data-target="cor-ch14-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch14-ex4">
+        <div class="corrige">
+          <p>On utilise \(p(1-p) \leq \dfrac{1}{4}\). On veut :</p>
+          \[\frac{1}{4na^2} \leq 0{,}04 \quad \text{avec } a = 0{,}025\]
+          \[4n \times (0{,}025)^2 \geq \frac{1}{0{,}04} = 25\]
+          \[4n \times 0{,}000625 \geq 25\]
+          \[n \geq \frac{25}{0{,}0025} = 10\,000\]
+          <p>Il faut interroger au moins <strong>10 000 personnes</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Inégalité de Tchebychev sous forme d'encadrement</b>
+      <p>
+        Soit \(X\) une VA d'espérance \(\mu\) et d'écart-type \(\sigma > 0\).
+      </p>
+      <ol>
+        <li>En posant \(a = k\sigma\) dans l'inégalité de Bienaymé-Tchebychev, montrer que :
+          \[P\bigl(|X-\mu| \geq k\sigma\bigr) \leq \frac{1}{k^2}\]
+        </li>
+        <li>En déduire que \(P(\mu - k\sigma \leq X \leq \mu + k\sigma) \geq 1 - \dfrac{1}{k^2}\).</li>
+        <li>Appliquer pour \(k=2\) : quelle fraction minimale de la population se trouve dans l'intervalle \([\mu-2\sigma;\, \mu+2\sigma]\) ?</li>
+        <li>Appliquer pour \(k=3\). Comparer avec la règle empirique de la loi normale (\(\approx 99{,}7\%\)).</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch14-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch14-ex5">
+        <div class="corrige">
+          <ol>
+            <li>On applique Bienaymé-Tchebychev avec \(a = k\sigma\) :
+              \[P(|X-\mu| \geq k\sigma) \leq \frac{V(X)}{(k\sigma)^2} = \frac{\sigma^2}{k^2\sigma^2} = \frac{1}{k^2}\]
+            </li>
+            <li>\(P(\mu - k\sigma \leq X \leq \mu + k\sigma) = 1 - P(|X-\mu| \geq k\sigma) \geq 1 - \dfrac{1}{k^2}\).</li>
+            <li>Pour \(k=2\) : \(P(\mu-2\sigma \leq X \leq \mu+2\sigma) \geq 1 - \dfrac{1}{4} = 75\%\). Au moins 75% de la distribution se trouve dans cet intervalle, quelle que soit la loi de \(X\).</li>
+            <li>Pour \(k=3\) : \(P(\mu-3\sigma \leq X \leq \mu+3\sigma) \geq 1 - \dfrac{1}{9} \approx 88{,}9\%\). La loi normale donne \(\approx 99{,}7\%\) : la borne de Tchebychev est donc très pessimiste (valable pour toute distribution), alors que la règle empirique suppose la normalité.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Un dé est-il truqué ?</b>
+      <p>
+        On lance un dé 600 fois et on obtient 120 fois le résultat "6". La fréquence observée est donc \(F_{600} = \dfrac{120}{600} = 0{,}2\).
+        Si le dé est équilibré, la probabilité théorique est \(p = \dfrac{1}{6} \approx 0{,}1\overline{6}\).
+      </p>
+      <ol>
+        <li>Calculer l'écart \(|F_{600} - p|\) (valeur exacte).</li>
+        <li>En utilisant l'inégalité de concentration, majorer \(P\!\left(|F_{600} - p| \geq |F_{600} - p|\right)\) pour un dé équilibré.</li>
+        <li>Cette probabilité est-elle faible ? Peut-on conclure que le dé est truqué ?</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch14-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch14-ex6">
+        <div class="corrige">
+          <ol>
+            <li>\(|F_{600} - p| = \left|0{,}2 - \dfrac{1}{6}\right| = \left|\dfrac{6}{30} - \dfrac{5}{30}\right| = \dfrac{1}{30} \approx 0{,}0\overline{3}\).</li>
+            <li>On utilise \(p(1-p) \leq \dfrac{1}{4}\) avec \(n = 600\) et \(a = \dfrac{1}{30}\) :
+              \[P\!\left(|F_{600} - p| \geq \tfrac{1}{30}\right) \leq \frac{1}{4 \times 600 \times \left(\frac{1}{30}\right)^2} = \frac{1}{4 \times 600 \times \frac{1}{900}} = \frac{1}{\frac{2400}{900}} = \frac{900}{2400} = \frac{3}{8} = 0{,}375\]
+            </li>
+            <li>Le majorant est \(0{,}375\), ce qui n'est pas négligeable. Avec un dé équilibré, une telle fréquence peut survenir avec une probabilité d'au moins 0 et d'au plus 37,5%. On <strong>ne peut pas conclure</strong> que le dé est truqué sur la seule base de cette inégalité. (Une analyse par test statistique plus précis serait nécessaire.)</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Les deux inégalités fondamentales</h3>
+      <div class="item">
+        <strong>Inégalité de Markov</strong> (\(X \geq 0\), \(a > 0\)) :
+        \[P(X \geq a) \leq \frac{E(X)}{a}\]
+        Utile dès que \(a > E(X)\).
+      </div>
+      <div class="item">
+        <strong>Inégalité de Bienaymé-Tchebychev</strong> (\(a > 0\)) :
+        \[P(|X - E(X)| \geq a) \leq \frac{V(X)}{a^2}\]
+        Équivalent : \(P(E(X)-a \leq X \leq E(X)+a) \geq 1 - \dfrac{V(X)}{a^2}\)
+      </div>
+
+      <h3>Inégalité de concentration (moyenne empirique)</h3>
+      <div class="item">
+        \(M_n = \dfrac{1}{n}\displaystyle\sum_{i=1}^n X_i\) (variables i.i.d.) :
+        \[P(|M_n - E(X)| \geq a) \leq \frac{V(X)}{na^2}\]
+      </div>
+      <div class="item">
+        <strong>Cas Bernoulli</strong> (fréquence \(F_n\), paramètre \(p\)) :
+        \[P(|F_n - p| \geq a) \leq \frac{p(1-p)}{na^2} \leq \frac{1}{4na^2}\]
+      </div>
+      <div class="item">
+        <strong>Loi des grands nombres</strong> : \(\displaystyle\lim_{n\to+\infty} P(|M_n - E(X)| \geq a) = 0\)
+      </div>
+
+      <h3>À retenir absolument</h3>
+      <ul>
+        <li>Markov : uniquement pour les VA positives ou nulles.</li>
+        <li>Bienaymé-Tchebychev : borne générale, sans hypothèse sur la loi.</li>
+        <li>Trouver \(n\) : résoudre \(\dfrac{1}{4na^2} \leq \varepsilon\) donne \(n \geq \dfrac{1}{4\varepsilon a^2}\).</li>
+        <li>Ces bornes sont pessimistes mais universelles.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="13-calcul-integral.html">← Chapitre 13 : Calcul intégral</a>
+    <a href="../index.html">↩ Retour à l'accueil</a>
+  </div>
+
+</div><!-- /.page-wrapper -->
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

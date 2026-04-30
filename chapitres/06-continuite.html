@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Continuité — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 6 · Analyse</div>
+    <h1>Continuité</h1>
+    <p class="tagline">Le théorème des valeurs intermédiaires est l'outil fondamental pour localiser les solutions d'une équation — sans le résoudre explicitement.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/06-continuite.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a>
+        <ul>
+          <li><a href="#capacites">A. Capacités attendues</a></li>
+          <li><a href="#definition">B. Fonctions continues sur un intervalle</a></li>
+          <li><a href="#usuelles">C. Continuité des fonctions usuelles</a></li>
+          <li><a href="#tvi">D. Théorème des valeurs intermédiaires</a></li>
+          <li><a href="#suites">E. Fonctions continues et suites convergentes</a></li>
+        </ul>
+      </li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== INTRODUCTION ===== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Imaginons que nous cherchons à résoudre l'équation \(x^3 - 2x - 5 = 0\). Il n'existe pas de formule simple
+      pour les équations de degré 3 en général. Pourtant, nous pouvons affirmer qu'une solution existe entre 2 et 3,
+      et même l'encadrer avec une précision aussi grande que souhaitée. C'est la puissance du
+      <strong>théorème des valeurs intermédiaires</strong>.
+    </p>
+    <p>
+      Ce théorème repose sur une propriété fondamentale des fonctions continues : elles ne « sautent » pas,
+      elles prennent toutes les valeurs intermédiaires. Pour l'utiliser, il faut donc d'abord
+      bien comprendre ce que signifie la continuité d'une fonction.
+    </p>
+    <div class="attention">
+      <strong>Lien avec le programme :</strong> La continuité est aussi au cœur de l'étude des suites récurrentes.
+      Si \(u_{n+1} = f(u_n)\) et si \((u_n)\) converge vers \(\ell\), alors la continuité de \(f\) garantit que
+      \(\ell\) vérifie \(f(\ell) = \ell\) (point fixe).
+    </div>
+  </section>
+
+  <!-- ===== COURS ===== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3 id="capacites">A. Capacités attendues</h3>
+    <div class="propriete">
+      <ol>
+        <li>Comprendre et utiliser la définition de la continuité d'une fonction.</li>
+        <li>Connaître et utiliser le théorème des valeurs intermédiaires et un de ses corollaires.</li>
+        <li>Étudier les solutions d'une équation du type \(f(x) = k\) : existence, unicité, encadrement.</li>
+        <li>Pour une fonction \(f\) continue d'un intervalle dans lui-même, étudier une suite définie par \(u_{n+1} = f(u_n)\).</li>
+      </ol>
+    </div>
+
+    <h3 id="definition">B. Fonctions continues sur un intervalle</h3>
+
+    <div class="definition">
+      <strong>Définition — Continuité en un point :</strong><br/>
+      \(f\) est <strong>continue en \(a\)</strong> si :
+      \[ \lim_{x \to a} f(x) = f(a) \]
+      Autrement dit, la limite de \(f\) en \(a\) existe, est finie, et est égale à la valeur \(f(a)\).<br/><br/>
+      \(f\) est <strong>continue sur \(I\)</strong> si elle est continue en tout réel \(a \in I\).
+    </div>
+
+    <div class="astuce">
+      <strong>Image intuitive :</strong> Une fonction est continue sur \(I\) si on peut tracer sa courbe sur \(I\)
+      <em>sans lever le crayon</em>. Toute discontinuité se traduit par un « saut » ou un « trou » dans la courbe.
+    </div>
+
+    <h3 id="usuelles">C. Continuité des fonctions usuelles</h3>
+
+    <div class="propriete">
+      <strong>Propriété — Fonctions continues de référence :</strong>
+      <ul>
+        <li>Les fonctions <strong>affines</strong> sont continues sur \(\mathbb{R}\).</li>
+        <li>Les <strong>polynômes</strong> sont continus sur \(\mathbb{R}\).</li>
+        <li>La <strong>fonction exponentielle</strong> \(x \mapsto e^x\) est continue sur \(\mathbb{R}\).</li>
+        <li>La <strong>racine carrée</strong> \(x \mapsto \sqrt{x}\) est continue sur \([0\,;+\infty[\).</li>
+      </ul>
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Opérations sur les fonctions continues :</strong><br/>
+      Les <strong>sommes</strong>, <strong>produits</strong>, <strong>quotients</strong> (si le dénominateur ne s'annule pas)
+      et <strong>composées</strong> de fonctions continues sont continues sur leur ensemble de définition.
+    </div>
+
+    <div class="propriete">
+      <strong>Propriété — Dérivabilité implique continuité :</strong><br/>
+      Si \(f\) est <strong>dérivable</strong> sur \(I\), alors \(f\) est <strong>continue</strong> sur \(I\).
+    </div>
+
+    <div class="attention">
+      <strong>La réciproque est fausse !</strong><br/>
+      La valeur absolue \(f(x) = |x|\) est continue en 0 (sa courbe est tracée sans lever le crayon),
+      mais elle n'est <em>pas dérivable</em> en 0 (la courbe forme un angle : la limite à gauche de \(\frac{f(h)-f(0)}{h}\)
+      est \(-1\) et la limite à droite est \(+1\)).
+    </div>
+
+    <h3 id="tvi">D. Théorème des valeurs intermédiaires (TVI)</h3>
+
+    <div class="propriete">
+      <strong>Théorème des valeurs intermédiaires :</strong><br/>
+      Si \(f\) est définie et <strong>continue</strong> sur un intervalle \(I\), et si \(a, b \in I\), alors
+      pour tout réel \(k\) compris entre \(f(a)\) et \(f(b)\), il existe <strong>au moins un</strong> réel
+      \(c\) compris entre \(a\) et \(b\) tel que :
+      \[ f(c) = k \]
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Appliquer le TVI :</strong>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Vérifier que \(f\) est <strong>continue</strong> sur \([a\,;b]\).</div>
+        <div class="step"><span class="step-num">2</span> Calculer \(f(a)\) et \(f(b)\).</div>
+        <div class="step"><span class="step-num">3</span> Vérifier que \(k\) est compris entre \(f(a)\) et \(f(b)\) (en particulier, si l'on cherche un zéro : \(f(a)\) et \(f(b)\) sont de <strong>signes opposés</strong>).</div>
+        <div class="step"><span class="step-num">4</span> Conclure qu'il existe au moins un \(c \in [a\,;b]\) tel que \(f(c) = k\).</div>
+      </div>
+    </div>
+
+    <div class="propriete">
+      <strong>Corollaire (TVI + monotonie = unicité) :</strong><br/>
+      Si \(f\) est définie, continue et <strong>strictement monotone</strong> sur \([a\,;b]\), alors pour tout \(k\)
+      compris entre \(f(a)\) et \(f(b)\), l'équation \(f(x) = k\) possède une <strong>unique</strong> solution
+      dans \([a\,;b]\).
+    </div>
+
+    <div class="astuce">
+      <strong>Méthode de dichotomie :</strong> Pour encadrer la solution à une précision donnée, on coupe l'intervalle en deux à chaque étape, en conservant le sous-intervalle où \(f\) change de signe. En répétant l'opération, on peut atteindre la précision souhaitée.
+    </div>
+
+    <h3 id="suites">E. Fonctions continues et suites convergentes</h3>
+
+    <div class="propriete">
+      <strong>Propriété — Continuité et limite de suite :</strong><br/>
+      Si \((u_n)\) est une suite à valeurs dans \(I\) convergeant vers \(\ell \in I\),
+      et si \(f\) est <strong>continue</strong> sur \(I\), alors :
+      \[ \lim_{n \to +\infty} f(u_n) = f(\ell) \]
+      En d'autres termes, on peut « passer la limite à l'intérieur de \(f\) ».
+    </div>
+
+    <div class="propriete">
+      <strong>Théorème du point fixe :</strong><br/>
+      Si \(f\) est définie et continue sur \(I\) à valeurs dans \(I\), et si la suite \((u_n)\) définie par
+      \(u_0 \in I\) et \(u_{n+1} = f(u_n)\) converge vers \(\ell \in I\), alors \(\ell\) est solution de :
+      \[ f(\ell) = \ell \]
+      On dit que \(\ell\) est un <strong>point fixe</strong> de \(f\).
+    </div>
+
+    <div class="methode">
+      <strong>Méthode — Suite récurrente et point fixe :</strong>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> Montrer que \((u_n)\) reste dans un intervalle stable \(I\) (par récurrence).</div>
+        <div class="step"><span class="step-num">2</span> Montrer que \((u_n)\) est monotone (croissante ou décroissante).</div>
+        <div class="step"><span class="step-num">3</span> Conclure à la convergence (suite monotone bornée).</div>
+        <div class="step"><span class="step-num">4</span> Passer à la limite dans \(u_{n+1} = f(u_n)\) pour obtenir \(\ell = f(\ell)\), puis résoudre.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXEMPLES GUIDÉS ===== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Application directe du TVI</strong>
+      <p>Montrer que \(f(x) = x^3 - 2x - 5\) s'annule sur \([2\,;3]\).</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> \(f\) est un polynôme, donc <strong>continue sur \(\mathbb{R}\)</strong>, et en particulier sur \([2\,;3]\).</div>
+        <div class="step"><span class="step-num">2</span> Calculer les valeurs aux bornes :
+          \[ f(2) = 8 - 4 - 5 = -1 < 0 \]
+          \[ f(3) = 27 - 6 - 5 = 16 > 0 \]
+        </div>
+        <div class="step"><span class="step-num">3</span> \(f(2)\) et \(f(3)\) sont de <strong>signes opposés</strong>. \(0\) est compris entre \(f(2)\) et \(f(3)\).</div>
+        <div class="step"><span class="step-num">4</span> D'après le TVI, il existe au moins un \(c \in [2\,;3]\) tel que \(f(c) = 0\).</div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — TVI + unicité par monotonie</strong>
+      <p>Soit \(f(x) = x^3 + x\). Montrer que \(f(x) = 2\) a une unique solution dans \([0\,;2]\).</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> \(f\) est un polynôme, donc <strong>continue sur \(\mathbb{R}\)</strong>.</div>
+        <div class="step"><span class="step-num">2</span> \(f'(x) = 3x^2 + 1 > 0\) pour tout \(x\), donc \(f\) est <strong>strictement croissante sur \(\mathbb{R}\)</strong>.</div>
+        <div class="step"><span class="step-num">3</span> \(f(0) = 0 < 2 < 10 = f(2)\). Donc \(2\) est bien entre \(f(0)\) et \(f(2)\).</div>
+        <div class="step"><span class="step-num">4</span> Par le corollaire (continuité + stricte croissance), l'équation \(f(x) = 2\) admet une <strong>unique solution</strong> dans \([0\,;2]\). On peut l'encadrer : \(f(1) = 2\), donc la solution est exactement \(\boxed{x = 1}\) !</div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Continuité d'une fonction définie par morceaux</strong>
+      <p>
+        Soit \(f(x) = \begin{cases} 2x+1 & \text{si } x < 1 \\ 3x^2-x+1 & \text{si } x \geq 1 \end{cases}\).
+        Étudier la continuité de \(f\) en \(x = 1\).
+      </p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> <em>Limite à gauche :</em> \(\lim_{x \to 1^-} f(x) = \lim_{x \to 1^-} (2x+1) = 3\).</div>
+        <div class="step"><span class="step-num">2</span> <em>Limite à droite :</em> \(\lim_{x \to 1^+} f(x) = \lim_{x \to 1^+} (3x^2-x+1) = 3-1+1 = 3\).</div>
+        <div class="step"><span class="step-num">3</span> <em>Valeur en \(1\) :</em> \(f(1) = 3(1)^2 - 1 + 1 = 3\).</div>
+        <div class="step"><span class="step-num">4</span> Les deux limites sont égales à \(f(1) = 3\). Donc \(f\) est <strong>continue en \(x = 1\)</strong>.</div>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Suite récurrente et point fixe</strong>
+      <p>Soit \((u_n)\) définie par \(u_0 = 4\) et \(u_{n+1} = \dfrac{u_n}{2} + 1\). Montrer que \((u_n)\) converge et trouver sa limite.</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span> On pose \(f(x) = \dfrac{x}{2} + 1\). La suite vérifie \(u_{n+1} = f(u_n)\) avec \(f\) continue sur \(\mathbb{R}\).</div>
+        <div class="step"><span class="step-num">2</span> <em>Monotonie :</em> \(u_1 = \frac{4}{2}+1 = 3 < 4 = u_0\). On peut montrer par récurrence que \((u_n)\) est décroissante.</div>
+        <div class="step"><span class="step-num">3</span> <em>Borne inférieure :</em> On peut montrer par récurrence que \(u_n \geq 2\) pour tout \(n\). Donc \((u_n)\) est décroissante et minorée : elle <strong>converge</strong>.</div>
+        <div class="step"><span class="step-num">4</span> <em>Point fixe :</em> En passant à la limite dans \(u_{n+1} = \frac{u_n}{2}+1\), on obtient :
+          \[ \ell = \frac{\ell}{2} + 1 \implies \frac{\ell}{2} = 1 \implies \ell = 2 \]
+          La limite de \((u_n)\) est \(\boxed{2}\).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXERCICES ===== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- Ex 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Zéro d'un polynôme</b>
+      <p>Montrer que la fonction \(f(x) = x^2 - 3\) s'annule sur l'intervalle \([1\,;2]\).</p>
+      <button class="btn-toggle" data-target="cor-ch6-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch6-ex1">
+        <div class="corrige">
+          <p>\(f\) est un polynôme, donc <strong>continue sur \(\mathbb{R}\)</strong>, et en particulier sur \([1\,;2]\).</p>
+          <p>On calcule les valeurs aux bornes :</p>
+          \[ f(1) = 1 - 3 = -2 < 0 \]
+          \[ f(2) = 4 - 3 = 1 > 0 \]
+          <p>\(f(1) < 0 < f(2)\) : \(0\) est compris entre \(f(1)\) et \(f(2)\). D'après le <strong>TVI</strong>, il existe au moins un \(c \in [1\,;2]\) tel que \(f(c) = 0\).</p>
+          <p><em>Remarque :</em> On peut préciser que \(c = \sqrt{3} \approx 1{,}73\), qui est bien dans \([1\,;2]\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Continuité d'une fonction par morceaux</b>
+      <p>
+        Soit \(f(x) = \begin{cases} x+2 & \text{si } x \leq 1 \\ 3x & \text{si } x > 1 \end{cases}\).
+        La fonction \(f\) est-elle continue en \(x = 1\) ?
+      </p>
+      <button class="btn-toggle" data-target="cor-ch6-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch6-ex2">
+        <div class="corrige">
+          <p><em>Limite à gauche :</em> \(\lim_{x \to 1^-} (x+2) = 3\).</p>
+          <p><em>Valeur en 1 :</em> \(f(1) = 1+2 = 3\) (on utilise la première formule car \(x \leq 1\)).</p>
+          <p><em>Limite à droite :</em> \(\lim_{x \to 1^+} 3x = 3\).</p>
+          <p>Mais la limite à droite \(= 3 = f(1)\)... attendez : est-ce que les deux limites coïncident avec la valeur ?</p>
+          <p>Oui : limite à gauche \(= 3\), limite à droite \(= 3\), valeur \(f(1) = 3\). Donc \(f\) est <strong>continue en \(x = 1\)</strong>.</p>
+          <p><em>Attention :</em> Si la limite à droite avait été \(3 \times 1 = 3\) (même valeur), la continuité est assurée. Mais si on avait eu \(3x\) évalué juste après 1, par exemple avec un autre coefficient, on aurait pu avoir une discontinuité.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — TVI et encadrement d'une solution</b>
+      <p>
+        Soit \(f(x) = e^x - x - 2\).
+      </p>
+      <ol>
+        <li>Montrer que \(f\) s'annule sur \([1\,;2]\).</li>
+        <li>Donner un encadrement de la solution à \(0{,}1\) près.</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch6-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch6-ex3">
+        <div class="corrige">
+          <p><strong>1)</strong> \(f\) est continue sur \(\mathbb{R}\) (somme et composée de fonctions continues).</p>
+          \[ f(1) = e - 1 - 2 = e - 3 \approx 2{,}718 - 3 = -0{,}282 < 0 \]
+          \[ f(2) = e^2 - 2 - 2 = e^2 - 4 \approx 7{,}389 - 4 = 3{,}389 > 0 \]
+          <p>\(f(1) < 0 < f(2)\). D'après le TVI, il existe \(c \in [1\,;2]\) tel que \(f(c) = 0\).</p>
+          <p>De plus, \(f'(x) = e^x - 1 > 0\) pour \(x > 0\), donc \(f\) est <strong>strictement croissante</strong> : la solution est <strong>unique</strong>.</p>
+          <p><strong>2) Encadrement par dichotomie :</strong></p>
+          <p>On teste \(f(1{,}1) = e^{1{,}1} - 1{,}1 - 2 \approx 3{,}004 - 3{,}1 = -0{,}096 < 0\).</p>
+          <p>On teste \(f(1{,}2) = e^{1{,}2} - 1{,}2 - 2 \approx 3{,}320 - 3{,}2 = 0{,}120 > 0\).</p>
+          <p>Donc la solution \(c\) vérifie \(1{,}1 \leq c \leq 1{,}2\), soit un encadrement à \(0{,}1\) près : \(\boxed{1{,}1 \leq c \leq 1{,}2}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Existence et unicité par le corollaire</b>
+      <p>
+        Soit \(f(x) = x^3 + 2x - 1\). Montrer que l'équation \(f(x) = 0\) admet une unique solution dans \([0\,;1]\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch6-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch6-ex4">
+        <div class="corrige">
+          <p>\(f\) est un polynôme, donc <strong>continue</strong> sur \(\mathbb{R}\).</p>
+          <p>\(f'(x) = 3x^2 + 2 \geq 2 > 0\) pour tout \(x\). Donc \(f\) est <strong>strictement croissante</strong> sur \(\mathbb{R}\).</p>
+          <p>Valeurs aux bornes :</p>
+          \[ f(0) = 0 + 0 - 1 = -1 < 0 \]
+          \[ f(1) = 1 + 2 - 1 = 2 > 0 \]
+          <p>\(f(0) < 0 < f(1)\). D'après le <strong>corollaire du TVI</strong> (continuité + stricte croissance), l'équation \(f(x) = 0\) admet une <strong>unique solution</strong> dans \([0\,;1]\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Suite récurrente et point fixe</b>
+      <p>
+        Soit \((u_n)\) définie par \(u_0 = 0\) et \(u_{n+1} = \sqrt{u_n + 2}\).
+      </p>
+      <ol>
+        <li>Montrer par récurrence que \(0 \leq u_n \leq 2\) pour tout \(n\).</li>
+        <li>Montrer que \((u_n)\) est croissante.</li>
+        <li>Conclure à la convergence. Trouver la limite.</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch6-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch6-ex5">
+        <div class="corrige">
+          <p><strong>1) Récurrence sur \(0 \leq u_n \leq 2\) :</strong></p>
+          <p><em>Initialisation :</em> \(u_0 = 0\), donc \(0 \leq u_0 \leq 2\). ✓</p>
+          <p><em>Hérédité :</em> Supposons \(0 \leq u_n \leq 2\). Alors \(2 \leq u_n + 2 \leq 4\), donc \(\sqrt{2} \leq \sqrt{u_n+2} \leq 2\), c'est-à-dire \(\sqrt{2} \leq u_{n+1} \leq 2\). En particulier \(0 \leq u_{n+1} \leq 2\). ✓</p>
+
+          <p><strong>2) Monotonie :</strong></p>
+          <p>On compare \(u_{n+1}\) et \(u_n\) :
+          \[ u_{n+1} - u_n = \sqrt{u_n+2} - u_n \]
+          Posons \(g(x) = \sqrt{x+2} - x\). On a \(g(0) = \sqrt{2} > 0\) et \(g(2) = 2 - 2 = 0\).
+          Pour \(0 \leq u_n \leq 2\), on peut montrer que \(g(u_n) \geq 0\), donc \(u_{n+1} \geq u_n\).
+          <br/>La suite est <strong>croissante</strong>.</p>
+
+          <p><strong>3) Convergence et limite :</strong></p>
+          <p>\((u_n)\) est croissante et majorée par 2 : elle <strong>converge</strong> vers un réel \(\ell \leq 2\).</p>
+          <p>En passant à la limite dans \(u_{n+1} = \sqrt{u_n+2}\) :
+          \[ \ell = \sqrt{\ell + 2} \implies \ell^2 = \ell + 2 \implies \ell^2 - \ell - 2 = 0 \implies (\ell-2)(\ell+1) = 0 \]
+          Donc \(\ell = 2\) ou \(\ell = -1\). Comme \(u_n \geq 0\) pour tout \(n\), on a \(\ell \geq 0\), donc \(\boxed{\ell = 2}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ex 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Méthode de Newton pour approcher \(\sqrt{2}\)</b>
+      <p>
+        On considère la suite définie par \(u_0 = 1\) et \(u_{n+1} = \dfrac{u_n + \tfrac{2}{u_n}}{2}\).
+      </p>
+      <ol>
+        <li>Calculer \(u_1\) et \(u_2\).</li>
+        <li>Vers quelle valeur cette suite semble-t-elle converger ?</li>
+        <li>Vérifier en utilisant le théorème du point fixe.</li>
+      </ol>
+      <button class="btn-toggle" data-target="cor-ch6-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch6-ex6">
+        <div class="corrige">
+          <p><strong>1) Calcul de \(u_1\) et \(u_2\) :</strong></p>
+          \[ u_1 = \frac{u_0 + \frac{2}{u_0}}{2} = \frac{1 + 2}{2} = \frac{3}{2} = 1{,}5 \]
+          \[ u_2 = \frac{u_1 + \frac{2}{u_1}}{2} = \frac{\frac{3}{2} + \frac{4}{3}}{2} = \frac{\frac{9}{6} + \frac{8}{6}}{2} = \frac{\frac{17}{6}}{2} = \frac{17}{12} \approx 1{,}4167 \]
+          <p>On remarque que \(\sqrt{2} \approx 1{,}4142\) : la convergence est très rapide !</p>
+
+          <p><strong>2) Conjecture :</strong> La suite semble converger vers \(\sqrt{2}\).</p>
+
+          <p><strong>3) Vérification par le point fixe :</strong></p>
+          <p>On pose \(f(x) = \dfrac{x + \frac{2}{x}}{2} = \dfrac{x^2+2}{2x}\). Si la suite converge vers \(\ell > 0\), alors \(\ell = f(\ell)\) :</p>
+          \[ \ell = \frac{\ell^2 + 2}{2\ell} \implies 2\ell^2 = \ell^2 + 2 \implies \ell^2 = 2 \implies \ell = \sqrt{2} \]
+          (on prend la valeur positive car \(u_n > 0\) pour tout \(n\)).
+          <p>La limite est \(\boxed{\sqrt{2}}\). Cette méthode s'appelle la <strong>méthode de Newton</strong> appliquée à l'équation \(x^2 - 2 = 0\) : elle converge extrêmement vite (le nombre de décimales correctes double à chaque étape).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SYNTHÈSE ===== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Continuité</h3>
+      <p>\(f\) continue en \(a\) \(\Leftrightarrow\) \(\lim_{x \to a} f(x) = f(a)\) (limite = valeur).</p>
+      <p>Toute fonction dérivable est continue. La réciproque est fausse (\(|x|\) en 0).</p>
+
+      <h3>Théorème des valeurs intermédiaires</h3>
+      <ul>
+        <li>\(f\) continue sur \([a\,;b]\) + \(f(a)\) et \(f(b)\) de signes opposés \(\Rightarrow\) \(\exists\, c \in [a\,;b],\ f(c) = 0\).</li>
+        <li>Si de plus \(f\) est <strong>strictement monotone</strong> : ce \(c\) est <strong>unique</strong>.</li>
+      </ul>
+
+      <h3>Suites récurrentes \(u_{n+1} = f(u_n)\)</h3>
+      <ol>
+        <li>Montrer que \((u_n)\) reste dans un intervalle \(I\) (récurrence).</li>
+        <li>Montrer que \((u_n)\) est monotone.</li>
+        <li>Conclure à la convergence (monotone + bornée).</li>
+        <li>Trouver la limite en résolvant \(f(\ell) = \ell\) (point fixe).</li>
+      </ol>
+
+      <h3>À retenir</h3>
+      <p>La dichotomie permet d'encadrer une solution à toute précision souhaitée en coupant l'intervalle en deux à chaque étape.</p>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="05-derivation-convexite.html">← Précédent : Dérivation et convexité</a>
+    <a href="07-orthogonalite-espace.html">Suivant : Orthogonalité →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

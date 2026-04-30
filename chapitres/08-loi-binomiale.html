@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loi binomiale — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 8 · Probabilités</div>
+    <h1>Loi binomiale</h1>
+    <p class="tagline">Du dénombrement aux répétitions d'épreuves : modéliser le hasard avec rigueur.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/08-loi-binomiale.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ========== INTRODUCTION ========== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Combien de codes PIN différents peut-on former avec 4 chiffres ? Quelle est la probabilité d'obtenir
+      exactement 3 fois « Pile » en lançant une pièce 10 fois ? Ces questions sont au cœur de ce chapitre.
+    </p>
+    <p>
+      Nous allons d'abord maîtriser les <strong>principes de dénombrement</strong> (compter des issues sans
+      les lister une à une), puis construire la <strong>loi binomiale</strong>, outil fondamental pour
+      modéliser les expériences répétées indépendantes.
+    </p>
+    <div class="attention">
+      <strong>Prérequis :</strong> probabilités conditionnelles, indépendance de deux événements,
+      espérance et variance d'une variable aléatoire discrète.
+    </div>
+  </section>
+
+  <!-- ========== COURS ========== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3>A — Dénombrement</h3>
+
+    <div class="propriete">
+      <strong>A.1 — Principe additif</strong><br>
+      Si une expérience peut se dérouler de \(n_1\) façons <em>OU</em> de \(n_2\) façons
+      (situations <strong>mutuellement exclusives</strong>), elle peut se dérouler de
+      \(n_1 + n_2\) façons au total.
+    </div>
+
+    <div class="exemple">
+      <strong>Illustration :</strong> Pour aller de A à C en passant par B, il y a 3 routes de A à B
+      et 4 routes de B à C. Pour aller directement de A à C (autre chemin), il y a 2 routes.
+      Le nombre total de façons d'aller de A à C est \(3 \times 4 + 2 = 14\)
+      (principe multiplicatif pour le chemin via B, puis principe additif avec le chemin direct).
+    </div>
+
+    <div class="propriete">
+      <strong>A.2 — Principe multiplicatif</strong><br>
+      Si une expérience se déroule en \(k\) étapes avec \(n_1\) choix à la première étape,
+      \(n_2\) à la seconde, …, \(n_k\) à la dernière (choix <strong>indépendants</strong>),
+      alors le nombre total d'issues possibles est :
+      \[
+        n_1 \times n_2 \times \cdots \times n_k
+      \]
+    </div>
+
+    <h3>B — Successions d'épreuves indépendantes</h3>
+
+    <div class="definition">
+      <strong>Épreuves indépendantes :</strong> Deux épreuves sont indépendantes si le résultat
+      de l'une n'influence pas le résultat de l'autre.<br><br>
+      Si on répète \(n\) fois la même épreuve (avec remise ou dans des conditions identiques)
+      et que chaque épreuve a \(N\) issues, alors le nombre total d'issues de l'expérience
+      composée est \(N^n\).
+    </div>
+
+    <div class="methode">
+      <strong>Règle de l'arbre de probabilité :</strong> la probabilité d'un chemin dans un arbre
+      de probabilité est le <strong>produit</strong> des probabilités portées par les branches
+      de ce chemin.
+    </div>
+
+    <div class="propriete">
+      <strong>B.1 — Calcul de probabilités avec l'indépendance</strong><br>
+      Si \(A\) et \(B\) sont deux événements <strong>indépendants</strong> :
+      \[
+        P(A \cap B) = P(A) \times P(B)
+      \]
+    </div>
+
+    <h3>C — Loi et schéma de Bernoulli</h3>
+
+    <div class="definition">
+      <strong>Épreuve de Bernoulli :</strong> expérience aléatoire à exactement deux issues :
+      <ul>
+        <li><strong>Succès</strong> (probabilité \(p\), avec \(0 < p < 1\))</li>
+        <li><strong>Échec</strong> (probabilité \(1 - p = q\))</li>
+      </ul>
+      La <strong>variable de Bernoulli</strong> associée est \(X\) définie par :
+      \[
+        X = 1 \text{ si succès},\quad X = 0 \text{ si échec}
+      \]
+      \[
+        P(X=1) = p,\quad P(X=0) = 1-p
+      \]
+      \[
+        E(X) = p,\quad V(X) = p(1-p)
+      \]
+    </div>
+
+    <div class="definition">
+      <strong>C.1 — Schéma de Bernoulli et loi binomiale</strong><br>
+      On réalise \(n\) épreuves de Bernoulli <strong>identiques et indépendantes</strong>,
+      chacune de probabilité de succès \(p\). On note \(X\) la variable aléatoire égale au
+      <em>nombre de succès</em> obtenus. Alors \(X\) suit la <strong>loi binomiale</strong>
+      de paramètres \(n\) et \(p\), notée \(\mathcal{B}(n,p)\).
+    </div>
+
+    <div class="propriete">
+      <strong>Formule centrale de la loi binomiale :</strong><br>
+      Pour tout \(k \in \{0, 1, \ldots, n\}\) :
+      \[
+        \boxed{P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}}
+      \]
+      où \(\displaystyle\binom{n}{k} = \frac{n!}{k!(n-k)!}\) est le coefficient binomial
+      (nombre de façons de choisir \(k\) succès parmi \(n\) épreuves).
+    </div>
+
+    <div class="propriete">
+      <strong>Espérance, variance et écart-type de \(\mathcal{B}(n,p)\) :</strong>
+      \[
+        E(X) = np
+      \]
+      \[
+        V(X) = np(1-p)
+      \]
+      \[
+        \sigma(X) = \sqrt{np(1-p)}
+      \]
+    </div>
+
+    <div class="astuce">
+      <strong>Pourquoi \(\binom{n}{k}\) dans la formule ?</strong><br>
+      Pour obtenir exactement \(k\) succès en \(n\) épreuves, il faut choisir
+      <em>quelles</em> \(k\) épreuves sont des succès : il y a \(\binom{n}{k}\) façons de le faire.
+      Chaque tel scénario a la probabilité \(p^k(1-p)^{n-k}\). On somme toutes ces probabilités
+      égales d'où le facteur \(\binom{n}{k}\).
+    </div>
+  </section>
+
+  <!-- ========== EXEMPLES ========== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Principe multiplicatif : codes PIN</strong>
+      <div class="steps">
+        <p><strong>Situation :</strong> Un code de 4 chiffres (chiffres de 0 à 9). Combien de codes possibles ?</p>
+        <p><strong>Étape 1 :</strong> Chaque position peut prendre 10 valeurs (0 à 9), indépendamment des autres.</p>
+        <p><strong>Étape 2 :</strong> Principe multiplicatif sur 4 étapes :
+          \[ 10 \times 10 \times 10 \times 10 = 10^4 = 10\,000 \text{ codes} \]
+        </p>
+        <p><strong>Variante :</strong> Si les 4 chiffres sont tous <em>distincts</em> :
+          \[ 10 \times 9 \times 8 \times 7 = 5\,040 \text{ codes} \]
+          (à chaque étape, on a un chiffre de moins à disposition).
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Variable de Bernoulli : lancer d'une pièce</strong>
+      <div class="steps">
+        <p>On lance une pièce équilibrée. Succès = « Pile ». On a \(p = \dfrac{1}{2}\).</p>
+        <p>La variable de Bernoulli \(X\) vérifie :
+          \[ E(X) = p = \frac{1}{2} \]
+          \[ V(X) = p(1-p) = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4} \]
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Schéma de Bernoulli : dé lancé 5 fois</strong>
+      <div class="steps">
+        <p><strong>Situation :</strong> On lance un dé équilibré 5 fois. Succès = « obtenir un 6 ».</p>
+        <p><strong>Paramètres :</strong> \(n = 5\), \(p = \dfrac{1}{6}\), \(X \sim \mathcal{B}\!\left(5;\dfrac{1}{6}\right)\).</p>
+        <p><strong>Calcul de \(P(X = 2)\) :</strong>
+          \[
+            P(X=2) = \binom{5}{2}\left(\frac{1}{6}\right)^2\left(\frac{5}{6}\right)^3
+            = 10 \times \frac{1}{36} \times \frac{125}{216}
+            = \frac{1250}{7776} \approx 0{,}161
+          \]
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Calcul de \(P(X \leq 1)\) pour \(X \sim \mathcal{B}(4\,;\,0{,}3)\)</strong>
+      <div class="steps">
+        <p>\[ P(X \leq 1) = P(X=0) + P(X=1) \]</p>
+        <p>
+          \[ P(X=0) = \binom{4}{0}(0{,}3)^0(0{,}7)^4 = 1 \times 1 \times 0{,}2401 = 0{,}2401 \]
+          \[ P(X=1) = \binom{4}{1}(0{,}3)^1(0{,}7)^3 = 4 \times 0{,}3 \times 0{,}343 = 0{,}4116 \]
+          \[ P(X \leq 1) = 0{,}2401 + 0{,}4116 = 0{,}6517 \]
+        </p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — Espérance et écart-type pour \(X \sim \mathcal{B}(20\,;\,0{,}4)\)</strong>
+      <div class="steps">
+        <p>\[ E(X) = np = 20 \times 0{,}4 = 8 \]</p>
+        <p>\[ V(X) = np(1-p) = 20 \times 0{,}4 \times 0{,}6 = 4{,}8 \]</p>
+        <p>\[ \sigma(X) = \sqrt{4{,}8} \approx 2{,}19 \]</p>
+        <p><em>Interprétation :</em> en moyenne, 8 succès sur 20, avec un écart-type d'environ 2,19.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXERCICES ========== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- EX 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Principe multiplicatif : composer un menu</b>
+      <p>
+        Un restaurant propose 3 entrées, 4 plats et 2 desserts.
+        Combien de menus différents « entrée + plat + dessert » peut-on composer ?
+      </p>
+      <button class="btn-toggle" data-target="cor-ch8-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch8-ex1">
+        <div class="corrige">
+          <p>Le choix d'un menu se fait en 3 étapes indépendantes :</p>
+          <ul>
+            <li>3 choix pour l'entrée</li>
+            <li>4 choix pour le plat</li>
+            <li>2 choix pour le dessert</li>
+          </ul>
+          <p>Par le principe multiplicatif :</p>
+          \[ 3 \times 4 \times 2 = 24 \text{ menus possibles} \]
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Loi de probabilité de \(\mathcal{B}(3\,;\,0{,}5)\)</b>
+      <p>
+        Soit \(X \sim \mathcal{B}(3\,;\,0{,}5)\). Dresser le tableau de la loi de probabilité de \(X\),
+        puis calculer \(E(X)\) et \(V(X)\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch8-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch8-ex2">
+        <div class="corrige">
+          <p>On calcule \(P(X=k)\) pour \(k \in \{0,1,2,3\}\) avec \(p = 0{,}5\) :</p>
+          \[
+            P(X=0) = \binom{3}{0}(0{,}5)^0(0{,}5)^3 = \frac{1}{8}
+          \]
+          \[
+            P(X=1) = \binom{3}{1}(0{,}5)^1(0{,}5)^2 = 3 \times \frac{1}{8} = \frac{3}{8}
+          \]
+          \[
+            P(X=2) = \binom{3}{2}(0{,}5)^2(0{,}5)^1 = 3 \times \frac{1}{8} = \frac{3}{8}
+          \]
+          \[
+            P(X=3) = \binom{3}{3}(0{,}5)^3 = \frac{1}{8}
+          \]
+          <p><strong>Tableau :</strong></p>
+          <table style="border-collapse:collapse; margin: 0.5em auto;">
+            <tr>
+              <th style="border:1px solid #ccc; padding:6px 12px;">\(k\)</th>
+              <td style="border:1px solid #ccc; padding:6px 12px;">0</td>
+              <td style="border:1px solid #ccc; padding:6px 12px;">1</td>
+              <td style="border:1px solid #ccc; padding:6px 12px;">2</td>
+              <td style="border:1px solid #ccc; padding:6px 12px;">3</td>
+            </tr>
+            <tr>
+              <th style="border:1px solid #ccc; padding:6px 12px;">\(P(X=k)\)</th>
+              <td style="border:1px solid #ccc; padding:6px 12px;">\(\tfrac{1}{8}\)</td>
+              <td style="border:1px solid #ccc; padding:6px 12px;">\(\tfrac{3}{8}\)</td>
+              <td style="border:1px solid #ccc; padding:6px 12px;">\(\tfrac{3}{8}\)</td>
+              <td style="border:1px solid #ccc; padding:6px 12px;">\(\tfrac{1}{8}\)</td>
+            </tr>
+          </table>
+          <p>Vérification : \(\dfrac{1}{8}+\dfrac{3}{8}+\dfrac{3}{8}+\dfrac{1}{8} = 1\) ✓</p>
+          \[ E(X) = np = 3 \times 0{,}5 = 1{,}5 \]
+          \[ V(X) = np(1-p) = 3 \times 0{,}5 \times 0{,}5 = 0{,}75 \]
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Tirage avec remise dans une urne</b>
+      <p>
+        Une urne contient 3 boules rouges et 7 boules noires. On tire successivement 4 boules
+        <strong>avec remise</strong>. On note \(X\) le nombre de boules rouges obtenues.
+        <ol>
+          <li>Justifier que \(X\) suit une loi binomiale et préciser ses paramètres.</li>
+          <li>Calculer \(P(X \geq 2)\).</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch8-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch8-ex3">
+        <div class="corrige">
+          <p><strong>1.</strong> Chaque tirage est une épreuve de Bernoulli : succès = « boule rouge »,
+          probabilité \(p = \dfrac{3}{10} = 0{,}3\). Les tirages sont indépendants (remise).
+          On répète \(n = 4\) fois. Donc \(X \sim \mathcal{B}(4\,;\,0{,}3)\).</p>
+          <p><strong>2.</strong> Par complémentarité :
+          \[ P(X \geq 2) = 1 - P(X \leq 1) = 1 - P(X=0) - P(X=1) \]
+          \[ P(X=0) = (0{,}7)^4 = 0{,}2401 \]
+          \[ P(X=1) = \binom{4}{1}(0{,}3)(0{,}7)^3 = 4 \times 0{,}3 \times 0{,}343 = 0{,}4116 \]
+          \[ P(X \geq 2) = 1 - 0{,}2401 - 0{,}4116 = 0{,}3483 \]
+          </p>
+          <p>Il y a environ 34,8 % de chances d'obtenir au moins 2 boules rouges.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Contrôle qualité</b>
+      <p>
+        Dans une chaîne de production, 10 % des pièces sont défectueuses. On prélève un lot de 15 pièces
+        au hasard. On note \(X\) le nombre de pièces défectueuses dans ce lot.
+        <ol>
+          <li>Calculer \(P(X = 0)\) (aucune pièce défectueuse).</li>
+          <li>Calculer \(P(X \leq 2)\).</li>
+          <li>Calculer \(E(X)\).</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch8-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch8-ex4">
+        <div class="corrige">
+          <p>\(X \sim \mathcal{B}(15\,;\,0{,}1)\).</p>
+          <p><strong>1.</strong>
+          \[ P(X=0) = (0{,}9)^{15} \approx 0{,}2059 \]
+          </p>
+          <p><strong>2.</strong>
+          \[ P(X=1) = \binom{15}{1}(0{,}1)^1(0{,}9)^{14} = 15 \times 0{,}1 \times (0{,}9)^{14} \approx 15 \times 0{,}1 \times 0{,}2288 \approx 0{,}3432 \]
+          \[ P(X=2) = \binom{15}{2}(0{,}1)^2(0{,}9)^{13} = 105 \times 0{,}01 \times (0{,}9)^{13} \approx 105 \times 0{,}01 \times 0{,}2542 \approx 0{,}2669 \]
+          \[ P(X \leq 2) \approx 0{,}2059 + 0{,}3432 + 0{,}2669 = 0{,}8160 \]
+          </p>
+          <p><strong>3.</strong>
+          \[ E(X) = np = 15 \times 0{,}1 = 1{,}5 \]
+          En moyenne, 1,5 pièce défectueuse par lot de 15.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Déterminer \(n\) pour garantir une probabilité</b>
+      <p>
+        Soit \(X \sim \mathcal{B}(n\,;\,0{,}2)\). Trouver le plus petit entier \(n\) tel que
+        \(P(X \geq 1) \geq 0{,}9\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch8-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch8-ex5">
+        <div class="corrige">
+          <p>Par complémentarité :
+          \[ P(X \geq 1) = 1 - P(X = 0) = 1 - (0{,}8)^n \]
+          </p>
+          <p>On cherche \(n\) tel que :
+          \[ 1 - (0{,}8)^n \geq 0{,}9 \Leftrightarrow (0{,}8)^n \leq 0{,}1 \]
+          </p>
+          <p>On prend le logarithme (attention : \(\ln(0{,}8) < 0\), l'inégalité change de sens) :
+          \[ n \ln(0{,}8) \leq \ln(0{,}1) \Rightarrow n \geq \frac{\ln(0{,}1)}{\ln(0{,}8)} \approx \frac{-2{,}3026}{-0{,}2231} \approx 10{,}32 \]
+          </p>
+          <p>Donc le plus petit entier \(n\) est \(\boxed{n = 11}\).</p>
+          <p><em>Vérification :</em> \((0{,}8)^{11} \approx 0{,}0859 \leq 0{,}1\) ✓, \((0{,}8)^{10} \approx 0{,}107 > 0{,}1\) ✗.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Gain espéré dans un jeu de dé</b>
+      <p>
+        On joue à un jeu avec un dé équilibré : on gagne <strong>2 €</strong> si le dé donne 6,
+        on perd <strong>0,50 €</strong> sinon. On réalise 10 lancers.
+        <ol>
+          <li>Exprimer le gain total \(G\) en fonction du nombre \(X\) de 6 obtenus.</li>
+          <li>Calculer \(E(G)\) et \(\sigma(G)\).</li>
+          <li>Ce jeu est-il favorable au joueur ?</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch8-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch8-ex6">
+        <div class="corrige">
+          <p>\(X \sim \mathcal{B}\!\left(10\,;\,\dfrac{1}{6}\right)\).</p>
+          <p><strong>1.</strong> Si on obtient \(X\) fois le 6 et \((10-X)\) fois autre chose :
+          \[ G = 2X - 0{,}5(10-X) = 2X - 5 + 0{,}5X = 2{,}5X - 5 \]
+          </p>
+          <p><strong>2.</strong> Par linéarité de l'espérance :
+          \[ E(X) = 10 \times \frac{1}{6} = \frac{10}{6} = \frac{5}{3} \]
+          \[ E(G) = 2{,}5 \times E(X) - 5 = 2{,}5 \times \frac{5}{3} - 5 = \frac{12{,}5}{3} - 5 = \frac{12{,}5 - 15}{3} = -\frac{2{,}5}{3} \approx -0{,}83 \text{ €} \]
+          </p>
+          <p>Pour la variance (utiliser \(V(aX+b) = a^2 V(X)\)) :
+          \[ V(X) = 10 \times \frac{1}{6} \times \frac{5}{6} = \frac{50}{36} = \frac{25}{18} \]
+          \[ V(G) = (2{,}5)^2 \times V(X) = 6{,}25 \times \frac{25}{18} = \frac{156{,}25}{18} \approx 8{,}68 \]
+          \[ \sigma(G) = \sqrt{V(G)} \approx 2{,}95 \text{ €} \]
+          </p>
+          <p><strong>3.</strong> L'espérance de gain est négative (\(E(G) \approx -0{,}83\) €) :
+          le jeu est <strong>défavorable au joueur</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== SYNTHESE ========== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Dénombrement</h3>
+      <ul>
+        <li><strong>Principe additif :</strong> situations exclusives → addition des nombres d'issues.</li>
+        <li><strong>Principe multiplicatif :</strong> étapes indépendantes → produit des nombres de choix.</li>
+      </ul>
+
+      <h3>Épreuve et variable de Bernoulli</h3>
+      <ul>
+        <li>Deux issues : succès (proba \(p\)) et échec (proba \(1-p\)).</li>
+        <li>\(E(X) = p\), \(V(X) = p(1-p)\).</li>
+      </ul>
+
+      <h3>Loi binomiale \(\mathcal{B}(n,p)\)</h3>
+      <ul>
+        <li>\(n\) épreuves de Bernoulli indépendantes et identiques.</li>
+        <li>\(X\) = nombre de succès.</li>
+        <li>Formule : \(P(X=k) = \dbinom{n}{k} p^k (1-p)^{n-k}\)</li>
+        <li>\(E(X) = np\)</li>
+        <li>\(V(X) = np(1-p)\), \(\sigma(X) = \sqrt{np(1-p)}\)</li>
+      </ul>
+
+      <h3>Astuces de calcul</h3>
+      <ul>
+        <li>Pour \(P(X \geq k)\) : utiliser la complémentarité \(1 - P(X \leq k-1)\).</li>
+        <li>Vérifier que la somme de toutes les probabilités vaut 1.</li>
+        <li>Pour trouver \(n\) : passer par le logarithme (attention au signe lors du changement d'inégalité).</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="07-orthogonalite-espace.html">← Précédent</a>
+    <a href="09-logarithme.html">Suivant →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>

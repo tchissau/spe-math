@@ -1,0 +1,27 @@
+\documentclass[border=8pt]{standalone}
+\usepackage{tkz-tab}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\begin{document}
+\begin{tikzpicture}
+  \tkzTabInit[
+    lgt=5.5, espcl=5.5,
+    color,
+    colorC  = red!10,
+    colorL  = red!6,
+    colorV  = red!3,
+    colorT  = red!22,
+    colorLi = black
+  ]
+    {$x$ /1.5,
+     $\sin'(x)=\cos(x)$ /1.2,
+     $\sin(x)$ /3}
+    {$-\dfrac{\pi}{2}$,
+     $\dfrac{\pi}{2}$,
+     $\dfrac{3\pi}{2}$}
+  \tkzTabLine{z, +, z, -, z}
+  \tkzTabVar{-/$-1$, +/$1$, -/$-1$}
+\end{tikzpicture}
+\end{document}

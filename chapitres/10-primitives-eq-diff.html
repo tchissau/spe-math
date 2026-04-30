@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Primitives et équations différentielles — Spé Maths Terminale</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><a href="../index.html">Spé Maths <span>Terminale</span></a></div>
+  <div class="nav-links">
+    <a href="01-recurrence-suites.html">Récurrence</a>
+    <a href="02-limites-suites.html">Lim. suites</a>
+    <a href="03-vecteurs-espace.html">Vecteurs</a>
+    <a href="04-limites-fonctions.html">Lim. fonctions</a>
+    <a href="05-derivation-convexite.html">Dérivation</a>
+    <a href="06-continuite.html">Continuité</a>
+    <a href="07-orthogonalite-espace.html">Orthogonalité</a>
+    <a href="08-loi-binomiale.html">Loi binomiale</a>
+    <a href="09-logarithme.html">Logarithme</a>
+    <a href="10-primitives-eq-diff.html">Primitives</a>
+    <a href="11-combinatoire.html">Combinatoire</a>
+    <a href="12-cosinus-sinus.html">cos/sin</a>
+    <a href="13-calcul-integral.html">Intégrale</a>
+    <a href="14-loi-grands-nombres.html">Loi grands nb.</a>
+    <a href="15-python.html" style="color:#a6e3a1;font-weight:700;">🐍 Python</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <a class="btn-back" href="../index.html">← Retour aux chapitres</a>
+
+  <div class="chapter-header">
+    <div class="num">Chapitre 10 · Analyse</div>
+    <h1>Primitives et équations différentielles</h1>
+    <p class="tagline">Remonter une dérivée, résoudre une équation liant une fonction et ses taux de variation.</p>
+  </div>
+
+  <a class="btn-pdf" href="../pdfs/10-primitives-equations-diff.pdf" download target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Télécharger le cours (PDF)
+  </a>
+
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#exemples">Exemples guidés</a></li>
+      <li><a href="#exercices">Exercices progressifs</a></li>
+      <li><a href="#synthese">Fiche de synthèse</a></li>
+    </ol>
+  </div>
+
+  <!-- ========== INTRODUCTION ========== -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Jusqu'ici, étant donné une fonction \(F\), on calculait sa dérivée \(F'\). Ce chapitre pose
+      la question inverse : connaissant \(f\), peut-on trouver une fonction \(F\) telle que \(F' = f\) ?
+      Une telle fonction s'appelle une <strong>primitive</strong> de \(f\).
+    </p>
+    <p>
+      Les <strong>équations différentielles</strong> généralisent cette idée : on cherche une fonction
+      inconnue \(y\) satisfaisant une relation entre \(y\) et sa dérivée \(y'\). Ces équations
+      modélisent des phénomènes fondamentaux : croissance démographique, désintégration radioactive,
+      décharge électrique d'un condensateur, etc.
+    </p>
+    <div class="attention">
+      <strong>Prérequis :</strong> dérivation des fonctions usuelles (polynômes, exponentielle,
+      logarithme), fonctions composées, propriétés de l'exponentielle.
+    </div>
+  </section>
+
+  <!-- ========== COURS ========== -->
+  <section id="cours">
+    <h2>2. Cours</h2>
+
+    <h3>Définitions préliminaires</h3>
+
+    <div class="definition">
+      <strong>Équation différentielle :</strong> une équation différentielle est une égalité liant
+      une fonction inconnue \(y\), ses dérivées \(y'\), \(y''\), … et éventuellement la variable
+      et d'autres fonctions connues. <em>Résoudre</em> une équation différentielle, c'est trouver
+      toutes les fonctions solutions.
+    </div>
+
+    <div class="definition">
+      <strong>Primitive :</strong> \(F\) est une primitive de \(f\) sur un intervalle \(I\) si \(F\)
+      est dérivable sur \(I\) et \(F' = f\) sur \(I\).
+    </div>
+
+    <div class="propriete">
+      <strong>Théorèmes fondamentaux :</strong>
+      <ul>
+        <li>Toute fonction <strong>continue</strong> sur \(I\) admet une primitive sur \(I\).</li>
+        <li>Deux primitives de \(f\) sur \(I\) diffèrent d'une <strong>constante</strong>.</li>
+        <li>Pour tout \(x_0 \in I\) et \(y_0 \in \mathbb{R}\), il existe une <strong>unique</strong>
+        primitive \(F\) de \(f\) telle que \(F(x_0) = y_0\) (condition initiale).</li>
+        <li><strong>Linéarité :</strong> \(F + G\) est primitive de \(f + g\) ; \(\lambda F\)
+        est primitive de \(\lambda f\).</li>
+      </ul>
+    </div>
+
+    <h3>Tableau des primitives des fonctions usuelles</h3>
+
+    <div class="propriete">
+      <table style="border-collapse:collapse; width:100%; margin:0.5em 0;">
+        <thead>
+          <tr style="background:var(--color-accent, #4a90d9); color:#fff;">
+            <th style="border:1px solid #ccc; padding:8px 12px;">Fonction \(f(x)\)</th>
+            <th style="border:1px solid #ccc; padding:8px 12px;">Intervalle</th>
+            <th style="border:1px solid #ccc; padding:8px 12px;">Primitive \(F(x)\)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(a\) (constante)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\mathbb{R}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(ax + c\)</td>
+          </tr>
+          <tr style="background:#f9f9f9;">
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(x^n\) (\(n \in \mathbb{N}\))</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\mathbb{R}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{x^{n+1}}{n+1} + c\)</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(x^n\) (\(n \in \mathbb{Z}\), \(n \neq -1\))</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(]-\infty;0[\) ou \(]0;+\infty[\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{x^{n+1}}{n+1} + c\)</td>
+          </tr>
+          <tr style="background:#f9f9f9;">
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{1}{\sqrt{x}}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(]0;+\infty[\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(2\sqrt{x} + c\)</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(e^x\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\mathbb{R}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(e^x + c\)</td>
+          </tr>
+          <tr style="background:#f9f9f9;">
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{1}{x}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(]0;+\infty[\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\ln(x) + c\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>A — Primitives de fonctions composées</h3>
+
+    <div class="propriete">
+      <strong>Primitives des formes composées usuelles</strong> (sans constante d'intégration) :
+      <table style="border-collapse:collapse; width:100%; margin:0.5em 0;">
+        <thead>
+          <tr style="background:var(--color-accent, #4a90d9); color:#fff;">
+            <th style="border:1px solid #ccc; padding:7px 12px;">Forme \(f(x)\)</th>
+            <th style="border:1px solid #ccc; padding:7px 12px;">Primitive \(F(x)\)</th>
+            <th style="border:1px solid #ccc; padding:7px 12px;">Condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(u' \cdot u^n\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{u^{n+1}}{n+1}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(n \neq -1\)</td>
+          </tr>
+          <tr style="background:#f9f9f9;">
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{u'}{u^2}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(-\dfrac{1}{u}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(u \neq 0\)</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{u'}{\sqrt{u}}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(2\sqrt{u}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(u > 0\)</td>
+          </tr>
+          <tr style="background:#f9f9f9;">
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\dfrac{u'}{u}\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(\ln|u|\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(u \neq 0\)</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(u' e^u\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">\(e^u\)</td>
+            <td style="border:1px solid #ccc; padding:7px 12px;">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="astuce">
+      <strong>Stratégie :</strong> face à une primitive à calculer, chercher d'abord si l'expression
+      est de la forme \(\dfrac{u'}{u}\) (→ \(\ln|u|\)) ou \(u' e^u\) (→ \(e^u\)) ou \(u' u^n\) (→ \(\dfrac{u^{n+1}}{n+1}\)).
+    </div>
+
+    <h3>B — Équation différentielle \(y' = ay\)</h3>
+
+    <div class="propriete">
+      <strong>Solutions de \(y' = ay\) (\(a \neq 0\)) :</strong><br>
+      Les solutions sont exactement les fonctions de la forme :
+      \[
+        f_k(x) = k e^{ax}, \quad k \in \mathbb{R}
+      \]
+      L'ensemble des solutions est donc une famille à un paramètre réel \(k\).
+    </div>
+
+    <div class="methode">
+      <strong>Preuve :</strong>
+      <ul>
+        <li><em>Ces fonctions sont solutions :</em> \(f_k'(x) = k a e^{ax} = a \cdot f_k(x)\) ✓.</li>
+        <li><em>Ce sont les seules :</em> soit \(y\) une solution. On pose \(g(x) = y(x) e^{-ax}\).
+        Alors \(g'(x) = y'(x)e^{-ax} - ay(x)e^{-ax} = (y'-ay)e^{-ax} = 0\).
+        Donc \(g\) est constante : \(g(x) = k\), soit \(y(x) = k e^{ax}\).</li>
+      </ul>
+    </div>
+
+    <h3>C — Équation différentielle \(y' = ay + b\)</h3>
+
+    <div class="propriete">
+      <strong>Solutions de \(y' = ay + b\) (\(a \neq 0\)) :</strong><br>
+      Les solutions sont :
+      \[
+        f_k(x) = k e^{ax} - \frac{b}{a}, \quad k \in \mathbb{R}
+      \]
+    </div>
+
+    <div class="methode">
+      <strong>Méthode de résolution :</strong>
+      <ol>
+        <li>Chercher une <em>solution constante</em> \(y_p\) : si \(y_p' = 0\), alors
+        \(0 = ay_p + b\), donc \(y_p = -\dfrac{b}{a}\).</li>
+        <li>Poser \(h = y - y_p\). Alors \(h' = y' - y_p' = ay + b - 0 = a(h+y_p)+b = ah\).
+        Donc \(h\) est solution de \(h' = ah\), soit \(h(x) = ke^{ax}\).</li>
+        <li>Conclure : \(y(x) = ke^{ax} + y_p = ke^{ax} - \dfrac{b}{a}\).</li>
+      </ol>
+    </div>
+
+    <h3>D — Équation différentielle \(y' = ay + f(x)\)</h3>
+
+    <div class="propriete">
+      <strong>Structure de l'ensemble des solutions :</strong><br>
+      Si \(g\) est une solution particulière de \((E) : y' = ay + f(x)\), alors toutes les
+      solutions de \((E)\) sont :
+      \[
+        y(x) = ke^{ax} + g(x), \quad k \in \mathbb{R}
+      \]
+      (solution générale de l'équation homogène + solution particulière).
+    </div>
+  </section>
+
+  <!-- ========== EXEMPLES ========== -->
+  <section id="exemples">
+    <h2>3. Exemples guidés</h2>
+
+    <div class="exemple">
+      <strong>Exemple 1 — Calculer une primitive d'une somme</strong>
+      <div class="steps">
+        <p>Calculer une primitive de \(f(x) = 3x^2 - 2x + e^x + \dfrac{1}{x}\) sur \(]0\,;\,+\infty[\).</p>
+        <p>Par linéarité, on calcule terme à terme :
+        \[
+          F(x) = x^3 - x^2 + e^x + \ln(x) + c, \quad c \in \mathbb{R}
+        \]
+        </p>
+        <p><em>Vérification :</em> \(F'(x) = 3x^2 - 2x + e^x + \dfrac{1}{x} = f(x)\) ✓.</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 2 — Primitive d'une fonction composée (forme \(u'/u\))</strong>
+      <div class="steps">
+        <p>Calculer une primitive de \(\dfrac{2x}{x^2+1}\).</p>
+        <p>On reconnaît la forme \(\dfrac{u'}{u}\) avec \(u = x^2+1\) et \(u' = 2x\) :</p>
+        \[
+          F(x) = \ln(x^2+1) + c
+        \]
+        <p><em>Vérification :</em> \(F'(x) = \dfrac{2x}{x^2+1}\) ✓ (et \(x^2+1 > 0\) donc pas de valeur absolue).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 3 — Résoudre \(y' = -3y\) avec condition initiale</strong>
+      <div class="steps">
+        <p><strong>Solution générale :</strong> \(y = ke^{-3x}\), \(k \in \mathbb{R}\).</p>
+        <p><strong>Condition initiale :</strong> \(y(0) = 2\) :
+        \[ k e^0 = 2 \Rightarrow k = 2 \]
+        </p>
+        <p><strong>Solution particulière :</strong> \(\boxed{y = 2e^{-3x}}\).</p>
+        <p><em>Interprétation :</em> décroissance exponentielle — la quantité est divisée par \(e^3 \approx 20\) à chaque unité de temps.</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 4 — Résoudre \(y' = 2y - 4\) avec condition initiale</strong>
+      <div class="steps">
+        <p><strong>Solution constante :</strong> \(y_p = -\dfrac{-4}{2} = 2\).</p>
+        <p><strong>Solution générale :</strong> \(y = ke^{2x} + 2\), \(k \in \mathbb{R}\).</p>
+        <p><strong>Condition initiale :</strong> \(y(0) = 5\) :
+        \[ k + 2 = 5 \Rightarrow k = 3 \]
+        </p>
+        <p><strong>Solution :</strong> \(\boxed{y = 3e^{2x} + 2}\).</p>
+      </div>
+    </div>
+
+    <div class="exemple">
+      <strong>Exemple 5 — Modèle de croissance démographique</strong>
+      <div class="steps">
+        <p><strong>Modèle :</strong> \(P'(t) = 0{,}05\,P(t)\), \(P(0) = 1000\) (population initiale).</p>
+        <p><strong>Solution :</strong> \(P(t) = 1000\,e^{0{,}05t}\).</p>
+        <p><strong>Population après 20 ans :</strong>
+        \[ P(20) = 1000\,e^{0{,}05 \times 20} = 1000\,e^{1} \approx 1000 \times 2{,}718 = 2\,718 \]
+        La population est presque <strong>multipliée par \(e \approx 2{,}72\)</strong> en 20 ans.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXERCICES ========== -->
+  <section id="exercices">
+    <h2>4. Exercices progressifs</h2>
+
+    <!-- EX 1 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 1 — Primitives usuelles</b>
+      <p>
+        Calculer une primitive de \(f(x) = 4x^3 - 2x + e^x - \dfrac{3}{x}\) sur \(]0\,;\,+\infty[\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch10-ex1">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch10-ex1">
+        <div class="corrige">
+          <p>Par linéarité, terme à terme :</p>
+          <ul>
+            <li>Primitive de \(4x^3\) : \(x^4\).</li>
+            <li>Primitive de \(-2x\) : \(-x^2\).</li>
+            <li>Primitive de \(e^x\) : \(e^x\).</li>
+            <li>Primitive de \(-\dfrac{3}{x}\) : \(-3\ln(x)\) (sur \(]0;+\infty[\)).</li>
+          </ul>
+          \[
+            F(x) = x^4 - x^2 + e^x - 3\ln(x) + c, \quad c \in \mathbb{R}
+          \]
+          <p><em>Vérification :</em> \(F'(x) = 4x^3 - 2x + e^x - \dfrac{3}{x} = f(x)\) ✓.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 2 -->
+    <div class="exercice">
+      <span class="diff diff-1">⭐ Facile</span>
+      <b class="titre">Exercice 2 — Équation différentielle \(y' = 5y\)</b>
+      <p>
+        Résoudre \(y' = 5y\) avec la condition initiale \(y(0) = -2\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch10-ex2">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch10-ex2">
+        <div class="corrige">
+          <p><strong>Solution générale :</strong> \(y = ke^{5x}\), \(k \in \mathbb{R}\).</p>
+          <p><strong>Condition initiale :</strong> \(y(0) = k \cdot e^0 = k = -2\).</p>
+          <p><strong>Solution :</strong> \(\boxed{y = -2e^{5x}}\).</p>
+          <p><em>Vérification :</em> \(y' = -10e^{5x} = 5 \times (-2e^{5x}) = 5y\) ✓.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 3 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 3 — Primitives composées</b>
+      <p>
+        Calculer une primitive de :
+        <ol>
+          <li>\(\dfrac{3x^2}{x^3+1}\)</li>
+          <li>\(\dfrac{e^x}{e^x+2}\)</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch10-ex3">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch10-ex3">
+        <div class="corrige">
+          <p><strong>1.</strong> On pose \(u = x^3 + 1\), \(u' = 3x^2\). La fraction est de la forme \(\dfrac{u'}{u}\).
+          \[ F(x) = \ln|x^3+1| + c = \ln(x^3+1) + c \]
+          (on peut enlever la valeur absolue si \(x^3+1 > 0\), i.e. \(x > -1\).)
+          </p>
+          <p><strong>2.</strong> On pose \(u = e^x+2\), \(u' = e^x\). Forme \(\dfrac{u'}{u}\).
+          \[ F(x) = \ln(e^x+2) + c \]
+          (et \(e^x + 2 > 0\) toujours, donc pas de valeur absolue).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 4 -->
+    <div class="exercice">
+      <span class="diff diff-2">⭐⭐ Moyen</span>
+      <b class="titre">Exercice 4 — Résoudre \(y' = 3y - 6\)</b>
+      <p>
+        Résoudre l'équation différentielle \(y' = 3y - 6\) avec la condition initiale \(y(0) = 4\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch10-ex4">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch10-ex4">
+        <div class="corrige">
+          <p><strong>Solution constante :</strong> \(y_p = \dfrac{6}{3} = 2\)
+          (vérifions : \(y_p' = 0\) et \(3 \times 2 - 6 = 0\) ✓).
+          </p>
+          <p><strong>Solution générale :</strong> \(y = ke^{3x} + 2\), \(k \in \mathbb{R}\).</p>
+          <p><strong>Condition initiale :</strong> \(y(0) = k + 2 = 4 \Rightarrow k = 2\).</p>
+          <p><strong>Solution :</strong> \(\boxed{y = 2e^{3x} + 2}\).</p>
+          <p><em>Vérification :</em> \(y' = 6e^{3x}\) et \(3y - 6 = 3(2e^{3x}+2)-6 = 6e^{3x}\) ✓.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 5 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 5 — Équation avec second membre \(e^x\)</b>
+      <p>
+        Résoudre \(y' = -2y + e^x\).
+        <br><em>Indication :</em> chercher une solution particulière de la forme \(y_p = ae^x\).
+      </p>
+      <button class="btn-toggle" data-target="cor-ch10-ex5">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch10-ex5">
+        <div class="corrige">
+          <p><strong>Solution particulière :</strong> on essaie \(y_p = ae^x\). Alors \(y_p' = ae^x\).
+          En substituant dans l'équation :
+          \[ ae^x = -2ae^x + e^x \Rightarrow ae^x + 2ae^x = e^x \Rightarrow 3ae^x = e^x \Rightarrow a = \frac{1}{3} \]
+          Donc \(y_p = \dfrac{1}{3}e^x\).
+          </p>
+          <p><strong>Solution de l'équation homogène</strong> \(y' = -2y\) : \(y_h = ke^{-2x}\), \(k \in \mathbb{R}\).</p>
+          <p><strong>Solution générale :</strong>
+          \[ \boxed{y = ke^{-2x} + \frac{1}{3}e^x}, \quad k \in \mathbb{R} \]
+          </p>
+          <p><em>Vérification :</em>
+          \[ y' = -2ke^{-2x} + \frac{1}{3}e^x \]
+          \[ -2y + e^x = -2ke^{-2x} - \frac{2}{3}e^x + e^x = -2ke^{-2x} + \frac{1}{3}e^x = y' \; ✓ \]
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EX 6 -->
+    <div class="exercice">
+      <span class="diff diff-3">⭐⭐⭐ Difficile</span>
+      <b class="titre">Exercice 6 — Désintégration radioactive et demi-vie</b>
+      <p>
+        Le nombre d'atomes \(N(t)\) d'un corps radioactif suit l'équation différentielle :
+        \[ N'(t) = -\lambda N(t), \quad N(0) = N_0 \]
+        où \(\lambda > 0\) est la constante de désintégration.
+        <ol>
+          <li>Résoudre cette équation différentielle.</li>
+          <li>La <strong>demi-vie</strong> \(T_{1/2}\) est le temps au bout duquel la moitié des atomes a disparu :
+          \(N(T_{1/2}) = \dfrac{N_0}{2}\). Exprimer \(\lambda\) en fonction de \(T_{1/2}\).</li>
+          <li>Pour le carbone 14, \(T_{1/2} = 5730\) ans. Quelle fraction des atomes reste après 1000 ans ?</li>
+        </ol>
+      </p>
+      <button class="btn-toggle" data-target="cor-ch10-ex6">▼ Voir le corrigé</button>
+      <div class="corrige-content" id="cor-ch10-ex6">
+        <div class="corrige">
+          <p><strong>1.</strong> \(N' = -\lambda N\) est de la forme \(y' = ay\) avec \(a = -\lambda\).
+          Solution générale : \(N(t) = ke^{-\lambda t}\).
+          Condition initiale : \(N(0) = k = N_0\).
+          \[ \boxed{N(t) = N_0 e^{-\lambda t}} \]
+          </p>
+          <p><strong>2.</strong>
+          \[ N(T_{1/2}) = \frac{N_0}{2} \Rightarrow N_0 e^{-\lambda T_{1/2}} = \frac{N_0}{2}
+          \Rightarrow e^{-\lambda T_{1/2}} = \frac{1}{2} \]
+          En prenant le logarithme :
+          \[ -\lambda T_{1/2} = \ln\!\left(\frac{1}{2}\right) = -\ln(2)
+          \Rightarrow \boxed{\lambda = \frac{\ln(2)}{T_{1/2}}} \]
+          </p>
+          <p><strong>3.</strong> Avec \(T_{1/2} = 5730\) ans :
+          \[ \lambda = \frac{\ln 2}{5730} \approx \frac{0{,}6931}{5730} \approx 1{,}21 \times 10^{-4} \text{ an}^{-1} \]
+          Fraction restante après 1000 ans :
+          \[ \frac{N(1000)}{N_0} = e^{-\lambda \times 1000} = e^{-\frac{1000\ln 2}{5730}}
+          = 2^{-\frac{1000}{5730}} = 2^{-0{,}1745} \approx 0{,}886 \]
+          Il reste environ <strong>88,6 %</strong> des atomes après 1000 ans.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== SYNTHESE ========== -->
+  <section id="synthese">
+    <div class="synthese">
+      <h2>📌 Fiche de synthèse</h2>
+
+      <h3>Primitives usuelles (à connaître par cœur)</h3>
+      <ul>
+        <li>\(x^n \longrightarrow \dfrac{x^{n+1}}{n+1}\) (\(n \neq -1\))</li>
+        <li>\(e^x \longrightarrow e^x\)</li>
+        <li>\(\dfrac{1}{x} \longrightarrow \ln|x|\)</li>
+        <li>\(\dfrac{1}{\sqrt{x}} \longrightarrow 2\sqrt{x}\)</li>
+      </ul>
+
+      <h3>Formes composées à reconnaître</h3>
+      <ul>
+        <li>\(u' e^u \longrightarrow e^u\)</li>
+        <li>\(\dfrac{u'}{u} \longrightarrow \ln|u|\)</li>
+        <li>\(u' u^n \longrightarrow \dfrac{u^{n+1}}{n+1}\)</li>
+        <li>\(\dfrac{u'}{\sqrt{u}} \longrightarrow 2\sqrt{u}\)</li>
+      </ul>
+
+      <h3>Équations différentielles du 1er ordre</h3>
+      <ul>
+        <li>\(y' = ay\) → solutions : \(ke^{ax}\)</li>
+        <li>\(y' = ay + b\) → solutions : \(ke^{ax} - \dfrac{b}{a}\)</li>
+        <li>\(y' = ay + f(x)\) → sol. générale = sol. homogène + sol. particulière</li>
+      </ul>
+
+      <h3>Méthode avec condition initiale</h3>
+      <ol>
+        <li>Écrire la solution générale avec la constante \(k\).</li>
+        <li>Substituer \(x = x_0\) et \(y = y_0\) pour déterminer \(k\).</li>
+        <li>Écrire la solution unique.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="chapter-nav">
+    <a href="09-logarithme.html">← Précédent</a>
+    <a href="11-combinatoire.html">Suivant →</a>
+  </div>
+</div>
+
+<button id="back-top" title="Haut de page">↑</button>
+<script src="../js/main.js"></script>
+</body>
+</html>
