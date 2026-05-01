@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Développement — Identités remarquables — 3ème</title>
+<style>
+  body { font-family: "Times New Roman", serif; background:#f0f4f8; margin:0; padding:10px; }
+  .widget { background:#fff; border:2px solid #003399; border-radius:8px;
+             width:800px; margin:0 auto; padding:20px; box-shadow:3px 3px 8px #aaa; }
+  h2 { color:#003399; font-size:1.1em; margin-bottom:4px; }
+  .niveau { color:#888; font-size:.85em; margin-bottom:14px; }
+  .enonce { background:#e8f0ff; border-left:4px solid #003399; padding:12px 16px;
+             font-size:1.15em; border-radius:4px; margin-bottom:14px; min-height:40px; }
+  .ligne-rep { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  input[type=text] { font-size:1.1em; width:120px; padding:5px 8px; border:2px solid #003399;
+                      border-radius:4px; text-align:center; }
+  .btn { padding:8px 18px; font-size:1em; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
+  .btn-verif { background:#003399; color:#fff; }
+  .btn-new   { background:#FFCC00; color:#000; }
+  .btn-verif:hover { background:#0055cc; }
+  .btn-new:hover   { background:#ffdd44; }
+  .message { font-size:1em; font-weight:bold; padding:8px 14px; border-radius:5px; margin-top:8px; }
+  .ok   { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
+  .nok  { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
+  .info { background:#fff3cd; color:#856404; border:1px solid #ffc107; }
+  .score { text-align:right; font-size:.9em; color:#555; margin-top:10px; }
+  .aide { font-size:.9em; color:#555; margin-top:8px; font-style:italic; display:none; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <h2>Développement — Identités remarquables</h2>
+  <div class="niveau">3ème — Chap. 1 — Calcul littéral</div>
+  <div class="enonce" id="enonce">Chargement...</div>
+  <div class="ligne-rep" id="zone-rep"></div>
+  <div id="aide" class="aide"></div>
+  <div id="message" class="message" style="display:none"></div>
+  <div class="score" id="score">Score : 0 / 0</div>
+</div>
+<script>
+
+var score=0, total=0, reponseAttendue=null, exDone=false;
+function affMsg(txt, cls){ var m=document.getElementById('message'); m.textContent=txt; m.className='message '+cls; m.style.display=''; }
+function majScore(){ document.getElementById('score').textContent='Score : '+score+' / '+total; }
+function verifier(){
+  if(exDone){ affMsg('Appuyer sur Nouvel exercice', 'info'); return; }
+  var rep = document.getElementById('rep') ? document.getElementById('rep').value.trim() : null;
+  if(rep===null || rep===''){affMsg("L\'exercice n\'a pas été fait", 'nok'); return;}
+  total++;
+  if(verifierReponse(rep, reponseAttendue)){ score++; exDone=true; affMsg('✓ Bravo ! Bonne réponse.', 'ok'); }
+  else { affMsg('✗ Corrige ton erreur avant de faire un nouvel exercice', 'nok'); }
+  majScore();
+}
+function nouvelExercice(){ exDone=false; document.getElementById('message').style.display='none'; genererExercice(); if(document.getElementById('rep')) document.getElementById('rep').value=''; }
+function verifierReponse(rep, att){
+  rep=rep.replace(/\s+/g,'').replace(',','.'); 
+  att=String(att).replace(/\s+/g,'').replace(',','.');
+  return rep===att;
+}
+function zoneRep(placeholder){ return '<input type="text" id="rep" placeholder="'+placeholder+'" onkeydown="if(event.key===\'Enter\')verifier()"> <button class="btn btn-verif" onclick="verifier()">Vérifier</button> <button class="btn btn-new" onclick="nouvelExercice()">Nouvel exercice</button>'; }
+
+function genererExercice(){
+  var a=Math.floor(Math.random()*8)+1, b=Math.floor(Math.random()*8)+1;
+  if(Math.random()<0.4) b=-b;
+  var types=['(x+a)(x+b)','(x+a)^2','(x-a)^2','(x+a)(x-a)'];
+  var t=types[Math.floor(Math.random()*types.length)];
+  var enonce,rep;
+  if(t==='(x+a)(x+b)'){
+    var sa=a>=0?'+'+a:String(a), sb=b>=0?'+'+b:String(b);
+    enonce='(x'+sa+')(x'+sb+')';
+    var c=a+b, d=a*b;
+    var sc=c>=0?'+ '+c:'− '+Math.abs(c), sd=d>=0?'+ '+d:'− '+Math.abs(d);
+    rep='x²'+sc+'x'+sd;
+  } else if(t==='(x+a)^2'){
+    var c2=2*a, d2=a*a;
+    enonce='(x+'+a+')²';
+    rep='x²+ '+c2+'x + '+d2;
+  } else if(t==='(x-a)^2'){
+    enonce='(x−'+a+')²';
+    rep='x²− '+2*a+'x + '+a*a;
+  } else {
+    enonce='(x+'+a+')(x−'+a+')';
+    rep='x²− '+(a*a);
+  }
+  reponseAttendue=rep.replace(/\s+/g,'');
+  document.getElementById('enonce').innerHTML='Développer et réduire : &nbsp;<b>'+enonce+'</b><br><small>Écrire sous la forme ax²+bx+c (ex: x²+3x−4)</small>';
+  document.getElementById('zone-rep').innerHTML=zoneRep('ex: x²+5x+6');
+}
+function verifierReponse(r,a){
+  function norm(s){ return s.replace(/\s+/g,'').replace(/²/g,'^2').replace(/−/g,'-').toLowerCase();}
+  return norm(r)===norm(a);
+}
+genererExercice();
+
+</script>
+</body>
+</html>
